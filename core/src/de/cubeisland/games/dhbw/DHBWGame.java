@@ -2,7 +2,6 @@ package de.cubeisland.games.dhbw;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,12 +9,15 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 public class DHBWGame extends ApplicationAdapter {
 	DecalBatch batch;
 	Texture img;
     PerspectiveCamera camera;
     Decal testDecal;
+    Vector2 mouseSpeed = new Vector2(5, 55);
 	
 	@Override
 	public void create () {
@@ -38,7 +40,10 @@ public class DHBWGame extends ApplicationAdapter {
 
         camera.update();
 
-        testDecal.rotateX(0.5f);
+        testDecal.setPosition(camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0)));
+        testDecal.setZ(-1f);
+        testDecal.setRotationX((float) Math.sin(mouseSpeed.angle()) * mouseSpeed.len());
+        testDecal.setRotationY((float) Math.cos(mouseSpeed.angle()) * mouseSpeed.len());
 
         batch.add(testDecal);
 		batch.flush();
