@@ -17,8 +17,8 @@ public class DHBWGame extends ApplicationAdapter {
 	Texture img;
     PerspectiveCamera camera;
     Decal testDecal;
-    Vector2 mouseSpeed = new Vector2(5, 55);
-    Vector2 oldMousePos = new Vector2(0, 0);
+    Vector2 cardSpeed = new Vector2(0, 0);
+    boolean cardPicked = false;
 	
 	@Override
 	public void create () {
@@ -31,7 +31,7 @@ public class DHBWGame extends ApplicationAdapter {
 
 		img = new Texture("badlogic.jpg");
         testDecal = Decal.newDecal(1, 1, new TextureRegion(img));
-        testDecal.setPosition(0, 0, 0);
+        testDecal.setPosition(0, 0, -1);
 	}
 
 	@Override
@@ -41,11 +41,18 @@ public class DHBWGame extends ApplicationAdapter {
 
         camera.update();
 
-        mouseSpeed.set(oldMousePos.cpy().sub(new Vector2(Gdx.input.getX(), Gdx.input.getY())));
-        oldMousePos = new Vector2(Gdx.input.getX(), Gdx.input.getY());
+        cardPicked = Gdx.input.isTouched();
 
-        testDecal.setPosition(camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0.6f)));
-        testDecal.setRotation(-(float) Math.cos(Math.toRadians(mouseSpeed.angle())) * mouseSpeed.len(), -(float) Math.sin(Math.toRadians(mouseSpeed.angle())) * mouseSpeed.len(), 0);
+        if (cardPicked) {
+            Vector3 dummy = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), camera.project(testDecal.getPosition().cpy()).z)).cpy().sub(testDecal.getPosition());
+            cardSpeed.set(dummy.x, dummy.y).scl(0.5f);
+            testDecal.getPosition().add(cardSpeed.x, cardSpeed.y, 0f);
+            testDecal.setZ(-1.5f);
+        } else {
+            cardSpeed.set(0, 0);
+            testDecal.setZ(-2);
+        }
+        testDecal.setRotation((float) Math.cos(Math.toRadians(cardSpeed.angle())) * cardSpeed.len() * 200f, -(float) Math.sin(Math.toRadians(cardSpeed.angle())) * cardSpeed.len() * 200f, 0);
 
         batch.add(testDecal);
 		batch.flush();
