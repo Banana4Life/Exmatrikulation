@@ -12,13 +12,13 @@ import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
+import java.util.ArrayList;
+
 public class DHBWGame extends ApplicationAdapter {
-	DecalBatch batch;
-	Texture img;
-    PerspectiveCamera camera;
-    Decal testDecal;
-    Vector2 cardSpeed = new Vector2(0, 0);
-    boolean cardPicked = false;
+	private DecalBatch batch;
+    private PerspectiveCamera camera;
+
+    private ArrayList<Card> cards = new ArrayList<Card>();
 	
 	@Override
 	public void create () {
@@ -29,9 +29,10 @@ public class DHBWGame extends ApplicationAdapter {
 
 		batch = new DecalBatch(new CameraGroupStrategy(camera));
 
-		img = new Texture("badlogic.jpg");
-        testDecal = Decal.newDecal(1, 1, new TextureRegion(img));
-        testDecal.setPosition(0, 0, -1);
+        Card.setBackTex(new TextureRegion(new Texture("back.png")));
+        for (int i = 0; i < 5; i++) {
+            cards.add(new Card(new TextureRegion(new Texture("front.png")), new Vector3(20 * i, 0, -100)));
+        }
 	}
 
 	@Override
@@ -39,22 +40,20 @@ public class DHBWGame extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
+        float delta = Gdx.graphics.getDeltaTime();
+
         camera.update();
-
-        cardPicked = Gdx.input.isTouched();
-
-        if (cardPicked) {
-            Vector3 dummy = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), camera.project(testDecal.getPosition().cpy()).z)).cpy().sub(testDecal.getPosition());
-            cardSpeed.set(dummy.x, dummy.y).scl(0.5f);
-            testDecal.getPosition().add(cardSpeed.x, cardSpeed.y, 0f);
-            testDecal.setZ(-1.5f);
-        } else {
-            cardSpeed.set(0, 0);
-            testDecal.setZ(-2);
+        for (Card card : cards) {
+            card.render(this, delta);
         }
-        testDecal.setRotation((float) Math.cos(Math.toRadians(cardSpeed.angle())) * cardSpeed.len() * 200f, -(float) Math.sin(Math.toRadians(cardSpeed.angle())) * cardSpeed.len() * 200f, 0);
-
-        batch.add(testDecal);
 		batch.flush();
 	}
+
+    public DecalBatch getDecalBatch() {
+        return this.batch;
+    }
+
+    public PerspectiveCamera getCamera() {
+        return this.camera;
+    }
 }
