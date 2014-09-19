@@ -78,6 +78,13 @@ public class Card {
         game.getDecalBatch().add(backDecal);
     }
 
+    public boolean isPointOnProjectedCard(DHBWGame game, Vector2 point) {
+        Vector3 topLeft     = game.getCamera().project(new Vector3(frontDecal.getVertices()[Decal.X1], frontDecal.getVertices()[Decal.Y1], frontDecal.getVertices()[Decal.Z1]));
+        Vector3 bottomRight = game.getCamera().project(new Vector3(frontDecal.getVertices()[Decal.X4], frontDecal.getVertices()[Decal.Y4], frontDecal.getVertices()[Decal.Z4]));
+
+        return (point.x > topLeft.x && point.x < bottomRight.x) && (point.y > topLeft.y && point.y < bottomRight.y);
+    }
+
     public Card setDestPos(Vector3 destPos) {
         this.destPos = destPos;
         return this;

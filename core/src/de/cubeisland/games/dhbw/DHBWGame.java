@@ -10,17 +10,22 @@ import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.utils.BetterQuaternion;
+import jdk.internal.util.xml.impl.Input;
 
 import java.util.ArrayList;
 
 public class DHBWGame extends ApplicationAdapter {
-	private DecalBatch batch;
-    private PerspectiveCamera camera;
+    private InputMultiplexer    inputMultiplexer;
+	private DecalBatch          batch;
+    private PerspectiveCamera   camera;
 
-    private ArrayList<Card> cards = new ArrayList<Card>();
+    private ArrayList<Card> cards = new ArrayList<>();
 	
 	@Override
 	public void create () {
+        inputMultiplexer = new InputMultiplexer(new GlobalInputProcessor(this));
+        Gdx.input.setInputProcessor(inputMultiplexer);
+
         camera = new PerspectiveCamera(45, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.near = 1;
         camera.far = 300;
@@ -47,6 +52,14 @@ public class DHBWGame extends ApplicationAdapter {
         }
 		batch.flush();
 	}
+
+    public ArrayList<Card> getCards() {
+        return this.cards;
+    }
+
+    public InputMultiplexer inputMultiplexer() {
+        return this.inputMultiplexer;
+    }
 
     public DecalBatch getDecalBatch() {
         return this.batch;
