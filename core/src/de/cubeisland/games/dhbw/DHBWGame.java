@@ -9,8 +9,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.math.Vector3;
-import de.cubeisland.games.dhbw.utils.BetterQuaternion;
-import jdk.internal.util.xml.impl.Input;
 
 import java.util.ArrayList;
 
