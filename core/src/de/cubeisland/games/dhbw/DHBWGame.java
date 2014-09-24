@@ -10,14 +10,12 @@ import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.math.Vector3;
 
-import java.util.ArrayList;
-
 public class DHBWGame extends ApplicationAdapter {
     private InputMultiplexer    inputMultiplexer;
 	private DecalBatch          batch;
     private PerspectiveCamera   camera;
 
-    private ArrayList<Card> cards = new ArrayList<>();
+    private Board board = new Board(this);
 	
 	@Override
 	public void create () {
@@ -33,7 +31,7 @@ public class DHBWGame extends ApplicationAdapter {
 
         Card.setBackTex(new TextureRegion(new Texture("back.png")));
         for (int i = 0; i < 5; i++) {
-            cards.add(new Card(new TextureRegion(new Texture("front.png")), new Vector3(20 * i, 0, -100)).setDestPos(new Vector3(50, 50, -10)));
+            this.board.addCard(new Card(this.board, new TextureRegion(new Texture("front.png")), new Vector3(20 * i, 0, -100)).setDestPos(new Vector3(50, 50, -10)));
         }
 	}
 
@@ -45,15 +43,11 @@ public class DHBWGame extends ApplicationAdapter {
         float delta = Gdx.graphics.getDeltaTime();
 
         camera.update();
-        for (Card card : cards) {
-            card.render(this, delta);
-        }
+
+        board.render(delta);
+
 		batch.flush();
 	}
-
-    public ArrayList<Card> getCards() {
-        return this.cards;
-    }
 
     public InputMultiplexer inputMultiplexer() {
         return this.inputMultiplexer;

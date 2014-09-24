@@ -8,15 +8,20 @@ import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.utils.BetterQuaternion;
 
 public class Card {
+    private Board board;
+
     private Vector3             destPos;
     private BetterQuaternion    destRot;
     private Decal               frontDecal;
     private Decal               backDecal;
+    private boolean             pickable;
 
     private static Card             cardPickedUp;
     private static TextureRegion    backTex;
 
-    public Card(TextureRegion frontTex, Vector3 position) {
+    public Card(Board board, TextureRegion frontTex, Vector3 position) {
+        this.board = board;
+
         this.destPos = position.cpy();
 
         this.frontDecal = Decal.newDecal(frontTex.getRegionWidth(), frontTex.getRegionHeight(), frontTex, true);
@@ -26,9 +31,9 @@ public class Card {
         this.backDecal.setPosition(position);
     }
 
-    public void render(DHBWGame game, float delta) {
+    public void render(float delta) {
 
-        Vector3 unprojectedMouse = game.getCamera().unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), game.getCamera().project(frontDecal.getPosition().cpy()).z));
+        Vector3 unprojectedMouse = board.getGame().getCamera().unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), board.getGame().getCamera().project(frontDecal.getPosition().cpy()).z));
 
         if (Gdx.input.justTouched()) {
             if (cardPickedUp == null) {
@@ -74,8 +79,8 @@ public class Card {
         frontDecal.getPosition().add(moveVec.x, moveVec.y, frontDecal.getZ());
         backDecal.setPosition(frontDecal.getX() - gap.x, frontDecal.getY() - gap.y, frontDecal.getZ() - gap.z);
 
-        game.getDecalBatch().add(frontDecal);
-        game.getDecalBatch().add(backDecal);
+        board.getGame().getDecalBatch().add(frontDecal);
+        board.getGame().getDecalBatch().add(backDecal);
     }
 
     public boolean isPointOnProjectedCard(DHBWGame game, Vector2 point) {
@@ -92,6 +97,15 @@ public class Card {
 
     public Card setDestRot(BetterQuaternion destRot) {
         this.destRot = destRot;
+        return this;
+    }
+
+    public boolean isPickable() {
+        return pickable;
+    }
+
+    public Card setPickable(boolean pickable) {
+        this.pickable = pickable;
         return this;
     }
 
