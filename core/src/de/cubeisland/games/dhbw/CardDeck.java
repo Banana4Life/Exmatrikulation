@@ -1,7 +1,7 @@
 package de.cubeisland.games.dhbw;
 
+import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
-import de.cubeisland.games.dhbw.utils.BetterQuaternion;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,18 +10,18 @@ public class CardDeck implements Iterable<Card> {
     private Board board;
 
     private Vector3             position;
-    private BetterQuaternion    rotation;
+    private Quaternion          rotation;
     private Vector3             destPos;
     private ArrayList<Card>     cards = new ArrayList<>();
 
-    private static final BetterQuaternion destRot = new BetterQuaternion(new Vector3(1, 0, 0), 90);
+    private static final Quaternion destRot = new Quaternion(new Vector3(1, 0, 0), 90);
 
     public CardDeck(Board board, Vector3 destPos) {
         this.board = board;
 
         this.destPos = destPos;
         this.position = destPos.cpy().add(10, 0, 0);
-        this.rotation = new BetterQuaternion(new Vector3(1, 0, 0), 0);
+        this.rotation = new Quaternion(new Vector3(1, 0, 0), 0);
     }
 
     public void render(float delta) {

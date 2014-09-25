@@ -1,17 +1,16 @@
 package de.cubeisland.games.dhbw;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
+import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import de.cubeisland.games.dhbw.utils.BetterQuaternion;
 
 public class Card {
     private Board board;
 
     private Vector3             destPos;
-    private BetterQuaternion    destRot;
+    private Quaternion          destRot;
     private Decal               frontDecal;
     private Decal               backDecal;
     private boolean             pickable;
@@ -39,7 +38,7 @@ public class Card {
         Vector2 moveVec2D = new Vector2(moveVec.x, moveVec.y);
 
         if (destRot == null) {
-            destRot = new BetterQuaternion(new Vector3(1, 0, 0), 0);
+            destRot = new Quaternion(new Vector3(1, 0, 0), 0);
         }
 
         frontDecal.setRotation((float) Math.cos(Math.toRadians(moveVec2D.angle())) * moveVec2D.len() * 10f + destRot.getAngleAround(1, 0, 0), -(float) Math.sin(Math.toRadians(moveVec2D.angle())) * moveVec2D.len() * 10f + destRot.getAngleAround(0, 1, 0), destRot.getAngleAround(0, 0, 1));
@@ -58,7 +57,7 @@ public class Card {
         Vector3 topLeft     = board.getGame().getCamera().project(new Vector3(frontDecal.getVertices()[Decal.X1], frontDecal.getVertices()[Decal.Y1], frontDecal.getVertices()[Decal.Z1]));
         Vector3 bottomRight = board.getGame().getCamera().project(new Vector3(frontDecal.getVertices()[Decal.X4], frontDecal.getVertices()[Decal.Y4], frontDecal.getVertices()[Decal.Z4]));
 
-        return (screenX > topLeft.x && screenX < bottomRight.x) && (screenY < topLeft.y && screenY > bottomRight.y);
+        return ((screenX > topLeft.x && screenX < bottomRight.x) || (screenX < topLeft.x && screenX > bottomRight.x)) && ((screenY < topLeft.y && screenY > bottomRight.y) || (screenY > topLeft.y && screenY < bottomRight.y));
     }
 
     public Card setDestPos(Vector3 destPos) {
@@ -75,7 +74,7 @@ public class Card {
         return this;
     }
 
-    public Card setDestRot(BetterQuaternion destRot) {
+    public Card setDestRot(Quaternion destRot) {
         this.destRot = destRot;
         return this;
     }

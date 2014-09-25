@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
+import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.input.BoardInputProcessor;
 import de.cubeisland.games.dhbw.input.GlobalInputProcessor;
@@ -34,7 +35,7 @@ public class DHBWGame extends ApplicationAdapter {
 
         Card.setBackTex(new TextureRegion(new Texture("back.png")));
         for (int i = 0; i < 5; i++) {
-            this.board.addCard(new Card(this.board, new TextureRegion(new Texture("front.png")), new Vector3(20 * i, 0, -100)));
+            this.board.addCard(new Card(this.board, new TextureRegion(new Texture("front.png")), new Vector3(20 * i, 0, -100)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 90)));
         }
 	}
 
