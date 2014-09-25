@@ -49,7 +49,7 @@ public class Board {
 
     public void dragCard(float screenX, float screenY) {
         if (pickedCard != null) {
-            pickedCard.setDestPos(game.getCamera().unproject(new Vector3(screenX, screenY, game.getCamera().project(position.cpy()).z)));
+            pickedCard.setDestPos(game.getCamera().unproject(new Vector3(screenX, screenY, game.getCamera().project(new Vector3(position.x, position.y, position.z + 10)).z)));
             pickedCard.getDestPos().z = position.z + 10;
         }
     }

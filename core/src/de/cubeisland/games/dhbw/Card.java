@@ -2,9 +2,11 @@ package de.cubeisland.games.dhbw;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 
 public class Card {
     private Board board;
@@ -41,7 +43,7 @@ public class Card {
             destRot = new Quaternion(new Vector3(1, 0, 0), 0);
         }
 
-        frontDecal.setRotation((float) Math.cos(Math.toRadians(moveVec2D.angle())) * moveVec2D.len() * 10f + destRot.getAngleAround(1, 0, 0), -(float) Math.sin(Math.toRadians(moveVec2D.angle())) * moveVec2D.len() * 10f + destRot.getAngleAround(0, 1, 0), destRot.getAngleAround(0, 0, 1));
+        frontDecal.setRotation((float) Math.cos(Math.toRadians(moveVec2D.angle())) * moveVec2D.len() * 5f + destRot.getAngleAround(1, 0, 0), -(float) Math.sin(Math.toRadians(moveVec2D.angle())) * moveVec2D.len() * 5f + destRot.getAngleAround(0, 1, 0), destRot.getAngleAround(0, 0, 1));
         backDecal.setRotation(frontDecal.getRotation().cpy());
 
         Vector3 gap = frontDecal.getRotation().transform(new Vector3(0, 0, 1)).scl(0.1f);
@@ -55,9 +57,18 @@ public class Card {
 
     public boolean isClickOnProjectedCard(float screenX, float screenY) {
         Vector3 topLeft     = board.getGame().getCamera().project(new Vector3(frontDecal.getVertices()[Decal.X1], frontDecal.getVertices()[Decal.Y1], frontDecal.getVertices()[Decal.Z1]));
+        Vector3 topRight    = board.getGame().getCamera().project(new Vector3(frontDecal.getVertices()[Decal.X2], frontDecal.getVertices()[Decal.Y2], frontDecal.getVertices()[Decal.Z2]));
+        Vector3 bottomLeft  = board.getGame().getCamera().project(new Vector3(frontDecal.getVertices()[Decal.X3], frontDecal.getVertices()[Decal.Y3], frontDecal.getVertices()[Decal.Z3]));
         Vector3 bottomRight = board.getGame().getCamera().project(new Vector3(frontDecal.getVertices()[Decal.X4], frontDecal.getVertices()[Decal.Y4], frontDecal.getVertices()[Decal.Z4]));
 
-        return ((screenX > topLeft.x && screenX < bottomRight.x) || (screenX < topLeft.x && screenX > bottomRight.x)) && ((screenY < topLeft.y && screenY > bottomRight.y) || (screenY > topLeft.y && screenY < bottomRight.y));
+        Array<Vector2> polygon = new Array<>();
+        polygon.add(new Vector2(topLeft.x, topLeft.y));
+        polygon.add(new Vector2(topRight.x, topRight.y));
+        polygon.add(new Vector2(bottomRight.x, bottomRight.y));
+        polygon.add(new Vector2(bottomLeft.x, bottomLeft.y));
+
+        return Intersector.isPointInPolygon(polygon, new Vector2(screenX, screenY));
+        //return ((screenX > topLeft.x && screenX < bottomRight.x) || (screenX < topLeft.x && screenX > bottomRight.x)) && ((screenY < topLeft.y && screenY > bottomRight.y) || (screenY > topLeft.y && screenY < bottomRight.y));
     }
 
     public Card setDestPos(Vector3 destPos) {

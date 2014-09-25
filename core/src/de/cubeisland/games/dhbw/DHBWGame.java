@@ -35,7 +35,7 @@ public class DHBWGame extends ApplicationAdapter {
 
         Card.setBackTex(new TextureRegion(new Texture("back.png")));
         for (int i = 0; i < 5; i++) {
-            this.board.addCard(new Card(this.board, new TextureRegion(new Texture("front.png")), new Vector3(20 * i, 0, -100)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 90)));
+            this.board.addCard(new Card(this.board, new TextureRegion(new Texture("front.png")), new Vector3(20 * i, 0, -100)));
         }
 	}
 
