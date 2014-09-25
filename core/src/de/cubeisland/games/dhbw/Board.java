@@ -31,6 +31,11 @@ public class Board {
         }
     }
 
+    public Board addDice(Dice dice) {
+        dices.add(dice);
+        return this;
+    }
+
     public Board addCard(Card card) {
         cards.add(card.setPickable(true));
         return this;
