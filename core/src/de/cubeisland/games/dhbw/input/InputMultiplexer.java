@@ -1,4 +1,4 @@
-package de.cubeisland.games.dhbw;
+package de.cubeisland.games.dhbw.input;
 
 import com.badlogic.gdx.InputProcessor;
 

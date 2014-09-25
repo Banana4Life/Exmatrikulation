@@ -9,17 +9,20 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.math.Vector3;
+import de.cubeisland.games.dhbw.input.BoardInputProcessor;
+import de.cubeisland.games.dhbw.input.GlobalInputProcessor;
+import de.cubeisland.games.dhbw.input.InputMultiplexer;
 
 public class DHBWGame extends ApplicationAdapter {
-    private InputMultiplexer    inputMultiplexer;
+    private InputMultiplexer inputMultiplexer;
 	private DecalBatch          batch;
     private PerspectiveCamera   camera;
 
-    private Board board = new Board(this);
+    private Board board = new Board(this, new Vector3(0, 0, -100));
 	
 	@Override
 	public void create () {
-        inputMultiplexer = new InputMultiplexer(new GlobalInputProcessor(this));
+        inputMultiplexer = new InputMultiplexer(new BoardInputProcessor(board));
         Gdx.input.setInputProcessor(inputMultiplexer);
 
         camera = new PerspectiveCamera(45, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -31,7 +34,7 @@ public class DHBWGame extends ApplicationAdapter {
 
         Card.setBackTex(new TextureRegion(new Texture("back.png")));
         for (int i = 0; i < 5; i++) {
-            this.board.addCard(new Card(this.board, new TextureRegion(new Texture("front.png")), new Vector3(20 * i, 0, -100)).setDestPos(new Vector3(50, 50, -10)));
+            this.board.addCard(new Card(this.board, new TextureRegion(new Texture("front.png")), new Vector3(20 * i, 0, -100)));
         }
 	}
 

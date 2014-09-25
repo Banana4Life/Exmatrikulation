@@ -1,6 +1,7 @@
-package de.cubeisland.games.dhbw;
+package de.cubeisland.games.dhbw.input;
 
 import com.badlogic.gdx.InputProcessor;
+import de.cubeisland.games.dhbw.DHBWGame;
 
 public class GlobalInputProcessor implements InputProcessor {
     private DHBWGame game;

@@ -16,8 +16,7 @@ public class Card {
     private Decal               backDecal;
     private boolean             pickable;
 
-    private static Card             cardPickedUp;
-    private static TextureRegion    backTex;
+    private static TextureRegion backTex;
 
     public Card(Board board, TextureRegion frontTex, Vector3 position) {
         this.board = board;
@@ -32,66 +31,47 @@ public class Card {
     }
 
     public void render(float delta) {
-
-        Vector3 unprojectedMouse = board.getGame().getCamera().unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), board.getGame().getCamera().project(frontDecal.getPosition().cpy()).z));
-
-        if (Gdx.input.justTouched()) {
-            if (cardPickedUp == null) {
-                //TODO: Besser umsetzen. (bessere "Hitbox")
-                if ((unprojectedMouse.x > frontDecal.getX() - frontDecal.getWidth() / 2f && unprojectedMouse.x < frontDecal.getX() + frontDecal.getWidth() / 2f) &&
-                    (unprojectedMouse.y > frontDecal.getY() - frontDecal.getHeight() / 2f && unprojectedMouse.y < frontDecal.getY() + frontDecal.getHeight() / 2f)) {
-                    cardPickedUp = this;
-                    destPos = unprojectedMouse.cpy();
-                }
-            }
-        } else if (Gdx.input.isTouched()) {
-            if (cardPickedUp == this) {
-                destPos = unprojectedMouse.cpy();
-            }
-        } else if (!Gdx.input.isTouched()) {
-            cardPickedUp = null;
-        }
-
-        Vector2 moveVec = new Vector2(0, 0);
-
         if (destPos == null) {
             destPos = frontDecal.getPosition().cpy();
         }
 
-        Vector3 dummy = destPos.cpy().sub(frontDecal.getPosition());
-        moveVec.set(dummy.x, dummy.y).scl(0.5f);
-
-        if (cardPickedUp == this) {
-            frontDecal.setZ(-90);
-        } else {
-            frontDecal.setZ(-100);
-        }
+        Vector3 moveVec = destPos.cpy().sub(frontDecal.getPosition()).scl(0.5f);
+        Vector2 moveVec2D = new Vector2(moveVec.x, moveVec.y);
 
         if (destRot == null) {
             destRot = new BetterQuaternion(new Vector3(1, 0, 0), 0);
         }
 
-        frontDecal.setRotation((float) Math.cos(Math.toRadians(moveVec.angle())) * moveVec.len() * 10f + destRot.getAngleAround(1, 0, 0), -(float) Math.sin(Math.toRadians(moveVec.angle())) * moveVec.len() * 10f + destRot.getAngleAround(0, 1, 0), destRot.getAngleAround(0, 0, 1));
+        frontDecal.setRotation((float) Math.cos(Math.toRadians(moveVec2D.angle())) * moveVec2D.len() * 10f + destRot.getAngleAround(1, 0, 0), -(float) Math.sin(Math.toRadians(moveVec2D.angle())) * moveVec2D.len() * 10f + destRot.getAngleAround(0, 1, 0), destRot.getAngleAround(0, 0, 1));
         backDecal.setRotation(frontDecal.getRotation().cpy());
 
         Vector3 gap = frontDecal.getRotation().transform(new Vector3(0, 0, 1)).scl(0.1f);
 
-        frontDecal.getPosition().add(moveVec.x, moveVec.y, frontDecal.getZ());
+        frontDecal.getPosition().add(moveVec.x, moveVec.y, moveVec.z);
         backDecal.setPosition(frontDecal.getX() - gap.x, frontDecal.getY() - gap.y, frontDecal.getZ() - gap.z);
 
         board.getGame().getDecalBatch().add(frontDecal);
         board.getGame().getDecalBatch().add(backDecal);
     }
 
-    public boolean isPointOnProjectedCard(DHBWGame game, Vector2 point) {
-        Vector3 topLeft     = game.getCamera().project(new Vector3(frontDecal.getVertices()[Decal.X1], frontDecal.getVertices()[Decal.Y1], frontDecal.getVertices()[Decal.Z1]));
-        Vector3 bottomRight = game.getCamera().project(new Vector3(frontDecal.getVertices()[Decal.X4], frontDecal.getVertices()[Decal.Y4], frontDecal.getVertices()[Decal.Z4]));
+    public boolean isClickOnProjectedCard(float screenX, float screenY) {
+        Vector3 topLeft     = board.getGame().getCamera().project(new Vector3(frontDecal.getVertices()[Decal.X1], frontDecal.getVertices()[Decal.Y1], frontDecal.getVertices()[Decal.Z1]));
+        Vector3 bottomRight = board.getGame().getCamera().project(new Vector3(frontDecal.getVertices()[Decal.X4], frontDecal.getVertices()[Decal.Y4], frontDecal.getVertices()[Decal.Z4]));
 
-        return (point.x > topLeft.x && point.x < bottomRight.x) && (point.y > topLeft.y && point.y < bottomRight.y);
+        return (screenX > topLeft.x && screenX < bottomRight.x) && (screenY < topLeft.y && screenY > bottomRight.y);
     }
 
     public Card setDestPos(Vector3 destPos) {
         this.destPos = destPos;
+        return this;
+    }
+
+    public Vector3 getDestPos() {
+        return destPos;
+    }
+
+    public Card setScreenDestPos(float screenX, float screenY, float z) {
+        this.destPos = board.getGame().getCamera().unproject(new Vector3(screenX, screenY, board.getGame().getCamera().project(frontDecal.getPosition().cpy()).z)).set(destPos.x, destPos.y, z);
         return this;
     }
 
