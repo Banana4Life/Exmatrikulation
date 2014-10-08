@@ -11,8 +11,8 @@ public class EntityFactory {
         for (Class<Component> component : preFab.components) {
             try {
                 entity.add(component.getConstructor().newInstance());
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                throw new RuntimeException();
+            } catch (ReflectiveOperationException e) {
+                throw new RuntimeException("Failed to create an instance of the component '" + component.getName() + "' !", e);
             }
         }
         return entity;
