@@ -13,7 +13,10 @@ public class BoardInputProcessor implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        return false;
+        if (keycode == Input.Keys.W) {
+            board.getDecks().get(0).drawCard();
+        }
+        return true;
     }
 
     @Override

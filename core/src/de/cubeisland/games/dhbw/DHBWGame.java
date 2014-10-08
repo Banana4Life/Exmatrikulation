@@ -44,9 +44,11 @@ public class DHBWGame extends ApplicationAdapter {
 		batch = new DecalBatch(new CameraGroupStrategy(camera));
         modelBatch = new ModelBatch();
 
+        CardDeck deck = new CardDeck(this.board, new Vector3(0, 0, -100));
+        this.board.addDeck(deck);
         Card.setBackTex(new TextureRegion(new Texture("back.png")));
         for (int i = 0; i < 5; i++) {
-            this.board.addCard(new Card(this.board, new TextureRegion(new Texture("front.png")), new Vector3(20 * i, 0, -100)));
+            deck.addCard(new Card(this.board, new TextureRegion(new Texture("front.png")), new Vector3(20 * i, 0, -100)));
         }
 
         this.board.addDice(new Dice(board));

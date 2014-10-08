@@ -36,7 +36,7 @@ public class Card {
             destPos = frontDecal.getPosition().cpy();
         }
 
-        Vector3 moveVec = destPos.cpy().sub(frontDecal.getPosition()).scl(0.5f);
+        Vector3 moveVec = destPos.cpy().sub(frontDecal.getPosition()).scl(0.2f);
         Vector2 moveVec2D = new Vector2(moveVec.x, moveVec.y);
 
         if (destRot == null) {

@@ -12,16 +12,16 @@ public class CardDeck implements Iterable<Card> {
     private Vector3             position;
     private Quaternion          rotation;
     private Vector3             destPos;
+    private Quaternion          destRot;
     private ArrayList<Card>     cards = new ArrayList<>();
-
-    private static final Quaternion destRot = new Quaternion(new Vector3(1, 0, 0), 90);
 
     public CardDeck(Board board, Vector3 destPos) {
         this.board = board;
 
         this.destPos = destPos;
-        this.position = destPos.cpy().add(10, 0, 0);
-        this.rotation = new Quaternion(new Vector3(1, 0, 0), 0);
+        this.destRot = new Quaternion(new Vector3(1, 0, 0), 0);
+        this.position = destPos.cpy().add(30, 0, 0);
+        this.rotation = new Quaternion(new Vector3(1, 0, 0), 90);
     }
 
     public void render(float delta) {
@@ -32,13 +32,13 @@ public class CardDeck implements Iterable<Card> {
 
     private void update() {
         for (int n = 0; n < Math.min(cards.size(), 6); n++) {
-            cards.get(n).setDestPos(destPos.cpy().add(n, 0, 0)).setDestRot(destRot);
+            cards.get(n).setDestPos(position.cpy().add(n, 0, 0)).setDestRot(rotation);
         }
     }
 
     public CardDeck drawCard() {
         if (cards.size() > 0) {
-            this.board.addCard(cards.remove(0).setDestPos(position.cpy()).setDestRot(rotation.cpy()).setPickable(true));
+            this.board.addCard(cards.remove(0).setDestPos(destPos.cpy()).setDestRot(destRot.cpy()).setPickable(true));
             this.update();
         }
         return this;

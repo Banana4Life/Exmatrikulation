@@ -41,6 +41,11 @@ public class Board {
         return this;
     }
 
+    public Board addDeck(CardDeck deck) {
+        decks.add(deck);
+        return this;
+    }
+
     public void pickCard(float screenX, float screenY) {
         if (pickedCard == null) {
             for (Card card : cards) {
@@ -68,5 +73,9 @@ public class Board {
 
     public DHBWGame getGame() {
         return game;
+    }
+
+    public ArrayList<CardDeck> getDecks() {
+        return decks;
     }
 }
