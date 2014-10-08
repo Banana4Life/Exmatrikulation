@@ -12,13 +12,16 @@ import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
-import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
+import de.cubeisland.engine.reflect.Reflector;
 import de.cubeisland.games.dhbw.input.BoardInputProcessor;
-import de.cubeisland.games.dhbw.input.GlobalInputProcessor;
 import de.cubeisland.games.dhbw.input.InputMultiplexer;
+import de.cubeisland.games.dhbw.resource.DHBWResources;
+import de.cubeisland.games.dhbw.util.ClassConverter;
 
 public class DHBWGame extends ApplicationAdapter {
+    private Reflector           reflector;
+    private DHBWResources       resources;
     private InputMultiplexer    inputMultiplexer;
 	private DecalBatch          batch;
     private ModelBatch          modelBatch;
@@ -29,6 +32,11 @@ public class DHBWGame extends ApplicationAdapter {
 	
 	@Override
 	public void create () {
+        reflector = new Reflector();
+        reflector.getDefaultConverterManager().registerConverter(Class.class, new ClassConverter());
+        resources = new DHBWResources(reflector);
+        resources.build();
+
         inputMultiplexer = new InputMultiplexer(new BoardInputProcessor(board));
         Gdx.input.setInputProcessor(inputMultiplexer);
 
