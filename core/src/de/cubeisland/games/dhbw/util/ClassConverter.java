@@ -15,9 +15,9 @@ public class ClassConverter implements Converter<Class> {
     @Override
     public Class fromNode(Node node, ConverterManager manager) throws ConversionException {
         try {
-            return Class.forName(node.toString());
+            return Class.forName(node.asText());
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException();
+            throw new RuntimeException("Class not found!", e);
         }
     }
 }
