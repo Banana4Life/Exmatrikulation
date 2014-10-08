@@ -6,6 +6,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
+import de.cubeisland.games.dhbw.DHBWGame;
 import de.cubeisland.games.dhbw.entity.component.Renderable;
 import de.cubeisland.games.dhbw.entity.component.Transform;
 
@@ -13,16 +14,19 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class RenderSystem extends IteratingSystem {
-
     private static final RenderOrder BY_RENDER_ORDER = new RenderOrder();
+
+    private DHBWGame game;
 
     private final ComponentMapper<Transform> transforms;
     private final ComponentMapper<Renderable> renderables;
 
     private final PriorityQueue<RenderObject> queue = new PriorityQueue<>(10, BY_RENDER_ORDER);
 
-    public RenderSystem(Family family) {
+    public RenderSystem(DHBWGame game) {
         super(Family.getFor(Transform.class, Renderable.class));
+
+        this.game = game;
 
         this.transforms = ComponentMapper.getFor(Transform.class);
         this.renderables = ComponentMapper.getFor(Renderable.class);
@@ -34,13 +38,10 @@ public class RenderSystem extends IteratingSystem {
 
         Entity e;
         Transform transform;
-        Texture texture;
         for (RenderObject o : this.queue) {
             e = o.entity;
             transform = transforms.get(e);
-            texture = renderables.get(e).getTexture();
-
-            // TODO render here
+            renderables.get(e).render(transform, game);
         }
 
         this.queue.clear();
