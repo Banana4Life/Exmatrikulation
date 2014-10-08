@@ -69,6 +69,7 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.ashley:ashley:1.2.0"
         compile "life.banana4.util:resourcebags:0.0.1-SNAPSHOT"
+        compile "de.cubeisland.engine:reflect:2.0.4"
     }
 }
 
