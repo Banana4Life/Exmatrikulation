@@ -21,11 +21,11 @@ allprojects {
     }
 
     repositories {
-        maven { url "http://repo.cubeisland.de/" }
         mavenLocal()
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url "http://repo.cubeisland.de/" }
     }
 
     idea {
@@ -47,20 +47,6 @@ project(":desktop") {
     }
 }
 
-project(":html") {
-    apply plugin: "gwt"
-    apply plugin: "war"
-
-
-    dependencies {
-        compile project(":core")
-        compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
-        compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
-        compile "com.badlogicgames.ashley:ashley:1.1.0:sources"
-    }
-}
-
 project(":core") {
     apply plugin: "java"
 
@@ -68,7 +54,7 @@ project(":core") {
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.ashley:ashley:1.2.0"
-        compile "life.banana4.util:resourcebags:0.0.1-SNAPSHOT"
+        compile group: "life.banana4.util", name: "resourcebags", version: "0.0.1-SNAPSHOT", changing: true
         compile "de.cubeisland.engine:reflect:2.0.4"
     }
 }
