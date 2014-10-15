@@ -56,6 +56,7 @@ project(":core") {
         compile "com.badlogicgames.ashley:ashley:1.2.0"
         compile group: "life.banana4.util", name: "resourcebags", version: "0.0.1-SNAPSHOT", changing: true
         compile "de.cubeisland.engine:reflect:2.0.4"
+        testCompile "junit:junit:4.11"
     }
 }
 

@@ -47,16 +47,31 @@ public class StateManager {
         return state;
     }
 
-    public GameState getCurrentStateId() {
+    public GameState getCurrentState() {
         if (this.currentStateId == NO_STATE) {
             return null;
         }
         return getState(this.currentStateId);
     }
 
+    public StateTransition getCurrentTransition() {
+        if (this.currentTransition != null) {
+            return this.currentTransition.getTransition();
+        }
+        return null;
+    }
+
     public StateManager addTransition(short fromId, short toId, StateTransition transition) {
         this.transitions.put(combine(fromId, toId), new TransitionWrapper(transition, getState(fromId), getState(toId)));
         return this;
+    }
+
+    public void start() {
+        for (Map.Entry<Integer, TransitionWrapper> entry : this.transitions.entrySet()) {
+            if (fromComponent(entry.getKey()) == NO_STATE) {
+                this.transitionTo(entry.getValue().getTo().id());
+            }
+        }
     }
 
     public void transitionTo(short stateId) {
@@ -68,7 +83,7 @@ public class StateManager {
     }
 
     private void switchState(GameState newState) {
-        final GameState current = getCurrentStateId();
+        final GameState current = getCurrentState();
         if (current != null) {
             current.onLeave(this, newState);
         }
@@ -80,6 +95,7 @@ public class StateManager {
         if (this.currentTransition != null) {
             if (this.currentTransition.transition(this, delta)) {
                 switchState(this.currentTransition.getTo());
+                this.currentTransition = null;
             }
             return;
         }
@@ -93,6 +109,14 @@ public class StateManager {
 
     private static int combine(short a, short b) {
         return ((int) a << 16) & b;
+    }
+
+    private static short fromComponent(int combined) {
+        return (short)(combined >> 16);
+    }
+
+    private static short toComponent(int combined) {
+        return (short)(combined & 0xFFFF);
     }
 
     private static final class TransitionWrapper implements StateTransition {

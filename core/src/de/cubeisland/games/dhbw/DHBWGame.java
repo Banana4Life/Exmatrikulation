@@ -49,6 +49,7 @@ public class DHBWGame extends ApplicationAdapter {
                 .addState(new DifficultySelection())
                 .addState(new Playing())
                 .addState(new Paused())
+                .addTransition(StateManager.NO_STATE,   SplashScreen.ID,        DummyTransition.INSTANCE)
                 .addTransition(SplashScreen.ID,         MainMenu.ID,            DummyTransition.INSTANCE)
                 .addTransition(MainMenu.ID,             CharacterSelection.ID,  DummyTransition.INSTANCE)
                 .addTransition(CharacterSelection.ID,   MainMenu.ID,            DummyTransition.INSTANCE)
@@ -58,7 +59,8 @@ public class DHBWGame extends ApplicationAdapter {
                 .addTransition(DifficultySelection.ID,  Playing.ID,             DummyTransition.INSTANCE)
                 .addTransition(Playing.ID,              Paused.ID,              DummyTransition.INSTANCE)
                 .addTransition(Paused.ID,               Playing.ID,             DummyTransition.INSTANCE)
-                .addTransition(Paused.ID,               MainMenu.ID,            DummyTransition.INSTANCE);
+                .addTransition(Paused.ID,               MainMenu.ID,            DummyTransition.INSTANCE)
+                .start();
 
         inputMultiplexer = new InputMultiplexer(new BoardInputProcessor(board));
         Gdx.input.setInputProcessor(inputMultiplexer);
