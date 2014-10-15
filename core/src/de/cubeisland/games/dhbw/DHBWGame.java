@@ -51,7 +51,7 @@ public class DHBWGame extends ApplicationAdapter {
                 .addState(new Playing())
                 .addState(new Paused())
                 .addTransition(StartState.ID,           SplashScreen.ID,        DummyTransition.INSTANCE)
-                .addTransition(SplashScreen.ID,         MainMenu.ID, DummyTransition.INSTANCE)
+                .addTransition(SplashScreen.ID,         MainMenu.ID,            DummyTransition.INSTANCE)
                 .addTransition(MainMenu.ID,             CharacterSelection.ID,  DummyTransition.INSTANCE)
                 .addTransition(CharacterSelection.ID,   MainMenu.ID,            DummyTransition.INSTANCE)
                 .addTransition(CharacterSelection.ID,   DifficultySelection.ID, DummyTransition.INSTANCE)
