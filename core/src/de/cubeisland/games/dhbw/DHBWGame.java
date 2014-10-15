@@ -17,11 +17,15 @@ import de.cubeisland.engine.reflect.Reflector;
 import de.cubeisland.games.dhbw.input.BoardInputProcessor;
 import de.cubeisland.games.dhbw.input.InputMultiplexer;
 import de.cubeisland.games.dhbw.resource.DHBWResources;
+import de.cubeisland.games.dhbw.state.StateManager;
+import de.cubeisland.games.dhbw.state.states.*;
+import de.cubeisland.games.dhbw.state.transitions.DummyTransition;
 import de.cubeisland.games.dhbw.util.ClassConverter;
 
 public class DHBWGame extends ApplicationAdapter {
     private Reflector           reflector;
     private DHBWResources       resources;
+    private StateManager        stateManager;
     private InputMultiplexer    inputMultiplexer;
 	private DecalBatch          batch;
     private ModelBatch          modelBatch;
@@ -36,6 +40,25 @@ public class DHBWGame extends ApplicationAdapter {
         reflector.getDefaultConverterManager().registerConverter(Class.class, new ClassConverter());
         resources = new DHBWResources(reflector);
         resources.build();
+
+        this.stateManager = new StateManager(this);
+        this.stateManager
+                .addState(new SplashScreen())
+                .addState(new MainMenu())
+                .addState(new CharacterSelection())
+                .addState(new DifficultySelection())
+                .addState(new Playing())
+                .addState(new Paused())
+                .addTransition(SplashScreen.ID,         MainMenu.ID,            DummyTransition.INSTANCE)
+                .addTransition(MainMenu.ID,             CharacterSelection.ID,  DummyTransition.INSTANCE)
+                .addTransition(CharacterSelection.ID,   MainMenu.ID,            DummyTransition.INSTANCE)
+                .addTransition(CharacterSelection.ID,   DifficultySelection.ID, DummyTransition.INSTANCE)
+                .addTransition(DifficultySelection.ID,  CharacterSelection.ID,  DummyTransition.INSTANCE)
+                .addTransition(DifficultySelection.ID,  MainMenu.ID,            DummyTransition.INSTANCE)
+                .addTransition(DifficultySelection.ID,  Playing.ID,             DummyTransition.INSTANCE)
+                .addTransition(Playing.ID,              Paused.ID,              DummyTransition.INSTANCE)
+                .addTransition(Paused.ID,               Playing.ID,             DummyTransition.INSTANCE)
+                .addTransition(Paused.ID,               MainMenu.ID,            DummyTransition.INSTANCE);
 
         inputMultiplexer = new InputMultiplexer(new BoardInputProcessor(board));
         Gdx.input.setInputProcessor(inputMultiplexer);
