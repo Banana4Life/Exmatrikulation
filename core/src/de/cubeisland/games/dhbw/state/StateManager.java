@@ -40,6 +40,9 @@ public class StateManager {
     }
 
     public GameState getState(short id) {
+        if (id == NO_STATE) {
+            return null;
+        }
         GameState state = this.states.get(id);
         if (state == null) {
             throw new IllegalArgumentException("No state found for id: " + id);
