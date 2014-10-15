@@ -8,11 +8,10 @@ import java.util.Map;
 
 public class StateManager {
 
-    public static final short NO_STATE = 0;
+    public static final StartState START = new StartState();
 
     private final DHBWGame game;
     private GameState currentState;
-    private short currentStateId;
     private TransitionWrapper currentTransition;
     private final Map<Short, GameState> states;
     private final Map<Integer, TransitionWrapper> transitions;
@@ -21,6 +20,7 @@ public class StateManager {
         this.game = game;
         this.states = new HashMap<>();
         this.transitions = new HashMap<>();
+        this.currentState = START;
     }
 
     public DHBWGame getGame() {
@@ -29,8 +29,8 @@ public class StateManager {
 
     public StateManager addState(GameState state) {
         final short id = state.id();
-        if (id == NO_STATE) {
-            throw new IllegalArgumentException("State id " + NO_STATE + " is reserved!");
+        if (id == StartState.ID) {
+            throw new IllegalArgumentException("State id " + StartState.ID + " is reserved!");
         }
         GameState existing = this.states.get(id);
         if (existing != null) {
@@ -41,8 +41,8 @@ public class StateManager {
     }
 
     public GameState getState(short id) {
-        if (id == NO_STATE) {
-            return null;
+        if (id == StartState.ID) {
+            return START;
         }
         GameState state = this.states.get(id);
         if (state == null) {
@@ -56,6 +56,9 @@ public class StateManager {
     }
 
     public void removeState(GameState state) {
+        if (state == START) {
+            throw new IllegalArgumentException("The start state " + StartState.ID + " cannot be removed!");
+        }
         Iterator<Map.Entry<Integer, TransitionWrapper>> it = this.transitions.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry<Integer, TransitionWrapper> entry = it.next();
@@ -66,10 +69,7 @@ public class StateManager {
     }
 
     public GameState getCurrentState() {
-        if (this.currentStateId == NO_STATE) {
-            return null;
-        }
-        return getState(this.currentStateId);
+        return this.currentState;
     }
 
     public StateTransition getCurrentTransition() {
@@ -81,7 +81,7 @@ public class StateManager {
 
     public GameState getStartState() {
         for (Map.Entry<Integer, TransitionWrapper> entry : this.transitions.entrySet()) {
-            if (fromComponent(entry.getKey()) == NO_STATE) {
+            if (fromComponent(entry.getKey()) == StartState.ID) {
                 return entry.getValue().getTo();
             }
         }
@@ -89,7 +89,7 @@ public class StateManager {
     }
 
     public StateManager addTransition(short fromId, short toId, StateTransition transition) {
-        if (fromId == NO_STATE) {
+        if (fromId == StartState.ID) {
             GameState start = getStartState();
             if (start != null) {
                 throw new IllegalArgumentException("There is already a start state defined: " + start.getClass().getName() + " (" + start.id() + ")");
@@ -115,9 +115,9 @@ public class StateManager {
         if (getCurrentTransition() != null) {
             throw new IllegalStateException("Starting a new transition from the transition function is not allowed!");
         }
-        TransitionWrapper transition = this.transitions.get(combine(currentStateId, stateId));
+        TransitionWrapper transition = this.transitions.get(combine(getCurrentState().id(), stateId));
         if (transition == null) {
-            throw new IllegalArgumentException("There is no transition defined from id " + this.currentStateId + " to " + stateId);
+            throw new IllegalArgumentException("There is no transition defined from id " + getCurrentState().id() + " to " + stateId);
         }
         this.currentTransition = transition;
     }
@@ -127,7 +127,7 @@ public class StateManager {
         if (current != null) {
             current.onLeave(this, newState);
         }
-        this.currentStateId = newState.id();
+        this.currentState = newState;
         newState.onEnter(this, current);
     }
 
@@ -139,10 +139,7 @@ public class StateManager {
             }
             return;
         }
-        if (this.currentStateId != NO_STATE) {
-            if (this.currentState == null || this.currentState.id() != this.currentStateId) {
-                this.currentState = getState(this.currentStateId);
-            }
+        if (this.currentState != START) {
             this.currentState.update(this, delta);
         }
     }
@@ -186,6 +183,31 @@ public class StateManager {
         @Override
         public boolean transition(StateManager manager, float delta) {
             return this.transition.transition(manager, delta);
+        }
+    }
+
+    public static final class StartState implements GameState {
+
+        public static final short ID = 0;
+
+        protected StartState() {
+        }
+
+        @Override
+        public short id() {
+            return ID;
+        }
+
+        @Override
+        public void onEnter(StateManager manager, GameState from) {
+        }
+
+        @Override
+        public void onLeave(StateManager manager, GameState to) {
+        }
+
+        @Override
+        public void update(StateManager manager, float delta) {
         }
     }
 }

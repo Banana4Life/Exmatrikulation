@@ -18,6 +18,7 @@ import de.cubeisland.games.dhbw.input.BoardInputProcessor;
 import de.cubeisland.games.dhbw.input.InputMultiplexer;
 import de.cubeisland.games.dhbw.resource.DHBWResources;
 import de.cubeisland.games.dhbw.state.StateManager;
+import de.cubeisland.games.dhbw.state.StateManager.StartState;
 import de.cubeisland.games.dhbw.state.states.*;
 import de.cubeisland.games.dhbw.state.transitions.DummyTransition;
 import de.cubeisland.games.dhbw.util.ClassConverter;
@@ -49,8 +50,8 @@ public class DHBWGame extends ApplicationAdapter {
                 .addState(new DifficultySelection())
                 .addState(new Playing())
                 .addState(new Paused())
-                .addTransition(StateManager.NO_STATE,   SplashScreen.ID,        DummyTransition.INSTANCE)
-                .addTransition(SplashScreen.ID,         MainMenu.ID,            DummyTransition.INSTANCE)
+                .addTransition(StartState.ID,           SplashScreen.ID,        DummyTransition.INSTANCE)
+                .addTransition(SplashScreen.ID,         MainMenu.ID, DummyTransition.INSTANCE)
                 .addTransition(MainMenu.ID,             CharacterSelection.ID,  DummyTransition.INSTANCE)
                 .addTransition(CharacterSelection.ID,   MainMenu.ID,            DummyTransition.INSTANCE)
                 .addTransition(CharacterSelection.ID,   DifficultySelection.ID, DummyTransition.INSTANCE)
