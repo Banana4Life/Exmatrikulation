@@ -3,6 +3,7 @@ package de.cubeisland.games.dhbw.state;
 import de.cubeisland.games.dhbw.DHBWGame;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class StateManager {
@@ -50,6 +51,20 @@ public class StateManager {
         return state;
     }
 
+    public void removeState(short id) {
+        removeState(getState(id));
+    }
+
+    public void removeState(GameState state) {
+        Iterator<Map.Entry<Integer, TransitionWrapper>> it = this.transitions.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<Integer, TransitionWrapper> entry = it.next();
+            if (fromComponent(entry.getKey()) == state.id() || toComponent(entry.getKey()) == state.id()) {
+                it.remove();
+            }
+        }
+    }
+
     public GameState getCurrentState() {
         if (this.currentStateId == NO_STATE) {
             return null;
@@ -82,6 +97,10 @@ public class StateManager {
         }
         this.transitions.put(combine(fromId, toId), new TransitionWrapper(transition, getState(fromId), getState(toId)));
         return this;
+    }
+
+    public void removeTransition(short from, short to) {
+        this.transitions.remove(combine(from, to));
     }
 
     public void start() {
