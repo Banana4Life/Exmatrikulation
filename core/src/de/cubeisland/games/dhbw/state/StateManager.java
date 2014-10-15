@@ -64,20 +64,38 @@ public class StateManager {
         return null;
     }
 
+    public GameState getStartState() {
+        for (Map.Entry<Integer, TransitionWrapper> entry : this.transitions.entrySet()) {
+            if (fromComponent(entry.getKey()) == NO_STATE) {
+                return entry.getValue().getTo();
+            }
+        }
+        return null;
+    }
+
     public StateManager addTransition(short fromId, short toId, StateTransition transition) {
+        if (fromId == NO_STATE) {
+            GameState start = getStartState();
+            if (start != null) {
+                throw new IllegalArgumentException("There is already a start state defined: " + start.getClass().getName() + " (" + start.id() + ")");
+            }
+        }
         this.transitions.put(combine(fromId, toId), new TransitionWrapper(transition, getState(fromId), getState(toId)));
         return this;
     }
 
     public void start() {
-        for (Map.Entry<Integer, TransitionWrapper> entry : this.transitions.entrySet()) {
-            if (fromComponent(entry.getKey()) == NO_STATE) {
-                this.transitionTo(entry.getValue().getTo().id());
-            }
+        GameState start = getStartState();
+        if (start == null) {
+            throw new IllegalStateException("No start state (state with a transition from NO_STATE) found!");
         }
+        transitionTo(start.id());
     }
 
     public void transitionTo(short stateId) {
+        if (getCurrentTransition() != null) {
+            throw new IllegalStateException("Starting a new transition from the transition function is not allowed!");
+        }
         TransitionWrapper transition = this.transitions.get(combine(currentStateId, stateId));
         if (transition == null) {
             throw new IllegalArgumentException("There is no transition defined from id " + this.currentStateId + " to " + stateId);
@@ -111,7 +129,7 @@ public class StateManager {
     }
 
     private static int combine(short a, short b) {
-        return ((int) a << 16) & b;
+        return (((int) a) << 16) | b;
     }
 
     private static short fromComponent(int combined) {
