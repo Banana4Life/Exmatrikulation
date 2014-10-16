@@ -1,4 +1,3 @@
 components:
   - de.cubeisland.games.dhbw.entity.component.CardModel
   - de.cubeisland.games.dhbw.entity.component.Transform
-  - de.cubeisland.games.dhbw.entity.component.Pickable

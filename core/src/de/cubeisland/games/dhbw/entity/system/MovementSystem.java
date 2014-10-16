@@ -8,11 +8,10 @@ import de.cubeisland.games.dhbw.entity.component.Transform;
 import de.cubeisland.games.dhbw.entity.component.Velocity;
 
 public class MovementSystem extends IteratingSystem {
-
     private final ComponentMapper<Transform> transforms;
     private final ComponentMapper<Velocity> velocities;
 
-    public MovementSystem(Family family) {
+    public MovementSystem() {
         super(Family.getFor(Transform.class, Velocity.class));
 
         this.transforms = ComponentMapper.getFor(Transform.class);

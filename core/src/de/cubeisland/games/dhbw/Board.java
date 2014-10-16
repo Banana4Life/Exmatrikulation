@@ -1,7 +1,10 @@
 package de.cubeisland.games.dhbw;
 
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
+import de.cubeisland.games.dhbw.entity.component.*;
+import de.cubeisland.games.dhbw.util.renderobject.CardRenderObject;
 
 import java.util.ArrayList;
 
@@ -9,8 +12,8 @@ public class Board {
     private DHBWGame game;
 
     private Vector3             position;
-    private Card                pickedCard;
-    private ArrayList<Card>     cards = new ArrayList<>();
+    private Entity              pickedCard;
+    private ArrayList<Entity>   cards = new ArrayList<>();
     private ArrayList<CardDeck> decks = new ArrayList<>();
     private ArrayList<Dice>     dices = new ArrayList<>();
 
@@ -20,12 +23,6 @@ public class Board {
     }
 
     public void render(float delta) {
-        for (Card card : cards) {
-            card.render(delta);
-        }
-        for (CardDeck deck : decks) {
-            deck.render(delta);
-        }
         for (Dice dice : dices) {
             dice.render(delta);
         }
@@ -36,8 +33,10 @@ public class Board {
         return this;
     }
 
-    public Board addCard(Card card) {
-        cards.add(card.setPickable(true));
+    public Board addCard(Entity card) {
+        if (this.getGame().getResources().entities.card.matches(card)) {
+            cards.add(card);
+        }
         return this;
     }
 
@@ -48,8 +47,8 @@ public class Board {
 
     public void pickCard(float screenX, float screenY) {
         if (pickedCard == null) {
-            for (Card card : cards) {
-                if (card.isPickable() && card.isClickOnProjectedCard(screenX, Gdx.graphics.getHeight() - screenY)) {
+            for (Entity card : cards) {
+                if (card.getComponent(Pickable.class) != null && ((CardRenderObject) card.getComponent(Renderable.class).getRenderObject()).isClickOnProjectedCard(this.getGame().getCamera(), screenX, Gdx.graphics.getHeight() - screenY)) {
                     pickedCard = card;
                 }
             }
@@ -59,14 +58,14 @@ public class Board {
 
     public void dragCard(float screenX, float screenY) {
         if (pickedCard != null) {
-            pickedCard.setDestPos(game.getCamera().unproject(new Vector3(screenX, screenY, game.getCamera().project(new Vector3(position.x, position.y, position.z + 10)).z)));
-            pickedCard.getDestPos().z = position.z + 10;
+            pickedCard.add(new DestTransform(game.getCamera().unproject(new Vector3(screenX, screenY, game.getCamera().project(new Vector3(position.x, position.y, position.z + 10)).z)), pickedCard.getComponent(Transform.class).getRotation()));
+            pickedCard.getComponent(DestTransform.class).getPosition().z = position.z + 10;
         }
     }
 
     public void releaseCard() {
         if (pickedCard != null) {
-            pickedCard.getDestPos().z = position.z;
+            pickedCard.getComponent(DestTransform.class).getPosition().z = position.z;
         }
         pickedCard = null;
     }

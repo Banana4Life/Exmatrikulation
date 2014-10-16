@@ -1,5 +1,7 @@
 package de.cubeisland.games.dhbw;
 
+import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,6 +16,14 @@ import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.engine.reflect.Reflector;
+import de.cubeisland.games.dhbw.entity.CardPreFab;
+import de.cubeisland.games.dhbw.entity.EntityFactory;
+import de.cubeisland.games.dhbw.entity.component.CardModel;
+import de.cubeisland.games.dhbw.entity.component.Renderable;
+import de.cubeisland.games.dhbw.entity.component.Transform;
+import de.cubeisland.games.dhbw.entity.system.AccelerationSystem;
+import de.cubeisland.games.dhbw.entity.system.MovementSystem;
+import de.cubeisland.games.dhbw.entity.system.RenderSystem;
 import de.cubeisland.games.dhbw.input.BoardInputProcessor;
 import de.cubeisland.games.dhbw.input.InputMultiplexer;
 import de.cubeisland.games.dhbw.resource.DHBWResources;
@@ -22,6 +32,7 @@ import de.cubeisland.games.dhbw.state.StateManager.StartState;
 import de.cubeisland.games.dhbw.state.states.*;
 import de.cubeisland.games.dhbw.state.transitions.DummyTransition;
 import de.cubeisland.games.dhbw.util.ClassConverter;
+import de.cubeisland.games.dhbw.util.renderobject.CardRenderObject;
 
 public class DHBWGame extends ApplicationAdapter {
     private Reflector           reflector;
@@ -32,6 +43,8 @@ public class DHBWGame extends ApplicationAdapter {
     private ModelBatch          modelBatch;
     private Environment         environment;
     private PerspectiveCamera   camera;
+    private EntityFactory       entityFactory;
+    private Engine              engine;
 
     private Board board = new Board(this, new Vector3(0, 0, -100));
 	
@@ -78,11 +91,22 @@ public class DHBWGame extends ApplicationAdapter {
 		batch = new DecalBatch(new CameraGroupStrategy(camera));
         modelBatch = new ModelBatch();
 
+        engine = new Engine();
+        engine.addSystem(new AccelerationSystem());
+        engine.addSystem(new MovementSystem());
+        engine.addSystem(new RenderSystem(this));
+
+        entityFactory = new EntityFactory(engine);
+
         CardDeck deck = new CardDeck(this.board, new Vector3(0, 0, -100));
         this.board.addDeck(deck);
-        Card.setBackTex(new TextureRegion(new Texture("back.png")));
+        CardModel.setBackTex(new TextureRegion(new Texture("back.png")));
         for (int i = 0; i < 5; i++) {
-            deck.addCard(new Card(this.board, new TextureRegion(new Texture("front.png")), new Vector3(20 * i, 0, -100)));
+            //deck.addCard(new Card(this.board, new TextureRegion(new Texture("front.png")), new Vector3(20 * i, 0, -100)));
+            Entity card = entityFactory.getInstance(resources.entities.card);
+            card.getComponent(Transform.class).setPosition(new Vector3(20 * i, 0, -100));
+            ((CardRenderObject) card.getComponent(Renderable.class).getRenderObject()).setFrontDecal(new TextureRegion(new Texture("front.png")));
+            deck.addCard(card);
         }
 
         this.board.addDice(new Dice(board));
@@ -119,5 +143,9 @@ public class DHBWGame extends ApplicationAdapter {
 
     public PerspectiveCamera getCamera() {
         return this.camera;
+    }
+
+    public DHBWResources getResources() {
+        return resources;
     }
 }

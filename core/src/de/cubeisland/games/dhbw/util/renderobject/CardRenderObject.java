@@ -1,4 +1,4 @@
-package de.cubeisland.games.dhbw.entity.component;
+package de.cubeisland.games.dhbw.util.renderobject;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -8,8 +8,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import de.cubeisland.games.dhbw.DHBWGame;
+import de.cubeisland.games.dhbw.entity.component.Transform;
 
-public class CardModel {
+public class CardRenderObject extends RenderObject {
     private Decal frontDecal;
     private Decal backDecal;
 
@@ -30,6 +31,7 @@ public class CardModel {
         return Intersector.isPointInPolygon(polygon, new Vector2(screenX, screenY));
     }
 
+    @Override
     public void render(Transform transform, DHBWGame game) {
         frontDecal.setRotation(transform.getRotation().cpy());
         frontDecal.setPosition(transform.getPosition().cpy());
@@ -68,25 +70,25 @@ public class CardModel {
         */
     }
 
-    public CardModel setFrontDecal(Decal frontDecal) {
+    public CardRenderObject setFrontDecal(Decal frontDecal) {
         this.frontDecal = frontDecal;
         return this;
     }
-    public CardModel setFrontDecal(TextureRegion texture) {
+    public CardRenderObject setFrontDecal(TextureRegion texture) {
         this.frontDecal = Decal.newDecal(texture.getRegionWidth(), texture.getRegionHeight(), texture, true);
         return this;
     }
 
-    public CardModel setBackDecal(Decal backDecal) {
+    public CardRenderObject setBackDecal(Decal backDecal) {
         this.backDecal = backDecal;
         return this;
     }
-    public CardModel setBackDecal() {
+    public CardRenderObject setBackDecal() {
         this.frontDecal = Decal.newDecal(backTex.getRegionWidth(), backTex.getRegionHeight(), backTex, true);
         return this;
     }
 
     public static void setBackTex(TextureRegion backTex) {
-        CardModel.backTex = backTex;
+        CardRenderObject.backTex = backTex;
     }
 }
