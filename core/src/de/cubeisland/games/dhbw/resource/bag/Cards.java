@@ -10,6 +10,16 @@ import java.lang.reflect.Field;
 public class Cards extends ResourceBag<CardPreFab> {
     private Reflector reflector;
 
+    // Instanzierung aller Karten; Name muss dem Namen der entsprechenden config-Datei entsprechen
+    // Ereigniskarten
+    public CardPreFab eventCard1;
+
+    // Objektkarten
+    public CardPreFab objectCard1;
+
+    // Fähigkeitskarten
+    public CardPreFab abilityCard1;
+
     public Cards(Reflector reflector) {
         this.reflector = reflector;
     }
