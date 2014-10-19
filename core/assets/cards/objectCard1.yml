@@ -1,6 +1,6 @@
 ---
 name: Wasserflasche
-type: object
+type: OBJECT
 description: Erzeugt Mehrwert und erhöht deinen BWL "Skill" um 1.
 
 reward:

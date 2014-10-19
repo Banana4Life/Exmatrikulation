@@ -1,10 +1,10 @@
 ---
 name: VollständigeInduktion
-type: ability
+type: ABILITY
 description: Ermöglicht das Beweisen von trivialen Aussagen und gibt dir somit +10 in Mathe. Wie nützlich.
 
 reward:
-  type: mathe
+  type: math
   value: 10
 
 equipable: true

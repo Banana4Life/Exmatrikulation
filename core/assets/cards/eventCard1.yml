@@ -1,6 +1,6 @@
 ---
 name: MathePrüfung
-type: event
+type: EVENT
 description: Beim Bestehen der Prüfung erhalte +2 auf Mathe. Ansonsten wirst du exmatrikuliert.
 
 reward:
@@ -8,8 +8,9 @@ reward:
   value: 2
 
 penalty:
-  type: exmatrikulation
+  type: de-registration
 
-subject: math
-obstacle: 20
+obstacle:
+  type: math
+  value: 20
 ...

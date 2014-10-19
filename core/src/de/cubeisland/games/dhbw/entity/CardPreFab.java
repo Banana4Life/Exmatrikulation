@@ -4,44 +4,54 @@ import de.cubeisland.engine.reflect.ReflectedYaml;
 import de.cubeisland.engine.reflect.Section;
 
 public class CardPreFab extends ReflectedYaml {
+
+    public enum CardType {
+        EVENT, OBJECT, ABILITY
+    }
+
     // initialization of card variables
-    // Es werden für die einzelnen Kartentypen jeweils nicht alle Attribute benötigt, der Rest wird einfach mit default Werten befüllt
+    // which attributes are needed depends on the card type, unused attributes get default-values
 
     public String name;
 
-    // Der Kartentyp: event, object, ability
+    // the type of the card
+    // public CardType type;
     public String type;
 
-    // Der Kartentext
+    // the text of the card which gets displayed to the player
     public String description;
 
-    // Belohnung beim erfolgreichen Abschließen eines Ereignisses oder beim Ausrüsten eines Objektes oder einer Fähigkeit
-    // z.B. type = math, value = 5
-    public class Reward implements Section {
-        // path will be: reward.type
+    // reward for successfully finishing an event or for equipping an object or ability card
+    // e.g. type = math, value = 5
+    public class RewardSection implements Section {
+        // path will be: reward.section.type
         public String type;
 
-        // path will be: reward.value
+        // path will be: reward.section.value
         public String value;
     }
 
-    // Das Ereignis wurde nicht erfolgreich absolviert (nur Ereigniskarten)
-    // es kann auch nur type befüllt werden (z.B. bei Exmatrikulation)
-    public class Penalty implements Section {
-        // path will be: penalty.type
+    // the player failed to complete the event (only for event cards)
+    // it is also possible to only fill type (for e.g. de-registration)
+    public class PenaltySection implements Section {
+        // path will be: penalty.section.type
         public String type;
 
-        // path will be: penalty.value
+        // path will be: penalty.section.value
         public String value;
     }
 
-    // Der Charakterwert auf den sich die Karte bezieht (z.B. math zum Bestehen einer Matheklausur) (nur Ereigniskarten)
-    public String subject;
+    // the character attribute which is needed to successfully complete an event and the value needed (only for event cards)
+    // (e.g. math exam: type = math, value = 20)
+    public class ObstacleSection implements Section {
+        // path will be: obstacle.section.type
+        public String type;
 
-    // Der Wert der zum Bestehen des Ereignisses mind. nötig ist (nur Ereigniskarten)
-    public int obstacle;
+        // path will be: obstacle.section.value
+        public String value;
+    }
 
-    // Die Karte kann ausgerüstet werden und bringt permanente Boni falls equipable = true (nur Objekt- und Fähigkeitskarten)
-    // ansonsten kann sie nur einmalig benutzt werden
+    // a card can be equipped and grants permanent bonuses if equipable = true (only for object and ability cards)
+    // otherwise it may only be used once
     public boolean equipable;
 }
