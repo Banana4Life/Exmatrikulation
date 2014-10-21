@@ -1,5 +1,6 @@
 package de.cubeisland.games.dhbw.entity.component;
 
+import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
@@ -9,7 +10,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import de.cubeisland.games.dhbw.DHBWGame;
 
-public class CardModel {
+public class CardModel extends Component {
     private Decal frontDecal;
     private Decal backDecal;
 

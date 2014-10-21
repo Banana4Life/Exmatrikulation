@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class EntityPreFab extends ReflectedYaml {
     public ArrayList<Class<Component>>  components;
-    public RenderObject                 renderObject;
+    public Class<RenderObject>          renderobject;
 
     public boolean matches(Entity entity) {
         return getFamily().matches(entity);
