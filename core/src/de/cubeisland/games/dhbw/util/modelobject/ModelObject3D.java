@@ -1,6 +1,7 @@
 package de.cubeisland.games.dhbw.util.modelobject;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
 import com.badlogic.gdx.math.Quaternion;
@@ -35,6 +36,11 @@ public class ModelObject3D extends ModelObject {
     @Override
     public Vector3 getPosition() {
         return instance.transform.getTranslation(new Vector3());
+    }
+
+    @Override
+    public boolean isClickOnModel(Camera camera, float screenX, float screenY) {
+        return false;
     }
 
     public ModelInstance getInstance() {

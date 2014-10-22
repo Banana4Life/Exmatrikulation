@@ -1,6 +1,7 @@
 package de.cubeisland.games.dhbw.entity.component;
 
 import com.badlogic.ashley.core.Component;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.util.modelobject.ModelObject;
@@ -26,5 +27,9 @@ public class Model extends Component {
     }
     public Vector3 getPosition() {
         return modelObject.getPosition();
+    }
+
+    public boolean isClickOnModel(Camera camera, float screenX, float screenY) {
+        return modelObject.isClickOnModel(camera, screenX, screenY);
     }
 }

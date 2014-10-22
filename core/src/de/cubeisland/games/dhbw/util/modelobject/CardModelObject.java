@@ -15,7 +15,8 @@ public class CardModelObject extends ModelObject {
 
     private static TextureRegion backTex;
 
-    public boolean isClickOnProjectedCard(Camera camera, float screenX, float screenY) {
+    @Override
+    public boolean isClickOnModel(Camera camera, float screenX, float screenY) {
         Vector3 topLeft     = camera.project(new Vector3(frontDecal.getVertices()[Decal.X1], frontDecal.getVertices()[Decal.Y1], frontDecal.getVertices()[Decal.Z1]));
         Vector3 topRight    = camera.project(new Vector3(frontDecal.getVertices()[Decal.X2], frontDecal.getVertices()[Decal.Y2], frontDecal.getVertices()[Decal.Z2]));
         Vector3 bottomLeft  = camera.project(new Vector3(frontDecal.getVertices()[Decal.X3], frontDecal.getVertices()[Decal.Y3], frontDecal.getVertices()[Decal.Z3]));
