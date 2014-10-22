@@ -94,6 +94,7 @@ public class DHBWGame extends ApplicationAdapter {
         engine.addSystem(new ControlSystem());
         engine.addSystem(new ModelSystem());
         engine.addSystem(new DeckSystem());
+        engine.addSystem(new PickSystem(this));
 
         entityFactory = new EntityFactory(engine);
 
