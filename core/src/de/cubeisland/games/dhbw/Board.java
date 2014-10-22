@@ -48,7 +48,7 @@ public class Board {
     public void pickCard(float screenX, float screenY) {
         if (pickedCard == null) {
             for (Entity card : cards) {
-                if (card.getComponent(Pickable.class) != null && ((CardRenderObject) card.getComponent(Renderable.class).getRenderObject()).isClickOnProjectedCard(this.getGame().getCamera(), screenX, Gdx.graphics.getHeight() - screenY)) {
+                if (card.getComponent(Pickable.class) != null && card.getComponent(CardModel.class).isClickOnProjectedCard(this.getGame().getCamera(), screenX, Gdx.graphics.getHeight() - screenY)) {
                     pickedCard = card;
                 }
             }

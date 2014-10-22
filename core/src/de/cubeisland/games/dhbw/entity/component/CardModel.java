@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
@@ -31,60 +32,34 @@ public class CardModel extends Component {
         return Intersector.isPointInPolygon(polygon, new Vector2(screenX, screenY));
     }
 
-    public void render(Transform transform, DHBWGame game) {
-        frontDecal.setRotation(transform.getRotation().cpy());
-        frontDecal.setPosition(transform.getPosition().cpy());
-        backDecal.setRotation(transform.getRotation().cpy());
-        backDecal.setPosition(transform.getPosition().cpy());
-        backDecal.translate(frontDecal.getRotation().transform(new Vector3(0, 0, 1)).scl(0.1f));
-
-        game.getDecalBatch().add(frontDecal);
-        game.getDecalBatch().add(backDecal);
-        game.getDecalBatch().flush();
-
-        /*
-        public void render(float delta) {
-            if (destPos == null) {
-                destPos = frontDecal.getPosition().cpy();
-            }
-
-            Vector3 moveVec = destPos.cpy().sub(frontDecal.getPosition()).scl(0.2f);
-            Vector2 moveVec2D = new Vector2(moveVec.x, moveVec.y);
-
-            if (destRot == null) {
-                destRot = new Quaternion(new Vector3(1, 0, 0), 0);
-            }
-
-            frontDecal.setRotation((float) Math.cos(Math.toRadians(moveVec2D.angle())) * moveVec2D.len() * 5f + destRot.getAngleAround(1, 0, 0), -(float) Math.sin(Math.toRadians(moveVec2D.angle())) * moveVec2D.len() * 5f + destRot.getAngleAround(0, 1, 0), destRot.getAngleAround(0, 0, 1));
-            backDecal.setRotation(frontDecal.getRotation().cpy());
-
-            Vector3 gap = frontDecal.getRotation().transform(new Vector3(0, 0, 1)).scl(0.1f);
-
-            frontDecal.getPosition().add(moveVec.x, moveVec.y, moveVec.z);
-            backDecal.setPosition(frontDecal.getX() - gap.x, frontDecal.getY() - gap.y, frontDecal.getZ() - gap.z);
-
-            board.getGame().getDecalBatch().add(frontDecal);
-            board.getGame().getDecalBatch().add(backDecal);
-        }
-        */
-    }
-
-    public CardModel setFrontDecal(Decal frontDecal) {
-        this.frontDecal = frontDecal;
-        return this;
-    }
-    public CardModel setFrontDecal(TextureRegion texture) {
-        this.frontDecal = Decal.newDecal(texture.getRegionWidth(), texture.getRegionHeight(), texture, true);
+    public CardModel setDecals(TextureRegion frontTexture) {
+        this.frontDecal = Decal.newDecal(frontTexture.getRegionWidth(), frontTexture.getRegionHeight(), frontTexture, true);
+        this.backDecal = Decal.newDecal(backTex.getRegionWidth(), backTex.getRegionHeight(), backTex, true);
         return this;
     }
 
-    public CardModel setBackDecal(Decal backDecal) {
-        this.backDecal = backDecal;
+    public CardModel setPosition(Vector3 position) {
+        Vector3 gap = frontDecal.getRotation().cpy().transform(new Vector3(0, 0, 1)).scl(0.1f);
+
+        frontDecal.setPosition(position.cpy());
+        backDecal.setPosition(position.cpy().sub(gap));
+
         return this;
     }
-    public CardModel setBackDecal() {
-        this.frontDecal = Decal.newDecal(backTex.getRegionWidth(), backTex.getRegionHeight(), backTex, true);
+
+    public CardModel setRotation(Quaternion rotation) {
+        frontDecal.setRotation(rotation.cpy());
+        backDecal.setRotation(rotation.cpy());
+
         return this;
+    }
+
+    public Decal getFrontDecal() {
+        return frontDecal;
+    }
+
+    public Decal getBackDecal() {
+        return backDecal;
     }
 
     public static void setBackTex(TextureRegion backTex) {

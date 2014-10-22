@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
+import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.engine.reflect.Reflector;
 import de.cubeisland.games.dhbw.entity.CardPreFab;
@@ -21,9 +22,7 @@ import de.cubeisland.games.dhbw.entity.EntityFactory;
 import de.cubeisland.games.dhbw.entity.component.CardModel;
 import de.cubeisland.games.dhbw.entity.component.Renderable;
 import de.cubeisland.games.dhbw.entity.component.Transform;
-import de.cubeisland.games.dhbw.entity.system.AccelerationSystem;
-import de.cubeisland.games.dhbw.entity.system.MovementSystem;
-import de.cubeisland.games.dhbw.entity.system.RenderSystem;
+import de.cubeisland.games.dhbw.entity.system.*;
 import de.cubeisland.games.dhbw.input.BoardInputProcessor;
 import de.cubeisland.games.dhbw.input.InputMultiplexer;
 import de.cubeisland.games.dhbw.resource.DHBWResources;
@@ -64,7 +63,7 @@ public class DHBWGame extends ApplicationAdapter {
                 .addState(new Playing())
                 .addState(new Paused())
                 .addTransition(StartState.ID,           SplashScreen.ID,        DummyTransition.INSTANCE)
-                .addTransition(SplashScreen.ID,         MainMenu.ID,            DummyTransition.INSTANCE)
+                .addTransition(SplashScreen.ID, MainMenu.ID, DummyTransition.INSTANCE)
                 .addTransition(MainMenu.ID,             CharacterSelection.ID,  DummyTransition.INSTANCE)
                 .addTransition(CharacterSelection.ID,   MainMenu.ID,            DummyTransition.INSTANCE)
                 .addTransition(CharacterSelection.ID,   DifficultySelection.ID, DummyTransition.INSTANCE)
@@ -95,18 +94,19 @@ public class DHBWGame extends ApplicationAdapter {
         engine.addSystem(new AccelerationSystem());
         engine.addSystem(new MovementSystem());
         engine.addSystem(new RenderSystem(this));
+        engine.addSystem(new ControlSystem());
+        engine.addSystem(new DecalSystem());
 
         entityFactory = new EntityFactory(engine);
 
-        CardDeck deck = new CardDeck(this.board, new Vector3(0, 0, -100));
-        this.board.addDeck(deck);
+        //CardDeck deck = new CardDeck(this.board, new Vector3(0, 0, -100));
+        //this.board.addDeck(deck);
         CardModel.setBackTex(new TextureRegion(new Texture("back.png")));
         for (int i = 0; i < 5; i++) {
-            //deck.addCard(new Card(this.board, new TextureRegion(new Texture("front.png")), new Vector3(20 * i, 0, -100)));
             Entity card = entityFactory.getInstance(resources.entities.card);
-            card.getComponent(Transform.class).setPosition(new Vector3(20 * i, 0, -100));
-            ((CardRenderObject) card.getComponent(Renderable.class).getRenderObject()).setFrontDecal(new TextureRegion(new Texture("front.png")));
-            deck.addCard(card);
+            card.getComponent(Transform.class).setPosition(new Vector3(20 * i, 0, -100)).setRotation(new Quaternion(new Vector3(1, 0, 0), 0));
+            card.getComponent(CardModel.class).setDecals(new TextureRegion(new Texture("front.png")));
+            //deck.addCard(card);
         }
 
         this.board.addDice(new Dice(board));
@@ -123,6 +123,8 @@ public class DHBWGame extends ApplicationAdapter {
 
         board.render(delta);
 		batch.flush();
+
+        engine.update(delta);
 	}
 
     public InputMultiplexer inputMultiplexer() {

@@ -1,8 +1,8 @@
 package de.cubeisland.games.dhbw.util.renderobject;
 
+import com.badlogic.ashley.core.Entity;
 import de.cubeisland.games.dhbw.DHBWGame;
-import de.cubeisland.games.dhbw.entity.component.Transform;
 
 public abstract class RenderObject {
-    public abstract void render(Transform transform, DHBWGame game);
+    public abstract void render(Entity e, DHBWGame game);
 }

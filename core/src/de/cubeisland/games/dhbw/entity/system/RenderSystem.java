@@ -4,7 +4,6 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.DHBWGame;
 import de.cubeisland.games.dhbw.entity.component.Renderable;
@@ -37,11 +36,9 @@ public class RenderSystem extends IteratingSystem {
         super.update(deltaTime);
 
         Entity e;
-        Transform transform;
         for (RenderObject o : this.queue) {
             e = o.entity;
-            transform = transforms.get(e);
-            renderables.get(e).render(transform, game);
+            renderables.get(e).render(e, game);
         }
 
         this.queue.clear();
