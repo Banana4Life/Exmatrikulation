@@ -1,12 +1,22 @@
 package de.cubeisland.games.dhbw.entity.component;
 
 import com.badlogic.ashley.core.Component;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g3d.ModelBatch;
-import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
+import com.badlogic.ashley.core.Entity;
 import de.cubeisland.games.dhbw.DHBWGame;
+import de.cubeisland.games.dhbw.util.renderobject.RenderObject;
 
-public abstract class Renderable extends Component {
-    public abstract void render(Transform transform, DHBWGame game);
+public class Renderable extends Component {
+    private RenderObject renderObject;
+
+    public Renderable(RenderObject renderObject) {
+        this.renderObject = renderObject;
+    }
+
+    public void render(Entity e, DHBWGame game) {
+        renderObject.render(e, game);
+    }
+
+    public RenderObject getRenderObject() {
+        return renderObject;
+    }
 }

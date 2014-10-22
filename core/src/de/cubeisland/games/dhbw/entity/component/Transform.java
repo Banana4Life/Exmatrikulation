@@ -32,7 +32,10 @@ public class Transform extends Component {
     }
 
     public Transform rotate(float yaw, float pitch, float roll) {
-        // TODO implement me
+        Quaternion rollQuat = new Quaternion(1, 0, 0, roll);
+        Quaternion pitchQuat = new Quaternion(0, 1, 0, pitch);
+        Quaternion yawQuat = new Quaternion(0, 0, 1, yaw);
+        this.rotation.mul(yawQuat).mul(pitchQuat).mul(rollQuat);
         return this;
     }
 }

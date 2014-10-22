@@ -1,7 +1,13 @@
 package de.cubeisland.games.dhbw.input;
 
+import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.Family;
+import com.badlogic.ashley.utils.ImmutableArray;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import de.cubeisland.games.dhbw.DHBWGame;
+import de.cubeisland.games.dhbw.entity.component.*;
 
 public class GlobalInputProcessor implements InputProcessor {
     private DHBWGame game;
@@ -12,7 +18,10 @@ public class GlobalInputProcessor implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        return false;
+        if (keycode == Input.Keys.W) {
+            game.getEngine().getEntitiesFor(Family.getFor(Deck.class)).first().getComponent(Deck.class).drawCard();
+        }
+        return true;
     }
 
     @Override
@@ -27,12 +36,26 @@ public class GlobalInputProcessor implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
+        if (button == Input.Buttons.LEFT) {
+            for (Entity entity : game.getEngine().getEntitiesFor(Family.getFor(Pickable.class, Model.class))) {
+                if (entity.getComponent(Model.class).getModelObject().isClickOnModel(game.getCamera(), screenX, Gdx.graphics.getHeight() - screenY)) {
+                    entity.remove(Pickable.class);
+                    entity.add(new Picked());
+                }
+            }
+        }
+        return true;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
+        if (button == Input.Buttons.LEFT) {
+            for (Entity entity : game.getEngine().getEntitiesFor(Family.getFor(Picked.class)).toArray()) {
+                entity.remove(Picked.class);
+                entity.add(new Pickable());
+            }
+        }
+        return true;
     }
 
     @Override

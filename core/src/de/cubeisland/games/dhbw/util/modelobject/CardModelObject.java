@@ -1,21 +1,22 @@
-package de.cubeisland.games.dhbw.entity.component;
+package de.cubeisland.games.dhbw.util.modelobject;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
-import de.cubeisland.games.dhbw.DHBWGame;
 
-public class CardModel extends Renderable {
+public class CardModelObject extends ModelObject {
     private Decal frontDecal;
     private Decal backDecal;
 
     private static TextureRegion backTex;
 
-    public boolean isClickOnProjectedCard(Camera camera, float screenX, float screenY) {
+    @Override
+    public boolean isClickOnModel(Camera camera, float screenX, float screenY) {
         Vector3 topLeft     = camera.project(new Vector3(frontDecal.getVertices()[Decal.X1], frontDecal.getVertices()[Decal.Y1], frontDecal.getVertices()[Decal.Z1]));
         Vector3 topRight    = camera.project(new Vector3(frontDecal.getVertices()[Decal.X2], frontDecal.getVertices()[Decal.Y2], frontDecal.getVertices()[Decal.Z2]));
         Vector3 bottomLeft  = camera.project(new Vector3(frontDecal.getVertices()[Decal.X3], frontDecal.getVertices()[Decal.Y3], frontDecal.getVertices()[Decal.Z3]));
@@ -30,38 +31,44 @@ public class CardModel extends Renderable {
         return Intersector.isPointInPolygon(polygon, new Vector2(screenX, screenY));
     }
 
+    public CardModelObject setDecals(TextureRegion frontTexture) {
+        this.frontDecal = Decal.newDecal(frontTexture.getRegionWidth(), frontTexture.getRegionHeight(), frontTexture, true);
+        this.backDecal = Decal.newDecal(backTex.getRegionWidth(), backTex.getRegionHeight(), backTex, true);
+        return this;
+    }
+
     @Override
-    public void render(Transform transform, DHBWGame game) {
-        frontDecal.setRotation(transform.getRotation().cpy());
-        frontDecal.setPosition(transform.getPosition().cpy());
-        backDecal.setRotation(transform.getRotation().cpy());
-        backDecal.setPosition(transform.getPosition().cpy());
-        backDecal.translate(frontDecal.getRotation().transform(new Vector3(0, 0, 1)).scl(0.1f));
+    public CardModelObject setPosition(Vector3 position) {
+        Vector3 gap = frontDecal.getRotation().cpy().transform(new Vector3(0, 0, 1)).scl(0.1f);
 
-        game.getDecalBatch().add(frontDecal);
-        game.getDecalBatch().add(backDecal);
-        game.getDecalBatch().flush();
-    }
+        frontDecal.setPosition(position.cpy());
+        backDecal.setPosition(position.cpy().sub(gap));
 
-    public CardModel setFrontDecal(Decal frontDecal) {
-        this.frontDecal = frontDecal;
-        return this;
-    }
-    public CardModel setFrontDecal(TextureRegion texture) {
-        this.frontDecal = Decal.newDecal(texture.getRegionWidth(), texture.getRegionHeight(), texture, true);
         return this;
     }
 
-    public CardModel setBackDecal(Decal backDecal) {
-        this.backDecal = backDecal;
+    @Override
+    public CardModelObject setRotation(Quaternion rotation) {
+        frontDecal.setRotation(rotation.cpy());
+        backDecal.setRotation(rotation.cpy());
+
         return this;
     }
-    public CardModel setBackDecal() {
-        this.frontDecal = Decal.newDecal(backTex.getRegionWidth(), backTex.getRegionHeight(), backTex, true);
-        return this;
+
+    @Override
+    public Vector3 getPosition() {
+        return frontDecal.getPosition();
+    }
+
+    public Decal getFrontDecal() {
+        return frontDecal;
+    }
+
+    public Decal getBackDecal() {
+        return backDecal;
     }
 
     public static void setBackTex(TextureRegion backTex) {
-        CardModel.backTex = backTex;
+        CardModelObject.backTex = backTex;
     }
 }
