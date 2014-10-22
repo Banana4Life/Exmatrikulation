@@ -5,12 +5,12 @@ import com.badlogic.gdx.math.Vector3;
 
 public class DestTransform extends Transform {
     public DestTransform(Transform tranform) {
-        this.setPosition(tranform.getPosition());
-        this.setRotation(tranform.getRotation());
+        this.setPosition(tranform.getPosition().cpy());
+        this.setRotation(tranform.getRotation().cpy());
     }
 
     public DestTransform(Vector3 position, Quaternion rotation) {
-        this.setPosition(position);
-        this.setRotation(rotation);
+        this.setPosition(position.cpy());
+        this.setRotation(rotation.cpy());
     }
 }

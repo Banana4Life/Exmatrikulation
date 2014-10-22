@@ -12,13 +12,13 @@ public class Cards extends ResourceBag<CardPrefab> {
 
     // initialization of all cards; name must be equal to name of the config-file
     // event cards
-    public CardPreFab eventCard1;
+    public CardPrefab eventCard1;
 
     // object cards
-    public CardPreFab objectCard1;
+    public CardPrefab objectCard1;
 
     // ability cards
-    public CardPreFab abilityCard1;
+    public CardPrefab abilityCard1;
 
     public Cards(Reflector reflector) {
         this.reflector = reflector;

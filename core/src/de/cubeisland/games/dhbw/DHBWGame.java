@@ -18,10 +18,11 @@ import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.engine.reflect.Reflector;
 import de.cubeisland.games.dhbw.entity.EntityFactory;
+import de.cubeisland.games.dhbw.entity.component.Deck;
 import de.cubeisland.games.dhbw.entity.component.Model;
 import de.cubeisland.games.dhbw.entity.component.Transform;
 import de.cubeisland.games.dhbw.entity.system.*;
-import de.cubeisland.games.dhbw.input.BoardInputProcessor;
+import de.cubeisland.games.dhbw.input.GlobalInputProcessor;
 import de.cubeisland.games.dhbw.input.InputMultiplexer;
 import de.cubeisland.games.dhbw.resource.DHBWResources;
 import de.cubeisland.games.dhbw.state.StateManager;
@@ -42,8 +43,6 @@ public class DHBWGame extends ApplicationAdapter {
     private PerspectiveCamera   camera;
     private EntityFactory       entityFactory;
     private Engine              engine;
-
-    private Board board = new Board(this, new Vector3(0, 0, -100));
 	
 	@Override
 	public void create () {
@@ -73,7 +72,7 @@ public class DHBWGame extends ApplicationAdapter {
                 .addTransition(Paused.ID,               MainMenu.ID,            DummyTransition.INSTANCE)
                 .start();
 
-        inputMultiplexer = new InputMultiplexer(new BoardInputProcessor(board));
+        inputMultiplexer = new InputMultiplexer(new GlobalInputProcessor(this));
         Gdx.input.setInputProcessor(inputMultiplexer);
 
         environment = new Environment();
@@ -94,18 +93,21 @@ public class DHBWGame extends ApplicationAdapter {
         engine.addSystem(new RenderSystem(this));
         engine.addSystem(new ControlSystem());
         engine.addSystem(new ModelSystem());
+        engine.addSystem(new DeckSystem());
 
         entityFactory = new EntityFactory(engine);
 
         entityFactory.getInstance(resources.entities.world);
 
-        //CardDeck deck = new CardDeck(this.board, new Vector3(0, 0, -100));
+        Entity deck = entityFactory.getInstance(resources.entities.deck);
+        deck.getComponent(Transform.class).setPosition(new Vector3(40, 0, -100)).setRotation(new Quaternion(new Vector3(0, 1, 0), -90));
+        deck.getComponent(Deck.class).setDestPos(new Vector3(0, 0, -100)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 0));
         CardModelObject.setBackTex(new TextureRegion(new Texture("back.png")));
         for (int i = 0; i < 5; i++) {
             Entity card = entityFactory.getInstance(resources.entities.card);
             card.getComponent(Transform.class).setPosition(new Vector3(20 * i, 0, -100)).setRotation(new Quaternion(new Vector3(1, 0, 0), 0));
             ((CardModelObject)card.getComponent(Model.class).getModelObject()).setDecals(new TextureRegion(new Texture("front.png")));
-            //deck.addCard(card);
+            deck.getComponent(Deck.class).addCard(card);
         }
 
         entityFactory.getInstance(resources.entities.dice);
@@ -143,5 +145,9 @@ public class DHBWGame extends ApplicationAdapter {
 
     public DHBWResources getResources() {
         return resources;
+    }
+
+    public Engine getEngine() {
+        return engine;
     }
 }

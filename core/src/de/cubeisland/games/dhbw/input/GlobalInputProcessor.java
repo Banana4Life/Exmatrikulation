@@ -1,7 +1,11 @@
 package de.cubeisland.games.dhbw.input;
 
+import com.badlogic.ashley.core.Family;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import de.cubeisland.games.dhbw.DHBWGame;
+import de.cubeisland.games.dhbw.entity.component.Deck;
 
 public class GlobalInputProcessor implements InputProcessor {
     private DHBWGame game;
@@ -12,7 +16,10 @@ public class GlobalInputProcessor implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        return false;
+        if (keycode == Input.Keys.W) {
+            game.getEngine().getEntitiesFor(Family.getFor(Deck.class)).first().getComponent(Deck.class).drawCard();
+        }
+        return true;
     }
 
     @Override
