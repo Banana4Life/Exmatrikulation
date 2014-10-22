@@ -37,7 +37,7 @@ public class GlobalInputProcessor implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (button == Input.Buttons.LEFT) {
-            for (Entity entity : game.getEngine().getEntitiesFor(Family.getFor(Pickable.class, Model.class)).toArray()) {
+            for (Entity entity : game.getEngine().getEntitiesFor(Family.getFor(Pickable.class, Model.class))) {
                 if (entity.getComponent(Model.class).getModelObject().isClickOnModel(game.getCamera(), screenX, screenY)) {
                     entity.remove(Pickable.class);
                     entity.add(new Picked());
