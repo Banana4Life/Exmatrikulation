@@ -1,13 +1,13 @@
 package de.cubeisland.games.dhbw.resource.bag;
 
 import de.cubeisland.engine.reflect.Reflector;
-import de.cubeisland.games.dhbw.entity.CardPreFab;
+import de.cubeisland.games.dhbw.entity.CardPrefab;
 import life.banana4.util.resourcebags.FileRef;
 import life.banana4.util.resourcebags.ResourceBag;
 
 import java.lang.reflect.Field;
 
-public class Cards extends ResourceBag<CardPreFab> {
+public class Cards extends ResourceBag<CardPrefab> {
     private Reflector reflector;
 
     public Cards(Reflector reflector) {
@@ -15,7 +15,7 @@ public class Cards extends ResourceBag<CardPreFab> {
     }
 
     @Override
-    protected CardPreFab load(FileRef basedir, Field field) {
-        return this.reflector.load(CardPreFab.class, basedir.child(field.getName()+".yml").getInputStream());
+    protected CardPrefab load(FileRef basedir, Field field) {
+        return this.reflector.load(CardPrefab.class, basedir.child(field.getName()+".yml").getInputStream());
     }
 }

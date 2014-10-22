@@ -1,14 +1,14 @@
 package de.cubeisland.games.dhbw.util.renderobject;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.DHBWGame;
-import de.cubeisland.games.dhbw.entity.component.CardModel;
+import de.cubeisland.games.dhbw.entity.component.Model;
+import de.cubeisland.games.dhbw.util.modelobject.CardModelObject;
 
 public class CardRenderObject extends RenderObject {
     @Override
     public void render(Entity e, DHBWGame game) {
-        CardModel cardModel = e.getComponent(CardModel.class);
+        CardModelObject cardModel = (CardModelObject)e.getComponent(Model.class).getModelObject();
 
         game.getDecalBatch().add(cardModel.getFrontDecal());
         game.getDecalBatch().add(cardModel.getBackDecal());

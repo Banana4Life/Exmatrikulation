@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.entity.component.*;
+import de.cubeisland.games.dhbw.util.modelobject.CardModelObject;
 import de.cubeisland.games.dhbw.util.renderobject.CardRenderObject;
 
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class Board {
     public void pickCard(float screenX, float screenY) {
         if (pickedCard == null) {
             for (Entity card : cards) {
-                if (card.getComponent(Pickable.class) != null && card.getComponent(CardModel.class).isClickOnProjectedCard(this.getGame().getCamera(), screenX, Gdx.graphics.getHeight() - screenY)) {
+                if (card.getComponent(Pickable.class) != null && ((CardModelObject)card.getComponent(Model.class).getModelObject()).isClickOnProjectedCard(this.getGame().getCamera(), screenX, Gdx.graphics.getHeight() - screenY)) {
                     pickedCard = card;
                 }
             }

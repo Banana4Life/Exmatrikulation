@@ -1,6 +1,5 @@
-package de.cubeisland.games.dhbw.entity.component;
+package de.cubeisland.games.dhbw.util.modelobject;
 
-import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
@@ -9,9 +8,8 @@ import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
-import de.cubeisland.games.dhbw.DHBWGame;
 
-public class CardModel extends Component {
+public class CardModelObject extends ModelObject {
     private Decal frontDecal;
     private Decal backDecal;
 
@@ -32,13 +30,14 @@ public class CardModel extends Component {
         return Intersector.isPointInPolygon(polygon, new Vector2(screenX, screenY));
     }
 
-    public CardModel setDecals(TextureRegion frontTexture) {
+    public CardModelObject setDecals(TextureRegion frontTexture) {
         this.frontDecal = Decal.newDecal(frontTexture.getRegionWidth(), frontTexture.getRegionHeight(), frontTexture, true);
         this.backDecal = Decal.newDecal(backTex.getRegionWidth(), backTex.getRegionHeight(), backTex, true);
         return this;
     }
 
-    public CardModel setPosition(Vector3 position) {
+    @Override
+    public CardModelObject setPosition(Vector3 position) {
         Vector3 gap = frontDecal.getRotation().cpy().transform(new Vector3(0, 0, 1)).scl(0.1f);
 
         frontDecal.setPosition(position.cpy());
@@ -47,11 +46,17 @@ public class CardModel extends Component {
         return this;
     }
 
-    public CardModel setRotation(Quaternion rotation) {
+    @Override
+    public CardModelObject setRotation(Quaternion rotation) {
         frontDecal.setRotation(rotation.cpy());
         backDecal.setRotation(rotation.cpy());
 
         return this;
+    }
+
+    @Override
+    public Vector3 getPosition() {
+        return frontDecal.getPosition();
     }
 
     public Decal getFrontDecal() {
@@ -63,6 +68,6 @@ public class CardModel extends Component {
     }
 
     public static void setBackTex(TextureRegion backTex) {
-        CardModel.backTex = backTex;
+        CardModelObject.backTex = backTex;
     }
 }

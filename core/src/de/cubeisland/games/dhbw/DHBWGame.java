@@ -17,10 +17,8 @@ import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.engine.reflect.Reflector;
-import de.cubeisland.games.dhbw.entity.CardPreFab;
 import de.cubeisland.games.dhbw.entity.EntityFactory;
-import de.cubeisland.games.dhbw.entity.component.CardModel;
-import de.cubeisland.games.dhbw.entity.component.Renderable;
+import de.cubeisland.games.dhbw.entity.component.Model;
 import de.cubeisland.games.dhbw.entity.component.Transform;
 import de.cubeisland.games.dhbw.entity.system.*;
 import de.cubeisland.games.dhbw.input.BoardInputProcessor;
@@ -31,7 +29,7 @@ import de.cubeisland.games.dhbw.state.StateManager.StartState;
 import de.cubeisland.games.dhbw.state.states.*;
 import de.cubeisland.games.dhbw.state.transitions.DummyTransition;
 import de.cubeisland.games.dhbw.util.ClassConverter;
-import de.cubeisland.games.dhbw.util.renderobject.CardRenderObject;
+import de.cubeisland.games.dhbw.util.modelobject.CardModelObject;
 
 public class DHBWGame extends ApplicationAdapter {
     private Reflector           reflector;
@@ -95,21 +93,22 @@ public class DHBWGame extends ApplicationAdapter {
         engine.addSystem(new MovementSystem());
         engine.addSystem(new RenderSystem(this));
         engine.addSystem(new ControlSystem());
-        engine.addSystem(new DecalSystem());
+        engine.addSystem(new ModelSystem());
 
         entityFactory = new EntityFactory(engine);
 
+        entityFactory.getInstance(resources.entities.world);
+
         //CardDeck deck = new CardDeck(this.board, new Vector3(0, 0, -100));
-        //this.board.addDeck(deck);
-        CardModel.setBackTex(new TextureRegion(new Texture("back.png")));
+        CardModelObject.setBackTex(new TextureRegion(new Texture("back.png")));
         for (int i = 0; i < 5; i++) {
             Entity card = entityFactory.getInstance(resources.entities.card);
             card.getComponent(Transform.class).setPosition(new Vector3(20 * i, 0, -100)).setRotation(new Quaternion(new Vector3(1, 0, 0), 0));
-            card.getComponent(CardModel.class).setDecals(new TextureRegion(new Texture("front.png")));
+            ((CardModelObject)card.getComponent(Model.class).getModelObject()).setDecals(new TextureRegion(new Texture("front.png")));
             //deck.addCard(card);
         }
 
-        this.board.addDice(new Dice(board));
+        entityFactory.getInstance(resources.entities.dice);
 	}
 
 	@Override
@@ -118,12 +117,7 @@ public class DHBWGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
         float delta = Gdx.graphics.getDeltaTime();
-
         camera.update();
-
-        board.render(delta);
-		batch.flush();
-
         engine.update(delta);
 	}
 

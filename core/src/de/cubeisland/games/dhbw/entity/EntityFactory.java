@@ -3,10 +3,10 @@ package de.cubeisland.games.dhbw.entity;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import de.cubeisland.games.dhbw.entity.component.Model;
 import de.cubeisland.games.dhbw.entity.component.Renderable;
+import de.cubeisland.games.dhbw.util.modelobject.ModelObject;
 import de.cubeisland.games.dhbw.util.renderobject.RenderObject;
-
-import java.lang.reflect.InvocationTargetException;
 
 public class EntityFactory {
     private Engine engine;
@@ -15,13 +15,15 @@ public class EntityFactory {
         this.engine = engine;
     }
 
-    public Entity getInstance(EntityPreFab preFab) {
+    public Entity getInstance(EntityPrefab preFab) {
         Entity entity = new Entity();
         engine.addEntity(entity);
         for (Class<Component> component : preFab.components) {
             try {
                 if (Renderable.class.isAssignableFrom(component)) {
                     entity.add(component.getConstructor(RenderObject.class).newInstance(preFab.renderobject.getConstructor().newInstance()));
+                } else if (Model.class.isAssignableFrom(component)) {
+                    entity.add(component.getConstructor(ModelObject.class).newInstance(preFab.modelobject.getConstructor().newInstance()));
                 } else {
                     entity.add(component.getConstructor().newInstance());
                 }

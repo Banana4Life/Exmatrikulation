@@ -4,26 +4,26 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import de.cubeisland.games.dhbw.entity.component.CardModel;
+import de.cubeisland.games.dhbw.entity.component.Model;
 import de.cubeisland.games.dhbw.entity.component.Transform;
 
-public class DecalSystem extends IteratingSystem {
-    private ComponentMapper<CardModel> cardModels;
+public class ModelSystem extends IteratingSystem {
+    private ComponentMapper<Model> models;
     private ComponentMapper<Transform> transforms;
 
-    public DecalSystem() {
-        super(Family.getFor(CardModel.class, Transform.class));
+    public ModelSystem() {
+        super(Family.getFor(Model.class, Transform.class));
 
-        this.cardModels = ComponentMapper.getFor(CardModel.class);
+        this.models = ComponentMapper.getFor(Model.class);
         this.transforms = ComponentMapper.getFor(Transform.class);
     }
 
     @Override
     public void processEntity(Entity entity, float deltaTime) {
-        CardModel cardModel = cardModels.get(entity);
+        Model model = models.get(entity);
         Transform transform = transforms.get(entity);
 
-        cardModel.setRotation(transform.getRotation());
-        cardModel.setPosition(transform.getPosition());
+        model.getModelObject().setRotation(transform.getRotation());
+        model.getModelObject().setPosition(transform.getPosition());
     }
 }

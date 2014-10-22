@@ -1,23 +1,26 @@
 package de.cubeisland.games.dhbw.resource.bag;
 
 import de.cubeisland.engine.reflect.Reflector;
-import de.cubeisland.games.dhbw.entity.EntityPreFab;
+import de.cubeisland.games.dhbw.entity.EntityPrefab;
 import life.banana4.util.resourcebags.FileRef;
 import life.banana4.util.resourcebags.ResourceBag;
 
 import java.lang.reflect.Field;
 
-public class Entities extends ResourceBag<EntityPreFab> {
+public class Entities extends ResourceBag<EntityPrefab> {
     private Reflector reflector;
 
-    public EntityPreFab card;
+    public EntityPrefab card;
+    public EntityPrefab world;
+    public EntityPrefab deck;
+    public EntityPrefab dice;
 
     public Entities(Reflector reflector) {
         this.reflector = reflector;
     }
 
     @Override
-    protected EntityPreFab load(FileRef basedir, Field field) {
-        return this.reflector.load(EntityPreFab.class, basedir.child(field.getName()+".yml").getInputStream());
+    protected EntityPrefab load(FileRef basedir, Field field) {
+        return this.reflector.load(EntityPrefab.class, basedir.child(field.getName()+".yml").getInputStream());
     }
 }
