@@ -9,15 +9,9 @@ import de.cubeisland.games.dhbw.util.modelobject.ModelObject;
 import de.cubeisland.games.dhbw.util.renderobject.RenderObject;
 
 public class EntityFactory {
-    private Engine engine;
 
-    public EntityFactory(Engine engine) {
-        this.engine = engine;
-    }
-
-    public Entity getInstance(EntityPrefab preFab) {
+    public Entity create(EntityPrefab preFab) {
         Entity entity = new Entity();
-        engine.addEntity(entity);
         for (Class<Component> component : preFab.components) {
             try {
                 if (Renderable.class.isAssignableFrom(component)) {

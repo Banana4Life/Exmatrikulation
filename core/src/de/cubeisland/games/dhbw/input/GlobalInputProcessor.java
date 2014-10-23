@@ -1,25 +1,28 @@
 package de.cubeisland.games.dhbw.input;
 
+import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import de.cubeisland.games.dhbw.DHBWGame;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
 import de.cubeisland.games.dhbw.entity.component.*;
 
 public class GlobalInputProcessor implements InputProcessor {
-    private DHBWGame game;
+    private final PerspectiveCamera camera;
+    private final Engine engine;
 
-    public GlobalInputProcessor(DHBWGame game) {
-        this.game = game;
+    public GlobalInputProcessor(PerspectiveCamera camera, Engine engine) {
+        this.camera = camera;
+        this.engine = engine;
     }
 
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.W) {
-            game.getEngine().getEntitiesFor(Family.getFor(Deck.class)).first().getComponent(Deck.class).drawCard();
+            engine.getEntitiesFor(Family.getFor(Deck.class)).first().getComponent(Deck.class).drawCard();
         }
         return true;
     }
@@ -37,8 +40,10 @@ public class GlobalInputProcessor implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (button == Input.Buttons.LEFT) {
-            for (Entity entity : game.getEngine().getEntitiesFor(Family.getFor(Pickable.class, Model.class))) {
-                if (entity.getComponent(Model.class).getModelObject().isClickOnModel(game.getCamera(), screenX, Gdx.graphics.getHeight() - screenY)) {
+            ImmutableArray<Entity> entities = engine.getEntitiesFor(Family.getFor(Pickable.class, Model.class));
+            for (int i = 0; i < entities.size(); ++i) {
+                Entity entity = entities.get(i);
+                if (entity.getComponent(Model.class).getModelObject().isClickOnModel(camera, screenX, Gdx.graphics.getHeight() - screenY)) {
                     entity.remove(Pickable.class);
                     entity.add(new Picked());
                 }
@@ -50,7 +55,9 @@ public class GlobalInputProcessor implements InputProcessor {
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         if (button == Input.Buttons.LEFT) {
-            for (Entity entity : game.getEngine().getEntitiesFor(Family.getFor(Picked.class)).toArray()) {
+            ImmutableArray<Entity> entities = engine.getEntitiesFor(Family.getFor(Picked.class));
+            for (int i = 0; i < entities.size(); ++i) {
+                Entity entity = entities.get(i);
                 entity.remove(Picked.class);
                 entity.add(new Pickable());
             }

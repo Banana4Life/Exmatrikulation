@@ -18,6 +18,7 @@ import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.engine.reflect.Reflector;
 import de.cubeisland.games.dhbw.entity.EntityFactory;
+import de.cubeisland.games.dhbw.entity.component.Camera;
 import de.cubeisland.games.dhbw.entity.component.Deck;
 import de.cubeisland.games.dhbw.entity.component.Model;
 import de.cubeisland.games.dhbw.entity.component.Transform;
@@ -33,23 +34,22 @@ import de.cubeisland.games.dhbw.util.ClassConverter;
 import de.cubeisland.games.dhbw.util.modelobject.CardModelObject;
 
 public class DHBWGame extends ApplicationAdapter {
-    private Reflector           reflector;
     private DHBWResources       resources;
     private StateManager        stateManager;
     private InputMultiplexer    inputMultiplexer;
 	private DecalBatch          batch;
     private ModelBatch          modelBatch;
     private Environment         environment;
-    private PerspectiveCamera   camera;
     private EntityFactory       entityFactory;
     private Engine              engine;
 	
 	@Override
 	public void create () {
-        reflector = new Reflector();
+        Reflector reflector = new Reflector();
         reflector.getDefaultConverterManager().registerConverter(Class.class, new ClassConverter());
         resources = new DHBWResources(reflector);
         resources.build();
+        entityFactory = new EntityFactory();
 
         this.stateManager = new StateManager(this);
         this.stateManager
@@ -60,7 +60,7 @@ public class DHBWGame extends ApplicationAdapter {
                 .addState(new Playing())
                 .addState(new Paused())
                 .addTransition(StartState.ID,           SplashScreen.ID,        DummyTransition.INSTANCE)
-                .addTransition(SplashScreen.ID, MainMenu.ID, DummyTransition.INSTANCE)
+                .addTransition(SplashScreen.ID,         MainMenu.ID,            DummyTransition.INSTANCE)
                 .addTransition(MainMenu.ID,             CharacterSelection.ID,  DummyTransition.INSTANCE)
                 .addTransition(CharacterSelection.ID,   MainMenu.ID,            DummyTransition.INSTANCE)
                 .addTransition(CharacterSelection.ID,   DifficultySelection.ID, DummyTransition.INSTANCE)
@@ -72,17 +72,17 @@ public class DHBWGame extends ApplicationAdapter {
                 .addTransition(Paused.ID,               MainMenu.ID,            DummyTransition.INSTANCE)
                 .start();
 
-        inputMultiplexer = new InputMultiplexer(new GlobalInputProcessor(this));
-        Gdx.input.setInputProcessor(inputMultiplexer);
-
         environment = new Environment();
         environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));
         environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
 
-        camera = new PerspectiveCamera(45, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        PerspectiveCamera camera = new PerspectiveCamera(45, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.near = 1;
         camera.far = 300;
         camera.position.set(0, 0, 1);
+
+        Entity cameraEntity = entityFactory.create(resources.entities.camera);
+        cameraEntity.getComponent(Camera.class).set(camera);
 
 		batch = new DecalBatch(new CameraGroupStrategy(camera));
         modelBatch = new ModelBatch();
@@ -90,28 +90,36 @@ public class DHBWGame extends ApplicationAdapter {
         engine = new Engine();
         engine.addSystem(new AccelerationSystem());
         engine.addSystem(new MovementSystem());
-        engine.addSystem(new RenderSystem(this));
+        engine.addSystem(new RenderSystem(camera, this));
         engine.addSystem(new ControlSystem());
         engine.addSystem(new ModelSystem());
         engine.addSystem(new DeckSystem());
-        engine.addSystem(new PickSystem(this));
+        engine.addSystem(new PickSystem(camera));
+        engine.addSystem(new CameraSystem(this));
 
-        entityFactory = new EntityFactory(engine);
+        inputMultiplexer = new InputMultiplexer(new GlobalInputProcessor(camera, engine));
+        Gdx.input.setInputProcessor(inputMultiplexer);
 
-        entityFactory.getInstance(resources.entities.world);
+        engine.addEntity(cameraEntity);
+        engine.addEntity(entityFactory.create(resources.entities.world));
 
-        Entity deck = entityFactory.getInstance(resources.entities.deck);
+        Entity deck = entityFactory.create(resources.entities.deck);
         deck.getComponent(Transform.class).setPosition(new Vector3(40, 0, -100)).setRotation(new Quaternion(new Vector3(0, 1, 0), -90));
         deck.getComponent(Deck.class).setDestPos(new Vector3(0, 0, -100)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 0));
+
+        engine.addEntity(deck);
+
         CardModelObject.setBackTex(new TextureRegion(new Texture("back.png")));
         for (int i = 0; i < 5; i++) {
-            Entity card = entityFactory.getInstance(resources.entities.card);
+            Entity card = entityFactory.create(resources.entities.card);
             card.getComponent(Transform.class).setPosition(new Vector3(20 * i, 0, -100)).setRotation(new Quaternion(new Vector3(1, 0, 0), 0));
             ((CardModelObject)card.getComponent(Model.class).getModelObject()).setDecals(new TextureRegion(new Texture("front.png")));
+
+            engine.addEntity(card);
             deck.getComponent(Deck.class).addCard(card);
         }
 
-        entityFactory.getInstance(resources.entities.dice);
+        engine.addEntity(entityFactory.create(resources.entities.dice));
 	}
 
 	@Override
@@ -120,7 +128,6 @@ public class DHBWGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
         float delta = Gdx.graphics.getDeltaTime();
-        camera.update();
         engine.update(delta);
 	}
 
@@ -140,15 +147,7 @@ public class DHBWGame extends ApplicationAdapter {
         return environment;
     }
 
-    public PerspectiveCamera getCamera() {
-        return this.camera;
-    }
-
     public DHBWResources getResources() {
         return resources;
-    }
-
-    public Engine getEngine() {
-        return engine;
     }
 }

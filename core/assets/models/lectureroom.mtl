@@ -1,0 +1,26 @@
+#
+## Alias OBJ Material File
+# Exported from SketchUp, (c) 2000-2012 Trimble Navigation Limited
+
+newmtl FrontColor
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.330000 0.330000 0.330000
+
+newmtl Color_G25
+Ka 0.000000 0.000000 0.000000
+Kd 0.156863 0.200000 0.156863
+Ks 0.330000 0.330000 0.330000
+
+newmtl Concrete_Form_4x8
+Ka 0.000000 0.000000 0.000000
+Kd 0.654902 0.666667 0.658824
+Ks 0.330000 0.330000 0.330000
+map_Kd lecture-room/Concrete_Form_4x8.jpg
+
+newmtl Sketchy_Siding_Straight
+Ka 0.000000 0.000000 0.000000
+Kd 0.921569 0.858824 0.686275
+Ks 0.330000 0.330000 0.330000
+map_Kd lecture-room/Sketchy_Siding_Straight.jpg
+

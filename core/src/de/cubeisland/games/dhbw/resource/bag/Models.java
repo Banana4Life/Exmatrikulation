@@ -12,6 +12,7 @@ public class Models extends ResourceBag<Model> {
 
     public Model card;
     public Model d20;
+    public Model lectureroom;
 
     private final ObjLoader ldr = new ObjLoader();
 

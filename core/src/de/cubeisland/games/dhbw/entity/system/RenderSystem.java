@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.DHBWGame;
 import de.cubeisland.games.dhbw.entity.component.Model;
@@ -16,15 +17,17 @@ import java.util.PriorityQueue;
 public class RenderSystem extends IteratingSystem {
     private static final RenderOrder BY_RENDER_ORDER = new RenderOrder();
 
-    private DHBWGame game;
+    private final PerspectiveCamera camera;
+    private final DHBWGame game;
 
     private final ComponentMapper<Model> models;
     private final ComponentMapper<Renderable> renderables;
 
     private final PriorityQueue<RenderObject> queue = new PriorityQueue<>(10, BY_RENDER_ORDER);
 
-    public RenderSystem(DHBWGame game) {
+    public RenderSystem(PerspectiveCamera camera, DHBWGame game) {
         super(Family.getFor(Model.class, Renderable.class));
+        this.camera = camera;
 
         this.game = game;
 
@@ -39,7 +42,7 @@ public class RenderSystem extends IteratingSystem {
         Entity e;
         for (RenderObject o : this.queue) {
             e = o.entity;
-            renderables.get(e).render(e, game);
+            renderables.get(e).render(this.camera, e, this.game);
         }
 
         this.queue.clear();

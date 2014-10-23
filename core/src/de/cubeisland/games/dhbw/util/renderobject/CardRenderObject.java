@@ -1,18 +1,22 @@
 package de.cubeisland.games.dhbw.util.renderobject;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
+import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import de.cubeisland.games.dhbw.DHBWGame;
 import de.cubeisland.games.dhbw.entity.component.Model;
 import de.cubeisland.games.dhbw.util.modelobject.CardModelObject;
 
 public class CardRenderObject extends RenderObject {
     @Override
-    public void render(Entity e, DHBWGame game) {
+    public void render(PerspectiveCamera cam, Entity e, DHBWGame game) {
         CardModelObject cardModel = (CardModelObject)e.getComponent(Model.class).getModelObject();
 
-        game.getDecalBatch().add(cardModel.getFrontDecal());
-        game.getDecalBatch().add(cardModel.getBackDecal());
-        game.getDecalBatch().flush();
+        DecalBatch batch = game.getDecalBatch();
+
+        batch.add(cardModel.getFrontDecal());
+        batch.add(cardModel.getBackDecal());
+        batch.flush();
 
         /*
         public void render(float delta) {
