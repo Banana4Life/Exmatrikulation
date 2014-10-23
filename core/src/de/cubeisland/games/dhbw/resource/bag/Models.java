@@ -11,7 +11,7 @@ import java.lang.reflect.Field;
 public class Models extends ResourceBag<Model> {
 
     public Model card;
-    public Model D20;
+    public Model d20;
 
     private final ObjLoader ldr = new ObjLoader();
 

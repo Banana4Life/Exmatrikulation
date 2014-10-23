@@ -12,7 +12,7 @@ public class ModelObject3D extends ModelObject {
 
     public ModelObject3D() {
         ObjLoader ldr = new ObjLoader();
-        com.badlogic.gdx.graphics.g3d.Model model = ldr.loadModel(Gdx.files.internal("D20.obj"));
+        com.badlogic.gdx.graphics.g3d.Model model = ldr.loadModel(Gdx.files.internal("models/d20.obj"));
         instance = new ModelInstance(model);
         instance.transform.setToTranslation(0, 0, -50);
     }
