@@ -1,9 +1,9 @@
 package de.cubeisland.games.dhbw.entity;
 
-import de.cubeisland.engine.reflect.ReflectedYaml;
 import de.cubeisland.engine.reflect.Section;
+import de.cubeisland.games.dhbw.util.Prefab;
 
-public class CardPrefab extends ReflectedYaml {
+public class CardPrefab extends Prefab {
     public enum CardType {
         EVENT, OBJECT, ABILITY
     }

@@ -1,14 +1,14 @@
 package de.cubeisland.games.dhbw.entity;
 
 import com.badlogic.ashley.core.Component;
-import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import de.cubeisland.games.dhbw.entity.component.Model;
 import de.cubeisland.games.dhbw.entity.component.Renderable;
+import de.cubeisland.games.dhbw.util.Factory;
 import de.cubeisland.games.dhbw.util.modelobject.ModelObject;
 import de.cubeisland.games.dhbw.util.renderobject.RenderObject;
 
-public class EntityFactory {
+public class EntityFactory implements Factory<Entity, EntityPrefab> {
 
     public Entity create(EntityPrefab preFab) {
         Entity entity = new Entity();
