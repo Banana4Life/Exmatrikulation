@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector3;
 public class Transform extends Component {
     private final Vector3 position = Vector3.Zero.cpy();
     private final Quaternion rotation = new Quaternion(Vector3.Zero, 0);
+    private float scale = 1;
 
     public Transform setPosition(Vector3 pos) {
         this.position.set(pos);
@@ -32,10 +33,15 @@ public class Transform extends Component {
     }
 
     public Transform rotate(float yaw, float pitch, float roll) {
-        Quaternion rollQuat = new Quaternion(1, 0, 0, roll);
-        Quaternion pitchQuat = new Quaternion(0, 1, 0, pitch);
-        Quaternion yawQuat = new Quaternion(0, 0, 1, yaw);
-        this.rotation.mul(yawQuat).mul(pitchQuat).mul(rollQuat);
+        this.rotation.setEulerAngles(rotation.getYaw() + yaw, rotation.getPitch() + pitch, rotation.getRoll() + roll);
         return this;
+    }
+
+    public float getScale() {
+        return scale;
+    }
+
+    public void setScale(float scale) {
+        this.scale = scale;
     }
 }
