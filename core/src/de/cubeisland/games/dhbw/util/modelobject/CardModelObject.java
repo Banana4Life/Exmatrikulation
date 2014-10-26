@@ -10,10 +10,15 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
 public class CardModelObject extends ModelObject {
-    private Decal frontDecal;
-    private Decal backDecal;
+    private final Decal frontDecal;
+    private final Decal backDecal;
 
     private static TextureRegion backTex;
+
+    public CardModelObject(TextureRegion frontTexture) {
+        this.frontDecal = Decal.newDecal(frontTexture.getRegionWidth(), frontTexture.getRegionHeight(), frontTexture, true);
+        this.backDecal = Decal.newDecal(backTex.getRegionWidth(), backTex.getRegionHeight(), backTex, true);
+    }
 
     @Override
     public boolean isClickOnModel(Camera camera, float screenX, float screenY) {
@@ -29,12 +34,6 @@ public class CardModelObject extends ModelObject {
         polygon.add(new Vector2(bottomLeft.x, bottomLeft.y));
 
         return Intersector.isPointInPolygon(polygon, new Vector2(screenX, screenY));
-    }
-
-    public CardModelObject setDecals(TextureRegion frontTexture) {
-        this.frontDecal = Decal.newDecal(frontTexture.getRegionWidth(), frontTexture.getRegionHeight(), frontTexture, true);
-        this.backDecal = Decal.newDecal(backTex.getRegionWidth(), backTex.getRegionHeight(), backTex, true);
-        return this;
     }
 
     @Override

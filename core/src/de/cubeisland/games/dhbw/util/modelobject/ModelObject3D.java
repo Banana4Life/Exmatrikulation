@@ -1,18 +1,15 @@
 package de.cubeisland.games.dhbw.util.modelobject;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
-import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 
 public class ModelObject3D extends ModelObject {
     private ModelInstance instance;
 
-    public ModelObject3D() {
-        ObjLoader ldr = new ObjLoader();
-        com.badlogic.gdx.graphics.g3d.Model model = ldr.loadModel(Gdx.files.internal("models/d20.obj"));
+    public ModelObject3D(Model model) {
         instance = new ModelInstance(model);
         instance.transform.setToTranslation(0, 0, -50);
     }

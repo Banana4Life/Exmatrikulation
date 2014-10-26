@@ -32,6 +32,7 @@ import de.cubeisland.games.dhbw.state.states.*;
 import de.cubeisland.games.dhbw.state.transitions.DummyTransition;
 import de.cubeisland.games.dhbw.util.ClassConverter;
 import de.cubeisland.games.dhbw.util.modelobject.CardModelObject;
+import de.cubeisland.games.dhbw.util.modelobject.ModelObject3D;
 
 public class DHBWGame extends ApplicationAdapter {
     private DHBWResources       resources;
@@ -81,9 +82,6 @@ public class DHBWGame extends ApplicationAdapter {
         camera.far = 300;
         camera.position.set(0, 0, 1);
 
-        Entity cameraEntity = entityFactory.create(resources.entities.camera);
-        cameraEntity.getComponent(Camera.class).set(camera);
-
 		batch = new DecalBatch(new CameraGroupStrategy(camera));
         modelBatch = new ModelBatch();
 
@@ -100,8 +98,13 @@ public class DHBWGame extends ApplicationAdapter {
         inputMultiplexer = new InputMultiplexer(new GlobalInputProcessor(camera, engine));
         Gdx.input.setInputProcessor(inputMultiplexer);
 
+        Entity cameraEntity = entityFactory.create(resources.entities.camera);
+        cameraEntity.getComponent(Camera.class).set(camera);
         engine.addEntity(cameraEntity);
-        engine.addEntity(entityFactory.create(resources.entities.world));
+
+        Entity lectureRoom = entityFactory.create(resources.entities.lectureroom);
+        lectureRoom.getComponent(Model.class).setModelObject(new ModelObject3D(resources.models.lectureroom));
+        engine.addEntity(lectureRoom);
 
         Entity deck = entityFactory.create(resources.entities.deck);
         deck.getComponent(Transform.class).setPosition(new Vector3(40, 0, -100)).setRotation(new Quaternion(new Vector3(0, 1, 0), -90));
@@ -113,13 +116,16 @@ public class DHBWGame extends ApplicationAdapter {
         for (int i = 0; i < 5; i++) {
             Entity card = entityFactory.create(resources.entities.card);
             card.getComponent(Transform.class).setPosition(new Vector3(20 * i, 0, -100)).setRotation(new Quaternion(new Vector3(1, 0, 0), 0));
-            ((CardModelObject)card.getComponent(Model.class).getModelObject()).setDecals(new TextureRegion(new Texture("front.png")));
+            CardModelObject model = new CardModelObject(new TextureRegion(new Texture("front.png")));
+            card.getComponent(Model.class).setModelObject(model);
 
             engine.addEntity(card);
             deck.getComponent(Deck.class).addCard(card);
         }
 
-        engine.addEntity(entityFactory.create(resources.entities.dice));
+        Entity dice = entityFactory.create(resources.entities.dice);
+        dice.getComponent(Model.class).setModelObject(new ModelObject3D(resources.models.d20));
+        engine.addEntity(dice);
 	}
 
 	@Override

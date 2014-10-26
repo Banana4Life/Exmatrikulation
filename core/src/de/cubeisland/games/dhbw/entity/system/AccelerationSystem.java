@@ -13,7 +13,7 @@ public class AccelerationSystem extends IteratingSystem {
     private final ComponentMapper<Acceleration> accelerations;
 
     public AccelerationSystem() {
-        super(Family.getFor(Velocity.class, Acceleration.class));
+        super(Family.getFor(Velocity.class, Acceleration.class), 5);
 
         this.velocities = ComponentMapper.getFor(Velocity.class);
         this.accelerations = ComponentMapper.getFor(Acceleration.class);

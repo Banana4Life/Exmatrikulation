@@ -2,10 +2,8 @@ package de.cubeisland.games.dhbw.entity;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
-import de.cubeisland.games.dhbw.entity.component.Model;
 import de.cubeisland.games.dhbw.entity.component.Renderable;
 import de.cubeisland.games.dhbw.util.Factory;
-import de.cubeisland.games.dhbw.util.modelobject.ModelObject;
 import de.cubeisland.games.dhbw.util.renderobject.RenderObject;
 
 public class EntityFactory implements Factory<Entity, EntityPrefab> {
@@ -16,8 +14,6 @@ public class EntityFactory implements Factory<Entity, EntityPrefab> {
             try {
                 if (Renderable.class.isAssignableFrom(component)) {
                     entity.add(component.getConstructor(RenderObject.class).newInstance(preFab.renderobject.getConstructor().newInstance()));
-                } else if (Model.class.isAssignableFrom(component)) {
-                    entity.add(component.getConstructor(ModelObject.class).newInstance(preFab.modelobject.getConstructor().newInstance()));
                 } else {
                     entity.add(component.getConstructor().newInstance());
                 }

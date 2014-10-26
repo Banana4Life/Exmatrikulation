@@ -7,7 +7,6 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import de.cubeisland.games.dhbw.DHBWGame;
 import de.cubeisland.games.dhbw.entity.component.Camera;
-import de.cubeisland.games.dhbw.entity.component.Transform;
 
 public class CameraSystem extends IteratingSystem {
 
@@ -15,7 +14,7 @@ public class CameraSystem extends IteratingSystem {
     private final ComponentMapper<Camera> cameras;
 
     public CameraSystem(DHBWGame game) {
-        super(Family.getFor(Camera.class, Transform.class));
+        super(Family.getFor(Camera.class), 5);
         this.game = game;
         this.cameras = ComponentMapper.getFor(Camera.class);
     }

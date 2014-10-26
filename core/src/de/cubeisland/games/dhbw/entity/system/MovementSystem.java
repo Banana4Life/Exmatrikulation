@@ -12,7 +12,7 @@ public class MovementSystem extends IteratingSystem {
     private final ComponentMapper<Velocity> velocities;
 
     public MovementSystem() {
-        super(Family.getFor(Transform.class, Velocity.class));
+        super(Family.getFor(Transform.class, Velocity.class), 10);
 
         this.transforms = ComponentMapper.getFor(Transform.class);
         this.velocities = ComponentMapper.getFor(Velocity.class);

@@ -9,7 +9,7 @@ import de.cubeisland.games.dhbw.util.modelobject.ModelObject;
 public class Model extends Component {
     private ModelObject modelObject;
 
-    public Model(ModelObject modelObject) {
+    public void setModelObject(ModelObject modelObject) {
         this.modelObject = modelObject;
     }
 
