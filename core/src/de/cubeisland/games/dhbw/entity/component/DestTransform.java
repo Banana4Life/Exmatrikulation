@@ -2,7 +2,6 @@ package de.cubeisland.games.dhbw.entity.component;
 
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
-import javafx.scene.transform.Scale;
 
 public class DestTransform extends Transform {
     public DestTransform(Transform tranform) {

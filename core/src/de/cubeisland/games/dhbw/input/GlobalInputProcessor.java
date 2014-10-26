@@ -8,7 +8,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
-import de.cubeisland.games.dhbw.entity.component.*;
+import de.cubeisland.games.dhbw.entity.component.Deck;
+import de.cubeisland.games.dhbw.entity.component.Model;
+import de.cubeisland.games.dhbw.entity.component.Pickable;
+import de.cubeisland.games.dhbw.entity.component.Picked;
 
 public class GlobalInputProcessor implements InputProcessor {
     private final PerspectiveCamera camera;

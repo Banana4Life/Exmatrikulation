@@ -5,7 +5,6 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import de.cubeisland.games.dhbw.entity.component.Acceleration;
-import de.cubeisland.games.dhbw.entity.component.Transform;
 import de.cubeisland.games.dhbw.entity.component.Velocity;
 
 public class AccelerationSystem extends IteratingSystem {

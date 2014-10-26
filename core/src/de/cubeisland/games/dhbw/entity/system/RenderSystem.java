@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.DHBWGame;
 import de.cubeisland.games.dhbw.entity.component.Model;
 import de.cubeisland.games.dhbw.entity.component.Renderable;
-import de.cubeisland.games.dhbw.entity.component.Transform;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
