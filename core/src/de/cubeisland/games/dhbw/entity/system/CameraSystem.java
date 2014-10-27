@@ -23,6 +23,8 @@ public class CameraSystem extends IteratingSystem {
     protected void processEntity(Entity entity, float deltaTime) {
         PerspectiveCamera cam = this.cameras.get(entity).get();
 
+        cam.position.add(0, .1f, .2f);
+
         cam.update();
     }
 }
