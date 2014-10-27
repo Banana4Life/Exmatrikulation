@@ -1,6 +1,7 @@
 package de.cubeisland.games.dhbw.state;
 
 import com.badlogic.ashley.core.Engine;
+import com.badlogic.gdx.graphics.Camera;
 import de.cubeisland.games.dhbw.DHBWGame;
 import de.cubeisland.games.dhbw.input.InputMultiplexer;
 
@@ -22,9 +23,9 @@ public class StateManager {
     private final Map<Short, GameState> states;
     private final Map<Integer, TransitionWrapper> transitions;
 
-    public StateManager(DHBWGame game, Engine engine, InputMultiplexer input) {
+    public StateManager(DHBWGame game, Engine engine, Camera camera, InputMultiplexer input) {
         this.game = game;
-        this.context = new StateContext(game, engine, this);
+        this.context = new StateContext(game, engine, camera, this);
         this.input = new StateInputProcessor(this, this.context);
         input.append(this.input);
         this.states = new HashMap<>();
@@ -138,8 +139,20 @@ public class StateManager {
         if (transition == null) {
             throw new IllegalArgumentException("There is no transition defined from id " + this.currentState.id() + " to " + stateId);
         }
-        switchState(TRANSITION);
+        beginTransition(transition);
+    }
+
+    private void beginTransition(TransitionWrapper transition) {
         this.currentTransition = transition;
+        transition.begin(this.context);
+        switchState(TRANSITION);
+    }
+
+    private void finishTransition() {
+        TransitionWrapper transition = this.currentTransition;
+        this.currentTransition = null;
+        transition.finish(this.context);
+        switchState(transition.getTo());
     }
 
     private void switchState(GameState newState) {
@@ -148,15 +161,18 @@ public class StateManager {
             current.onLeave(context, newState);
         }
         this.currentState = newState;
-        System.out.println("New state: " + newState);
+        if (newState instanceof TransitionState) {
+            System.out.println("Transitioning...");
+        } else {
+            System.out.println("Now in " + newState);
+        }
         newState.onEnter(context, current);
     }
 
     public void update(float delta) {
         if (this.currentTransition != null) {
-            if (this.currentTransition.transition(this, delta)) {
-                switchState(this.currentTransition.getTo());
-                this.currentTransition = null;
+            if (this.currentTransition.transition(this.context, delta)) {
+                finishTransition();
             }
             return;
         }
@@ -177,7 +193,7 @@ public class StateManager {
         return (short)(combined & 0xFFFF);
     }
 
-    private static final class TransitionWrapper implements StateTransition {
+    private static final class TransitionWrapper extends StateTransition {
 
         private final StateTransition transition;
         private final GameState from;
@@ -202,8 +218,18 @@ public class StateManager {
         }
 
         @Override
-        public boolean transition(StateManager manager, float delta) {
-            return this.transition.transition(manager, delta);
+        public void begin(StateContext context) {
+            this.transition.begin(context);
+        }
+
+        @Override
+        public boolean transition(StateContext context, float delta) {
+            return this.transition.transition(context, delta);
+        }
+
+        @Override
+        public void finish(StateContext context) {
+            this.transition.finish(context);
         }
     }
 
@@ -219,6 +245,11 @@ public class StateManager {
 
     public static final class TransitionState extends MetaState {
         private TransitionState() {
+        }
+
+        @Override
+        public boolean keyTyped(StateContext context, char character) {
+            return false;
         }
     }
 

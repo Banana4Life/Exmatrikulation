@@ -1,7 +1,7 @@
 package de.cubeisland.games.dhbw.entity.component;
 
 import com.badlogic.ashley.core.Component;
-import de.cubeisland.games.dhbw.util.renderobject.RenderObject;
+import de.cubeisland.games.dhbw.entity.RenderObject;
 
 public class Render extends Component {
     private RenderObject object = null;

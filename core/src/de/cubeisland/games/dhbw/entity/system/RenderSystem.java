@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.PerspectiveCamera;
 import de.cubeisland.games.dhbw.DHBWGame;
 import de.cubeisland.games.dhbw.entity.component.Render;
 import de.cubeisland.games.dhbw.entity.component.Transform;
-import de.cubeisland.games.dhbw.util.renderobject.RenderObject;
+import de.cubeisland.games.dhbw.entity.RenderObject;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;

@@ -1,4 +1,4 @@
-package de.cubeisland.games.dhbw.util.renderobject;
+package de.cubeisland.games.dhbw.entity;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Camera;

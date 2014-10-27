@@ -1,4 +1,4 @@
-package de.cubeisland.games.dhbw.util.modelobject;
+package de.cubeisland.games.dhbw.entity.object;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Camera;
@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import de.cubeisland.games.dhbw.DHBWGame;
 import de.cubeisland.games.dhbw.entity.component.Transform;
-import de.cubeisland.games.dhbw.util.renderobject.RenderObject;
+import de.cubeisland.games.dhbw.entity.RenderObject;
 
 public class CardObject implements RenderObject {
     private final Decal front;

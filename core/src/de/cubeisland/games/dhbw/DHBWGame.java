@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.Environment;
-import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
@@ -30,7 +29,7 @@ import de.cubeisland.games.dhbw.state.StateManager;
 import de.cubeisland.games.dhbw.state.states.*;
 import de.cubeisland.games.dhbw.state.transitions.DummyTransition;
 import de.cubeisland.games.dhbw.util.ClassConverter;
-import de.cubeisland.games.dhbw.util.modelobject.CardObject;
+import de.cubeisland.games.dhbw.entity.object.CardObject;
 
 import static de.cubeisland.games.dhbw.state.StateManager.EndState;
 import static de.cubeisland.games.dhbw.state.StateManager.StartState;
@@ -74,7 +73,7 @@ public class DHBWGame extends ApplicationAdapter {
         inputMultiplexer = new InputMultiplexer(new GlobalInputProcessor(camera, engine, this.stateManager));
         Gdx.input.setInputProcessor(inputMultiplexer);
 
-        this.stateManager = new StateManager(this, engine, inputMultiplexer);
+        this.stateManager = new StateManager(this, engine, camera, inputMultiplexer);
         this.stateManager
                 .addState(new SplashScreen())
                 .addState(new MainMenu())

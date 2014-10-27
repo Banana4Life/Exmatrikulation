@@ -1,14 +1,27 @@
 package de.cubeisland.games.dhbw.state.transitions;
 
+import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateManager;
 import de.cubeisland.games.dhbw.state.StateTransition;
 
-public class DummyTransition implements StateTransition {
+public class DummyTransition extends StateTransition {
 
     public static final DummyTransition INSTANCE = new DummyTransition();
 
+    private int i;
+    private static final int MAX = 5;
+
     @Override
-    public boolean transition(StateManager manager, float delta) {
+    public void begin(StateContext context) {
+        this.i = 1;
+    }
+
+    @Override
+    public boolean transition(StateContext context, float delta) {
+        if (this.i <= MAX) {
+            System.out.println("Transition! " + this.i++ + "/" + MAX);
+            return false;
+        }
         return true;
     }
 }
