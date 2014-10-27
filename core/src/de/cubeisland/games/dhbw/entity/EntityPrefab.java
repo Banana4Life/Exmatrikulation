@@ -4,15 +4,11 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import de.cubeisland.games.dhbw.util.Prefab;
-import de.cubeisland.games.dhbw.util.modelobject.ModelObject;
-import de.cubeisland.games.dhbw.util.renderobject.RenderObject;
 
 import java.util.ArrayList;
 
 public class EntityPrefab extends Prefab {
     public ArrayList<Class<Component>>  components;
-    public Class<RenderObject>          renderobject;
-    public Class<ModelObject>           modelobject;
 
     public boolean matches(Entity entity) {
         return getFamily().matches(entity);

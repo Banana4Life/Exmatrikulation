@@ -1,6 +1,0 @@
-components:
-  - de.cubeisland.games.dhbw.entity.component.Transform
-  - de.cubeisland.games.dhbw.entity.component.Model
-  - de.cubeisland.games.dhbw.entity.component.Renderable
-
-renderobject: de.cubeisland.games.dhbw.util.renderobject.RenderObject3D

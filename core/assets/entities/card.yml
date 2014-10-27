@@ -1,7 +1,4 @@
 components:
-  - de.cubeisland.games.dhbw.entity.component.Renderable
-  - de.cubeisland.games.dhbw.entity.component.Model
+  - de.cubeisland.games.dhbw.entity.component.Render
   - de.cubeisland.games.dhbw.entity.component.Transform
 
-renderobject: de.cubeisland.games.dhbw.util.renderobject.CardRenderObject
-modelobject: de.cubeisland.games.dhbw.util.modelobject.CardModelObject

@@ -4,12 +4,12 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
-import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.DHBWGame;
-import de.cubeisland.games.dhbw.entity.component.Model;
-import de.cubeisland.games.dhbw.entity.component.Renderable;
+import de.cubeisland.games.dhbw.entity.component.Render;
 import de.cubeisland.games.dhbw.entity.component.Transform;
+import de.cubeisland.games.dhbw.util.renderobject.RenderObject;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
@@ -21,20 +21,18 @@ public class RenderSystem extends IteratingSystem {
     private final DHBWGame game;
 
     private final ComponentMapper<Transform> transforms;
-    private final ComponentMapper<Model> models;
-    private final ComponentMapper<Renderable> renderables;
+    private final ComponentMapper<Render> renders;
 
-    private final PriorityQueue<RenderObject> queue = new PriorityQueue<>(10, BY_RENDER_ORDER);
+    private final PriorityQueue<QueuedObject> queue = new PriorityQueue<>(10, BY_RENDER_ORDER);
 
     public RenderSystem(PerspectiveCamera camera, DHBWGame game) {
-        super(Family.getFor(Transform.class, Model.class, Renderable.class));
+        super(Family.getFor(Transform.class, Render.class));
         this.camera = camera;
 
         this.game = game;
 
         this.transforms = ComponentMapper.getFor(Transform.class);
-        this.models = ComponentMapper.getFor(Model.class);
-        this.renderables = ComponentMapper.getFor(Renderable.class);
+        this.renders = ComponentMapper.getFor(Render.class);
     }
 
     @Override
@@ -42,9 +40,8 @@ public class RenderSystem extends IteratingSystem {
         super.update(deltaTime);
 
         Entity e;
-        for (RenderObject o : this.queue) {
-            e = o.entity;
-            renderables.get(e).render(this.camera, e, this.game);
+        for (QueuedObject o : this.queue) {
+            o.render(this.game, this.camera);
         }
 
         this.queue.clear();
@@ -52,29 +49,39 @@ public class RenderSystem extends IteratingSystem {
 
     @Override
     public void processEntity(Entity entity, float deltaTime) {
-        Model model = models.get(entity);
         Transform transform = transforms.get(entity);
-        this.queue.add(new RenderObject(entity, transform.getPosition()));
-    }
-
-    private static final class RenderObject {
-        public final Entity entity;
-        public long order;
-
-        public RenderObject(Entity e, Vector3 pos) {
-            this.entity = e;
-            this.order &= Float.floatToRawIntBits(pos.z);
-            this.order <<= 32;
+        RenderObject object = renders.get(entity).getObject();
+        if (object != null) {
+            this.queue.add(new QueuedObject(entity, object, transform));
         }
     }
 
-    private static final class RenderOrder implements Comparator<RenderObject> {
+    private static final class QueuedObject {
+        private final Entity entity;
+        private final RenderObject object;
+        private final Transform transform;
+
+        public QueuedObject(Entity e, RenderObject object, Transform t) {
+            this.entity = e;
+            this.object = object;
+            this.transform = t;
+        }
+
+        public void render(DHBWGame game, Camera cam) {
+            object.render(game, cam, entity, transform);
+        }
+    }
+
+    private static final class RenderOrder implements Comparator<QueuedObject> {
         @Override
-        public int compare(RenderObject a, RenderObject b) {
-            if (a.order > b.order) {
+        public int compare(QueuedObject a, QueuedObject b) {
+            final float az = a.transform.getPosition().z;
+            final float bz = b.transform.getPosition().z;
+
+            if (az > bz) {
                 return 1;
             }
-            if (a.order < b.order) {
+            if (az < bz) {
                 return -1;
             }
             return 0;

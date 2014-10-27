@@ -9,9 +9,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import de.cubeisland.games.dhbw.entity.component.Deck;
-import de.cubeisland.games.dhbw.entity.component.Model;
 import de.cubeisland.games.dhbw.entity.component.Pickable;
 import de.cubeisland.games.dhbw.entity.component.Picked;
+import de.cubeisland.games.dhbw.entity.component.Render;
 
 public class GlobalInputProcessor implements InputProcessor {
     private final PerspectiveCamera camera;
@@ -43,10 +43,10 @@ public class GlobalInputProcessor implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (button == Input.Buttons.LEFT) {
-            ImmutableArray<Entity> entities = engine.getEntitiesFor(Family.getFor(Pickable.class, Model.class));
+            ImmutableArray<Entity> entities = engine.getEntitiesFor(Family.getFor(Pickable.class, Render.class));
             for (int i = 0; i < entities.size(); ++i) {
                 Entity entity = entities.get(i);
-                if (entity.getComponent(Model.class).getModelObject().isClickOnModel(camera, screenX, Gdx.graphics.getHeight() - screenY)) {
+                if (entity.getComponent(Render.class).getObject().isWithin(camera, screenX, Gdx.graphics.getHeight() - screenY)) {
                     entity.remove(Pickable.class);
                     entity.add(new Picked());
                 }

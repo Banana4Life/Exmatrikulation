@@ -20,7 +20,7 @@ import de.cubeisland.engine.reflect.Reflector;
 import de.cubeisland.games.dhbw.entity.EntityFactory;
 import de.cubeisland.games.dhbw.entity.component.Camera;
 import de.cubeisland.games.dhbw.entity.component.Deck;
-import de.cubeisland.games.dhbw.entity.component.Model;
+import de.cubeisland.games.dhbw.entity.component.Render;
 import de.cubeisland.games.dhbw.entity.component.Transform;
 import de.cubeisland.games.dhbw.entity.system.*;
 import de.cubeisland.games.dhbw.input.GlobalInputProcessor;
@@ -31,8 +31,7 @@ import de.cubeisland.games.dhbw.state.StateManager.StartState;
 import de.cubeisland.games.dhbw.state.states.*;
 import de.cubeisland.games.dhbw.state.transitions.DummyTransition;
 import de.cubeisland.games.dhbw.util.ClassConverter;
-import de.cubeisland.games.dhbw.util.modelobject.CardModelObject;
-import de.cubeisland.games.dhbw.util.modelobject.ModelObject3D;
+import de.cubeisland.games.dhbw.util.modelobject.CardObject;
 
 public class DHBWGame extends ApplicationAdapter {
     private DHBWResources       resources;
@@ -86,14 +85,12 @@ public class DHBWGame extends ApplicationAdapter {
         modelBatch = new ModelBatch();
 
         engine = new Engine();
-        engine.addSystem(new AccelerationSystem());
         engine.addSystem(new MovementSystem());
         engine.addSystem(new RenderSystem(camera, this));
         engine.addSystem(new ControlSystem());
-        engine.addSystem(new ModelSystem());
         engine.addSystem(new DeckSystem());
         engine.addSystem(new PickSystem(camera));
-        engine.addSystem(new CameraSystem(this));
+        engine.addSystem(new CameraSystem());
 
         inputMultiplexer = new InputMultiplexer(new GlobalInputProcessor(camera, engine));
         Gdx.input.setInputProcessor(inputMultiplexer);
@@ -102,30 +99,21 @@ public class DHBWGame extends ApplicationAdapter {
         cameraEntity.getComponent(Camera.class).set(camera);
         engine.addEntity(cameraEntity);
 
-        Entity lectureRoom = entityFactory.create(resources.entities.lectureroom);
-        lectureRoom.getComponent(Model.class).setModelObject(new ModelObject3D(resources.models.lectureroom));
-        engine.addEntity(lectureRoom);
-
         Entity deck = entityFactory.create(resources.entities.deck);
         deck.getComponent(Transform.class).setPosition(new Vector3(40, 0, -100)).setRotation(new Quaternion(new Vector3(0, 1, 0), -90));
         deck.getComponent(Deck.class).setDestPos(new Vector3(0, 0, -100)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 0));
 
         engine.addEntity(deck);
 
-        CardModelObject.setBackTex(new TextureRegion(new Texture("back.png")));
+        CardObject.setBackTex(new TextureRegion(new Texture("back.png")));
         for (int i = 0; i < 5; i++) {
             Entity card = entityFactory.create(resources.entities.card);
             card.getComponent(Transform.class).setPosition(new Vector3(20 * i, 0, -100)).setRotation(new Quaternion(new Vector3(1, 0, 0), 0));
-            CardModelObject model = new CardModelObject(new TextureRegion(new Texture("front.png")));
-            card.getComponent(Model.class).setModelObject(model);
+            card.getComponent(Render.class).setObject(new CardObject(new TextureRegion(new Texture("front.png"))));
 
             engine.addEntity(card);
             deck.getComponent(Deck.class).addCard(card);
         }
-
-        Entity dice = entityFactory.create(resources.entities.dice);
-        dice.getComponent(Model.class).setModelObject(new ModelObject3D(resources.models.d20));
-        engine.addEntity(dice);
 	}
 
 	@Override
