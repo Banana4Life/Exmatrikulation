@@ -27,18 +27,19 @@ import de.cubeisland.games.dhbw.input.GlobalInputProcessor;
 import de.cubeisland.games.dhbw.input.InputMultiplexer;
 import de.cubeisland.games.dhbw.resource.DHBWResources;
 import de.cubeisland.games.dhbw.state.StateManager;
-import de.cubeisland.games.dhbw.state.StateManager.StartState;
 import de.cubeisland.games.dhbw.state.states.*;
 import de.cubeisland.games.dhbw.state.transitions.DummyTransition;
 import de.cubeisland.games.dhbw.util.ClassConverter;
 import de.cubeisland.games.dhbw.util.modelobject.CardObject;
+
+import static de.cubeisland.games.dhbw.state.StateManager.EndState;
+import static de.cubeisland.games.dhbw.state.StateManager.StartState;
 
 public class DHBWGame extends ApplicationAdapter {
     private DHBWResources       resources;
     private StateManager        stateManager;
     private InputMultiplexer    inputMultiplexer;
 	private DecalBatch          batch;
-    private ModelBatch          modelBatch;
     private Environment         environment;
     private EntityFactory       entityFactory;
     private Engine              engine;
@@ -51,27 +52,6 @@ public class DHBWGame extends ApplicationAdapter {
         resources.build();
         entityFactory = new EntityFactory();
 
-        this.stateManager = new StateManager(this);
-        this.stateManager
-                .addState(new SplashScreen())
-                .addState(new MainMenu())
-                .addState(new CharacterSelection())
-                .addState(new DifficultySelection())
-                .addState(new Playing())
-                .addState(new Paused())
-                .addTransition(StartState.ID,           SplashScreen.ID,        DummyTransition.INSTANCE)
-                .addTransition(SplashScreen.ID,         MainMenu.ID,            DummyTransition.INSTANCE)
-                .addTransition(MainMenu.ID,             CharacterSelection.ID,  DummyTransition.INSTANCE)
-                .addTransition(CharacterSelection.ID,   MainMenu.ID,            DummyTransition.INSTANCE)
-                .addTransition(CharacterSelection.ID,   DifficultySelection.ID, DummyTransition.INSTANCE)
-                .addTransition(DifficultySelection.ID,  CharacterSelection.ID,  DummyTransition.INSTANCE)
-                .addTransition(DifficultySelection.ID,  MainMenu.ID,            DummyTransition.INSTANCE)
-                .addTransition(DifficultySelection.ID,  Playing.ID,             DummyTransition.INSTANCE)
-                .addTransition(Playing.ID,              Paused.ID,              DummyTransition.INSTANCE)
-                .addTransition(Paused.ID,               Playing.ID,             DummyTransition.INSTANCE)
-                .addTransition(Paused.ID,               MainMenu.ID,            DummyTransition.INSTANCE)
-                .start();
-
         environment = new Environment();
         environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));
         environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
@@ -82,7 +62,6 @@ public class DHBWGame extends ApplicationAdapter {
         camera.position.set(0, 0, 1);
 
 		batch = new DecalBatch(new CameraGroupStrategy(camera));
-        modelBatch = new ModelBatch();
 
         engine = new Engine();
         engine.addSystem(new MovementSystem());
@@ -92,8 +71,30 @@ public class DHBWGame extends ApplicationAdapter {
         engine.addSystem(new PickSystem(camera));
         engine.addSystem(new CameraSystem());
 
-        inputMultiplexer = new InputMultiplexer(new GlobalInputProcessor(camera, engine));
+        inputMultiplexer = new InputMultiplexer(new GlobalInputProcessor(camera, engine, this.stateManager));
         Gdx.input.setInputProcessor(inputMultiplexer);
+
+        this.stateManager = new StateManager(this, engine, inputMultiplexer);
+        this.stateManager
+                .addState(new SplashScreen())
+                .addState(new MainMenu())
+                .addState(new CharacterSelection())
+                .addState(new DifficultySelection())
+                .addState(new Playing())
+                .addState(new Paused())
+                .addTransition(StartState.ID,               SplashScreen.ID,        DummyTransition.INSTANCE)
+                .addTransition(SplashScreen.ID,             MainMenu.ID,            DummyTransition.INSTANCE)
+                .addTransition(MainMenu.ID,                 CharacterSelection.ID,  DummyTransition.INSTANCE)
+                .addTransition(MainMenu.ID,                 EndState.ID,            DummyTransition.INSTANCE)
+                .addTransition(CharacterSelection.ID,       MainMenu.ID,            DummyTransition.INSTANCE)
+                .addTransition(CharacterSelection.ID,       DifficultySelection.ID, DummyTransition.INSTANCE)
+                .addTransition(DifficultySelection.ID,      CharacterSelection.ID,  DummyTransition.INSTANCE)
+                .addTransition(DifficultySelection.ID,      MainMenu.ID,            DummyTransition.INSTANCE)
+                .addTransition(DifficultySelection.ID,      Playing.ID,             DummyTransition.INSTANCE)
+                .addTransition(Playing.ID,                  Paused.ID,              DummyTransition.INSTANCE)
+                .addTransition(Paused.ID,                   Playing.ID,             DummyTransition.INSTANCE)
+                .addTransition(Paused.ID,                   MainMenu.ID,            DummyTransition.INSTANCE)
+                .start();
 
         Entity cameraEntity = entityFactory.create(resources.entities.camera);
         cameraEntity.getComponent(Camera.class).set(camera);
@@ -123,18 +124,11 @@ public class DHBWGame extends ApplicationAdapter {
 
         float delta = Gdx.graphics.getDeltaTime();
         engine.update(delta);
+        stateManager.update(delta);
 	}
-
-    public InputMultiplexer inputMultiplexer() {
-        return this.inputMultiplexer;
-    }
 
     public DecalBatch getDecalBatch() {
         return this.batch;
-    }
-
-    public ModelBatch getModelBatch() {
-        return modelBatch;
     }
 
     public Environment getEnvironment() {
@@ -143,5 +137,9 @@ public class DHBWGame extends ApplicationAdapter {
 
     public DHBWResources getResources() {
         return resources;
+    }
+
+    public void exit() {
+        Gdx.app.exit();
     }
 }
