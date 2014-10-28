@@ -17,8 +17,8 @@ public abstract class EntityUtil {
         if (entities.size() == 0) {
             return null;
         }
-        Entity highestEntity = entities.get(0);
-        float highestZ = highestEntity.getComponent(Transform.class).getPosition().z;
+        Entity highestEntity = null;
+        float highestZ = -Float.MAX_VALUE;
         for (int i = 1; i < entities.size(); ++i) {
             Entity e = entities.get(i);
             float z = e.getComponent(Transform.class).getPosition().z;

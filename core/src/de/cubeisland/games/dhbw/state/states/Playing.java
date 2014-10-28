@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input;
 import de.cubeisland.games.dhbw.entity.component.Deck;
 import de.cubeisland.games.dhbw.entity.component.Pickable;
 import de.cubeisland.games.dhbw.entity.component.Picked;
+import de.cubeisland.games.dhbw.entity.component.Transform;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateManager;
@@ -35,12 +36,11 @@ public class Playing extends GameState {
         if (button != Input.Buttons.LEFT) {
             return false;
         }
-        System.out.println("Click!");
         Entity e = EntityUtil.getEntityAt(context.getEngine(), context.getCamera(), screenX, screenY);
-        System.out.println(e);
         if (e != null) {
             e.remove(Pickable.class);
             e.add(new Picked());
+            e.getComponent(Transform.class).move(0, 0, 1);
             return true;
         }
         return false;

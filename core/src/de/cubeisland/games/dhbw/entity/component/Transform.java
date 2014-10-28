@@ -23,6 +23,11 @@ public class Transform extends Component {
         return this;
     }
 
+    public Transform move(float x, float y, float z) {
+        this.position.add(x, y, z);
+        return this;
+    }
+
     public Transform setRotation(Quaternion rot) {
         this.rotation.set(rot);
         return this;
