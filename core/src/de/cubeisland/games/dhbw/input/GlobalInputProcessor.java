@@ -72,7 +72,13 @@ public class GlobalInputProcessor implements InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
+        if (button == Input.Buttons.LEFT) {
+            for (Entity entity : game.getEngine().getEntitiesFor(Family.getFor(Picked.class))) {
+                entity.remove(Picked.class);
+                entity.add(new Pickable());
+            }
+        }
+        return true;
     }
 
     @Override
