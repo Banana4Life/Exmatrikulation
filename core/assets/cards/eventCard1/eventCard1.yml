@@ -1,0 +1,15 @@
+---
+name: MathePrüfung
+type: event
+description: Beim Bestehen der Prüfung erhalte +2 auf Mathe. Ansonsten wirst du exmatrikuliert.
+
+action:
+  - de.cubeisland.games.dhbw.action.Math: 2
+  - de.cubeisland.games.dhbw.action.DeRegistration
+
+requirement:
+  subject: math
+  value: 20
+
+rarity: 1
+...

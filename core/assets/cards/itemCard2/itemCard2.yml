@@ -1,11 +1,11 @@
 ---
 name: VollständigeInduktion
-type: ABILITY
+type: item
 description: Ermöglicht das Beweisen von trivialen Aussagen und gibt dir somit +10 in Mathe. Wie nützlich.
 
-reward:
-  type: math
-  value: 10
+action:
+  - de.cubeisland.games.dhbw.action.Math: 5
 
-equipable: true
+duration: 5
+rarity: 1
 ...

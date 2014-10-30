@@ -14,11 +14,9 @@ public class Cards extends ResourceBag<CardPrefab> {
     // event cards
     public CardPrefab eventCard1;
 
-    // object cards
-    public CardPrefab objectCard1;
-
-    // ability cards
-    public CardPrefab abilityCard1;
+    // item cards
+    public CardPrefab itemCard1;
+    public CardPrefab itemCard2;
 
     public Cards(Reflector reflector) {
         this.reflector = reflector;

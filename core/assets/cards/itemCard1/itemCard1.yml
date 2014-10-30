@@ -1,11 +1,11 @@
 ---
 name: Wasserflasche
-type: OBJECT
+type: item
 description: Erzeugt Mehrwert und erhöht deinen BWL "Skill" um 1.
 
-reward:
-  type: bwl
-  value: 1
+action:
+  - de.cubeisland.games.dhbw.action.Bwl: 1
 
-equipable: true
+duration: 3
+rarity: 1
 ...

@@ -21,6 +21,7 @@ import de.cubeisland.games.dhbw.entity.component.Camera;
 import de.cubeisland.games.dhbw.entity.component.Deck;
 import de.cubeisland.games.dhbw.entity.component.Render;
 import de.cubeisland.games.dhbw.entity.component.Transform;
+import de.cubeisland.games.dhbw.entity.object.CardObject;
 import de.cubeisland.games.dhbw.entity.system.*;
 import de.cubeisland.games.dhbw.input.GlobalInputProcessor;
 import de.cubeisland.games.dhbw.input.InputMultiplexer;
@@ -28,8 +29,8 @@ import de.cubeisland.games.dhbw.resource.DHBWResources;
 import de.cubeisland.games.dhbw.state.StateManager;
 import de.cubeisland.games.dhbw.state.states.*;
 import de.cubeisland.games.dhbw.state.transitions.DummyTransition;
+import de.cubeisland.games.dhbw.util.CardTypeConverter;
 import de.cubeisland.games.dhbw.util.ClassConverter;
-import de.cubeisland.games.dhbw.entity.object.CardObject;
 
 import static de.cubeisland.games.dhbw.state.StateManager.EndState;
 import static de.cubeisland.games.dhbw.state.StateManager.StartState;
@@ -47,6 +48,7 @@ public class DHBWGame extends ApplicationAdapter {
 	public void create () {
         Reflector reflector = new Reflector();
         reflector.getDefaultConverterManager().registerConverter(Class.class, new ClassConverter());
+		// reflector.getDefaultConverterManager().registerConverter(Class.class, new CardTypeConverter());
         resources = new DHBWResources(reflector);
         resources.build();
         entityFactory = new EntityFactory();
