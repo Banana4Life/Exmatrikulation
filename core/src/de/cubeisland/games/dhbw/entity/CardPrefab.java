@@ -3,6 +3,7 @@ package de.cubeisland.games.dhbw.entity;
 import de.cubeisland.engine.reflect.Section;
 import de.cubeisland.games.dhbw.util.Prefab;
 
+import javax.swing.*;
 import java.util.Map;
 
 public class CardPrefab extends Prefab {
@@ -20,7 +21,7 @@ public class CardPrefab extends Prefab {
 
 	// holds all possible actions for the card:
 	// rewards and penalties from events, as well as stat bonuses for using items
-	public Map action;
+    public Map<Class<? extends Action>, Integer> actions;
 
 	// the character attribute which is needed to successfully complete an event and the value needed (only for event cards)
 	// (e.g. math exam: type = math, value = 20)
