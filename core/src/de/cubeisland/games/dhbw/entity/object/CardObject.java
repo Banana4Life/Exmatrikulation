@@ -45,6 +45,8 @@ public class CardObject implements RenderObject {
     public void render(DHBWGame game, Camera cam, Entity e, Transform transform) {
 
         update(transform);
+        front.setScale(0.1f);
+        back.setScale(0.1f);
 
         DecalBatch batch = game.getDecalBatch();
         batch.add(this.front);
