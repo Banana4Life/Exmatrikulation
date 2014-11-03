@@ -5,7 +5,7 @@ import de.cubeisland.games.dhbw.state.StateManager;
 
 public class DifficultySelection extends GameState {
 
-    public static final short ID = 4;
+    public static final short ID = 5;
 
     @Override
     public short id() {

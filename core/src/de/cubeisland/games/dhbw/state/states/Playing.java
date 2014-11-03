@@ -15,7 +15,7 @@ import de.cubeisland.games.dhbw.util.EntityUtil;
 
 public class Playing extends GameState {
 
-    public static final short ID = 5;
+    public static final short ID = 6;
 
     @Override
     public short id() {
