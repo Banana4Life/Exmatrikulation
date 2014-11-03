@@ -30,6 +30,8 @@ import de.cubeisland.games.dhbw.resource.DHBWResources;
 import de.cubeisland.games.dhbw.state.StateManager;
 import de.cubeisland.games.dhbw.state.states.*;
 import de.cubeisland.games.dhbw.state.transitions.DummyTransition;
+import de.cubeisland.games.dhbw.state.transitions.MergeCardsAndMoveToCorner;
+import de.cubeisland.games.dhbw.state.transitions.SplashScreenToMainMenuTransition;
 import de.cubeisland.games.dhbw.util.CardTypeConverter;
 import de.cubeisland.games.dhbw.util.ClassConverter;
 
@@ -40,16 +42,16 @@ public class DHBWGame extends ApplicationAdapter {
     private DHBWResources       resources;
     private StateManager        stateManager;
     private InputMultiplexer    inputMultiplexer;
-	private DecalBatch          batch;
+    private DecalBatch          batch;
     private Environment         environment;
     private EntityFactory       entityFactory;
     private Engine              engine;
-	
-	@Override
-	public void create () {
+
+    @Override
+    public void create () {
         Reflector reflector = new Reflector();
         reflector.getDefaultConverterManager().registerConverter(Class.class, new ClassConverter());
-		reflector.getDefaultConverterManager().registerConverter(CardPrefab.CardType.class, new CardTypeConverter());
+        reflector.getDefaultConverterManager().registerConverter(CardPrefab.CardType.class, new CardTypeConverter());
         resources = new DHBWResources(reflector);
         resources.build();
         entityFactory = new EntityFactory();
@@ -63,7 +65,7 @@ public class DHBWGame extends ApplicationAdapter {
         camera.far = 300;
         camera.position.set(0, 0, 1);
 
-		batch = new DecalBatch(new CameraGroupStrategy(camera));
+        batch = new DecalBatch(new CameraGroupStrategy(camera));
 
         engine = new Engine();
         engine.addSystem(new MovementSystem());
@@ -86,14 +88,14 @@ public class DHBWGame extends ApplicationAdapter {
                 .addState(new Playing())
                 .addState(new Paused())
                 .addTransition(StartState.ID,               SplashScreen.ID,        DummyTransition.INSTANCE)
-                .addTransition(SplashScreen.ID,             MainMenu.ID,            DummyTransition.INSTANCE)
-                .addTransition(MainMenu.ID,                 CourseSelection.ID,     DummyTransition.INSTANCE)
+                .addTransition(SplashScreen.ID,             MainMenu.ID,            SplashScreenToMainMenuTransition.INSTANCE)
+                .addTransition(MainMenu.ID,                 CourseSelection.ID,     MergeCardsAndMoveToCorner.INSTANCE)
                 .addTransition(MainMenu.ID,                 EndState.ID,            DummyTransition.INSTANCE)
                 .addTransition(CourseSelection.ID,          MainMenu.ID,            DummyTransition.INSTANCE)
-                .addTransition(CourseSelection.ID,          CharacterSelection.ID,  DummyTransition.INSTANCE)
+                .addTransition(CourseSelection.ID,          CharacterSelection.ID,  MergeCardsAndMoveToCorner.INSTANCE)
                 .addTransition(CharacterSelection.ID,       CourseSelection.ID,     DummyTransition.INSTANCE)
                 .addTransition(CharacterSelection.ID,       MainMenu.ID,            DummyTransition.INSTANCE)
-                .addTransition(CharacterSelection.ID,       DifficultySelection.ID, DummyTransition.INSTANCE)
+                .addTransition(CharacterSelection.ID,       DifficultySelection.ID, MergeCardsAndMoveToCorner.INSTANCE)
                 .addTransition(DifficultySelection.ID,      CourseSelection.ID,     DummyTransition.INSTANCE)
                 .addTransition(DifficultySelection.ID,      CharacterSelection.ID,  DummyTransition.INSTANCE)
                 .addTransition(DifficultySelection.ID,      MainMenu.ID,            DummyTransition.INSTANCE)
@@ -114,7 +116,7 @@ public class DHBWGame extends ApplicationAdapter {
         engine.addEntity(deck);
 
         CardObject.setBackTex(new TextureRegion(new Texture("cards/cardback.png")));
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 15; i++) {
             Entity card = entityFactory.create(resources.entities.card);
             card.getComponent(Transform.class).setPosition(new Vector3(20 * i, 0, -100)).setRotation(new Quaternion(new Vector3(1, 0, 0), 0));
             card.getComponent(Render.class).setObject(new CardObject(new TextureRegion(new Texture("cards/cardfront.png"))));
@@ -122,17 +124,17 @@ public class DHBWGame extends ApplicationAdapter {
             engine.addEntity(card);
             deck.getComponent(Deck.class).addCard(card);
         }
-	}
+    }
 
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+    @Override
+    public void render () {
+        Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
         float delta = Gdx.graphics.getDeltaTime();
         engine.update(delta);
         stateManager.update(delta);
-	}
+    }
 
     public DecalBatch getDecalBatch() {
         return this.batch;

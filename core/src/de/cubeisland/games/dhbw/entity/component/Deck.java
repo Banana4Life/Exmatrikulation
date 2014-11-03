@@ -20,13 +20,14 @@ public class Deck extends Component implements Iterable<Entity> {
         return this;
     }
 
-    public Deck drawCard() {
+    public Entity drawCard() {
         if (cards.size() > 0) {
             Entity card = cards.remove(0);
             card.add(new DestTransform(destPos, destRot));
             card.add(new Pickable());
+            return card;
         }
-        return this;
+        return null;
     }
 
     public Deck addCard(Entity card) {
