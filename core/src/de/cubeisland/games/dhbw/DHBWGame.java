@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.engine.reflect.Reflector;
+import de.cubeisland.games.dhbw.entity.CardPrefab;
 import de.cubeisland.games.dhbw.entity.EntityFactory;
 import de.cubeisland.games.dhbw.entity.component.Camera;
 import de.cubeisland.games.dhbw.entity.component.Deck;
@@ -48,7 +49,7 @@ public class DHBWGame extends ApplicationAdapter {
 	public void create () {
         Reflector reflector = new Reflector();
         reflector.getDefaultConverterManager().registerConverter(Class.class, new ClassConverter());
-		// reflector.getDefaultConverterManager().registerConverter(Class.class, new CardTypeConverter());
+		reflector.getDefaultConverterManager().registerConverter(CardPrefab.CardType.class, new CardTypeConverter());
         resources = new DHBWResources(reflector);
         resources.build();
         entityFactory = new EntityFactory();

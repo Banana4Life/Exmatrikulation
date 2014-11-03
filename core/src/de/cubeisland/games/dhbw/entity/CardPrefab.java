@@ -8,13 +8,17 @@ import java.util.Map;
 
 public class CardPrefab extends Prefab {
 
+    public enum CardType {
+        MENU, EVENT, ITEM
+    }
+
 	// initialization of card variables
 	// which attributes are needed depends on the card type, unused attributes get default-values
 
 	public String name;
 
 	// the type of the card
-	public String type;
+	public CardType type;
 
 	// the text of the card which gets displayed to the player
 	public String description;
