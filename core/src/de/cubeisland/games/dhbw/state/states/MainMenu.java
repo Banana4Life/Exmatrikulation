@@ -23,13 +23,13 @@ public class MainMenu extends GameState {
             return false;
         }
         Entity e = EntityUtil.getEntityAt(context.getEngine(), context.getCamera(), screenX, screenY);
-        if (e != null) {
+        if (e != null && cards.contains(e)) {
             //Player has clicked on a card
             //TODO apply cards
             pickedcard=e;
-            cards.remove(e);
-            context.getStateManager().transitionTo(CourseSelection.ID);
-            context.getStateManager().update(1);//TODO check float value
+            MergeCardsAndMoveToCorner.fromState=ID;
+            MergeCardsAndMoveToCorner.toState=CourseSelection.ID;
+            context.transitionTo(CourseSelection.ID);
             return true;
         }
         return false;

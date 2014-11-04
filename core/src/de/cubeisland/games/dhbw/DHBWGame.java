@@ -29,6 +29,7 @@ import de.cubeisland.games.dhbw.input.InputMultiplexer;
 import de.cubeisland.games.dhbw.resource.DHBWResources;
 import de.cubeisland.games.dhbw.state.StateManager;
 import de.cubeisland.games.dhbw.state.states.*;
+import de.cubeisland.games.dhbw.state.transitions.BackInMenusTransition;
 import de.cubeisland.games.dhbw.state.transitions.DummyTransition;
 import de.cubeisland.games.dhbw.state.transitions.MergeCardsAndMoveToCorner;
 import de.cubeisland.games.dhbw.state.transitions.SplashScreenToMainMenuTransition;
@@ -91,14 +92,14 @@ public class DHBWGame extends ApplicationAdapter {
                 .addTransition(SplashScreen.ID,             MainMenu.ID,            SplashScreenToMainMenuTransition.INSTANCE)
                 .addTransition(MainMenu.ID,                 CourseSelection.ID,     MergeCardsAndMoveToCorner.INSTANCE)
                 .addTransition(MainMenu.ID,                 EndState.ID,            DummyTransition.INSTANCE)
-                .addTransition(CourseSelection.ID,          MainMenu.ID,            DummyTransition.INSTANCE)
+                .addTransition(CourseSelection.ID,          MainMenu.ID,            BackInMenusTransition.INSTANCE)
                 .addTransition(CourseSelection.ID,          CharacterSelection.ID,  MergeCardsAndMoveToCorner.INSTANCE)
-                .addTransition(CharacterSelection.ID,       CourseSelection.ID,     DummyTransition.INSTANCE)
-                .addTransition(CharacterSelection.ID,       MainMenu.ID,            DummyTransition.INSTANCE)
+                .addTransition(CharacterSelection.ID,       CourseSelection.ID,     BackInMenusTransition.INSTANCE)
+                .addTransition(CharacterSelection.ID,       MainMenu.ID,            BackInMenusTransition.INSTANCE)
                 .addTransition(CharacterSelection.ID,       DifficultySelection.ID, MergeCardsAndMoveToCorner.INSTANCE)
-                .addTransition(DifficultySelection.ID,      CourseSelection.ID,     DummyTransition.INSTANCE)
-                .addTransition(DifficultySelection.ID,      CharacterSelection.ID,  DummyTransition.INSTANCE)
-                .addTransition(DifficultySelection.ID,      MainMenu.ID,            DummyTransition.INSTANCE)
+                .addTransition(DifficultySelection.ID,      CourseSelection.ID,     BackInMenusTransition.INSTANCE)
+                .addTransition(DifficultySelection.ID,      CharacterSelection.ID,  BackInMenusTransition.INSTANCE)
+                .addTransition(DifficultySelection.ID,      MainMenu.ID,            BackInMenusTransition.INSTANCE)
                 .addTransition(DifficultySelection.ID,      Playing.ID,             DummyTransition.INSTANCE)
                 .addTransition(Playing.ID,                  Paused.ID,              DummyTransition.INSTANCE)
                 .addTransition(Paused.ID,                   Playing.ID,             DummyTransition.INSTANCE)
