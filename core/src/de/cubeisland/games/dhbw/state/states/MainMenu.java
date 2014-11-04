@@ -7,9 +7,15 @@ import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.transitions.MergeCardsAndMoveToCorner;
 import de.cubeisland.games.dhbw.util.EntityUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainMenu extends GameState {
 
     public static final short ID = 2;
+
+    private static Entity pickedcard;
+    private static List<Entity> cards= new ArrayList<>();
 
     @Override
     public boolean touchDown(StateContext context, int screenX, int screenY, int pointer, int button) {
@@ -18,15 +24,25 @@ public class MainMenu extends GameState {
         }
         Entity e = EntityUtil.getEntityAt(context.getEngine(), context.getCamera(), screenX, screenY);
         if (e != null) {
+            //Player has clicked on a card
             //TODO apply cards
-            MergeCardsAndMoveToCorner.setPickedcard(e);
-            MergeCardsAndMoveToCorner.removeRestCard(e);
+            pickedcard=e;
+            cards.remove(e);
             context.getStateManager().transitionTo(CourseSelection.ID);
             context.getStateManager().update(1);//TODO check float value
             return true;
         }
         return false;
     }
+
+    public static List<Entity> getCardStack(){
+        return cards;
+    }
+
+    public static Entity getPickedcard(){
+        return pickedcard;
+    }
+
     @Override
     public short id() {
         return ID;
