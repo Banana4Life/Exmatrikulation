@@ -19,6 +19,11 @@ public class MainMenu extends GameState {
     private static Entity pickedcard;
     private static List<Entity> cards= new ArrayList<>();
 
+    /**
+     * Checks if the player clicks on a card and where the card bellongs to.
+     * If the card is one of the 3 cars the player can choose from this card is chosen and the transition to CourseSelection is started.
+     * @Author Tim Adamek
+     */
     @Override
     public boolean touchDown(StateContext context, int screenX, int screenY, int pointer, int button) {
         if (button != Input.Buttons.LEFT) {
@@ -29,8 +34,6 @@ public class MainMenu extends GameState {
             //Player has clicked on a card
             //TODO apply cards
             pickedcard=e;
-            MergeCardsAndMoveToCorner.fromState=ID;
-            MergeCardsAndMoveToCorner.toState=CourseSelection.ID;
             context.transitionTo(CourseSelection.ID);
             return true;
         }
