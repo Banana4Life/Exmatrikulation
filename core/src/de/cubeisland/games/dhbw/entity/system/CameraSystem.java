@@ -7,10 +7,17 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import de.cubeisland.games.dhbw.entity.component.Camera;
 
+/**
+ * The CameraSystem updates the camera every update cycle
+ * It uses the Family {Camera}
+ */
 public class CameraSystem extends IteratingSystem {
 
     private final ComponentMapper<Camera> cameras;
 
+    /**
+     * The constructor gets the ComponentMapper for Camera
+     */
     public CameraSystem() {
         super(Family.getFor(Camera.class), 5);
         this.cameras = ComponentMapper.getFor(Camera.class);

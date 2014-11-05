@@ -7,10 +7,17 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import de.cubeisland.games.dhbw.entity.component.Deck;
 import de.cubeisland.games.dhbw.entity.component.Transform;
 
+/**
+ * The DeckSystem updates the decks every update cycle
+ * It uses the Family {Deck, Transform}
+ */
 public class DeckSystem extends IteratingSystem {
     private ComponentMapper<Transform> transforms;
     private ComponentMapper<Deck> decks;
 
+    /**
+     * The constructor gets the ComponentMapper for Transform and Deck
+     */
     public DeckSystem() {
         super(Family.getFor(Deck.class, Transform.class));
 

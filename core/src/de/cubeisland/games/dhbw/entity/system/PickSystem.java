@@ -11,9 +11,17 @@ import de.cubeisland.games.dhbw.entity.component.DestTransform;
 import de.cubeisland.games.dhbw.entity.component.Picked;
 import de.cubeisland.games.dhbw.entity.component.Transform;
 
+/**
+ * The PickSystem sets the DestTransform of all picked entities to the mouse position.
+ * It uses the Family {Picked, Transform}
+ */
 public class PickSystem extends IteratingSystem {
     private PerspectiveCamera cam;
 
+    /**
+     * The constructor sets the camera given as parameter.
+     * @param camera The camera of the game.
+     */
     public PickSystem(PerspectiveCamera camera) {
         super(Family.getFor(Picked.class, Transform.class));
 

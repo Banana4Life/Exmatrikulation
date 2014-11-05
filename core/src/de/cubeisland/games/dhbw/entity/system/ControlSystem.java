@@ -7,10 +7,17 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import de.cubeisland.games.dhbw.entity.component.DestTransform;
 import de.cubeisland.games.dhbw.entity.component.Transform;
 
+/**
+ * The ControlSystem moves all Entities with a DestTransform Component towards the destination
+ * It uses the Family {Transform, DestTransform}
+ */
 public class ControlSystem extends IteratingSystem {
     private ComponentMapper<Transform> transforms;
     private ComponentMapper<DestTransform> destTransforms;
 
+    /**
+     * The constructor gets the ComponentMapper for Transform and DestTransform
+     */
     public ControlSystem() {
         super(Family.getFor(Transform.class, DestTransform.class));
 
