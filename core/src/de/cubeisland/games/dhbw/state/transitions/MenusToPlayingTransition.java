@@ -1,5 +1,6 @@
 package de.cubeisland.games.dhbw.state.transitions;
 
+import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,14 +15,8 @@ import de.cubeisland.games.dhbw.entity.component.Transform;
 import de.cubeisland.games.dhbw.entity.object.CardObject;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
-import de.cubeisland.games.dhbw.state.states.MainMenu;
 
-
-public class SplashScreenToMainMenuTransition extends StateTransition {
-    //TODO choose actual gamemode
-    //TODO remember card stack to go back to mainmenu
-
-    // private static List<Entity> cardList = new ArrayList<>();
+public class MenusToPlayingTransition extends StateTransition {
     @Override
     public void begin(StateContext context) {
         super.begin(context);
@@ -34,24 +29,17 @@ public class SplashScreenToMainMenuTransition extends StateTransition {
 
         game.getEngine().addEntity(deck);
 
-        //TODO add the right cards to the deck
         CardObject.setBackTex(new TextureRegion(new Texture("cards/cardback.png")));
         for (int i = 0; i < 15; i++) {
             Entity card = game.getEntityFactory().create(game.getResources().entities.card);
+            card.getComponent(Transform.class).setPosition(new Vector3(20 * i, 0, -100)).setRotation(new Quaternion(new Vector3(1, 0, 0), 0));
             card.getComponent(Render.class).setObject(new CardObject(new TextureRegion(new Texture("cards/cardfront.png"))));
 
             game.getEngine().addEntity(card);
             deck.getComponent(Deck.class).addCard(card);
         }
-
-        for (int i = 0; i < 3; i++) {
-            Entity card = deck.getComponent(Deck.class).drawCard();
-            MainMenu.getCardStack().add(card);
-            card.add(new DestTransform(new Vector3(-30 + 30 * i, 0, -150), new Quaternion(new Vector3(1, 0, 0), 0)));
-        }
     }
 
-    // when the transition is over true is returned else false
     @Override
     public boolean transition(StateContext context, float delta) {
         for (Entity entity : context.getEngine().getEntitiesFor(Family.one(DestTransform.class).get())) {

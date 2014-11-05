@@ -29,10 +29,7 @@ import de.cubeisland.games.dhbw.input.InputMultiplexer;
 import de.cubeisland.games.dhbw.resource.DHBWResources;
 import de.cubeisland.games.dhbw.state.StateManager;
 import de.cubeisland.games.dhbw.state.states.*;
-import de.cubeisland.games.dhbw.state.transitions.BackInMenusTransition;
-import de.cubeisland.games.dhbw.state.transitions.DummyTransition;
-import de.cubeisland.games.dhbw.state.transitions.MergeCardsAndMoveToCorner;
-import de.cubeisland.games.dhbw.state.transitions.SplashScreenToMainMenuTransition;
+import de.cubeisland.games.dhbw.state.transitions.*;
 import de.cubeisland.games.dhbw.util.CardTypeConverter;
 import de.cubeisland.games.dhbw.util.ClassConverter;
 
@@ -89,7 +86,7 @@ public class DHBWGame extends ApplicationAdapter {
                 .addState(new Playing())
                 .addState(new Paused())
                 .addTransition(StartState.ID,               SplashScreen.ID,        DummyTransition.INSTANCE)
-                .addTransition(SplashScreen.ID,             MainMenu.ID,            SplashScreenToMainMenuTransition.INSTANCE)
+                .addTransition(SplashScreen.ID,             MainMenu.ID,            new SplashScreenToMainMenuTransition())
                 .addTransition(MainMenu.ID,                 CourseSelection.ID,     MergeCardsAndMoveToCorner.INSTANCE)
                 .addTransition(MainMenu.ID,                 EndState.ID,            DummyTransition.INSTANCE)
                 .addTransition(CourseSelection.ID,          MainMenu.ID,            BackInMenusTransition.INSTANCE)
@@ -100,7 +97,7 @@ public class DHBWGame extends ApplicationAdapter {
                 .addTransition(DifficultySelection.ID,      CourseSelection.ID,     BackInMenusTransition.INSTANCE)
                 .addTransition(DifficultySelection.ID,      CharacterSelection.ID,  BackInMenusTransition.INSTANCE)
                 .addTransition(DifficultySelection.ID,      MainMenu.ID,            BackInMenusTransition.INSTANCE)
-                .addTransition(DifficultySelection.ID,      Playing.ID,             DummyTransition.INSTANCE)
+                .addTransition(DifficultySelection.ID,      Playing.ID,             new MenusToPlayingTransition())
                 .addTransition(Playing.ID,                  Paused.ID,              DummyTransition.INSTANCE)
                 .addTransition(Paused.ID,                   Playing.ID,             DummyTransition.INSTANCE)
                 .addTransition(Paused.ID,                   MainMenu.ID,            DummyTransition.INSTANCE)
@@ -109,22 +106,6 @@ public class DHBWGame extends ApplicationAdapter {
         Entity cameraEntity = entityFactory.create(resources.entities.camera);
         cameraEntity.getComponent(Camera.class).set(camera);
         engine.addEntity(cameraEntity);
-
-        Entity deck = entityFactory.create(resources.entities.deck);
-        deck.getComponent(Transform.class).setPosition(new Vector3(40, 0, -100)).setRotation(new Quaternion(new Vector3(0, 1, 0), -90));
-        deck.getComponent(Deck.class).setDestPos(new Vector3(0, 0, -100)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 0));
-
-        engine.addEntity(deck);
-
-        CardObject.setBackTex(new TextureRegion(new Texture("cards/cardback.png")));
-        for (int i = 0; i < 15; i++) {
-            Entity card = entityFactory.create(resources.entities.card);
-            card.getComponent(Transform.class).setPosition(new Vector3(20 * i, 0, -100)).setRotation(new Quaternion(new Vector3(1, 0, 0), 0));
-            card.getComponent(Render.class).setObject(new CardObject(new TextureRegion(new Texture("cards/cardfront.png"))));
-
-            engine.addEntity(card);
-            deck.getComponent(Deck.class).addCard(card);
-        }
     }
 
     @Override
@@ -147,6 +128,14 @@ public class DHBWGame extends ApplicationAdapter {
 
     public DHBWResources getResources() {
         return resources;
+    }
+
+    public EntityFactory getEntityFactory() {
+        return entityFactory;
+    }
+
+    public Engine getEngine() {
+        return engine;
     }
 
     public void exit() {

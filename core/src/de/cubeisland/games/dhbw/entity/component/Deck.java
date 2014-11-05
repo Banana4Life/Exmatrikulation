@@ -17,6 +17,9 @@ public class Deck extends Component implements Iterable<Entity> {
         for (int n = 0; n < Math.min(cards.size(), 6); n++) {
             cards.get(n).add(new DestTransform(transform.getPosition().cpy().add(n, 0, 0), transform.getRotation()));
         }
+        for (int n = Math.min(cards.size(), 6); n < cards.size(); n++) {
+            cards.get(n).add(new DestTransform(transform.getPosition().cpy().add(6, 0, 0), transform.getRotation()));
+        }
         return this;
     }
 
