@@ -1,4 +1,5 @@
 components:
   - de.cubeisland.games.dhbw.entity.component.Render
   - de.cubeisland.games.dhbw.entity.component.Transform
+  - de.cubeisland.games.dhbw.entity.component.Card
 

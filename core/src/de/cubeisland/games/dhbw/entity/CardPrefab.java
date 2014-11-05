@@ -22,6 +22,10 @@ public class CardPrefab extends Prefab<CardObject> {
         MENU, EVENT, ITEM
     }
 
+    public static enum SubjectType {
+        MATH, BWL, SOFTSKILL, PROGRAMMING
+    }
+
     public String name;
 
     public CardType type;
@@ -31,11 +35,11 @@ public class CardPrefab extends Prefab<CardObject> {
     public Map<Class<? extends Action>, Integer> actions;
 
     public class Requirement implements Section {
-
-        public String subject;
-
-        public String value;
+        public SubjectType subject;
+        public int value;
     }
+
+    public Requirement requirement;
 
     public int duration;
 

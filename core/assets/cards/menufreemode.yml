@@ -1,0 +1,7 @@
+---
+name: Freier Modus
+type: menu
+description: Im freien Modus kannst du eine vom Story Modus unabhängige Runde des Kartenspiels spielen.
+
+action:
+  - de.cubeisland.games.dhbw.entity.action.Menu: 1

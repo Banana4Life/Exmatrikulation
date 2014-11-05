@@ -32,6 +32,7 @@ import de.cubeisland.games.dhbw.state.states.*;
 import de.cubeisland.games.dhbw.state.transitions.*;
 import de.cubeisland.games.dhbw.util.CardTypeConverter;
 import de.cubeisland.games.dhbw.util.ClassConverter;
+import de.cubeisland.games.dhbw.util.SubjectTypeConverter;
 
 import static de.cubeisland.games.dhbw.state.StateManager.EndState;
 import static de.cubeisland.games.dhbw.state.StateManager.StartState;
@@ -50,6 +51,7 @@ public class DHBWGame extends ApplicationAdapter {
         Reflector reflector = new Reflector();
         reflector.getDefaultConverterManager().registerConverter(Class.class, new ClassConverter());
         reflector.getDefaultConverterManager().registerConverter(CardPrefab.CardType.class, new CardTypeConverter());
+        reflector.getDefaultConverterManager().registerConverter(CardPrefab.SubjectType.class, new SubjectTypeConverter());
         resources = new DHBWResources(reflector);
         resources.build();
         entityFactory = new EntityFactory();

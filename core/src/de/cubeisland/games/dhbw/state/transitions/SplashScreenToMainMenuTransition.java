@@ -7,17 +7,24 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.DHBWGame;
-import de.cubeisland.games.dhbw.entity.component.Deck;
-import de.cubeisland.games.dhbw.entity.component.DestTransform;
-import de.cubeisland.games.dhbw.entity.component.Render;
-import de.cubeisland.games.dhbw.entity.component.Transform;
+import de.cubeisland.games.dhbw.entity.CardPrefab;
+import de.cubeisland.games.dhbw.entity.component.*;
 import de.cubeisland.games.dhbw.entity.object.CardObject;
+import de.cubeisland.games.dhbw.resource.bag.Cards;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
 import de.cubeisland.games.dhbw.state.states.MainMenu;
+import life.banana4.util.resourcebags.ResourceBag;
 
+import java.util.Arrays;
+import java.util.List;
 
+/**
+ * Transition from SplashScreen to MainMenu. The deck with all the menu cards gets created and the first 3 cards are drawn.
+ * @author Jonas Dann
+ * @author Time Adamek
+ */
 public class SplashScreenToMainMenuTransition extends StateTransition {
     //TODO choose actual gamemode
     //TODO remember card stack to go back to mainmenu
@@ -34,28 +41,32 @@ public class SplashScreenToMainMenuTransition extends StateTransition {
 
         //TODO add the right cards to the deck
         CardObject.setBackTex(new TextureRegion(new Texture("cards/cardback.png")));
-        for (int i = 0; i < 15; i++) {
-            Entity card = game.getEntityFactory().create(game.getResources().entities.card);
-            card.getComponent(Render.class).setObject(new CardObject(new TextureRegion(new Texture("cards/cardfront.png"))));
-
-            game.getEngine().addEntity(card);
+        Cards cardPrefabs = game.getResources().cards;
+        List<Card> cards = Arrays.asList(
+                cardPrefabs.menufreemode,
+                cardPrefabs.menumultimode,
+                cardPrefabs.menustorymode
+        );
+        Entity card;
+        for (Card component : cards) {
+            card = game.getEntityFactory().create(game.getResources().entities.card).add(component.copy());
+            card.getComponent(Render.class).setObject(card.getComponent(Card.class).getCardObject());
             deck.getComponent(Deck.class).addCard(card);
+            game.getEngine().addEntity(card);
         }
-
+        for (int i = 0; i < 15; i++) {
+            card = game.getEntityFactory().create(game.getResources().entities.card).add(cardPrefabs.dummy.copy());
+            card.getComponent(Render.class).setObject(card.getComponent(Card.class).getCardObject());
+            deck.getComponent(Deck.class).addCard(card);
+            game.getEngine().addEntity(card);
+        }
         for (int i = 0; i < 3; i++) {
-            Entity card = deck.getComponent(Deck.class).drawCard();
-            //TODO
-            ((MainMenu) context.getStateManager().getState(MainMenu.ID)).getCardStack().add(card);
+            card = deck.getComponent(Deck.class).drawCard();
+            MainMenu.getCardStack().add(card);
             card.add(new DestTransform(new Vector3(-30 + 30 * i, 0, -150), new Quaternion(new Vector3(1, 0, 0), 0)));
         }
     }
 
-    /**
-     * Checks if cards are still moving, if one card is moving the transition is not over.
-     *
-     * @return true when transition is over else false
-     * @Author Tim Adamek
-     */
     @Override
     public boolean transition(StateContext context, GameState origin, GameState destination, float delta) {
 //        as long as a Card contains a DestTransform the card is moving
