@@ -118,7 +118,7 @@ public class StateManager {
         Iterator<Map.Entry<Integer, TransitionWrapper>> it = this.transitions.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry<Integer, TransitionWrapper> entry = it.next();
-            if (fromComponent(entry.getKey()) == state.id() || toComponent(entry.getKey()) == state.id()) {
+            if (originComponent(entry.getKey()) == state.id() || destinationComponent(entry.getKey()) == state.id()) {
                 it.remove();
             }
         }
@@ -159,7 +159,7 @@ public class StateManager {
     @Nullable
     public GameState getStartState() {
         for (Map.Entry<Integer, TransitionWrapper> entry : this.transitions.entrySet()) {
-            if (fromComponent(entry.getKey()) == MetaState.ID) {
+            if (originComponent(entry.getKey()) == MetaState.ID) {
                 return entry.getValue().getDestination();
             }
         }
@@ -314,7 +314,7 @@ public class StateManager {
      * @param combined the transition index
      * @return the short ID of the origin state
      */
-    private static short fromComponent(int combined) {
+    private static short originComponent(int combined) {
         return (short)(combined >> 16);
     }
 
@@ -324,7 +324,7 @@ public class StateManager {
      * @param combined the transition index
      * @return the short ID of the destination state
      */
-    private static short toComponent(int combined) {
+    private static short destinationComponent(int combined) {
         return (short)(combined & 0xFFFF);
     }
 

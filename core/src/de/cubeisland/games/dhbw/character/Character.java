@@ -15,52 +15,15 @@ public class Character {
 
     // TODO set different default values for each course of studies
     public Character() {
-        math = 0;
-        programming = 0;
-        bwl = 0;
-        softSkills = 0;
+        this.math = 0;
+        this.programming = 0;
+        this.bwl = 0;
+        this.softSkills = 0;
     }
 
-    public int incrementMath(int value) {
-        math += value;
+    public int getMath() {
         return math;
     }
-
-    public int incrementProgramming(int value) {
-        programming += value;
-        return programming;
-    }
-
-    public int incrementSoftSkills(int value) {
-        bwl += value;
-        return bwl;
-    }
-
-    public int incrementBwl(int value) {
-        softSkills += value;
-        return softSkills;
-    }
-
-    public int decrementMath(int value) {
-        math -= value;
-        return math;
-    }
-
-    public int decrementProgramming(int value) {
-        programming -= value;
-        return programming;
-    }
-
-    public int decrementSoftSkills(int value) {
-        bwl -= value;
-        return bwl;
-    }
-
-    public int decrementBwl(int value) {
-        softSkills -= value;
-        return softSkills;
-    }
-
 
     public void setMath(int math) {
         this.math = math;

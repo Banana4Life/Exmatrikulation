@@ -1,7 +1,7 @@
 package de.cubeisland.games.dhbw.entity.action;
 
-import de.cubeisland.games.dhbw.entity.CardAction;
 import de.cubeisland.games.dhbw.character.Character;
+import de.cubeisland.games.dhbw.entity.CardAction;
 
 /**
  * This class represents the action the lowers the soft skill points.
@@ -10,12 +10,12 @@ import de.cubeisland.games.dhbw.character.Character;
  */
 public class SoftSkills implements CardAction {
 
-    public void apply(Character c, int value) {
-        c.incrementSoftSkills(value);
+    public void apply(Character character, int value) {
+        character.setSoftSkills(character.getSoftSkills() + value);
     }
 
-    public void unapply(Character c, int value) {
-        c.decrementSoftSkills(value);
+    public void unapply(Character character, int value) {
+        character.setSoftSkills(character.getSoftSkills() - value);
     }
 
 }
