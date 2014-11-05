@@ -11,18 +11,16 @@ import de.cubeisland.games.dhbw.util.EntityUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CharacterSelection extends GameState {
+public class CharacterSelection extends MenuState {
 
     public static final short ID = 4;
-
-    private static Entity pickedcard;
-    private static List<Entity> cards = new ArrayList<>();
 
     /**
      * Checks if the player clicks on a card and where the card bellongs to.
      * If the card is one of the 3 cars the player can choose from this card is chosen and the transition to CharacterSelection is started.
      * If the card is in the CardStack of MainMenu the transition to MainMenu is started.
      * If the card is in the CardStack of CourseSelection the transition to CourseSelection is started.
+     *
      * @Author Tim Adamek
      */
     @Override
@@ -39,10 +37,10 @@ public class CharacterSelection extends GameState {
                 context.getStateManager().transitionTo(DifficultySelection.ID);
                 return true;
             } else {
-                if (MainMenu.getCardStack().contains(e)) {
+                if (((MainMenu) context.getStateManager().getState(MainMenu.ID)).getCardStack().contains(e)) {
                     pickedcard = e;
                     context.getStateManager().transitionTo(MainMenu.ID);
-                } else if (CourseSelection.getCardStack().contains(e)) {
+                } else if (((CourseSelection) context.getStateManager().getState(CourseSelection.ID)).getCardStack().contains(e)) {
                     pickedcard = e;
                     context.getStateManager().transitionTo(CourseSelection.ID);
                 }
@@ -50,14 +48,6 @@ public class CharacterSelection extends GameState {
         }
 
         return false;
-    }
-
-    public static List<Entity> getCardStack() {
-        return cards;
-    }
-
-    public static Entity getPickedcard() {
-        return pickedcard;
     }
 
 

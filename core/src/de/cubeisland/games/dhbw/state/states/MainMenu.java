@@ -10,14 +10,11 @@ import de.cubeisland.games.dhbw.util.EntityUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainMenu extends GameState {
+public class MainMenu extends MenuState {
 
     //TODO for all states: static vars not needed, value of objects is kept
 
     public static final short ID = 2;
-
-    private static Entity pickedcard;
-    private static List<Entity> cards= new ArrayList<>();
 
     /**
      * Checks if the player clicks on a card and where the card bellongs to.
@@ -38,14 +35,6 @@ public class MainMenu extends GameState {
             return true;
         }
         return false;
-    }
-
-    public static List<Entity> getCardStack(){
-        return cards;
-    }
-
-    public static Entity getPickedcard(){
-        return pickedcard;
     }
 
     @Override

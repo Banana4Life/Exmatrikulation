@@ -9,17 +9,13 @@ import de.cubeisland.games.dhbw.entity.component.DestTransform;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
-import de.cubeisland.games.dhbw.state.states.CharacterSelection;
-import de.cubeisland.games.dhbw.state.states.CourseSelection;
-import de.cubeisland.games.dhbw.state.states.DifficultySelection;
-import de.cubeisland.games.dhbw.state.states.MainMenu;
+import de.cubeisland.games.dhbw.state.states.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MergeCardsAndMoveToCorner extends StateTransition {
 
-    private static int stacks = 0;
+    private static int stackCount = 0;
 
     private static boolean cardsDrawn = false;
 
@@ -27,6 +23,7 @@ public class MergeCardsAndMoveToCorner extends StateTransition {
 
     /**
      * This method moves the cards to the corner and updates the cards in the static variable of the state
+     *
      * @Author Tim Adamek
      */
     @Override
@@ -35,35 +32,34 @@ public class MergeCardsAndMoveToCorner extends StateTransition {
         //to only need to check for setting the variables and not for the complete function
         Entity pickedCard;
         List<Entity> cardList;
-
-        if (origin.id() == MainMenu.ID) {
-            pickedCard = MainMenu.getPickedcard();
-            cardList = MainMenu.getCardStack();
-        } else if (origin.id() == CourseSelection.ID) {
-            pickedCard = CourseSelection.getPickedcard();
-            cardList = CourseSelection.getCardStack();
+        MenuState state = (MenuState) context.getStateManager().getState(origin.id());
+        if (state.id() == MainMenu.ID) {
+            pickedCard = state.getPickedcard();
+            cardList = state.getCardStack();
+        } else if (state.id() == CourseSelection.ID) {
+            pickedCard = state.getPickedcard();
+            cardList = state.getCardStack();
         } else {
             //from CharacterSelection
-            pickedCard = CharacterSelection.getPickedcard();
-            cardList = CharacterSelection.getCardStack();
+            pickedCard = state.getPickedcard();
+            cardList = state.getCardStack();
         }
-
 
         //moves the cards to the top corner
         for (Entity card : cardList) {
-            card.add(new DestTransform(new Vector3(75 - stacks * 40, 75, -250), new Quaternion(new Vector3(0, 0, 0), -100)));
+            card.add(new DestTransform(new Vector3(75 - stackCount * 40, 75, -250), new Quaternion(new Vector3(0, 0, 0), -100)));
         }
         //moves the picked card to the top of the stack
-        pickedCard.add(new DestTransform(new Vector3(75 - stacks * 40, 75, -249), new Quaternion(new Vector3(0, 0, 0), -100)));
-        stacks++;
+        pickedCard.add(new DestTransform(new Vector3(75 - stackCount * 40, 75, -249), new Quaternion(new Vector3(0, 0, 0), -100)));
+        stackCount++;
     }
 
     /**
      * This method draws the next 3 cards and saves them in the
      * state after the transition
      *
-     * @Author Tim Adamek
      * @return true when transition is over else false
+     * @Author Tim Adamek
      */
     @Override
     public boolean transition(StateContext context, GameState origin, GameState destination, float delta) {
@@ -71,12 +67,14 @@ public class MergeCardsAndMoveToCorner extends StateTransition {
         int test = context.getStateManager().getCurrentState().id();
         System.out.print(test);
         List<Entity> cardList;
-        if (origin.id() == MainMenu.ID) {
-            cardList = CourseSelection.getCardStack();
-        } else if (origin.id() == CourseSelection.ID) {
-            cardList = CharacterSelection.getCardStack();
-        } else /*if(context.getStateManager().getCurrentState().id()==CharacterSelection.ID)*/ {
-            cardList = DifficultySelection.getCardStack();
+
+        MenuState state = (MenuState) context.getStateManager().getState(destination.id());
+        if (state.id() == MainMenu.ID) {
+            cardList = state.getCardStack();
+        } else if (state.id() == CourseSelection.ID) {
+            cardList = state.getCardStack();
+        } else {
+            cardList = state.getCardStack();
         }
 
         //draws 3 new cards
@@ -112,12 +110,12 @@ public class MergeCardsAndMoveToCorner extends StateTransition {
         }
     }
 
-    public static int getStacks() {
-        return stacks;
+    public static int getStackCount() {
+        return stackCount;
     }
 
-    public static void setStacks(int stacks) {
-        MergeCardsAndMoveToCorner.stacks = stacks;
+    public static void setStackCount(int stackCount) {
+        MergeCardsAndMoveToCorner.stackCount = stackCount;
     }
 
 }

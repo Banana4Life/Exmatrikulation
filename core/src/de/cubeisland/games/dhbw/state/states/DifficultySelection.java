@@ -6,19 +6,9 @@ import de.cubeisland.games.dhbw.state.GameState;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DifficultySelection extends GameState {
+public class DifficultySelection extends MenuState {
 
     public static final short ID = 5;
-    private static Entity pickedcard;
-    private static List<Entity> cards = new ArrayList<>();
-
-    public static List<Entity> getCardStack() {
-        return cards;
-    }
-
-    public static Entity getPickedcard() {
-        return pickedcard;
-    }
 
     @Override
     public short id() {

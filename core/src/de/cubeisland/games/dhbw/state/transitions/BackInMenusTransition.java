@@ -12,8 +12,8 @@ import de.cubeisland.games.dhbw.state.StateTransition;
 import de.cubeisland.games.dhbw.state.states.CharacterSelection;
 import de.cubeisland.games.dhbw.state.states.CourseSelection;
 import de.cubeisland.games.dhbw.state.states.MainMenu;
+import de.cubeisland.games.dhbw.state.states.MenuState;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BackInMenusTransition extends StateTransition {
@@ -22,42 +22,49 @@ public class BackInMenusTransition extends StateTransition {
 
     private static boolean cardsMoving = false;
 
-    //TODO Add Card back to the top of the Deck
+    //TODO test if right cards are moved
+
+    //TODO JavaDoc
     @Override
     public void begin(StateContext context, GameState origin, GameState destination) {
-
+        //state saves the origin state and casts it to menu state,
+        //this allows using the underlying menu methods from the original states
+        MenuState state = (MenuState) origin;
         if (destination.id() == MainMenu.ID) {
             //there is no remainig stack;
-            MergeCardsAndMoveToCorner.setStacks(0);
-
-            if (origin.id() == CourseSelection.ID) {
-                for (Entity card : CourseSelection.getCardStack()) {
+            MergeCardsAndMoveToCorner.setStackCount(0);
+            //TODO create new extra class which implemments getCardStack/getpickedCard
+            if (state.id() == CourseSelection.ID) {
+                for (Entity card : state.getCardStack()) {
                     context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).putCardOnTop(card);
                 }
-                removeCards(CourseSelection.getCardStack());
-            } else if (origin.id() == CharacterSelection.ID) {
+                removeCards(state.getCardStack());
+            } else if (state.id() == CharacterSelection.ID) {
                 //put cards back on the deck
-                for (Entity card : CharacterSelection.getCardStack()) {
+                for (Entity card : state.getCardStack()) {
                     context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).putCardOnTop(card);
                 }
-                for (Entity card : CourseSelection.getCardStack()) {
+
+                // not able to use the local state Variable because an other state is needed
+                for (Entity card : ((CourseSelection) context.getStateManager().getState(CourseSelection.ID)).getCardStack()) {
                     context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).putCardOnTop(card);
                 }
-                //remove the cards in the state
-                removeCards(CourseSelection.getCardStack());
-                removeCards(CharacterSelection.getCardStack());//TODO rads not removed--> add them to deck instead, bug for all card where there are cards which have to be moved to the deck
+                //remove the cards in the states TODO unclear
+                removeCards(state.getCardStack());
+                // not able to use the local state Variable because an other state is needed
+                removeCards(((CourseSelection) context.getStateManager().getState(CourseSelection.ID)).getCardStack());
             } else {
                 //TODO from Diff selection
             }
         } else if (destination.id() == CourseSelection.ID) {
             //there is one remainig stack;
-            MergeCardsAndMoveToCorner.setStacks(1);
+            MergeCardsAndMoveToCorner.setStackCount(1);
 
-            if (origin.id() == CharacterSelection.ID) {
-                for (Entity card : CharacterSelection.getCardStack()) {
+            if (state.id() == CharacterSelection.ID) {
+                for (Entity card : state.getCardStack()) {
                     context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).putCardOnTop(card);
                 }
-                removeCards(CharacterSelection.getCardStack());
+                removeCards(state.getCardStack());
             } else {
                 //TODO from Diff selection
             }
@@ -65,28 +72,32 @@ public class BackInMenusTransition extends StateTransition {
             //To characterselection
 
             //there are two remainig stack;
-            MergeCardsAndMoveToCorner.setStacks(2);
+            MergeCardsAndMoveToCorner.setStackCount(2);
 
             //TODO all for difficulty selection
         }
     }
 
+    //TODO JavaDoc
     @Override
     public boolean transition(StateContext context, GameState origin, GameState destination, float delta) {
-        if(!cardsMoving) {
-            if (destination.id() == MainMenu.ID) {
-                for (int i = 0; i < MainMenu.getCardStack().size(); i++) {
-                    MainMenu.getCardStack().get(i).add(new DestTransform(new Vector3(-30 + 30 * i, 0, -150), new Quaternion(new Vector3(0, 0, 0), -100)));
+        //state saves the destination state and casts it to menu state,
+        //this allows using the underlying menu methods from the original states
+        MenuState state = (MenuState) destination;
+        if (!cardsMoving) {
+            if (state.id() == MainMenu.ID) {
+                for (int i = 0; i < state.getCardStack().size(); i++) {
+                    state.getCardStack().get(i).add(new DestTransform(new Vector3(-30 + 30 * i, 0, -150), new Quaternion(new Vector3(0, 0, 0), -100)));
                 }
-            } else if (destination.id() == CourseSelection.ID) {
-                for (int i = 0; i < CourseSelection.getCardStack().size(); i++) {
-                    CourseSelection.getCardStack().get(i).add(new DestTransform(new Vector3(-30 + 30 * i, 0, -150), new Quaternion(new Vector3(0, 0, 0), -100)));
+            } else if (state.id() == CourseSelection.ID) {
+                for (int i = 0; i < state.getCardStack().size(); i++) {
+                    state.getCardStack().get(i).add(new DestTransform(new Vector3(-30 + 30 * i, 0, -150), new Quaternion(new Vector3(0, 0, 0), -100)));
                 }
             } else {
-                for (int i = 0; i < CharacterSelection.getCardStack().size(); i++) {
-                    CharacterSelection.getCardStack().get(i).add(new DestTransform(new Vector3(-30 + 30 * i, 0, -150), new Quaternion(new Vector3(0, 0, 0), -100)));
-                }
                 //To Characterselection
+                for (int i = 0; i < state.getCardStack().size(); i++) {
+                    state.getCardStack().get(i).add(new DestTransform(new Vector3(-30 + 30 * i, 0, -150), new Quaternion(new Vector3(0, 0, 0), -100)));
+                }
             }
             cardsMoving = true;
             return false;
@@ -94,12 +105,13 @@ public class BackInMenusTransition extends StateTransition {
             boolean result;
             //check in the cardStack -depending on the gamestate- if one card contains a DestTransform
             //if this is the case the cards are still moving and the transition is not over
-            if (destination.id() == MainMenu.ID) {
-                result = chekForDestTransform(MainMenu.getCardStack());
-            } else if (destination.id() == CourseSelection.ID) {
-                result = chekForDestTransform(CourseSelection.getCardStack());
-            } else { //To Characterselection
-                result = chekForDestTransform(CharacterSelection.getCardStack());
+            if (state.id() == MainMenu.ID) {
+                result = chekForDestTransform(state.getCardStack());
+            } else if (state.id() == CourseSelection.ID) {
+                result = chekForDestTransform(state.getCardStack());
+            } else {
+                //To Characterselection
+                result = chekForDestTransform(state.getCardStack());
             }
             if (result) {
                 cardsMoving = false;

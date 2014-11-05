@@ -16,7 +16,6 @@ import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
 import de.cubeisland.games.dhbw.state.states.MainMenu;
-import de.cubeisland.games.dhbw.util.CardLoader;
 
 
 public class SplashScreenToMainMenuTransition extends StateTransition {
@@ -37,7 +36,7 @@ public class SplashScreenToMainMenuTransition extends StateTransition {
         CardObject.setBackTex(new TextureRegion(new Texture("cards/cardback.png")));
         for (int i = 0; i < 15; i++) {
             Entity card = game.getEntityFactory().create(game.getResources().entities.card);
-			card.getComponent(Render.class).setObject(new CardObject(new TextureRegion(CardLoader.loadTexture())));
+            card.getComponent(Render.class).setObject(new CardObject(new TextureRegion(new Texture("cards/cardfront.png"))));
 
             game.getEngine().addEntity(card);
             deck.getComponent(Deck.class).addCard(card);
@@ -45,19 +44,21 @@ public class SplashScreenToMainMenuTransition extends StateTransition {
 
         for (int i = 0; i < 3; i++) {
             Entity card = deck.getComponent(Deck.class).drawCard();
-            MainMenu.getCardStack().add(card);
+            //TODO
+            ((MainMenu) context.getStateManager().getState(MainMenu.ID)).getCardStack().add(card);
             card.add(new DestTransform(new Vector3(-30 + 30 * i, 0, -150), new Quaternion(new Vector3(1, 0, 0), 0)));
         }
     }
 
     /**
      * Checks if cards are still moving, if one card is moving the transition is not over.
+     *
      * @return true when transition is over else false
      * @Author Tim Adamek
      */
     @Override
     public boolean transition(StateContext context, GameState origin, GameState destination, float delta) {
-        //as long as a Card contains a DestTransform the card is moving
+//        as long as a Card contains a DestTransform the card is moving
         for (Entity card : context.getEngine().getEntitiesFor(Family.one(DestTransform.class).get())) {
             if (context.getGame().getResources().entities.card.matches(card)) {
                 return false;
