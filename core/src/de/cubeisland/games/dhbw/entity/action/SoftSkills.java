@@ -8,14 +8,14 @@ import de.cubeisland.games.dhbw.character.Character;
  *
  * @author Andreas Geis
  */
-public class SoftSkills implements CardAction{
+public class SoftSkills implements CardAction {
 
-	public void apply(Character c, int value) {
-		c.softSkills += value;
-	}
+    public void apply(Character c, int value) {
+        c.incrementSoftSkills(value);
+    }
 
-	public void unapply(Character c, int value) {
-		c.softSkills -= value;
-	}
+    public void unapply(Character c, int value) {
+        c.decrementSoftSkills(value);
+    }
 
 }

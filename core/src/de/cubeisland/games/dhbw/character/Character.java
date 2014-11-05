@@ -8,22 +8,59 @@ package de.cubeisland.games.dhbw.character;
  */
 public class Character {
 
-	private int math;
+    private int math;
     private int programming;
     private int bwl;
     private int softSkills;
 
-	// TODO set different default values for each course of studies
-	public Character() {
-		math = 0;
-		programming = 0;
-		bwl = 0;
-		softSkills = 0;
-	}
+    // TODO set different default values for each course of studies
+    public Character() {
+        math = 0;
+        programming = 0;
+        bwl = 0;
+        softSkills = 0;
+    }
 
-    public int getMath() {
+    public int incrementMath(int value) {
+        math += value;
         return math;
     }
+
+    public int incrementProgramming(int value) {
+        programming += value;
+        return programming;
+    }
+
+    public int incrementSoftSkills(int value) {
+        bwl += value;
+        return bwl;
+    }
+
+    public int incrementBwl(int value) {
+        softSkills += value;
+        return softSkills;
+    }
+
+    public int decrementMath(int value) {
+        math -= value;
+        return math;
+    }
+
+    public int decrementProgramming(int value) {
+        programming -= value;
+        return programming;
+    }
+
+    public int decrementSoftSkills(int value) {
+        bwl -= value;
+        return bwl;
+    }
+
+    public int decrementBwl(int value) {
+        softSkills -= value;
+        return softSkills;
+    }
+
 
     public void setMath(int math) {
         this.math = math;

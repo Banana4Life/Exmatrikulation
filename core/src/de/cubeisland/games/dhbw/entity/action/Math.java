@@ -8,14 +8,14 @@ import de.cubeisland.games.dhbw.character.Character;
  *
  * @author Andreas Geis
  */
-public class Math implements CardAction{
+public class Math implements CardAction {
 
-	public void apply(Character c, int value) {
-		c.math += value;
-	}
+    public void apply(Character c, int value) {
+        c.incrementMath(value);
+    }
 
-	public void unapply(Character c, int value) {
-		c.math -= value;
-	}
+    public void unapply(Character c, int value) {
+        c.decrementMath(value);
+    }
 
 }

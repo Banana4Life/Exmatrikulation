@@ -10,12 +10,12 @@ import de.cubeisland.games.dhbw.character.Character;
  */
 public class Programming implements CardAction {
 
-	public void apply(Character c, int value) {
-		c.programming += value;
-	}
+    public void apply(Character c, int value) {
+        c.incrementProgramming(value);
+    }
 
-	public void unapply(Character c, int value) {
-		c.programming -= value;
-	}
+    public void unapply(Character c, int value) {
+        c.decrementProgramming(value);
+    }
 
 }

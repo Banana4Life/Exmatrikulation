@@ -8,14 +8,14 @@ import de.cubeisland.games.dhbw.character.Character;
  *
  * @author Andreas Geis
  */
-public class Bwl implements CardAction{
+public class Bwl implements CardAction {
 
-	public void apply(Character c, int value) {
-		c.bwl += value;
-	}
+    public void apply(Character c, int value) {
+        c.incrementBwl(value);
+    }
 
-	public void unapply(Character c, int value) {
-		c.bwl -= value;
-	}
+    public void unapply(Character c, int value) {
+        c.decrementBwl(value);
+    }
 
 }
