@@ -34,47 +34,64 @@ public class BackInMenusTransition extends StateTransition {
             //there is no remainig stack;
             MergeCardsAndMoveToCorner.setStackCount(0);
             //TODO create new extra class which implemments getCardStack/getpickedCard
-            if (state.id() == CourseSelection.ID) {
-                for (Entity card : state.getCardStack()) {
-                    context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).putCardOnTop(card);
-                }
+            if (origin.id() == CourseSelection.ID) {
+                putCardsInDeck(state.getCardStack(), context);
                 removeCards(state.getCardStack());
-            } else if (state.id() == CharacterSelection.ID) {
-                //put cards back on the deck
-                for (Entity card : state.getCardStack()) {
-                    context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).putCardOnTop(card);
-                }
+            } else if (origin.id() == CharacterSelection.ID) {
 
-                // not able to use the local state Variable because an other state is needed
-                for (Entity card : ((CourseSelection) context.getStateManager().getState(CourseSelection.ID)).getCardStack()) {
-                    context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).putCardOnTop(card);
-                }
+                //put cards back on the deck
+                putCardsInDeck(state.getCardStack(), context);
+
+                // not able to use the local state Variable because an other state is needed TODO bad comment
+                putCardsInDeck(((CourseSelection) context.getStateManager().getState(CourseSelection.ID)).getCardStack(), context);
+
                 //remove the cards in the states TODO unclear
                 removeCards(state.getCardStack());
-                // not able to use the local state Variable because an other state is needed
+                // not able to use the local state Variable, so the state has to be accessed via the stateManager
                 removeCards(((CourseSelection) context.getStateManager().getState(CourseSelection.ID)).getCardStack());
+
             } else {
-                //TODO from Diff selection
+
+                //put cards back on the deck
+                putCardsInDeck(state.getCardStack(), context);
+
+                // not able to use the local state Variable because an other state is needed TODO bad comment
+                putCardsInDeck(((CharacterSelection) context.getStateManager().getState(CharacterSelection.ID)).getCardStack(), context);
+                putCardsInDeck(((CourseSelection) context.getStateManager().getState(CourseSelection.ID)).getCardStack(), context);
+
+                //remove the cards in the states TODO unclear
+                removeCards(state.getCardStack());
+                // not able to use the local state Variable, so the state has to be accessed via the stateManager
+                removeCards(((CharacterSelection) context.getStateManager().getState(CharacterSelection.ID)).getCardStack());
+                removeCards(((CourseSelection) context.getStateManager().getState(CourseSelection.ID)).getCardStack());
+
             }
         } else if (destination.id() == CourseSelection.ID) {
+
             //there is one remainig stack;
             MergeCardsAndMoveToCorner.setStackCount(1);
 
             if (state.id() == CharacterSelection.ID) {
-                for (Entity card : state.getCardStack()) {
-                    context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).putCardOnTop(card);
-                }
+
+                putCardsInDeck(state.getCardStack(),context);
                 removeCards(state.getCardStack());
+
             } else {
-                //TODO from Diff selection
+                putCardsInDeck(state.getCardStack(),context);
+                removeCards(state.getCardStack());
+
+                putCardsInDeck(((CharacterSelection)context.getStateManager().getState(CharacterSelection.ID)).getCardStack(),context);
+                removeCards(((CharacterSelection)context.getStateManager().getState(CharacterSelection.ID)).getCardStack());
             }
+
         } else {
-            //To characterselection
 
             //there are two remainig stack;
             MergeCardsAndMoveToCorner.setStackCount(2);
-
-            //TODO all for difficulty selection
+            //To characterselection
+            //only possible from DifficultySelection
+            putCardsInDeck(state.getCardStack(),context);
+            removeCards(state.getCardStack());
         }
     }
 
@@ -120,6 +137,14 @@ public class BackInMenusTransition extends StateTransition {
         }
     }
 
+
+    private void putCardsInDeck(List<Entity> cards, StateContext context) {
+        for (Entity card : cards) {
+            context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).putCardOnTop(card);
+        }
+    }
+
+
     private boolean chekForDestTransform(List<Entity> cards) {
         boolean result = true;
         for (Entity card : cards) {
@@ -132,6 +157,8 @@ public class BackInMenusTransition extends StateTransition {
         return result;
     }
 
+
+    //CHANE to need stateID
     private void removeCards(List<Entity> cards) {
         while (cards.size() > 0) {
             cards.remove(0);
