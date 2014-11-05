@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.entity.component.Deck;
 import de.cubeisland.games.dhbw.entity.component.DestTransform;
+import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
 import de.cubeisland.games.dhbw.state.states.CharacterSelection;
@@ -30,9 +31,11 @@ public class MergeCardsAndMoveToCorner extends StateTransition {
     /**
      * This method moves the cards to the corner and updates the cards in the static variable of the state
      * @param context
+     * @param origin
+     * @param destination
      */
     @Override
-    public void begin(StateContext context) {
+    public void begin(StateContext context, GameState origin, GameState destination) {
         //saving static Card/CardList of current States in a local variable
         //to only need to check for setting the variables and not for the complete function
         Entity pickedcard;
@@ -62,13 +65,13 @@ public class MergeCardsAndMoveToCorner extends StateTransition {
     /**
      * This method draws the next 3 cards and saves them in the
      * state after the transition
-     *
-     * @param context
+     *  @param context
+     * @param origin
+     * @param destination @return
      * @param delta
-     * @return
      */
     @Override
-    public boolean transition(StateContext context, float delta) {
+    public boolean transition(StateContext context, GameState origin, GameState destination, float delta) {
         //checking for state and saving to next state
         int test = context.getStateManager().getCurrentState().id();
         System.out.print(test);

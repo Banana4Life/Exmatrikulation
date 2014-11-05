@@ -7,6 +7,9 @@ import life.banana4.util.resourcebags.ResourceBag;
 
 import java.lang.reflect.Field;
 
+/**
+ * Holds all the entity prefabs.
+ */
 public class Entities extends ResourceBag<EntityPrefab> {
     private Reflector reflector;
 

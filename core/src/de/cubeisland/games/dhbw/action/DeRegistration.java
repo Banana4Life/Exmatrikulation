@@ -3,6 +3,9 @@ package de.cubeisland.games.dhbw.action;
 import de.cubeisland.games.dhbw.entity.CardAction;
 import de.cubeisland.games.dhbw.entity.component.MyCharacter;
 
+/**
+ * This class represents an action that de-registrates the player
+ */
 public class DeRegistration implements CardAction{
 
 	public void apply(MyCharacter c, int value) {

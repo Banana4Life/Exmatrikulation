@@ -14,11 +14,22 @@ import de.cubeisland.games.dhbw.entity.component.Picked;
 import de.cubeisland.games.dhbw.entity.component.Render;
 import de.cubeisland.games.dhbw.state.StateManager;
 
+/**
+ * This is the global input processor which acts as the fallback of the input multiplexer.
+ * It can be used to handle global key bindings
+ */
 public class GlobalInputProcessor implements InputProcessor {
     private final PerspectiveCamera camera;
     private final Engine engine;
     private final StateManager sm;
 
+    /**
+     * Constructs a new instance
+     *
+     * @param camera the camera used by the game
+     * @param engine the ashley entity engine used to process entities in the game
+     * @param stateManager the state manager
+     */
     public GlobalInputProcessor(PerspectiveCamera camera, Engine engine, StateManager stateManager) {
         this.camera = camera;
         this.engine = engine;

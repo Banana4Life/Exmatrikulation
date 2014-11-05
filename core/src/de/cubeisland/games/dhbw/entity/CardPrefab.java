@@ -1,12 +1,13 @@
 package de.cubeisland.games.dhbw.entity;
 
 import de.cubeisland.engine.reflect.Section;
+import de.cubeisland.games.dhbw.entity.object.CardObject;
 import de.cubeisland.games.dhbw.util.Prefab;
 
 import javax.swing.*;
 import java.util.Map;
 
-public class CardPrefab extends Prefab {
+public class CardPrefab extends Prefab<CardObject> {
 
     public enum CardType {
         MENU, EVENT, ITEM

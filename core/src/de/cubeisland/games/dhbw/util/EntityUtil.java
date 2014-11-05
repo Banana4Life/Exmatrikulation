@@ -9,9 +9,22 @@ import com.badlogic.gdx.graphics.Camera;
 import de.cubeisland.games.dhbw.entity.component.Render;
 import de.cubeisland.games.dhbw.entity.component.Transform;
 
+/**
+ * This class hols static helper methods to work with entities.
+ */
 public abstract class EntityUtil {
     private EntityUtil() {}
 
+    /**
+     * This method checks whether there is an entity at a given screen location.
+     *
+     * @param engine the entity engine
+     * @param camera the camera for projections
+     * @param screenX the x position on the screen
+     * @param screenY the y position on the screen
+     * @return the entity at the given location or null
+     */
+    @Nullable
     public static Entity getEntityAt(Engine engine, Camera camera, float screenX, float screenY) {
         ImmutableArray<Entity> entities = engine.getEntitiesFor(Family.getFor(Render.class));
         if (entities.size() == 0) {

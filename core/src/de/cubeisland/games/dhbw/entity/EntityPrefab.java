@@ -7,7 +7,7 @@ import de.cubeisland.games.dhbw.util.Prefab;
 
 import java.util.ArrayList;
 
-public class EntityPrefab extends Prefab {
+public class EntityPrefab extends Prefab<Entity> {
     public ArrayList<Class<Component>>  components;
 
     public boolean matches(Entity entity) {

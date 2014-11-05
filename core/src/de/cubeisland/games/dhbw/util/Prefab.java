@@ -2,5 +2,8 @@ package de.cubeisland.games.dhbw.util;
 
 import de.cubeisland.engine.reflect.ReflectedYaml;
 
-public class Prefab extends ReflectedYaml {
+/**
+ * This class specifies a prefab which can be used in a {@link de.cubeisland.games.dhbw.util.Factory}
+ */
+public abstract class Prefab<T> extends ReflectedYaml {
 }

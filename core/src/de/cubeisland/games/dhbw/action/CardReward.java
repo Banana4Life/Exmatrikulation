@@ -3,6 +3,9 @@ package de.cubeisland.games.dhbw.action;
 import de.cubeisland.games.dhbw.entity.CardAction;
 import de.cubeisland.games.dhbw.entity.component.MyCharacter;
 
+/**
+ * This class represents an action that rewards the player with a new card
+ */
 public class CardReward implements CardAction{
 
 	public void apply(MyCharacter c, int cardNumber) {

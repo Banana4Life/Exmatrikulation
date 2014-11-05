@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.entity.component.Deck;
 import de.cubeisland.games.dhbw.entity.component.DestTransform;
+import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
 import de.cubeisland.games.dhbw.state.states.CharacterSelection;
@@ -26,7 +27,7 @@ public class BackInMenusTransition extends StateTransition {
 
     //TODO Add Card back to the top of the Deck
     @Override
-    public void begin(StateContext context) {
+    public void begin(StateContext context, GameState origin, GameState destination) {
         List<Entity> cardList = new ArrayList<>();
 
         if (toState == MainMenu.ID) {
@@ -77,8 +78,8 @@ public class BackInMenusTransition extends StateTransition {
     }
 
     @Override
-    public boolean transition(StateContext context, float delta) {
-        if (!cardsMoving) {
+    public boolean transition(StateContext context, GameState origin, GameState destination, float delta) {
+        if(!cardsMoving) {
             if (toState == MainMenu.ID) {
                 for (int i = 0; i < MainMenu.getCardStack().size(); i++) {
                     MainMenu.getCardStack().get(i).add(new DestTransform(new Vector3(-30 + 30 * i, 0, -150), new Quaternion(new Vector3(0, 0, 0), -100)));

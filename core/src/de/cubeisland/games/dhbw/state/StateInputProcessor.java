@@ -2,11 +2,22 @@ package de.cubeisland.games.dhbw.state;
 
 import com.badlogic.gdx.InputProcessor;
 
+/**
+ * This input processor captures input for the current state and calls the state's matching callbacks.
+ *
+ * @author Phillip Schichtel
+ */
 public class StateInputProcessor implements InputProcessor {
 
     private final StateManager sm;
     private final StateContext context;
 
+    /**
+     * Constructs a new instance with the state manager and the state context
+     *
+     * @param stateManager the state manager
+     * @param context the context to be passed to the state event callbacks
+     */
     public StateInputProcessor(StateManager stateManager, StateContext context) {
         this.sm = stateManager;
         this.context = context;

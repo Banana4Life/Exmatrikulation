@@ -12,6 +12,7 @@ import de.cubeisland.games.dhbw.entity.component.DestTransform;
 import de.cubeisland.games.dhbw.entity.component.Render;
 import de.cubeisland.games.dhbw.entity.component.Transform;
 import de.cubeisland.games.dhbw.entity.object.CardObject;
+import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
 import de.cubeisland.games.dhbw.state.states.MainMenu;
@@ -23,9 +24,7 @@ public class SplashScreenToMainMenuTransition extends StateTransition {
 
     // private static List<Entity> cardList = new ArrayList<>();
     @Override
-    public void begin(StateContext context) {
-        super.begin(context);
-
+    public void begin(StateContext context, GameState origin, GameState destination) {
         DHBWGame game = context.getGame();
 
         Entity deck = game.getEntityFactory().create(game.getResources().entities.deck);
@@ -53,7 +52,7 @@ public class SplashScreenToMainMenuTransition extends StateTransition {
 
     // when the transition is over true is returned else false
     @Override
-    public boolean transition(StateContext context, float delta) {
+    public boolean transition(StateContext context, GameState origin, GameState destination, float delta) {
         for (Entity entity : context.getEngine().getEntitiesFor(Family.one(DestTransform.class).get())) {
             if (context.getGame().getResources().entities.card.matches(entity)) {
                 return false;

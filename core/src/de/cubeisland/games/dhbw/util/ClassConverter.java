@@ -6,6 +6,9 @@ import de.cubeisland.engine.reflect.exception.ConversionException;
 import de.cubeisland.engine.reflect.node.Node;
 import de.cubeisland.engine.reflect.node.StringNode;
 
+/**
+ * This converter converts between {@link java.lang.Class} and {@link de.cubeisland.engine.reflect.node.StringNode}.
+ */
 public class ClassConverter implements Converter<Class<?>> {
     @Override
     public Node toNode(Class<?> object, ConverterManager manager) throws ConversionException {

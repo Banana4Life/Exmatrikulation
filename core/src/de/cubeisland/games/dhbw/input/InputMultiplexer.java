@@ -4,6 +4,12 @@ import com.badlogic.gdx.InputProcessor;
 
 import java.util.LinkedList;
 
+/**
+ * This class is a custom input multiplexer that replaces the multiplexer.
+ * This multiplexer allows to add input processors in front of the existing processors or after them.
+ * In addition to that a fallback processor can be specified which is called if no other processor
+ * handled the event.
+ */
 public class InputMultiplexer implements InputProcessor {
     private final LinkedList<InputProcessor> processors = new LinkedList<>();
     private final InputProcessor fallback;
@@ -16,16 +22,34 @@ public class InputMultiplexer implements InputProcessor {
         this.fallback = fallback;
     }
 
+    /**
+     * Appends an input processor to the list of processors.
+     *
+     * @param processor the processor to append
+     * @return fluent interface
+     */
     public InputMultiplexer append(InputProcessor processor) {
         this.processors.addLast(processor);
         return this;
     }
 
+    /**
+     * Prepends an input processor to the list of processors.
+     *
+     * @param processor the processor to prepend
+     * @return fluent interface
+     */
     public InputMultiplexer prepend(InputProcessor processor) {
         this.processors.addLast(processor);
         return this;
     }
 
+    /**
+     * Removes an input processor from the list of processors.
+     *
+     * @param processor the processor to remove
+     * @return fluent interface
+     */
     public InputMultiplexer remove(InputProcessor processor) {
         this.processors.remove(processor);
         return this;
