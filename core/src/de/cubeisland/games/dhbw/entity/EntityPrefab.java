@@ -7,8 +7,11 @@ import de.cubeisland.games.dhbw.util.Prefab;
 
 import java.util.ArrayList;
 
+/**
+ * This class specifies the entity configuration
+ */
 public class EntityPrefab extends Prefab<Entity> {
-    public ArrayList<Class<Component>>  components;
+    public ArrayList<Class<Component>> components;
 
     public boolean matches(Entity entity) {
         return getFamily().matches(entity);
@@ -19,3 +22,4 @@ public class EntityPrefab extends Prefab<Entity> {
         return Family.getFor((Class<Component>[]) components.toArray(new Class[components.size()]));
     }
 }
+

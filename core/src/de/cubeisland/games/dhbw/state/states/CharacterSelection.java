@@ -18,6 +18,13 @@ public class CharacterSelection extends GameState {
     private static Entity pickedcard;
     private static List<Entity> cards = new ArrayList<>();
 
+    /**
+     * Checks if the player clicks on a card and where the card bellongs to.
+     * If the card is one of the 3 cars the player can choose from this card is chosen and the transition to CharacterSelection is started.
+     * If the card is in the CardStack of MainMenu the transition to MainMenu is started.
+     * If the card is in the CardStack of CourseSelection the transition to CourseSelection is started.
+     * @Author Tim Adamek
+     */
     @Override
     public boolean touchDown(StateContext context, int screenX, int screenY, int pointer, int button) {
         if (button != Input.Buttons.LEFT) {
@@ -29,20 +36,14 @@ public class CharacterSelection extends GameState {
                 //Player has clicked on a card
                 //TODO choose char stat and add depending on card
                 pickedcard = e;
-                MergeCardsAndMoveToCorner.fromState = ID;
-                MergeCardsAndMoveToCorner.toState = DifficultySelection.ID;
                 context.getStateManager().transitionTo(DifficultySelection.ID);
                 return true;
             } else {
                 if (MainMenu.getCardStack().contains(e)) {
                     pickedcard = e;
-                    BackInMenusTransition.fromState = ID;
-                    BackInMenusTransition.toState = MainMenu.ID;
                     context.getStateManager().transitionTo(MainMenu.ID);
                 } else if (CourseSelection.getCardStack().contains(e)) {
                     pickedcard = e;
-                    BackInMenusTransition.fromState = ID;
-                    BackInMenusTransition.toState = CourseSelection.ID;
                     context.getStateManager().transitionTo(CourseSelection.ID);
                 }
             }

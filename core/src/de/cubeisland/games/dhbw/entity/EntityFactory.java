@@ -4,6 +4,12 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import de.cubeisland.games.dhbw.util.Factory;
 
+/**
+ * This factory creates entities from their prefabs
+ *
+ * @author Jonas Dann
+ * @author Phillip Schichtel
+ */
 public class EntityFactory implements Factory<Entity, EntityPrefab> {
 
     public Entity create(EntityPrefab preFab) {

@@ -23,7 +23,6 @@ public class SplashScreenToMainMenuTransition extends StateTransition {
     //TODO choose actual gamemode
     //TODO remember card stack to go back to mainmenu
 
-    // private static List<Entity> cardList = new ArrayList<>();
     @Override
     public void begin(StateContext context, GameState origin, GameState destination) {
         DHBWGame game = context.getGame();
@@ -51,11 +50,16 @@ public class SplashScreenToMainMenuTransition extends StateTransition {
         }
     }
 
-    // when the transition is over true is returned else false
+    /**
+     * Checks if cards are still moving, if one card is moving the transition is not over.
+     * @return true when transition is over else false
+     * @Author Tim Adamek
+     */
     @Override
     public boolean transition(StateContext context, GameState origin, GameState destination, float delta) {
-        for (Entity entity : context.getEngine().getEntitiesFor(Family.one(DestTransform.class).get())) {
-            if (context.getGame().getResources().entities.card.matches(entity)) {
+        //as long as a Card contains a DestTransform the card is moving
+        for (Entity card : context.getEngine().getEntitiesFor(Family.one(DestTransform.class).get())) {
+            if (context.getGame().getResources().entities.card.matches(card)) {
                 return false;
             }
         }

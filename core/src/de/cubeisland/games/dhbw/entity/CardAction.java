@@ -2,11 +2,29 @@ package de.cubeisland.games.dhbw.entity;
 
 import de.cubeisland.games.dhbw.character.Character;
 
+/**
+ * These actions are applied to the character depending on the type of card.
+ * Events will unapply a value when the player fails it or apply them when he is successful.
+ * Items will apply their value upon usage and unapply it when removed.
+ *
+ * @author Phillip Schichtel
+ * @author Andreas Geis
+ */
 public interface CardAction {
 
-	// if the player successfully completes an event, or uses an item, apply gets called on every action specified in the Card-Config
-	// if the player fails to complete an event, or an item effect wears off, unapply gets called on every action
-	void apply(Character c, int value);
+    /**
+     * This method applies the action value to a character
+     *
+     * @param character the character
+     * @param value the value to apply
+     */
+    void apply(Character character, int value);
 
-	void unapply(Character c, int value);
+    /**
+     * This method reverses the applied value
+     *
+     * @param character the character
+     * @param value the value to unapply
+     */
+	void unapply(Character character, int value);
 }
