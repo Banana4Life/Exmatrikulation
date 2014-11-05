@@ -88,6 +88,11 @@ public class StateManager {
         return state;
     }
 
+    @SuppressWarnings("unchecked")
+    public <T extends GameState> T getStateTyped(short id) {
+        return (T)getState(id);
+    }
+
     /**
      * Removes the state with the given state ID.
      *
