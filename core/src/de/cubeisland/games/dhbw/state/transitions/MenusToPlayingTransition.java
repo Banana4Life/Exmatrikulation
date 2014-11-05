@@ -1,6 +1,5 @@
 package de.cubeisland.games.dhbw.state.transitions;
 
-import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.graphics.Texture;
@@ -16,6 +15,7 @@ import de.cubeisland.games.dhbw.entity.object.CardObject;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
+import de.cubeisland.games.dhbw.util.CardLoader;
 
 public class MenusToPlayingTransition extends StateTransition {
     @Override
@@ -32,7 +32,7 @@ public class MenusToPlayingTransition extends StateTransition {
         for (int i = 0; i < 15; i++) {
             Entity card = game.getEntityFactory().create(game.getResources().entities.card);
             card.getComponent(Transform.class).setPosition(new Vector3(20 * i, 0, -100)).setRotation(new Quaternion(new Vector3(1, 0, 0), 0));
-            card.getComponent(Render.class).setObject(new CardObject(new TextureRegion(new Texture("cards/cardfront.png"))));
+			card.getComponent(Render.class).setObject(new CardObject(new TextureRegion(CardLoader.loadTexture())));
 
             game.getEngine().addEntity(card);
             deck.getComponent(Deck.class).addCard(card);
