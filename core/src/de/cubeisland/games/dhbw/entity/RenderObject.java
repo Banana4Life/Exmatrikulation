@@ -9,6 +9,7 @@ import de.cubeisland.games.dhbw.entity.component.Transform;
  * This interface specifies an object that can be rendered on the screen.
  *
  * @author Phillip Schichtel
+ * @author Jonas Dann
  */
 public interface RenderObject {
     /**
