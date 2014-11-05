@@ -46,6 +46,11 @@ public class Deck extends Component implements Iterable<Entity> {
         return this;
     }
 
+    public Deck putCardOnTop(Entity card) {
+        cards.add(0, card);
+        return this;
+    }
+
     @Override
     public Iterator<Entity> iterator() {
         return cards.iterator();

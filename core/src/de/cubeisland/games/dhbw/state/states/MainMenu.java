@@ -12,6 +12,8 @@ import java.util.List;
 
 public class MainMenu extends GameState {
 
+    //TODO for all states: static vars not needed, value of objects is kept
+
     public static final short ID = 2;
 
     private static Entity pickedcard;

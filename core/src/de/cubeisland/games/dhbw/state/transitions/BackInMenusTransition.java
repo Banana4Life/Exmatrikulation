@@ -1,8 +1,10 @@
 package de.cubeisland.games.dhbw.state.transitions;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
+import de.cubeisland.games.dhbw.entity.component.Deck;
 import de.cubeisland.games.dhbw.entity.component.DestTransform;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
@@ -20,7 +22,7 @@ public class BackInMenusTransition extends StateTransition {
 
     public static final BackInMenusTransition INSTANCE = new BackInMenusTransition();
 
-    private static boolean cardsMoving=false;
+    private static boolean cardsMoving = false;
 
     //TODO Add Card back to the top of the Deck
     @Override
@@ -33,10 +35,21 @@ public class BackInMenusTransition extends StateTransition {
 
             cardList = CourseSelection.getCardStack();
             if (fromState == CourseSelection.ID) {
+                for (Entity card : CourseSelection.getCardStack()) {
+                    context.getEngine().getEntitiesFor(Family.getFor(Deck.class)).first().getComponent(Deck.class).putCardOnTop(card);
+                }
                 removeCards(CourseSelection.getCardStack());
             } else if (fromState == CharacterSelection.ID) {
+                //put cards back on the deck
+                for (Entity card : CharacterSelection.getCardStack()) {
+                    context.getEngine().getEntitiesFor(Family.getFor(Deck.class)).first().getComponent(Deck.class).putCardOnTop(card);
+                }
+                for (Entity card : CourseSelection.getCardStack()) {
+                    context.getEngine().getEntitiesFor(Family.getFor(Deck.class)).first().getComponent(Deck.class).putCardOnTop(card);
+                }
+                //remove the cards in the state
                 removeCards(CourseSelection.getCardStack());
-                removeCards(CharacterSelection.getCardStack());
+                removeCards(CharacterSelection.getCardStack());//TODO rads not removed--> add them to deck instead, bug for all card where there are cards which have to be moved to the deck
             } else {
                 //TODO from Diff selection
             }
@@ -46,6 +59,9 @@ public class BackInMenusTransition extends StateTransition {
 
             cardList = CharacterSelection.getCardStack();
             if (fromState == CharacterSelection.ID) {
+                for (Entity card : CharacterSelection.getCardStack()) {
+                    context.getEngine().getEntitiesFor(Family.getFor(Deck.class)).first().getComponent(Deck.class).putCardOnTop(card);
+                }
                 removeCards(CharacterSelection.getCardStack());
             } else {
                 //TODO from Diff selection
@@ -60,10 +76,9 @@ public class BackInMenusTransition extends StateTransition {
         }
     }
 
-
     @Override
     public boolean transition(StateContext context, float delta) {
-        if(!cardsMoving) {
+        if (!cardsMoving) {
             if (toState == MainMenu.ID) {
                 for (int i = 0; i < MainMenu.getCardStack().size(); i++) {
                     MainMenu.getCardStack().get(i).add(new DestTransform(new Vector3(-30 + 30 * i, 0, -150), new Quaternion(new Vector3(0, 0, 0), -100)));
@@ -78,33 +93,29 @@ public class BackInMenusTransition extends StateTransition {
                 }
                 //To Characterselection
             }
-            cardsMoving=true;
+            cardsMoving = true;
             return false;
-        }else{
-            boolean result=true;
+        } else {
+            boolean result = true;
             //check in the cardStack -depending on the gamestate- if one card contains a DestTransform
             //if this is the case the cards are still moving and the transition is not over
             if (toState == MainMenu.ID) {
-               result = chekForDestTransform(MainMenu.getCardStack());
+                result = chekForDestTransform(MainMenu.getCardStack());
             } else if (toState == CourseSelection.ID) {
                 result = chekForDestTransform(CourseSelection.getCardStack());
             } else { //To Characterselection
                 result = chekForDestTransform(CharacterSelection.getCardStack());
             }
-        if(result){
-            cardsMoving=false;
+            if (result) {
+                cardsMoving = false;
+            }
+            return result;
         }
-        return result;
-
-
-
-        }
-
     }
 
-    private boolean chekForDestTransform(List<Entity> cards){
-        boolean result=true;
-        for (Entity card :cards) {
+    private boolean chekForDestTransform(List<Entity> cards) {
+        boolean result = true;
+        for (Entity card : cards) {
             for (int i = 0; i < card.getComponents().size(); i++) {
                 if (card.getComponents().get(i).getClass() == DestTransform.class) {
                     result = false;

@@ -23,7 +23,6 @@ public class MergeCardsAndMoveToCorner extends StateTransition {
     public static int fromState;
     public static int toState;
 
-
     private static boolean cardsDrawn=false;
 
     public static final MergeCardsAndMoveToCorner INSTANCE = new MergeCardsAndMoveToCorner();
@@ -81,7 +80,6 @@ public class MergeCardsAndMoveToCorner extends StateTransition {
         }else /*if(context.getStateManager().getCurrentState().id()==CharacterSelection.ID)*/{
             cardList=DifficultySelection.getCardStack();
         }
-
 
         //draws 3 new cards
         if (!cardsDrawn) {

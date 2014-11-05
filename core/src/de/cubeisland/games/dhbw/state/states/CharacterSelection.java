@@ -29,20 +29,20 @@ public class CharacterSelection extends GameState {
                 //Player has clicked on a card
                 //TODO choose char stat and add depending on card
                 pickedcard = e;
-                MergeCardsAndMoveToCorner.fromState=ID;
-                MergeCardsAndMoveToCorner.toState=DifficultySelection.ID;
+                MergeCardsAndMoveToCorner.fromState = ID;
+                MergeCardsAndMoveToCorner.toState = DifficultySelection.ID;
                 context.getStateManager().transitionTo(DifficultySelection.ID);
                 return true;
             } else {
                 if (MainMenu.getCardStack().contains(e)) {
                     pickedcard = e;
-                    BackInMenusTransition.fromState=ID;
-                    BackInMenusTransition.toState=MainMenu.ID;
+                    BackInMenusTransition.fromState = ID;
+                    BackInMenusTransition.toState = MainMenu.ID;
                     context.getStateManager().transitionTo(MainMenu.ID);
                 } else if (CourseSelection.getCardStack().contains(e)) {
                     pickedcard = e;
-                    BackInMenusTransition.fromState=ID;
-                    BackInMenusTransition.toState=CourseSelection.ID;
+                    BackInMenusTransition.fromState = ID;
+                    BackInMenusTransition.toState = CourseSelection.ID;
                     context.getStateManager().transitionTo(CourseSelection.ID);
                 }
             }
