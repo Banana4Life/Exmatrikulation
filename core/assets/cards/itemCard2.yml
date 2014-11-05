@@ -4,7 +4,7 @@ type: item
 description: Ermöglicht das Beweisen von trivialen Aussagen und gibt dir somit +10 in Mathe. Wie nützlich.
 
 action:
-  - de.cubeisland.games.dhbw.action.Math: 5
+  - de.cubeisland.games.dhbw.entity.action.Math: 5
 
 duration: 5
 rarity: 1

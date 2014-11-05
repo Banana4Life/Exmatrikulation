@@ -8,6 +8,8 @@ import de.cubeisland.engine.reflect.node.StringNode;
 
 /**
  * This converter converts between {@link java.lang.Class} and {@link de.cubeisland.engine.reflect.node.StringNode}.
+ *
+ * @author Jonas Dann
  */
 public class ClassConverter implements Converter<Class<?>> {
     @Override

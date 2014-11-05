@@ -11,6 +11,8 @@ import de.cubeisland.games.dhbw.entity.component.Transform;
 
 /**
  * This class hols static helper methods to work with entities.
+ *
+ * @author Phillip Schichtel
  */
 public abstract class EntityUtil {
     private EntityUtil() {}

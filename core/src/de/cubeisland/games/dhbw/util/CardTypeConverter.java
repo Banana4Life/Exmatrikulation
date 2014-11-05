@@ -10,6 +10,8 @@ import de.cubeisland.games.dhbw.entity.CardPrefab;
 /**
  * This converter converts between {@link de.cubeisland.games.dhbw.entity.CardPrefab.CardType} and
  * {@link de.cubeisland.engine.reflect.node.StringNode}.
+ *
+ * @author Jonas Dann
  */
 public class CardTypeConverter implements Converter<CardPrefab.CardType> {
 	@Override

@@ -5,6 +5,8 @@ package de.cubeisland.games.dhbw.util;
  *
  * @param <Out> the type of the object that will be produced
  * @param <In> the type of the prefab
+ *
+ * @author Phillip Schichtel
  */
 public interface Factory<Out, In extends Prefab<Out>> {
     Out create(In in);
