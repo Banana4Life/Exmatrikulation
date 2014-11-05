@@ -21,12 +21,7 @@ public class MergeCardsAndMoveToCorner extends StateTransition {
 
     public static final MergeCardsAndMoveToCorner INSTANCE = new MergeCardsAndMoveToCorner();
 
-    /**
-     * This method moves the cards to the corner and updates the cards in the static variable of the state
-     *
-     * @Author Tim Adamek
-     */
-    @Override
+     @Override
     public void begin(StateContext context, GameState origin, GameState destination) {
         //saving static Card/CardList of current States in a local variable
         //to only need to check for setting the variables and not for the complete function
@@ -54,18 +49,9 @@ public class MergeCardsAndMoveToCorner extends StateTransition {
         stackCount++;
     }
 
-    /**
-     * This method draws the next 3 cards and saves them in the
-     * state after the transition
-     *
-     * @return true when transition is over else false
-     * @Author Tim Adamek
-     */
-    @Override
+   @Override
     public boolean transition(StateContext context, GameState origin, GameState destination, float delta) {
         //checking for state and saving to next state
-        int test = context.getStateManager().getCurrentState().id();
-        System.out.print(test);
         List<Entity> cardList;
 
         MenuState state = (MenuState) context.getStateManager().getState(destination.id());
@@ -77,7 +63,7 @@ public class MergeCardsAndMoveToCorner extends StateTransition {
             cardList = state.getCardStack();
         }
 
-        //draws 3 new cards
+        //draws 3 new cards and add them to the state
         if (!cardsDrawn) {
             for (int i = 0; i < 3; i++) {
                 Entity card = context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).drawCard();
@@ -89,7 +75,6 @@ public class MergeCardsAndMoveToCorner extends StateTransition {
             cardsDrawn = true;
             return false;
         } else {
-
             //Result indicates if transition is over:
             //When no card contains a DestTransform the cards are on there destination Position
             //and the transition is over
