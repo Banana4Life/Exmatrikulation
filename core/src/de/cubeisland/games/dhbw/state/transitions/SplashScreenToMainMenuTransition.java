@@ -22,6 +22,7 @@ import java.util.List;
 
 /**
  * Transition from SplashScreen to MainMenu. The deck with all the menu cards gets created and the first 3 cards are drawn.
+ *
  * @author Jonas Dann
  * @author Time Adamek
  */
@@ -62,7 +63,7 @@ public class SplashScreenToMainMenuTransition extends StateTransition {
         }
         for (int i = 0; i < 3; i++) {
             card = deck.getComponent(Deck.class).drawCard();
-            MainMenu.getCardStack().add(card);
+            ((MainMenu) context.getStateManager().getState(MainMenu.ID)).getCardStack().add(card);
             card.add(new DestTransform(new Vector3(-30 + 30 * i, 0, -150), new Quaternion(new Vector3(1, 0, 0), 0)));
         }
     }
