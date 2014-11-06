@@ -1,7 +1,0 @@
----
-name: Multiplayer Modus
-type: menu
-description: Im Multiplayer Modus kannst du mit einem Freund gemeinsam gegen die DHBW antreten.
-
-action:
-  - de.cubeisland.games.dhbw.entity.action.Menu: 2

@@ -1,0 +1,7 @@
+---
+name: Wirtschaftsinformatik
+type: menu
+description: Studium im easy mode gefällig?
+
+action:
+  - de.cubeisland.games.dhbw.entity.action.Major: 0

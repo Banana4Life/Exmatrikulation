@@ -35,18 +35,19 @@ public class SplashScreenToMainMenuTransition extends StateTransition {
         DHBWGame game = context.getGame();
 
         Entity deck = game.getEntityFactory().create(game.getResources().entities.deck);
-        deck.getComponent(Transform.class).setPosition(new Vector3(40, 0, -100)).setRotation(new Quaternion(new Vector3(0, 1, 0), -90));
-        deck.getComponent(Deck.class).setDestPos(new Vector3(0, 0, -100)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 0));
+        deck.getComponent(Transform.class).setPosition(new Vector3(40, 0, -150)).setRotation(new Quaternion(new Vector3(0, 1, 0), -90));
+        deck.getComponent(Deck.class).setDestPos(new Vector3(0, 0, -150)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 0));
 
         game.getEngine().addEntity(deck);
 
-        //TODO add the right cards to the deck
         CardObject.setBackTex(new TextureRegion(new Texture("cards/cardback.png")));
         Cards cardPrefabs = game.getResources().cards;
         List<Card> cards = Arrays.asList(
                 cardPrefabs.menufreemode,
-                cardPrefabs.menumultimode,
-                cardPrefabs.menustorymode
+                cardPrefabs.menustorymode,
+                cardPrefabs.menubusinessinf,
+                cardPrefabs.menubusinessad,
+                cardPrefabs.menuappliedinf
         );
         Entity card;
         for (Card component : cards) {
@@ -61,10 +62,10 @@ public class SplashScreenToMainMenuTransition extends StateTransition {
             deck.getComponent(Deck.class).addCard(card);
             game.getEngine().addEntity(card);
         }
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             card = deck.getComponent(Deck.class).drawCard();
             ((MainMenu) context.getStateManager().getState(MainMenu.ID)).getCardStack().add(card);
-            card.add(new DestTransform(new Vector3(-30 + 30 * i, 0, -150), new Quaternion(new Vector3(1, 0, 0), 0)));
+            card.add(new DestTransform(new Vector3(-25 + 50 * i, 0, -150), new Quaternion(new Vector3(1, 0, 0), 0)));
         }
     }
 

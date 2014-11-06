@@ -30,7 +30,10 @@ public class Cards extends ResourceBag<Card> {
     //menu cards
     public Card menustorymode;
     public Card menufreemode;
-    public Card menumultimode;
+
+    public Card menubusinessinf;
+    public Card menubusinessad;
+    public Card menuappliedinf;
 
     // initialization of all cards; name must be equal to name of the config-file
     // event cards

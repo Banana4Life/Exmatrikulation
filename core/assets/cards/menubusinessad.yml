@@ -1,0 +1,7 @@
+---
+name: BWL
+type: menu
+description: Schwer aber nicht unmöglich.
+
+action:
+  - de.cubeisland.games.dhbw.entity.action.Major: 1
