@@ -4,7 +4,7 @@ import de.cubeisland.games.dhbw.character.Character;
 import de.cubeisland.games.dhbw.entity.CardAction;
 
 /**
- * This class represents the action the lowers the powering skill points.
+ * This class represents the action that lowers the Programming skill points.
  *
  * @author Andreas Geis
  */

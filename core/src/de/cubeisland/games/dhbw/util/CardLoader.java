@@ -10,6 +10,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 
+/**
+ * This class renders Name, Image and Description on a Card
+ */
 public class CardLoader {
 
 	private static BitmapFont font;

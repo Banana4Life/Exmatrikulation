@@ -11,7 +11,7 @@ import life.banana4.util.resourcebags.ResourceBag;
 import java.lang.reflect.Field;
 
 /**
- * Holds all the card prefabs.
+ * This class holds all the card prefabs.
  */
 public class Cards extends ResourceBag<Card> {
     private Reflector reflector;
