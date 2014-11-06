@@ -11,36 +11,42 @@ import de.cubeisland.games.dhbw.util.EntityUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Checks if the player clicks on a card and where the card belongs to.
+ * This Class is the Course Selection state, in this state the player can choose
+ * between three different characteristics of his character.
+ * In addition he can go back to Main Menu and CourseSelection
+ *
+ * @Author Tim Adamek
+ */
 public class CharacterSelection extends MenuState {
 
     public static final short ID = 4;
 
-    /**
-     * Checks if the player clicks on a card and where the card bellongs to.
-     * If the card is one of the 3 cars the player can choose from this card is chosen and the transition to CharacterSelection is started.
-     * If the card is in the CardStack of MainMenu the transition to MainMenu is started.
-     * If the card is in the CardStack of CourseSelection the transition to CourseSelection is started.
-     *
-     * @Author Tim Adamek
-     */
     @Override
     public boolean touchDown(StateContext context, int screenX, int screenY, int pointer, int button) {
+        //check if player presses the left mouse button, if not return false
         if (button != Input.Buttons.LEFT) {
             return false;
         }
+        //get the entity (the card) at the mouse position
         Entity e = EntityUtil.getEntityAt(context.getEngine(), context.getCamera(), screenX, screenY);
         if (e != null) {
             if (cards.contains(e)) {
-                //Player has clicked on a card
-                //TODO choose char stat and add depending on card
+                //the player has clicked one of the three cards
+
+                //remember the card the Player has clicked on
                 pickedcard = e;
+                //start the transition to CharacterSelection
                 context.getStateManager().transitionTo(DifficultySelection.ID);
                 return true;
             } else {
                 if (((MainMenu) context.getStateManager().getState(MainMenu.ID)).getCardStack().contains(e)) {
+                    //The player has clicked on the card Stack of MainMenu and moves back to main menu
                     pickedcard = e;
                     context.getStateManager().transitionTo(MainMenu.ID);
                 } else if (((CourseSelection) context.getStateManager().getState(CourseSelection.ID)).getCardStack().contains(e)) {
+                    //The player has clicked on the card Stack of courseSelection and moves back to main menu
                     pickedcard = e;
                     context.getStateManager().transitionTo(CourseSelection.ID);
                 }

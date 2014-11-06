@@ -10,27 +10,29 @@ import de.cubeisland.games.dhbw.util.EntityUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainMenu extends MenuState {
 
-    //TODO for all states: static vars not needed, value of objects is kept
+/**
+ * This Class is the Main Menu State, in this state the player can choose
+ * the game mode he wants to play
+ * @Author Tim Adamek
+ */
+public class MainMenu extends MenuState {
 
     public static final short ID = 2;
 
-    /**
-     * Checks if the player clicks on a card and where the card bellongs to.
-     * If the card is one of the 3 cars the player can choose from this card is chosen and the transition to CourseSelection is started.
-     * @Author Tim Adamek
-     */
     @Override
     public boolean touchDown(StateContext context, int screenX, int screenY, int pointer, int button) {
+        //check if player presses the left mouse button, if not return false
         if (button != Input.Buttons.LEFT) {
             return false;
         }
+        //get the entity (the card) at the mouse position
         Entity e = EntityUtil.getEntityAt(context.getEngine(), context.getCamera(), screenX, screenY);
         if (e != null && cards.contains(e)) {
-            //Player has clicked on a card
-            //TODO apply cards
+            //remember the card the player has clicked on
             pickedcard=e;
+
+            //start the transition to CourseSelection
             context.transitionTo(CourseSelection.ID);
             return true;
         }
