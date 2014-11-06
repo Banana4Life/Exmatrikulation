@@ -4,7 +4,7 @@ type: event
 description: Lachen ist auch mal gut...
 
 action:
-  - de.cubeisland.games.dhbw.entity.action.SoftSkill: 1
+  - de.cubeisland.games.dhbw.entity.action.SoftSkills: 1
 
 requirement:
   subject: softSkill
