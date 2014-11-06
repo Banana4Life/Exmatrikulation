@@ -28,73 +28,25 @@ public class BackInMenusTransition extends StateTransition {
         // when going back to a former state all cards
         // from states after the the destination state must be moved back to the deck
         // in addition the cards from the destination are moved tothe selection position
-
-        MenuState state = (MenuState) destination;
-        if (destination.id() == MainMenu.ID) {
-            //The cards from the Main Menu are moved back to the selection position
-            for (int i = 0; i < state.getCardStack().size(); i++) {
-                state.getCardStack().get(i).add(new DestTransform(new Vector3(-30 + 30 * i, 0, -150), new Quaternion(new Vector3(0, 0, 0), -100)));
-            }
-
-            //there is no remaining card stack so the Stack count has to be set to 0
-            MergeCardsAndMoveToCorner.setStackCount(0);
-            if (origin.id() == CourseSelection.ID) {
-                //Transition to Main Menu from Course Selection
-                putCardsInDeck(CourseSelection.ID, context);
-            } else if (origin.id() == CharacterSelection.ID) {
-                //Transition to Main Menu from Character Selection
-                putCardsInDeck(CharacterSelection.ID, context);
-                putCardsInDeck(CourseSelection.ID, context);
-            } else {
-                //Transition to Main Menu from Difficulty Selection
-                putCardsInDeck(DifficultySelection.ID, context);
-                putCardsInDeck(CharacterSelection.ID, context);
-                putCardsInDeck(CourseSelection.ID, context);
-            }
-        } else if (destination.id() == CourseSelection.ID) {
-            //The cards from the Course Selection are moved back to the selection position
-            for (int i = 0; i < state.getCardStack().size(); i++) {
-                state.getCardStack().get(i).add(new DestTransform(new Vector3(-30 + 30 * i, 0, -150), new Quaternion(new Vector3(0, 0, 0), -100)));
-            }
-
-            //there is one remaining card stack so the Stack count has to be set to 0
-            MergeCardsAndMoveToCorner.setStackCount(1);
-            if (origin.id() == CharacterSelection.ID) {
-                //Transition to Course Selection from CharacterSelection
-                putCardsInDeck(CharacterSelection.ID, context);
-            } else {
-                //Transition to Course Selection from DifficultySelection
-                putCardsInDeck(DifficultySelection.ID, context);
-                putCardsInDeck(CharacterSelection.ID, context);
-            }
-        } else {
-            //The cards from the Course Selection are moved back to the selection position
-            for (int i = 0; i < state.getCardStack().size(); i++) {
-                state.getCardStack().get(i).add(new DestTransform(new Vector3(-30 + 30 * i, 0, -150), new Quaternion(new Vector3(0, 0, 0), -100)));
-            }
-
-            //Transition to characterSelection from DifficultySelection
-
-            //there are two remaining card stack so the Stack count has to be set to two
-            MergeCardsAndMoveToCorner.setStackCount(2);
-            putCardsInDeck(DifficultySelection.ID, context);
+        MainMenu state = (MainMenu) destination;
+        //The cards from the Main Menu are moved back to the selection position
+        for (int i = 0; i < state.getCardStack().size(); i++) {
+            state.getCardStack().get(i).add(new DestTransform(new Vector3(-30 + 30 * i, 0, -150), new Quaternion(new Vector3(0, 0, 0), -100)));
+        }
+        //there is no remaining card stack so the Stack count has to be set to 0
+        MergeCardsAndMoveToCorner.setStackCount(0);
+        if (origin.id() == CourseSelection.ID) {
+           //Transition to Main Menu from Course Selection
+           putCardsInDeck(CourseSelection.ID, context);
         }
     }
 
     @Override
     public boolean transition(StateContext context, GameState origin, GameState destination, float delta) {
         MenuState state = (MenuState) destination;
-        boolean result;
         //check the cards, depending on the gameState, if one card contains a DestTransform
         //if this is the case the cards are still moving and the transition is not over
-        if (destination.id() == MainMenu.ID) {
-            result = checkForDestTransform(state.getCardStack());
-        } else if (destination.id() == CourseSelection.ID) {
-            result = checkForDestTransform(state.getCardStack());
-        } else { //Transition to CharacterSelection from DifficultySelection
-            result = checkForDestTransform(state.getCardStack());
-        }
-        return result;
+        return checkForDestTransform(state.getCardStack());
     }
 
 
@@ -120,7 +72,6 @@ public class BackInMenusTransition extends StateTransition {
      * @return true if no card moves else false
      */
     private boolean checkForDestTransform(List<Entity> cards) {
-
         for (Entity card : cards) {
             for (int i = 0; i < card.getComponents().size(); i++) {
                 if (card.getComponents().get(i).getClass() == DestTransform.class) {
