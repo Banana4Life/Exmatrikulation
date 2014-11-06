@@ -31,11 +31,7 @@ public class MergeCardsAndMoveToCorner extends StateTransition {
         if (state.id() == MainMenu.ID) {
             pickedCard = state.getPickedcard();
             cardList = state.getCardStack();
-        } else if (state.id() == CourseSelection.ID) {
-            pickedCard = state.getPickedcard();
-            cardList = state.getCardStack();
         } else {
-            //from CharacterSelection
             pickedCard = state.getPickedcard();
             cardList = state.getCardStack();
         }
@@ -57,9 +53,7 @@ public class MergeCardsAndMoveToCorner extends StateTransition {
         MenuState state = (MenuState) context.getStateManager().getState(destination.id());
         if (state.id() == MainMenu.ID) {
             cardList = state.getCardStack();
-        } else if (state.id() == CourseSelection.ID) {
-            cardList = state.getCardStack();
-        } else {
+        } else  {
             cardList = state.getCardStack();
         }
 
