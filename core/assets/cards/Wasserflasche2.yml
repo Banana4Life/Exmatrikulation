@@ -1,5 +1,5 @@
 ---
-name: VollständigeInduktion
+name: Vollständige Induktion
 type: item
 description: Ermöglicht das Beweisen von trivialen Aussagen und gibt dir somit +10 in Mathe. Wie nützlich.
 
@@ -8,4 +8,3 @@ action:
 
 duration: 5
 rarity: 1
-...

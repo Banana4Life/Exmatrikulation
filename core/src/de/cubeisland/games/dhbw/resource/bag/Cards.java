@@ -34,11 +34,11 @@ public class Cards extends ResourceBag<Card> {
 
     // initialization of all cards; name must be equal to name of the config-file
     // event cards
-    public Card eventCard1;
+    public Card mathePrüfung;
 
     // item cards
-    public Card itemCard1;
-    public Card itemCard2;
+    public Card Wasserflasche1;
+    public Card Wasserflasche2;
 
     public Cards(Reflector reflector) {
         this.reflector = reflector;
