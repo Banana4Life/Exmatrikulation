@@ -217,7 +217,7 @@ public class StateManager {
     /**
      * Starts the state system by starting the initial transition to the start state.
      *
-     * @deprecated fluent interface
+     * @return fluent interface
      *
      * @throws java.lang.IllegalStateException of not start state is defined
      */

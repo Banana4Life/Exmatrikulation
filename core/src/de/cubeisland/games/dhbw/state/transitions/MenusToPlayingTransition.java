@@ -15,7 +15,6 @@ import de.cubeisland.games.dhbw.entity.object.CardObject;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
-import de.cubeisland.games.dhbw.util.CardLoader;
 
 public class MenusToPlayingTransition extends StateTransition {
     @Override
@@ -32,7 +31,6 @@ public class MenusToPlayingTransition extends StateTransition {
         for (int i = 0; i < 15; i++) {
             Entity card = game.getEntityFactory().create(game.getResources().entities.card);
             card.getComponent(Transform.class).setPosition(new Vector3(20 * i, 0, -100)).setRotation(new Quaternion(new Vector3(1, 0, 0), 0));
-			card.getComponent(Render.class).setObject(new CardObject(new TextureRegion(CardLoader.loadTexture())));
 
             game.getEngine().addEntity(card);
             deck.getComponent(Deck.class).addCard(card);

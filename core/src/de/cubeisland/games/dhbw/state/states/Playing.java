@@ -25,7 +25,7 @@ public class Playing extends GameState {
     @Override
     public boolean keyDown(StateContext context, int keycode) {
         if (keycode == Input.Keys.W) {
-            context.getEngine().getEntitiesFor(Family.getFor(Deck.class)).first().getComponent(Deck.class).drawCard();
+            context.getEngine().getEntitiesFor(Family.all(Deck.class).get()).first().getComponent(Deck.class).drawCard();
             return true;
         }
         return false;
@@ -48,7 +48,7 @@ public class Playing extends GameState {
 
     @Override
     public boolean touchUp(StateContext context, int screenX, int screenY, int pointer, int button) {
-        ImmutableArray<Entity> entities = context.getEngine().getEntitiesFor(Family.getFor(Picked.class));
+        ImmutableArray<Entity> entities = context.getEngine().getEntitiesFor(Family.all(Picked.class).get());
         if (entities.size() == 0) {
             return false;
         }

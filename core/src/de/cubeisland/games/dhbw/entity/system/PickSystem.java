@@ -23,7 +23,7 @@ public class PickSystem extends IteratingSystem {
      * @param camera The camera of the game.
      */
     public PickSystem(PerspectiveCamera camera) {
-        super(Family.getFor(Picked.class, Transform.class));
+        super(Family.all(Picked.class, Transform.class).get());
 
         this.cam = camera;
     }

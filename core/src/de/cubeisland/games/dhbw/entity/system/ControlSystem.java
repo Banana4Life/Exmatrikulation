@@ -19,7 +19,7 @@ public class ControlSystem extends IteratingSystem {
      * The constructor gets the ComponentMapper for Transform and DestTransform
      */
     public ControlSystem() {
-        super(Family.getFor(Transform.class, DestTransform.class));
+        super(Family.all(Transform.class, DestTransform.class).get());
 
         this.transforms = ComponentMapper.getFor(Transform.class);
         this.destTransforms = ComponentMapper.getFor(DestTransform.class);

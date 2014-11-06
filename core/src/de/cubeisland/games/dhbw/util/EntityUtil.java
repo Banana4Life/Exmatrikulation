@@ -28,7 +28,7 @@ public abstract class EntityUtil {
      */
     @Nullable
     public static Entity getEntityAt(Engine engine, Camera camera, float screenX, float screenY) {
-        ImmutableArray<Entity> entities = engine.getEntitiesFor(Family.getFor(Render.class));
+        ImmutableArray<Entity> entities = engine.getEntitiesFor(Family.all(Render.class).get());
         if (entities.size() == 0) {
             return null;
         }

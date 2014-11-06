@@ -6,12 +6,13 @@ import com.badlogic.ashley.core.Family;
 import de.cubeisland.games.dhbw.util.Prefab;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class specifies the entity configuration
  */
 public class EntityPrefab extends Prefab<Entity> {
-    public ArrayList<Class<Component>> components;
+    public List<Class<Component>> components = new ArrayList<>();
 
     public boolean matches(Entity entity) {
         return getFamily().matches(entity);
@@ -19,7 +20,11 @@ public class EntityPrefab extends Prefab<Entity> {
 
     @SuppressWarnings("unchecked")
     private Family getFamily() {
-        return Family.getFor((Class<Component>[]) components.toArray(new Class[components.size()]));
+        Family.Builder builder = Family.all();
+        for (Class<Component> component : this.components) {
+            builder.all(component);
+        }
+        return builder.get();
     }
 }
 

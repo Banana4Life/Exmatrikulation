@@ -19,7 +19,7 @@ public class MovementSystem extends IteratingSystem {
      * The constructor gets the ComponentMapper for Transform and Velocity.
      */
     public MovementSystem() {
-        super(Family.getFor(Transform.class, Velocity.class), 10);
+        super(Family.all(Transform.class, Velocity.class).get(), 10);
 
         this.transforms = ComponentMapper.getFor(Transform.class);
         this.velocities = ComponentMapper.getFor(Velocity.class);

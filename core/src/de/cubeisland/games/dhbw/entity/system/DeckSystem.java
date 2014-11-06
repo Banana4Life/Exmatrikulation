@@ -19,7 +19,7 @@ public class DeckSystem extends IteratingSystem {
      * The constructor gets the ComponentMapper for Transform and Deck
      */
     public DeckSystem() {
-        super(Family.getFor(Deck.class, Transform.class));
+        super(Family.all(Deck.class, Transform.class).get());
 
         transforms = ComponentMapper.getFor(Transform.class);
         decks = ComponentMapper.getFor(Deck.class);

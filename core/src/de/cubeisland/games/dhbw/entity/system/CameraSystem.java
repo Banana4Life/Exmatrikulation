@@ -19,7 +19,7 @@ public class CameraSystem extends IteratingSystem {
      * The constructor gets the ComponentMapper for Camera
      */
     public CameraSystem() {
-        super(Family.getFor(Camera.class), 5);
+        super(Family.all(Camera.class).get(), 5);
         this.cameras = ComponentMapper.getFor(Camera.class);
     }
 
