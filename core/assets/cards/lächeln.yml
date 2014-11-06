@@ -1,0 +1,10 @@
+---
+name: Lächeln
+type: item
+description: Lach mal du bist so verspannt.
+
+action:
+  - de.cubeisland.games.dhbw.entity.action.SoftSkills: 1
+
+duration: 2
+rarity: 1

@@ -1,0 +1,13 @@
+---
+name: Der Exmatrikulator
+type: event
+description: Er fordert eine sofortige zusätzliche Prüfungsleistung.
+
+action:
+  - de.cubeisland.games.dhbw.entity.action.DeRegistration
+
+requirement:
+  subject: math
+  value: 50
+
+rarity: 1

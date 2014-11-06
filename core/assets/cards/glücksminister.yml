@@ -1,0 +1,13 @@
+---
+name: Glücksminister
+type: event
+description: Lachen ist auch mal gut...
+
+action:
+  - de.cubeisland.games.dhbw.entity.action.SoftSkill: 1
+
+requirement:
+  subject: softSkill
+  value: 3
+
+rarity: 1

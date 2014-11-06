@@ -1,0 +1,10 @@
+---
+name: Arbeitsunfähigkeitsbescheinigung
+type: item
+description: Leider fällt heute die DH aus...
+
+action:
+  - de.cubeisland.games.dhbw.entity.action.DeRegistration
+
+duration: 1
+rarity: 1

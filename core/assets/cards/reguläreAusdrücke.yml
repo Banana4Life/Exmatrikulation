@@ -1,0 +1,10 @@
+---
+name: Reguläre Ausdrücke
+type: item
+description: ??
+
+action:
+  - de.cubeisland.games.dhbw.entity.action.Informatik: 3
+
+duration: 5
+rarity: 1

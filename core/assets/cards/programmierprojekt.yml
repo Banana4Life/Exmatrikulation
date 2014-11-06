@@ -1,0 +1,13 @@
+---
+name: Programmierprojekt
+type: event
+description: Kapsel dich eine Woche von der Welt ab und fühle dich wie ein Codingsklave.
+
+action:
+  - de.cubeisland.games.dhbw.entity.action.Informatik: 3
+
+requirement:
+  subject: informatik
+  value: 10
+
+rarity: 1

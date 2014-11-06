@@ -37,8 +37,8 @@ public class Cards extends ResourceBag<Card> {
     public Card mathePrüfung;
 
     // item cards
-    public Card Wasserflasche1;
-    public Card Wasserflasche2;
+    public Card wasserflasche1;
+    public Card wasserflasche2;
 
     public Cards(Reflector reflector) {
         this.reflector = reflector;

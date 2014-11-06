@@ -1,10 +1,10 @@
 ---
-name: Vollständige Induktion
+name: 1,5L Wasserflasche
 type: item
-description: Ermöglicht das Beweisen von trivialen Aussagen und gibt dir somit +10 in Mathe. Wie nützlich.
+description: Erzeugt Mehrwert und erhöht deinen BWL "Skill" um 3.
 
 action:
-  - de.cubeisland.games.dhbw.entity.action.Math: 5
+  - de.cubeisland.games.dhbw.entity.action.Bwl: 3
 
-duration: 5
+duration: 6
 rarity: 1
