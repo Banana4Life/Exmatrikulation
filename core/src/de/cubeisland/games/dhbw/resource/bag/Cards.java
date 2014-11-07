@@ -37,11 +37,11 @@ public class Cards extends ResourceBag<Card> {
 
     // initialization of all cards; name must be equal to name of the config-file
     // event cards
-    public Card mathePrüfung;
+    public Card mathexam;
 
     // item cards
-    public Card wasserflasche1;
-    public Card wasserflasche2;
+    public Card waterbottle1;
+    public Card waterbottle2;
 
     public Cards(Reflector reflector) {
         this.reflector = reflector;
@@ -68,7 +68,7 @@ public class Cards extends ResourceBag<Card> {
 
         Pixmap background = copyPixmap(this.frontTemplate);
         Pixmap.setFilter(Pixmap.Filter.NearestNeighbour);
-        Pixmap image = new Pixmap(Gdx.files.internal("images/derExmatrikulator.png"));
+        Pixmap image = new Pixmap(Gdx.files.internal("images/exmatrikulator.png"));
         background.drawPixmap(image, 25, 49);
 
 
