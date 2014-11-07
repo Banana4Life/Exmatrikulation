@@ -57,9 +57,12 @@ public class BackInMenusTransition extends StateTransition {
         //takes the CardStack for thr given stateID from the stateManager
         //and puts every card back to the top of the deck
         List<Entity> cards = ((MenuState) context.getStateManager().getState(stateID)).getCardStack();
+
+        //cards in list are put back to deck in the right order
+        for(int i=1;i<=cards.size();i++){
+            context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).putCardOnTop(cards.get(cards.size()-i));
+        }
         while (cards.size() > 0) {
-            //first card in list is put back to deck
-            context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).putCardOnTop(cards.get(0));
             //card is deleted from cardStack
             cards.remove(0);
         }
