@@ -40,11 +40,11 @@ public class Cards extends ResourceBag<Card> {
 
     // initialization of all cards; name must be equal to name of the config-file
     // event cards
-    public Card mathexam;
+    public Card eventmathexam;
 
     // item cards
-    public Card waterbottle1;
-    public Card waterbottle2;
+    public Card itemwaterbottle1;
+    public Card itemwaterbottle2;
 
     public Cards(Reflector reflector) {
         this.reflector = reflector;
@@ -62,7 +62,7 @@ public class Cards extends ResourceBag<Card> {
         try {
             image = new Pixmap(Gdx.files.internal(basedir.child(field.getName() + ".png").getPath()));
         } catch (GdxRuntimeException e) {
-            image = new Pixmap(Gdx.files.internal(basedir.child("exmatrikulator.png").getPath()));
+            image = new Pixmap(Gdx.files.internal("cards/eventexmatrikulator.png"));
             Gdx.app.log("error", "card image " + field.getName() + ".png not found!");
         }
 
