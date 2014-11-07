@@ -4,7 +4,7 @@ type: event
 description: Es steht eine Mathe Prüfung an, tue dein bestes um sie zu bestehen.
 
 action:
-  - de.cubeisland.games.dhbw.entity.action.Math: 5
+  - de.cubeisland.games.dhbw.entity.action.MathReward: 5
   - de.cubeisland.games.dhbw.entity.action.DeRegistration
 
 requirement:

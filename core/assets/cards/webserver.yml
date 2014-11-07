@@ -3,7 +3,5 @@ name: Wie Programmiere Ich Einen Webserver
 type: item
 description: Du hast kein Verständnis davon, wie man einen Webserver programmiert.
 
-action:
-
 duration: 1
 rarity: 1

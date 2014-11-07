@@ -1,0 +1,13 @@
+---
+name: OO-Raumschiffe greifen an
+type: event
+description: Benutze die C-anone um die Welt zu retten.
+
+action:
+  - de.cubeisland.games.dhbw.entity.action.Programming: 2
+
+requirement:
+  subject: programming
+  value: 20
+
+rarity: 1

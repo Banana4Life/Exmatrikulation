@@ -1,7 +1,7 @@
 ---
 name: Reguläre Ausdrücke
 type: item
-description: ??
+description: Die guten alten RegExp.
 
 action:
   - de.cubeisland.games.dhbw.entity.action.Informatik: 3

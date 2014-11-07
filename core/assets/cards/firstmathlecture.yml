@@ -4,7 +4,7 @@ type: event
 description: Du bist motiviert!
 
 action:
-  - de.cubeisland.games.dhbw.entity.action.Math: 1
+  - de.cubeisland.games.dhbw.entity.action.MathReward: 1
 
 requirement:
   subject: math

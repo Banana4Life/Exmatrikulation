@@ -11,7 +11,7 @@ import de.cubeisland.games.dhbw.entity.CardAction;
 public class CardReward implements CardAction {
 
     public void apply(Character character, int cardNumber) {
-        // TODO: give the specified card to the player
+        // give the specified card to the player
         // it has to be an item card with the specified cardNumber
 
     }
