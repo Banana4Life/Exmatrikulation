@@ -25,35 +25,14 @@ public class BackInMenusTransition extends StateTransition {
 
     @Override
     public void begin(StateContext context, GameState origin, GameState destination) {
-        // when going back to a former state all cards
-        // from states after the the destination state must be moved back to the deck
-        // in addition the cards from the destination are moved tothe selection position
         MainMenu state = (MainMenu) destination;
         //The cards from the Main Menu are moved back to the selection position
         for (int i = 0; i < state.getCardStack().size(); i++) {
-            state.getCardStack().get(i).add(new DestTransform(new Vector3(-30 + 30 * i, 0, -150), new Quaternion(new Vector3(0, 0, 0), -100)));
+            state.getCardStack().get(i).add(new DestTransform(new Vector3(-25 + 50 * i, 0, -150), new Quaternion(new Vector3(1, 0, 0), 0)));
         }
-        //there is no remaining card stack so the Stack count has to be set to 0
-        putCardsInDeck(CourseSelection.ID, context);
-    }
+        putCardsInDeck( context);
 
-    @Override
-    public boolean transition(StateContext context, GameState origin, GameState destination, float delta) {
-        MenuState state = (MenuState) destination;
-        //check the cards, depending on the gameState, if one card contains a DestTransform
-        //if this is the case the cards are still moving and the transition is not over
-        return checkForDestTransform(state.getCardStack());
-    }
-
-
-    private void putCardsInDeck(short stateID, StateContext context) {
-        //the order of usage matters,
-        //because the cards must be in the right order in the deck
-
-        //takes the CardStack for thr given stateID from the stateManager
-        //and puts every card back to the top of the deck
-        List<Entity> cards = ((MenuState) context.getStateManager().getState(stateID)).getCardStack();
-
+        List<Entity> cards =((MenuState)origin).getCardStack();
         //cards in list are put back to deck in the right order
         for(int i=1;i<=cards.size();i++){
             context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).putCardOnTop(cards.get(cards.size()-i));
@@ -64,20 +43,29 @@ public class BackInMenusTransition extends StateTransition {
         }
     }
 
-    /**
-     * Checks if one Entity in the cards is moving
-     *
-     * @param cards the list of Entity which shall be checked
-     * @return true if no card moves else false
-     */
-    private boolean checkForDestTransform(List<Entity> cards) {
-        for (Entity card : cards) {
-            for (int i = 0; i < card.getComponents().size(); i++) {
-                if (card.getComponents().get(i).getClass() == DestTransform.class) {
-                    return false;
-                }
+    @Override
+    public boolean transition(StateContext context, GameState origin, GameState destination, float delta) {
+    //    MenuState state = (MenuState) destination;
+        //Checks if cards still contain a DestTrasform if this is the case the cards are still moving and the transition is not over
+        for (Entity card : context.getEngine().getEntitiesFor(Family.one(DestTransform.class).get())) {
+            if (context.getGame().getResources().entities.card.matches(card)) {
+                return false;
             }
         }
         return true;
     }
+
+
+    private void putCardsInDeck( StateContext context) {
+        List<Entity> cards = ((MenuState) context.getStateManager().getState(CourseSelection.ID)).getCardStack();
+        //cards in list are put back to deck in the right order
+        for(int i=1;i<=cards.size();i++){
+            context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).putCardOnTop(cards.get(cards.size()-i));
+        }
+        while (cards.size() > 0) {
+            //card is deleted from cardStack
+            cards.remove(0);
+        }
+    }
+
 }
