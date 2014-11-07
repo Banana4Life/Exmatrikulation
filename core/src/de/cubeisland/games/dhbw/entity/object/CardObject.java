@@ -20,6 +20,8 @@ import de.cubeisland.games.dhbw.entity.RenderObject;
  * @author  Jonas Dann
  */
 public class CardObject implements RenderObject {
+    public static final float SCALE = 0.1f;
+    public static final float GAP   = .6f;
     private final Decal front;
     private final Decal back;
 
@@ -54,8 +56,8 @@ public class CardObject implements RenderObject {
     public void render(DHBWGame game, Camera cam, Entity e, Transform transform) {
 
         update(transform);
-        front.setScale(0.1f);
-        back.setScale(0.1f);
+        front.setScale(SCALE);
+        back.setScale(SCALE);
 
         DecalBatch batch = game.getDecalBatch();
         batch.add(this.front);
@@ -79,7 +81,7 @@ public class CardObject implements RenderObject {
      * @param position Position to use.
      */
     private static void setPosition(Decal front, Decal back, Vector3 position) {
-        Vector3 gap = front.getRotation().cpy().transform(new Vector3(0, 0, 1)).scl(0.1f);
+        Vector3 gap = front.getRotation().cpy().transform(new Vector3(0, 0, 1)).scl(GAP);
 
         front.setPosition(position.cpy());
         back.setPosition(position.cpy().sub(gap));
