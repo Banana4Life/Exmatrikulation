@@ -1,0 +1,13 @@
+---
+name: International Communication - Vorlesung
+type: event
+description: Du hast eine Vorlesung.
+
+action:
+  - de.cubeisland.games.dhbw.entity.action.SoftSkills: 3
+
+requirement:
+  subject: softSkills
+  value: 1
+
+rarity: 1

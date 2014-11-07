@@ -1,0 +1,17 @@
+---
+name: Party
+type: event
+description: Schaffst du es morgen früh wieder in die DH?
+
+action:
+  - de.cubeisland.games.dhbw.entity.action.SoftSkillsReward: 2
+  - de.cubeisland.games.dhbw.entity.action.SoftSkillsPenalty: -1
+  - de.cubeisland.games.dhbw.entity.action.BwlPenalty: 1
+  - de.cubeisland.games.dhbw.entity.action.ProgrammingPenalty: 1
+  - de.cubeisland.games.dhbw.entity.action.MathPenalty: 1
+
+requirement:
+  subject: softSkills
+  value: 10
+
+rarity: 1

@@ -1,0 +1,10 @@
+---
+name: C
+type: item
+description: Ich hatte mal einen Zeiger, der auf einen Zeiger zeigte.
+
+action:
+  - de.cubeisland.games.dhbw.entity.action.Programming: 3
+
+duration: 15
+rarity: 1

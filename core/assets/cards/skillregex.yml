@@ -1,7 +1,7 @@
 ---
 name: Reguläre Ausdrücke
 type: item
-description: Die guten alten RegExp.
+description: Informatiker lernen jeden Tag 3 neue Sprachen
 
 action:
   - de.cubeisland.games.dhbw.entity.action.Informatik: 3

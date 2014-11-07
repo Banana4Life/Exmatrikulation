@@ -1,0 +1,14 @@
+---
+name: Verschlafen
+type: event
+description: Du kommst zu spät zur Vorlesung, benutze deine Soft-Skills für eine gute Ausrede.
+
+action:
+  - de.cubeisland.games.dhbw.entity.action.SoftSkillsReward: 1
+  - de.cubeisland.games.dhbw.entity.action.SoftSkillsPenalty: 2
+
+requirement:
+  subject: softSkills
+  value: 10
+
+rarity: 1

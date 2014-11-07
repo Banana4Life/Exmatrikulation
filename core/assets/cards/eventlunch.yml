@@ -1,7 +1,7 @@
 ---
 name: Mittagessen in der Mensa
 type: event
-description: Die Rahmsoße ist fast alle! Benutze deine SoftSkills um dich vorzudrängeln.
+description: Die Rahmsoße ist fast alle! Benutze deine Soft-Skills um dich vorzudrängeln.
 
 action:
   - de.cubeisland.games.dhbw.entity.action.MathReward: 1

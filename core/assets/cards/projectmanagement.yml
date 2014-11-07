@@ -1,0 +1,10 @@
+---
+name: Projektmanagement
+type: item
+description: Irgendjemand muss den Indern ja beim Programmieren auf die Finger schauen..
+
+action:
+  - de.cubeisland.games.dhbw.entity.action.SoftSkills: 4
+
+duration: 15
+rarity: 1

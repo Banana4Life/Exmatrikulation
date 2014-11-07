@@ -1,0 +1,14 @@
+---
+name: Samstagstermin
+type: event
+description: Hoffentlich kommt der Dozent...
+
+action:
+  - de.cubeisland.games.dhbw.entity.action.BwlReward: 1
+  - de.cubeisland.games.dhbw.entity.action.BwlPenalty: 3
+
+requirement:
+  subject: bwl
+  value: 18
+
+rarity: 1
