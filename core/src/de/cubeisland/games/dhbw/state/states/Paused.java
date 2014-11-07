@@ -5,7 +5,7 @@ import de.cubeisland.games.dhbw.state.StateManager;
 
 public class Paused extends GameState {
 
-    public static final short ID = 7;
+    public static final short ID = 5;
 
     @Override
     public short id() {

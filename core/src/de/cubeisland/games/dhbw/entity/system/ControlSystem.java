@@ -9,6 +9,9 @@ import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.entity.component.DestTransform;
 import de.cubeisland.games.dhbw.entity.component.Transform;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * The ControlSystem moves all Entities with a DestTransform Component towards the destination
  * It uses the Family {Transform, DestTransform}
@@ -17,8 +20,11 @@ public class ControlSystem extends IteratingSystem {
     private ComponentMapper<Transform> transforms;
     private ComponentMapper<DestTransform> destTransforms;
 
-    //needed for vector Interpolation
-    private  Vector3 originalPosition;
+   private final int VECTOR_RANGE = 1;
+    private final float QUATERNION_RANGE = 0.001f;
+    private final float MOVEMENT_SPEED = 0.1f;
+    private final float ROTATION_SPEED = 0.05f;
+
     /**
      * The constructor gets the ComponentMapper for Transform and DestTransform
      */
@@ -29,66 +35,68 @@ public class ControlSystem extends IteratingSystem {
         this.destTransforms = ComponentMapper.getFor(DestTransform.class);
     }
 
+
+    Map<Entity, Vector3> orgPositionMap = new HashMap<>();
+    Map<Entity, Float> iterationMap = new HashMap<>();
+
+
     @Override
     public void processEntity(Entity entity, float deltaTime) {
         Transform transform = transforms.get(entity);
         DestTransform destTransform = destTransforms.get(entity);
 
-        boolean movmentFinished=false;
-        //TODO maybe rang fixed
-        if(!vectorsInRange(transform.getPosition(),destTransform.getPosition(),1)) {
-            transform.setPosition(vectorInterpolation(destTransform.getPosition(),transform.getPosition(),0.1f));
-            movmentFinished=false;
+        boolean rotationFinished = true;
+        boolean movmentFinished = false;
 
-        }else {
-            movmentFinished=true;
+        if (!orgPositionMap.containsKey(entity)) {
+            orgPositionMap.put(entity, transform.getPosition());
         }
 
-        boolean rotationFinished=true;
-//        if(!quaternionsInRange(transform.getRotation(),destTransform.getRotation(),0.1f)){
-//            Quaternion test=transform.getRotation().add(scaleQuaternion(destTransform.getRotation(),0.1f));
-//            transform.setRotation(transform.getRotation().add(scaleQuaternion(destTransform.getRotation(),0.1f)));
-//            rotationFinished=false;
-//       }else {
-//            rotationFinished=true;
-//        }
+        if (!vectorsInRange(transform.getPosition(), destTransform.getPosition())) {
+            transform.setPosition(vectorInterpolation(destTransform.getPosition(), transform.getPosition()));
+            movmentFinished = false;
 
-        transform.setRotation(destTransform.getRotation());
-        if(movmentFinished&&rotationFinished){
+        } else {
+            movmentFinished = true;
+        }
+
+        if (!quaternionsInRange(transform.getRotation(), destTransform.getRotation())) {
+            transform.setRotation(quaternionInterpolation(destTransform.getRotation(), transform.getRotation()));
+            rotationFinished = false;
+        } else {
+            rotationFinished = true;
+        }
+
+        if (movmentFinished && rotationFinished) {
             entity.remove(DestTransform.class);
         }
 
     }
 
-
-
-    private Vector3 vectorInterpolation(Vector3 destPosition, Vector3 orgPosition,float t){
-        float x = orgPosition.x;
-        float y = orgPosition.y;
-        float z = orgPosition.z;
-        x=x+ t*(destPosition.x-orgPosition.x);
-        y=y+ t*(destPosition.y-orgPosition.y);
-        z=z+ t*(destPosition.z-orgPosition.z);
-        return new Vector3(x,y,z);
+    private Vector3 vectorInterpolation(Vector3 destPosition, Vector3 orgPosition) {
+        float x = orgPosition.x + MOVEMENT_SPEED * (destPosition.x - orgPosition.x);
+        float y = orgPosition.y + MOVEMENT_SPEED * (destPosition.y - orgPosition.y);
+        float z = orgPosition.z + MOVEMENT_SPEED * (destPosition.z - orgPosition.z);
+        return new Vector3(x, y, z);
     }
 
-    private Quaternion  scaleQuaternion(Quaternion quaternion, float scale){
-        quaternion.x*=scale;
-        quaternion.y*=scale;
-        quaternion.z*=scale;
-        quaternion.w*=scale;
-        return quaternion;
+    private Quaternion quaternionInterpolation(Quaternion destRotation, Quaternion orgRotation) {
+        float x = destRotation.x;
+        float y = destRotation.y;
+        float z = destRotation.z;
+        float w = orgRotation.w + ROTATION_SPEED * (destRotation.w - orgRotation.w);
+        return new Quaternion(x, y, z, w);
     }
 
-    private boolean quaternionsInRange(Quaternion quaternion1,Quaternion quaternion2,float range) {
-        if(Math.abs(quaternion1.w-quaternion2.w)<range)  {
+    private boolean quaternionsInRange(Quaternion quaternion1, Quaternion quaternion2) {
+        if (Math.abs(quaternion1.w - quaternion2.w) < QUATERNION_RANGE) {
             return true;
         }
         return false;
     }
 
-    private boolean vectorsInRange(Vector3 vector1,Vector3 vector2, int range){
-        if(Math.abs(vector1.x-vector2.x)<range && Math.abs(vector1.y-vector2.y)<range &&Math.abs(vector1.z-vector2.z)<range)  {
+    private boolean vectorsInRange(Vector3 vector1, Vector3 vector2) {
+        if (Math.abs(vector1.x - vector2.x) < VECTOR_RANGE && Math.abs(vector1.y - vector2.y) < VECTOR_RANGE && Math.abs(vector1.z - vector2.z) < VECTOR_RANGE) {
             return true;
         }
         return false;
