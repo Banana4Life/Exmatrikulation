@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import de.cubeisland.engine.reflect.Reflector;
 import de.cubeisland.games.dhbw.entity.CardPrefab;
 import de.cubeisland.games.dhbw.entity.component.Card;
@@ -54,8 +55,15 @@ public class Cards extends ResourceBag<Card> {
     @Override
     protected Card load(FileRef basedir, Field field) {
         CardPrefab prefab = this.reflector.load(CardPrefab.class, basedir.child(field.getName()+".yml").getInputStream());
+        Pixmap image;
+        try {
+            image = new Pixmap(Gdx.files.internal(basedir.child(field.getName() + ".png").getPath()));
+        } catch (GdxRuntimeException e) {
+            image = new Pixmap(Gdx.files.internal("images/exmatrikulator.png"));
+            Gdx.app.log("error", "card image " + field.getName() + ".png not found!");
+        }
 
-        return new Card(prefab.type, new TextureRegion(generateTexture(prefab)), prefab.actions, prefab.requirement, prefab.duration, prefab.rarity);
+        return new Card(prefab.type, new TextureRegion(generateTexture(prefab, image)), prefab.actions, prefab.requirement, prefab.duration, prefab.rarity);
     }
 
     private static Pixmap copyPixmap(Pixmap base) {
@@ -64,11 +72,10 @@ public class Cards extends ResourceBag<Card> {
         return copy;
     }
 
-    private Texture generateTexture(CardPrefab prefab) {
+    private Texture generateTexture(CardPrefab prefab, Pixmap image) {
 
         Pixmap background = copyPixmap(this.frontTemplate);
         Pixmap.setFilter(Pixmap.Filter.NearestNeighbour);
-        Pixmap image = new Pixmap(Gdx.files.internal("images/exmatrikulator.png"));
         background.drawPixmap(image, 25, 49);
 
 
