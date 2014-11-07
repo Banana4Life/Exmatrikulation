@@ -15,8 +15,6 @@ import java.util.List;
 
 public class MergeCardsAndMoveToCorner extends StateTransition {
 
-    private static int stackCount = 0;
-
     private static boolean cardsDrawn = false;
 
     public static final MergeCardsAndMoveToCorner INSTANCE = new MergeCardsAndMoveToCorner();
@@ -38,11 +36,10 @@ public class MergeCardsAndMoveToCorner extends StateTransition {
 
         //moves the cards to the top corner
         for (Entity card : cardList) {
-            card.add(new DestTransform(new Vector3(75 - stackCount * 40, 75, -250), new Quaternion(new Vector3(0, 0, 0), -100)));
+            card.add(new DestTransform(new Vector3(75 -  40, 75, -250), new Quaternion(new Vector3(0, 0, 0), -100)));
         }
         //moves the picked card to the top of the stack
-        pickedCard.add(new DestTransform(new Vector3(75 - stackCount * 40, 75, -249), new Quaternion(new Vector3(0, 0, 0), -100)));
-        stackCount++;
+        pickedCard.add(new DestTransform(new Vector3(75 -  40, 75, -248), new Quaternion(new Vector3(0, 0, 0), -100)));
     }
 
    @Override
@@ -87,14 +84,6 @@ public class MergeCardsAndMoveToCorner extends StateTransition {
             }
             return result;
         }
-    }
-
-    public static int getStackCount() {
-        return stackCount;
-    }
-
-    public static void setStackCount(int stackCount) {
-        MergeCardsAndMoveToCorner.stackCount = stackCount;
     }
 
 }

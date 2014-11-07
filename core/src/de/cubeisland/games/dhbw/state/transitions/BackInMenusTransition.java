@@ -34,11 +34,7 @@ public class BackInMenusTransition extends StateTransition {
             state.getCardStack().get(i).add(new DestTransform(new Vector3(-30 + 30 * i, 0, -150), new Quaternion(new Vector3(0, 0, 0), -100)));
         }
         //there is no remaining card stack so the Stack count has to be set to 0
-        MergeCardsAndMoveToCorner.setStackCount(0);
-        if (origin.id() == CourseSelection.ID) {
-           //Transition to Main Menu from Course Selection
-           putCardsInDeck(CourseSelection.ID, context);
-        }
+        putCardsInDeck(CourseSelection.ID, context);
     }
 
     @Override

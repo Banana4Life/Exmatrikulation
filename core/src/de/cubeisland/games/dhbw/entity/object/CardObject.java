@@ -21,7 +21,7 @@ import de.cubeisland.games.dhbw.entity.RenderObject;
  */
 public class CardObject implements RenderObject {
     public static final float SCALE = 0.1f;
-    public static final float GAP   = .6f;
+    public static final float GAP   = 1.0f;
     private final Decal front;
     private final Decal back;
 
