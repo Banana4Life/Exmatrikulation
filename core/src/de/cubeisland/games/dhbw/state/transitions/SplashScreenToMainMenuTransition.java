@@ -2,13 +2,10 @@ package de.cubeisland.games.dhbw.state.transitions;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.DHBWGame;
 import de.cubeisland.games.dhbw.entity.component.*;
-import de.cubeisland.games.dhbw.entity.object.CardObject;
 import de.cubeisland.games.dhbw.resource.bag.Cards;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
@@ -38,7 +35,6 @@ public class SplashScreenToMainMenuTransition extends StateTransition {
 
         game.getEngine().addEntity(deck);
 
-        CardObject.setBackTex(new TextureRegion(new Texture("cards/cardback.png")));
         Cards cardPrefabs = game.getResources().cards;
         List<Card> cards = Arrays.asList(
                 cardPrefabs.menufreemode,
@@ -50,13 +46,13 @@ public class SplashScreenToMainMenuTransition extends StateTransition {
         Entity card;
         for (Card component : cards) {
             card = game.getEntityFactory().create(game.getResources().entities.card).add(component.copy());
-            card.getComponent(Render.class).setObject(card.getComponent(Card.class).getCardObject());
+            card.getComponent(Render.class).setObject(card.getComponent(Card.class).getObject());
             deck.getComponent(Deck.class).addCard(card);
             game.getEngine().addEntity(card);
         }
         for (int i = 0; i < 15; i++) {
             card = game.getEntityFactory().create(game.getResources().entities.card).add(cardPrefabs.dummy.copy());
-            card.getComponent(Render.class).setObject(card.getComponent(Card.class).getCardObject());
+            card.getComponent(Render.class).setObject(card.getComponent(Card.class).getObject());
             deck.getComponent(Deck.class).addCard(card);
             game.getEngine().addEntity(card);
         }

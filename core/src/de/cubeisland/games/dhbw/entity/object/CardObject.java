@@ -25,15 +25,13 @@ public class CardObject implements RenderObject {
     private final Decal front;
     private final Decal back;
 
-    private static TextureRegion backTex;
-
     /**
      * Sets the front and back Decal.
-     * @param frontTexture The front texture to use.
+     * @param front The front texture to use.
      */
-    public CardObject(TextureRegion frontTexture) {
-        this.front = Decal.newDecal(frontTexture.getRegionWidth(), frontTexture.getRegionHeight(), frontTexture, true);
-        this.back = Decal.newDecal(backTex.getRegionWidth(), backTex.getRegionHeight(), backTex, true);
+    public CardObject(TextureRegion front, TextureRegion back) {
+        this.front = Decal.newDecal(front.getRegionWidth(), front.getRegionHeight(), front, true);
+        this.back = Decal.newDecal(back.getRegionWidth(), back.getRegionHeight(), back, true);
     }
 
     @Override
@@ -112,13 +110,5 @@ public class CardObject implements RenderObject {
      */
     public Decal getBack() {
         return back;
-    }
-
-    /**
-     * Sets the static back texture.
-     * @param backTex back texture to use.
-     */
-    public static void setBackTex(TextureRegion backTex) {
-        CardObject.backTex = backTex;
     }
 }

@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import de.cubeisland.engine.reflect.Reflector;
 import de.cubeisland.games.dhbw.entity.CardPrefab;
 import de.cubeisland.games.dhbw.entity.component.Card;
+import de.cubeisland.games.dhbw.entity.object.CardObject;
 import life.banana4.util.resourcebags.FileRef;
 import life.banana4.util.resourcebags.ResourceBag;
 
@@ -24,6 +25,7 @@ import java.util.List;
 public class Cards extends ResourceBag<Card> {
     private Reflector reflector;
     private Pixmap frontTemplate;
+    private TextureRegion backTexture;
     private final BitmapFont font;
 
     public Card dummy;
@@ -47,7 +49,8 @@ public class Cards extends ResourceBag<Card> {
     public Cards(Reflector reflector) {
         this.reflector = reflector;
 
-        this.frontTemplate = new Pixmap(Gdx.files.internal("cards/cardfront.png"));
+        this.frontTemplate = new Pixmap(Gdx.files.internal("images/cardfront.png"));
+        this.backTexture = new TextureRegion(new Texture("images/cardback.png"));
         font = new BitmapFont(Gdx.files.internal("text.fnt"));
         font.setScale(.25f, -.25f);
     }
@@ -59,11 +62,13 @@ public class Cards extends ResourceBag<Card> {
         try {
             image = new Pixmap(Gdx.files.internal(basedir.child(field.getName() + ".png").getPath()));
         } catch (GdxRuntimeException e) {
-            image = new Pixmap(Gdx.files.internal("images/exmatrikulator.png"));
+            image = new Pixmap(Gdx.files.internal(basedir.child("exmatrikulator.png").getPath()));
             Gdx.app.log("error", "card image " + field.getName() + ".png not found!");
         }
 
-        return new Card(prefab.type, new TextureRegion(generateTexture(prefab, image)), prefab.actions, prefab.requirement, prefab.duration, prefab.rarity);
+
+
+        return new Card(prefab.type, new CardObject(generateTexture(prefab, image), this.backTexture), prefab.actions, prefab.requirement, prefab.duration, prefab.rarity);
     }
 
     private static Pixmap copyPixmap(Pixmap base) {
@@ -72,7 +77,7 @@ public class Cards extends ResourceBag<Card> {
         return copy;
     }
 
-    private Texture generateTexture(CardPrefab prefab, Pixmap image) {
+    private TextureRegion generateTexture(CardPrefab prefab, Pixmap image) {
 
         Pixmap background = copyPixmap(this.frontTemplate);
         Pixmap.setFilter(Pixmap.Filter.NearestNeighbour);
@@ -119,7 +124,7 @@ public class Cards extends ResourceBag<Card> {
         batch.dispose();
         frameBuffer.dispose();
 
-        return new Texture(background);
+        return new TextureRegion(new Texture(background));
     }
 
     private String[] descriptionToLines(String desc, float maxWidth) {

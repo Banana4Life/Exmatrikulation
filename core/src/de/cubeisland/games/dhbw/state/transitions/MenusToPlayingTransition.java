@@ -27,7 +27,6 @@ public class MenusToPlayingTransition extends StateTransition {
 
         game.getEngine().addEntity(deck);
 
-        CardObject.setBackTex(new TextureRegion(new Texture("cards/cardback.png")));
         for (int i = 0; i < 15; i++) {
             Entity card = game.getEntityFactory().create(game.getResources().entities.card);
             card.getComponent(Transform.class).setPosition(new Vector3(20 * i, 0, -100)).setRotation(new Quaternion(new Vector3(1, 0, 0), 0));
