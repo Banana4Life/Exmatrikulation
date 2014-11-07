@@ -45,32 +45,18 @@ public class ControlSystem extends IteratingSystem {
         Transform transform = transforms.get(entity);
         DestTransform destTransform = destTransforms.get(entity);
 
-        boolean rotationFinished = true;
-        boolean movmentFinished = false;
-
         if (!orgPositionMap.containsKey(entity)) {
             orgPositionMap.put(entity, transform.getPosition());
         }
 
-        if (!vectorsInRange(transform.getPosition(), destTransform.getPosition())) {
+        if (!vectorsInRange(transform.getPosition(), destTransform.getPosition()) || !quaternionsInRange(transform.getRotation(), destTransform.getRotation())) {
             transform.setPosition(vectorInterpolation(destTransform.getPosition(), transform.getPosition()));
-            movmentFinished = false;
-
-        } else {
-            movmentFinished = true;
-        }
-
-        if (!quaternionsInRange(transform.getRotation(), destTransform.getRotation())) {
             transform.setRotation(quaternionInterpolation(destTransform.getRotation(), transform.getRotation()));
-            rotationFinished = false;
         } else {
-            rotationFinished = true;
-        }
-
-        if (movmentFinished && rotationFinished) {
+            transform.setPosition(destTransform.getPosition());
+            transform.setRotation(destTransform.getRotation());
             entity.remove(DestTransform.class);
         }
-
     }
 
     private Vector3 vectorInterpolation(Vector3 destPosition, Vector3 orgPosition) {

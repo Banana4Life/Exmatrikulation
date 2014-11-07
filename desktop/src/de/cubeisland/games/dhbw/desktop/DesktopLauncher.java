@@ -7,8 +7,8 @@ import de.cubeisland.games.dhbw.DHBWGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.height=800;
-        config.width=1024;
+        config.height=720;
+        config.width=1240;
 		new LwjglApplication(new DHBWGame(), config);
 	}
 }

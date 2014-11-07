@@ -23,11 +23,11 @@ public class Deck extends Component implements Iterable<Entity> {
      * @return Returns this.
      */
     public Deck update(Transform transform) {
-        for (int n = 0; n < Math.min(cards.size(), 6); n++) {
-            cards.get(n).add(new DestTransform(transform.getPosition().cpy().add(n, 0, 0), transform.getRotation()));
-        }
-        for (int n = Math.min(cards.size(), 6); n < cards.size(); n++) {
-            cards.get(n).add(new DestTransform(transform.getPosition().cpy().add(6, 0, 0), transform.getRotation()));
+        for (int n = 0; n < cards.size(); n++) {
+            DestTransform destTransform = new DestTransform(transform.getPosition().cpy().add(Math.min(n, 6), 0, 0), transform.getRotation());
+            if (!cards.get(n).getComponent(Transform.class).equals(destTransform)) {
+                cards.get(n).add(destTransform);
+            }
         }
         return this;
     }

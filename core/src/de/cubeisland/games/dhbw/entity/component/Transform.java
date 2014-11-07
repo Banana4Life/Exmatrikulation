@@ -103,4 +103,14 @@ public class Transform extends Component {
         this.scale = scale;
         return this;
     }
+
+    /**
+     * Tests if two Transforms are equal.
+     * @param obj Tranform to compare to.
+     * @return Returns true if the Transforms are equal. Returns false if they are not.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        return Transform.class.isAssignableFrom(obj.getClass()) && (((Transform) obj).getPosition().equals(this.position) && ((Transform) obj).getRotation().equals(this.rotation) /*No supported now :) && ((Transform) obj).getScale() == this.scale*/);
+    }
 }
