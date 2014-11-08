@@ -37,6 +37,7 @@ public class SplashScreen extends GameState {
 
     @Override
     public void onLeave(StateContext context, GameState to) {
+        context.getEngine().removeEntity(splash);
     }
 
     @Override
