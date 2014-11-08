@@ -2,11 +2,13 @@ package de.cubeisland.games.dhbw.state.transitions;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.DHBWGame;
 import de.cubeisland.games.dhbw.entity.component.*;
 import de.cubeisland.games.dhbw.resource.bag.Cards;
+import de.cubeisland.games.dhbw.resource.bag.Songs;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
@@ -61,6 +63,9 @@ public class SplashScreenToMainMenuTransition extends StateTransition {
             ((MainMenu) context.getStateManager().getState(MainMenu.ID)).getCardStack().add(card);
             card.add(new DestTransform(new Vector3(-25 + 50 * i, 0, -150), new Quaternion(new Vector3(1, 0, 0), 0)));
         }
+
+		Music main = Songs.load();
+		main.play();
     }
 
     @Override
