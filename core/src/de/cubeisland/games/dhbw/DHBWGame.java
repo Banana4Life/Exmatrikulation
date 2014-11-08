@@ -67,7 +67,6 @@ public class DHBWGame extends ApplicationAdapter {
         decalBatch = new DecalBatch(new CameraGroupStrategy(perspectiveCamera));
         spriteBatch = new SpriteBatch();
         spriteBatch.setProjectionMatrix(orthographicCamera.combined);
-        //spriteBatch.enableBlending();
 
         engine = new Engine();
         engine.addSystem(new MovementSystem());

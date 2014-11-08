@@ -3,7 +3,6 @@ package de.cubeisland.games.dhbw.resource.bag;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
@@ -19,6 +18,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.badlogic.gdx.graphics.Pixmap.Format.RGBA8888;
+
 /**
  * This class holds all the card prefabs.
  *
@@ -26,9 +27,10 @@ import java.util.List;
  */
 public class Cards extends ResourceBag<Card> {
     private Reflector reflector;
-    private Pixmap frontTemplate;
+    private final Fonts fonts;
+    private TextureRegion frontTemplate;
     private TextureRegion backTexture;
-    private final BitmapFont font;
+    private BitmapFont font;
 
     public Card dummy;
 
@@ -84,84 +86,82 @@ public class Cards extends ResourceBag<Card> {
     public Card skillsmile;
     public Card skillwebserver;
 
-    public Cards(Reflector reflector) {
+    public Cards(Reflector reflector, Fonts fonts) {
         this.reflector = reflector;
+        this.fonts = fonts;
 
-        this.frontTemplate = new Pixmap(Gdx.files.internal("images/cardfront.png"));
+        this.frontTemplate = new TextureRegion(new Texture("images/cardfront.png"));
+        this.frontTemplate.flip(false, true);
         this.backTexture = new TextureRegion(new Texture("images/cardback.png"));
-        font = new BitmapFont(Gdx.files.internal("text.fnt"));
-        font.setScale(.25f, -.25f);
+    }
+
+    @Override
+    public void build() {
+        this.fonts.build();
+        this.font = fonts.cardFont.flipped().getBitmapFont();
+        super.build();
     }
 
     @Override
     protected Card load(FileRef basedir, Field field) {
         CardPrefab prefab = this.reflector.load(CardPrefab.class, basedir.child(field.getName() + ".yml").getInputStream());
-        Pixmap image;
+        TextureRegion image;
         try {
-            image = new Pixmap(Gdx.files.internal(basedir.child(field.getName() + ".png").getPath()));
+            image = new TextureRegion(new Texture(fieldToFileRef(field, basedir).getPath() + ".png"));
         } catch (GdxRuntimeException e) {
-            image = new Pixmap(Gdx.files.internal("cards/eventexmatrikulator.png"));
+            image = new TextureRegion(new Texture(basedir.child("eventexmatrikulator.png").getPath()));
             Gdx.app.log("error", "card image " + field.getName() + ".png not found!");
         }
 
+        Card c = new Card(prefab.type, new CardObject(generateTexture(prefab, image), this.backTexture), prefab.actions, prefab.requirement, prefab.duration, prefab.rarity);
 
-        return new Card(prefab.type, new CardObject(generateTexture(prefab, image), this.backTexture), prefab.actions, prefab.requirement, prefab.duration, prefab.rarity);
+        image.getTexture().dispose();
+
+        return c;
     }
 
-    private static Pixmap copyPixmap(Pixmap base) {
-        Pixmap copy = new Pixmap(base.getWidth(), base.getHeight(), base.getFormat());
-        copy.drawPixmap(base, 0, 0);
-        return copy;
-    }
+    private TextureRegion generateTexture(CardPrefab prefab, TextureRegion image) {
 
-    private TextureRegion generateTexture(CardPrefab prefab, Pixmap image) {
+        final int CONTENT_PADDING = 25;
+        final int SPACER = 5;
+        final int TEXT_PADDING = 3;
 
-        Pixmap background = copyPixmap(this.frontTemplate);
-        Pixmap.setFilter(Pixmap.Filter.NearestNeighbour);
-        background.drawPixmap(image, 25, 49);
+        final int TITLE_OFFSET = CONTENT_PADDING;
+        final int IMAGE_OFFSET = CONTENT_PADDING + TEXT_PADDING * 2 + 13 + SPACER;
+        final int DESCR_OFFSET = IMAGE_OFFSET + image.getRegionHeight() + SPACER;
 
+        FrameBuffer fo = new FrameBuffer(RGBA8888, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
+        SpriteBatch b = new SpriteBatch();
 
-        String[] lines = descriptionToLines(prefab.description, 200);
-        BitmapFont.TextBounds[] bounds = new BitmapFont.TextBounds[lines.length];
+        fo.begin();
+        b.begin();
 
-        for (int i = 0; i < lines.length; i++) {
-            bounds[i] = font.getBounds(lines[i]);
-        }
-
-        float width = 0;
-        float height = 0;
-        for (BitmapFont.TextBounds bound : bounds) {
-            width = Math.max(width, bound.width);
-            height += Math.abs(bound.height);
-        }
-
-        FrameBuffer frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, (int) Math.ceil(width), (int) Math.ceil(height), false);
-        SpriteBatch batch = new SpriteBatch();
-
-        //frameBuffer.begin();
-        batch.begin();
-        batch.enableBlending();
-        Gdx.gl.glBlendFuncSeparate(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA, GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_ALPHA);
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(1, 1, 1, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        float yOffset = 0;
-        batch.setColor(Color.WHITE);
-        for (int i = 0; i < lines.length; i++) {
-            font.draw(batch, lines[i], 0, yOffset);
-            yOffset += Math.abs(bounds[i].height);
+        b.draw(this.frontTemplate, 0, 0);
+
+        font.draw(b, prefab.name, CONTENT_PADDING + TEXT_PADDING, TITLE_OFFSET + TEXT_PADDING);
+
+        image.flip(false, true);
+        b.draw(image, CONTENT_PADDING, IMAGE_OFFSET);
+
+        String[] lines = descriptionToLines(prefab.description, this.frontTemplate.getRegionWidth() - 2 * (CONTENT_PADDING + TEXT_PADDING));
+
+        float yOffset = DESCR_OFFSET + TEXT_PADDING;
+        font.setColor(Color.WHITE);
+        for (String line : lines) {
+            font.draw(b, line, CONTENT_PADDING + TEXT_PADDING, yOffset);
+            yOffset += font.getBounds(line).height + TEXT_PADDING;
         }
 
-        batch.end();
-        frameBuffer.end();
+        b.end();
+        fo.end();
 
-        Sprite sprite = new Sprite(frameBuffer.getColorBufferTexture());
-        TextureData data = sprite.getTexture().getTextureData();
-        background.drawPixmap(data.consumePixmap(), 0, 40);
-        batch.dispose();
-        frameBuffer.dispose();
+        TextureRegion texture = new TextureRegion(fo.getColorBufferTexture(), 0, 0, frontTemplate.getRegionWidth(), frontTemplate.getRegionHeight());
+        b.dispose();
 
-        return new TextureRegion(new Texture(background));
+        return texture;
     }
 
     private String[] descriptionToLines(String desc, float maxWidth) {
@@ -177,7 +177,7 @@ public class Cards extends ResourceBag<Card> {
             while (i < words.length) {
                 float width = font.getBounds(words[i]).width + spaceWidth;
                 if (width > maxWidth) {
-                    throw new IllegalArgumentException("Given description has a word that is longer than the max width!");
+                    throw new IllegalArgumentException("Given description has a word that is longer than the max width! " + words[i]);
                 }
                 if (lineWidth + width > maxWidth) {
                     break;

@@ -31,7 +31,7 @@ public class DHBWResources extends Resources {
      */
     public DHBWResources(Reflector reflector) {
         entities = new Entities(reflector);
-        cards = new Cards(reflector);
         fonts = new Fonts();
+        cards = new Cards(reflector, fonts);
     }
 }

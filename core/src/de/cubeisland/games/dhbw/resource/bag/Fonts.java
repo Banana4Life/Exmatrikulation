@@ -17,7 +17,10 @@ import java.lang.reflect.Field;
 public class Fonts extends ResourceBag<Font> {
 
     @Def(font = "neou/bold", size = 30)
-    public Font menuFont;
+    public Font defaultFont;
+
+    @Def(font = "fantasque/regular", size = 20)
+    public Font cardFont;
 
     @Override
     protected Font load(FileRef basedir, Field field) {
