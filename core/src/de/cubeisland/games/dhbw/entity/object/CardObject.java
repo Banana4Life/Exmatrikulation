@@ -32,8 +32,8 @@ public class CardObject implements RenderObject {
      * @param front The front texture to use.
      */
     public CardObject(TextureRegion front, TextureRegion back) {
-        this.front = Decal.newDecal(front.getRegionWidth(), front.getRegionHeight(), front, true);
-        this.back = Decal.newDecal(back.getRegionWidth(), back.getRegionHeight(), back, true);
+        this.front = Decal.newDecal(front, true);
+        this.back = Decal.newDecal(back, true);
     }
 
     @Override

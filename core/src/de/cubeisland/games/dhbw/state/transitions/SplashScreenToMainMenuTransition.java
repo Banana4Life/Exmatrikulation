@@ -2,15 +2,19 @@ package de.cubeisland.games.dhbw.state.transitions;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.DHBWGame;
 import de.cubeisland.games.dhbw.entity.component.*;
+import de.cubeisland.games.dhbw.entity.object.ImageObject;
 import de.cubeisland.games.dhbw.resource.bag.Cards;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
 import de.cubeisland.games.dhbw.state.states.MainMenu;
+import de.cubeisland.games.dhbw.state.states.SplashScreen;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,8 +29,13 @@ public class SplashScreenToMainMenuTransition extends StateTransition {
     //TODO choose actual gamemode
     //TODO remember card stack to go back to mainmenu
 
+    private long startTime;
+    private static final long FADE_OUT_DURATION = 2 * 1000;
+
     @Override
     public void begin(StateContext context, GameState origin, GameState destination) {
+        this.startTime = System.currentTimeMillis();
+
         DHBWGame game = context.getGame();
 
         Entity deck = game.getEntityFactory().create(game.getResources().entities.deck);
@@ -65,6 +74,19 @@ public class SplashScreenToMainMenuTransition extends StateTransition {
 
     @Override
     public boolean transition(StateContext context, GameState origin, GameState destination, float delta) {
+        float diff = System.currentTimeMillis() - startTime;
+        if (diff < FADE_OUT_DURATION) {
+            SplashScreen screen = context.getStateManager().getStateTyped(SplashScreen.ID);
+            ImageObject o = (ImageObject) screen.getSplash().getComponent(Render.class).getObject();
+            Decal d  = o.getDecal();
+            Color c = d.getColor();
+            float alpha = diff / (float)FADE_OUT_DURATION;
+            System.out.println(alpha);
+            d.setColor(c.r, c.g, c.b, 1f - alpha);
+            return false;
+        }
+
+        System.out.println("test");
 //        as long as a Card contains a DestTransform the card is moving
         for (Entity card : context.getEngine().getEntitiesFor(Family.one(DestTransform.class).get())) {
             if (context.getGame().getResources().entities.card.matches(card)) {
@@ -72,5 +94,11 @@ public class SplashScreenToMainMenuTransition extends StateTransition {
             }
         }
         return true;
+    }
+
+    @Override
+    public void finish(StateContext context, GameState origin, GameState destination) {
+        SplashScreen screen = context.getStateManager().getStateTyped(SplashScreen.ID);
+        context.getEngine().removeEntity(screen.getSplash());
     }
 }

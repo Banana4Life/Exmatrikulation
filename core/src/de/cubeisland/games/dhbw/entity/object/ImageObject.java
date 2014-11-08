@@ -2,6 +2,7 @@ package de.cubeisland.games.dhbw.entity.object;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
@@ -17,7 +18,7 @@ public class ImageObject implements RenderObject {
     private final Decal image;
 
     public ImageObject(Texture texture) {
-        image = Decal.newDecal(new TextureRegion(texture));
+        image = Decal.newDecal(new TextureRegion(texture), true);
     }
 
     @Override
@@ -31,5 +32,9 @@ public class ImageObject implements RenderObject {
     @Override
     public boolean isWithin(Camera cam, float x, float y) {
         return true;
+    }
+
+    public Decal getDecal() {
+        return this.image;
     }
 }

@@ -21,6 +21,10 @@ public class SplashScreen extends GameState {
         return ID;
     }
 
+    public Entity getSplash() {
+        return splash;
+    }
+
     @Override
     public void onEnter(StateContext context, GameState from) {
         DHBWGame game = context.getGame();
@@ -33,7 +37,6 @@ public class SplashScreen extends GameState {
 
     @Override
     public void onLeave(StateContext context, GameState to) {
-        context.getEngine().removeEntity(splash);
     }
 
     @Override

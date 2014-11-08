@@ -24,7 +24,7 @@ import de.cubeisland.games.dhbw.resource.DHBWResources;
 import de.cubeisland.games.dhbw.state.StateManager;
 import de.cubeisland.games.dhbw.state.states.*;
 import de.cubeisland.games.dhbw.state.transitions.BackInMenusTransition;
-import de.cubeisland.games.dhbw.state.transitions.DummyTransition;
+import de.cubeisland.games.dhbw.state.transitions.NOPTransition;
 import de.cubeisland.games.dhbw.state.transitions.MergeCardsAndMoveToCorner;
 import de.cubeisland.games.dhbw.state.transitions.SplashScreenToMainMenuTransition;
 import de.cubeisland.games.dhbw.util.CardTypeConverter;
@@ -78,15 +78,15 @@ public class DHBWGame extends ApplicationAdapter {
                 .addState(new CourseSelection())
                 .addState(new Playing())
                 .addState(new Paused())
-                .addTransition(StartState.ID,               SplashScreen.ID,        DummyTransition.INSTANCE)
+                .addTransition(StartState.ID,               SplashScreen.ID,        NOPTransition.INSTANCE)
                 .addTransition(SplashScreen.ID,             MainMenu.ID,            new SplashScreenToMainMenuTransition())
                 .addTransition(MainMenu.ID,                 CourseSelection.ID,     MergeCardsAndMoveToCorner.INSTANCE)
-                .addTransition(MainMenu.ID,                 EndState.ID,            DummyTransition.INSTANCE)
+                .addTransition(MainMenu.ID,                 EndState.ID,            NOPTransition.INSTANCE)
                 .addTransition(CourseSelection.ID,          MainMenu.ID,            BackInMenusTransition.INSTANCE)
-                .addTransition(CourseSelection.ID,          Playing.ID,             DummyTransition.INSTANCE)
-                .addTransition(Playing.ID,                  Paused.ID,              DummyTransition.INSTANCE)
-                .addTransition(Paused.ID,                   Playing.ID,             DummyTransition.INSTANCE)
-                .addTransition(Paused.ID,                   MainMenu.ID,            DummyTransition.INSTANCE)
+                .addTransition(CourseSelection.ID,          Playing.ID,             NOPTransition.INSTANCE)
+                .addTransition(Playing.ID,                  Paused.ID,              NOPTransition.INSTANCE)
+                .addTransition(Paused.ID,                   Playing.ID,             NOPTransition.INSTANCE)
+                .addTransition(Paused.ID,                   MainMenu.ID,            NOPTransition.INSTANCE)
                 .start();
 
         Entity cameraEntity = entityFactory.create(resources.entities.camera);
