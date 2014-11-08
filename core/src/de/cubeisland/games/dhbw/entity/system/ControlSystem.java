@@ -21,9 +21,9 @@ public class ControlSystem extends IteratingSystem {
     private ComponentMapper<DestTransform> destTransforms;
 
     private final int VECTOR_RANGE = 1;
-    private final float QUATERNION_RANGE = 0.001f;
-    private final float MOVEMENT_SPEED = 0.1f;
-    private final float ROTATION_SPEED = 0.05f;
+    private final float QUATERNION_RANGE = 0.005f;
+    private final float MOVEMENT_SPEED = 0.2f;
+    private final float ROTATION_SPEED = 0.1f;
 
     /**
      * The constructor gets the ComponentMapper for Transform and DestTransform

@@ -109,6 +109,10 @@ public class DHBWGame extends ApplicationAdapter {
         stateManager.update(delta);
     }
 
+    public InputMultiplexer getInputMultiplexer(){
+        return this.inputMultiplexer;
+    }
+
     public DecalBatch getDecalBatch() {
         return this.batch;
     }
