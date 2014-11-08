@@ -42,7 +42,6 @@ public class DHBWGame extends ApplicationAdapter {
     private StateManager        stateManager;
     private InputMultiplexer    inputMultiplexer;
     private DecalBatch          batch;
-    private Environment         environment;
     private EntityFactory       entityFactory;
     private Engine              engine;
 
@@ -52,13 +51,10 @@ public class DHBWGame extends ApplicationAdapter {
         reflector.getDefaultConverterManager().registerConverter(Class.class, new ClassConverter());
         reflector.getDefaultConverterManager().registerConverter(CardPrefab.CardType.class, new CardTypeConverter());
         reflector.getDefaultConverterManager().registerConverter(CardPrefab.SubjectType.class, new SubjectTypeConverter());
+
         resources = new DHBWResources(reflector);
         resources.build();
         entityFactory = new EntityFactory();
-
-        environment = new Environment();
-        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));
-        environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
 
         PerspectiveCamera camera = new PerspectiveCamera(45, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.near = 1;
@@ -113,10 +109,6 @@ public class DHBWGame extends ApplicationAdapter {
 
     public DecalBatch getDecalBatch() {
         return this.batch;
-    }
-
-    public Environment getEnvironment() {
-        return environment;
     }
 
     public DHBWResources getResources() {

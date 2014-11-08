@@ -48,10 +48,11 @@ public class RenderSystem extends IteratingSystem {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
-        Entity e;
         for (QueuedObject o : this.queue) {
             o.render(this.game, this.camera);
         }
+
+        this.game.getDecalBatch().flush();
 
         this.queue.clear();
     }
