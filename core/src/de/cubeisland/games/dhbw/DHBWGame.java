@@ -6,12 +6,17 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
+import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.engine.reflect.Reflector;
 import de.cubeisland.games.dhbw.entity.CardPrefab;
 import de.cubeisland.games.dhbw.entity.EntityFactory;
 import de.cubeisland.games.dhbw.entity.component.Camera;
+import de.cubeisland.games.dhbw.entity.component.Render;
+import de.cubeisland.games.dhbw.entity.component.Transform;
+import de.cubeisland.games.dhbw.entity.object.ImageObject;
 import de.cubeisland.games.dhbw.entity.system.*;
 import de.cubeisland.games.dhbw.input.GlobalInputProcessor;
 import de.cubeisland.games.dhbw.input.InputMultiplexer;
@@ -87,11 +92,16 @@ public class DHBWGame extends ApplicationAdapter {
         Entity cameraEntity = entityFactory.create(resources.entities.camera);
         cameraEntity.getComponent(Camera.class).set(camera);
         engine.addEntity(cameraEntity);
+
+        Entity background = entityFactory.create(resources.entities.image);
+        background.getComponent(Render.class).setObject(new ImageObject(new Texture("images/background.png")));
+        background.getComponent(Transform.class).setPosition(new Vector3(0, 0, -298)).setScale(.344f);
+        engine.addEntity(background);
     }
 
     @Override
     public void render() {
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClearColor(1, 1, 1, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
         float delta = Gdx.graphics.getDeltaTime();
