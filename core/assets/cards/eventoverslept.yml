@@ -8,7 +8,7 @@ action:
   - de.cubeisland.games.dhbw.entity.action.SoftSkillsPenalty: 2
 
 requirement:
-  subject: softSkills
+  subject: softskill
   value: 10
 
 rarity: 1

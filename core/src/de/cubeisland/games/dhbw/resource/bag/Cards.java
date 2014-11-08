@@ -21,6 +21,8 @@ import java.util.List;
 
 /**
  * This class holds all the card prefabs.
+ *
+ * @author Andreas Geis
  */
 public class Cards extends ResourceBag<Card> {
     private Reflector reflector;
@@ -38,13 +40,49 @@ public class Cards extends ResourceBag<Card> {
     public Card menubusinessad;
     public Card menuappliedinf;
 
-    // initialization of all cards; name must be equal to name of the config-file
     // event cards
+	public Card eventalgebralecture;
+	public Card eventanalysislecture;
+	public Card eventclecture;
+	public Card eventcommunicationlecture;
+	public Card eventdiplwirtschinf;
+	public Card eventexmatrikulator;
+	public Card eventfirstmathlecture;
+	public Card eventfortuneminister;
+	public Card eventintroductionlecture;
+	public Card eventjavalecture;
+	public Card eventlunch;
+	public Card eventmarketinglecture;
     public Card eventmathexam;
+	public Card eventoospaceships;
+	public Card eventoverslept;
+	public Card eventparty;
+	public Card eventprogrammingproject;
+	public Card eventsaturday;
+	public Card eventworkflowlecture;
 
     // item cards
+	public Card itembusinessadbook;
+	public Card itemcbook;
+	public Card itemincapacitycertificate;
+	public Card itemlaptop;
+	public Card itemlaptopupgrade;
+	public Card itemmathbook;
+	public Card itemswag4nerds;
+	public Card itemswagcap;
     public Card itemwaterbottle1;
     public Card itemwaterbottle2;
+
+	public Card skillc;
+	public Card skillinvestment;
+	public Card skilldirectproof;
+	public Card skillinduction;
+	public Card skilljava;
+	public Card skilllegobuilding;
+	public Card skillprojectmanagement;
+	public Card skillregex;
+	public Card skillsmile;
+	public Card skillwebserver;
 
     public Cards(Reflector reflector) {
         this.reflector = reflector;

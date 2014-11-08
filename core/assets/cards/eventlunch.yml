@@ -10,7 +10,7 @@ action:
   - de.cubeisland.games.dhbw.entity.action.ProgrammingReward: 1
 
 requirement:
-  subject: softSkills
+  subject: softskill
   value: 15
 
 rarity: 1

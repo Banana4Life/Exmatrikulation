@@ -1,7 +1,7 @@
 ---
 name: Laptop
 type: item
-description: Der Laptop erlaubt dir effizenter zu arbeiten: +2 auf alle Werte.
+description: Der Laptop erlaubt dir effizenter zu arbeiten. +2 auf alle Werte.
 
 action:
   - de.cubeisland.games.dhbw.entity.action.Bwl: 2

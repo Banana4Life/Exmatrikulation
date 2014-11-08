@@ -1,7 +1,7 @@
 ---
 name: Vollständige Induktion
 type: item
-description: Du hast die Fähigkeit der Vollständigen Induktion erlangt: Mathe +5
+description: Du hast die Fähigkeit der Vollständigen Induktion erlangt. Mathe +5
 
 action:
   - de.cubeisland.games.dhbw.entity.action.Math: 5
