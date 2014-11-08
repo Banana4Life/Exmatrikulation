@@ -44,6 +44,7 @@ project(":desktop") {
         compile project(":core")
         compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
     }
 }
 
@@ -53,6 +54,7 @@ project(":core") {
 
     dependencies {
         compile group: "com.badlogicgames.gdx",     name: "gdx",            version: "$gdxVersion",     changing: true
+        compile group: "com.badlogicgames.gdx",     name: "gdx-freetype",   version: "$gdxVersion",     changing: true
         compile group: "com.badlogicgames.ashley",  name: "ashley",         version: "1.3.2-SNAPSHOT",  changing: true
         compile group: "life.banana4.util",         name: "resourcebags",   version: "0.0.1-SNAPSHOT",  changing: true
         compile "de.cubeisland.engine:reflect:2.0.4"
