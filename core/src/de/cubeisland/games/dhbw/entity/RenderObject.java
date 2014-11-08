@@ -1,8 +1,8 @@
 package de.cubeisland.games.dhbw.entity;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.graphics.Camera;
 import de.cubeisland.games.dhbw.DHBWGame;
+import de.cubeisland.games.dhbw.entity.component.Camera;
 import de.cubeisland.games.dhbw.entity.component.Transform;
 
 /**

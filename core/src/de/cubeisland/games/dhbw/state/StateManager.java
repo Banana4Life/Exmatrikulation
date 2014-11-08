@@ -1,8 +1,8 @@
 package de.cubeisland.games.dhbw.state;
 
 import com.badlogic.ashley.core.Engine;
-import com.badlogic.gdx.graphics.Camera;
 import de.cubeisland.games.dhbw.DHBWGame;
+import de.cubeisland.games.dhbw.entity.component.Camera;
 import de.cubeisland.games.dhbw.input.InputMultiplexer;
 import de.cubeisland.games.dhbw.util.NotNull;
 import de.cubeisland.games.dhbw.util.Nullable;

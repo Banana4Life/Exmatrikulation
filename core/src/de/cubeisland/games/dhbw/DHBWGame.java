@@ -4,11 +4,14 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.PerspectiveCamera;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.engine.reflect.Reflector;
 import de.cubeisland.games.dhbw.entity.CardPrefab;
@@ -38,7 +41,8 @@ public class DHBWGame extends ApplicationAdapter {
     private DHBWResources resources;
     private StateManager stateManager;
     private InputMultiplexer inputMultiplexer;
-    private DecalBatch batch;
+    private DecalBatch decalBatch;
+    private SpriteBatch spriteBatch;
     private EntityFactory entityFactory;
     private Engine engine;
 
@@ -51,24 +55,34 @@ public class DHBWGame extends ApplicationAdapter {
 
         resources = new DHBWResources(reflector);
         resources.build();
-        entityFactory = new EntityFactory();
+        entityFactory = new EntityFactory(resources.entities);
 
-        PerspectiveCamera camera = new PerspectiveCamera(45, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.near = 1;
-        camera.far = 300;
-        camera.position.set(0, 0, 1);
+        PerspectiveCamera perspectiveCamera = new PerspectiveCamera(45, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        perspectiveCamera.near = 1;
+        perspectiveCamera.far = 300;
+        perspectiveCamera.position.set(0, 0, 1);
 
-        batch = new DecalBatch(new CameraGroupStrategy(camera));
+        OrthographicCamera orthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        Entity cameraEntity = entityFactory.create(resources.entities.camera);
+        Camera camera = cameraEntity.getComponent(Camera.class);
+        camera.setOrthographic(orthographicCamera);
+        camera.setPerspective(perspectiveCamera);
+
+        decalBatch = new DecalBatch(new CameraGroupStrategy(perspectiveCamera));
+        spriteBatch = new SpriteBatch();
+        spriteBatch.setProjectionMatrix(orthographicCamera.combined);
+        //spriteBatch.enableBlending();
 
         engine = new Engine();
         engine.addSystem(new MovementSystem());
         engine.addSystem(new RenderSystem(camera, this));
         engine.addSystem(new ControlSystem());
         engine.addSystem(new DeckSystem());
-        engine.addSystem(new PickSystem(camera));
+        engine.addSystem(new PickSystem(perspectiveCamera));
         engine.addSystem(new CameraSystem());
 
-        inputMultiplexer = new InputMultiplexer(new GlobalInputProcessor(camera, engine, this.stateManager));
+        inputMultiplexer = new InputMultiplexer(new GlobalInputProcessor(perspectiveCamera, engine, this.stateManager));
         Gdx.input.setInputProcessor(inputMultiplexer);
 
         this.stateManager = new StateManager(this, engine, camera, inputMultiplexer);
@@ -89,14 +103,9 @@ public class DHBWGame extends ApplicationAdapter {
                 .addTransition(Paused.ID,                   MainMenu.ID,            NOPTransition.INSTANCE)
                 .start();
 
-        Entity cameraEntity = entityFactory.create(resources.entities.camera);
-        cameraEntity.getComponent(Camera.class).set(camera);
         engine.addEntity(cameraEntity);
 
-        Entity background = entityFactory.create(resources.entities.image);
-        background.getComponent(Render.class).setObject(new ImageObject(new Texture("images/background.png")));
-        background.getComponent(Transform.class).setPosition(new Vector3(0, 0, -298)).setScale(.344f);
-        engine.addEntity(background);
+        engine.addEntity(entityFactory.createImage("images/background.png", new Vector3(0, 0, -298), .344f));
     }
 
     @Override
@@ -114,7 +123,11 @@ public class DHBWGame extends ApplicationAdapter {
     }
 
     public DecalBatch getDecalBatch() {
-        return this.batch;
+        return this.decalBatch;
+    }
+
+    public SpriteBatch getSpriteBatch() {
+        return this.spriteBatch;
     }
 
     public DHBWResources getResources() {

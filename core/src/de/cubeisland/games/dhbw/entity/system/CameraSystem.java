@@ -25,8 +25,7 @@ public class CameraSystem extends IteratingSystem {
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
-        PerspectiveCamera cam = this.cameras.get(entity).get();
-
-        cam.update();
+        this.cameras.get(entity).getPerspective().update();
+        this.cameras.get(entity).getOrthographic().update();
     }
 }

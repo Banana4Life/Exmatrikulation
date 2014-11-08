@@ -16,7 +16,7 @@ import java.lang.reflect.Field;
 
 public class Fonts extends ResourceBag<Font> {
 
-    @Def(font = "neou/bold", size = 30, flipped = true)
+    @Def(font = "neou/bold", size = 30)
     public Font menuFont;
 
     @Override

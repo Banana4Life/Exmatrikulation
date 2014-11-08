@@ -4,14 +4,16 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.PerspectiveCamera;
 import de.cubeisland.games.dhbw.DHBWGame;
+import de.cubeisland.games.dhbw.RenderObject2D;
 import de.cubeisland.games.dhbw.entity.RenderObject;
+import de.cubeisland.games.dhbw.entity.component.Camera;
 import de.cubeisland.games.dhbw.entity.component.Render;
 import de.cubeisland.games.dhbw.entity.component.Transform;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.PriorityQueue;
 
 /**
@@ -21,7 +23,7 @@ import java.util.PriorityQueue;
 public class RenderSystem extends IteratingSystem {
     private static final RenderOrder BY_RENDER_ORDER = new RenderOrder();
 
-    private final PerspectiveCamera camera;
+    private final Camera camera;
     private final DHBWGame game;
 
     private final ComponentMapper<Transform> transforms;
@@ -35,7 +37,7 @@ public class RenderSystem extends IteratingSystem {
      * @param camera The camera to use.
      * @param game   The DHBWGame.
      */
-    public RenderSystem(PerspectiveCamera camera, DHBWGame game) {
+    public RenderSystem(Camera camera, DHBWGame game) {
         super(Family.all(Transform.class, Render.class).get());
         this.camera = camera;
 
@@ -49,13 +51,21 @@ public class RenderSystem extends IteratingSystem {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
+        List<QueuedObject> sprites = new ArrayList<>(this.queue.size());
         for (QueuedObject o : this.queue) {
-            o.render(this.game, this.camera);
+            if (o.is2D()) {
+                sprites.add(o);
+            } else {
+                o.render(this.game, this.camera);
+            }
         }
+        this.queue.clear();
 
         this.game.getDecalBatch().flush();
 
-        this.queue.clear();
+        for (QueuedObject o : sprites) {
+            o.render(game, this.camera);
+        }
     }
 
     @Override
@@ -88,6 +98,15 @@ public class RenderSystem extends IteratingSystem {
             this.entity = e;
             this.object = object;
             this.transform = t;
+        }
+
+        /**
+         * Whether this is an 2D object
+         *
+         * @return true if 2D
+         */
+        public boolean is2D() {
+            return this.object instanceof RenderObject2D;
         }
 
         /**
