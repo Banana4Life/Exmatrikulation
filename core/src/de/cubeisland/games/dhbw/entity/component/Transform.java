@@ -17,6 +17,7 @@ public class Transform extends Component {
 
     /**
      * Set the position Vector of the Transform.
+     *
      * @param pos The new position Vector.
      * @return Return this.
      */
@@ -27,6 +28,7 @@ public class Transform extends Component {
 
     /**
      * Get the position Vector of the Transform.
+     *
      * @return The position Vector.
      */
     public Vector3 getPosition() {
@@ -35,6 +37,7 @@ public class Transform extends Component {
 
     /**
      * Move the transform the distance given.
+     *
      * @param distance The distance to move the transform.
      * @return Return this.
      */
@@ -45,6 +48,7 @@ public class Transform extends Component {
 
     /**
      * Move the transform on the given axes.
+     *
      * @param x The distance to move on the x axis.
      * @param y The distance to move on the y axis.
      * @param z The distance to move on the z axis.
@@ -57,6 +61,7 @@ public class Transform extends Component {
 
     /**
      * Set the rotation of the Transform th the given rotation.
+     *
      * @param rot The rotation to use.
      * @return Returns this.
      */
@@ -67,6 +72,7 @@ public class Transform extends Component {
 
     /**
      * Get the rotation of the Transformation.
+     *
      * @return Returns a Quaternion with the rotation.
      */
     public Quaternion getRotation() {
@@ -75,9 +81,10 @@ public class Transform extends Component {
 
     /**
      * Rotate the Transform on three axes.
-     * @param yaw Yaw rotation.
+     *
+     * @param yaw   Yaw rotation.
      * @param pitch Pitch rotation.
-     * @param roll Roll rotation.
+     * @param roll  Roll rotation.
      * @return Returns this.
      */
     public Transform rotate(float yaw, float pitch, float roll) {
@@ -87,6 +94,7 @@ public class Transform extends Component {
 
     /**
      * Get the scale of the Transform.
+     *
      * @return Returns the scale.
      */
     public float getScale() {
@@ -95,17 +103,18 @@ public class Transform extends Component {
 
     /**
      * Set the scale of the Transform to the given scale.
+     *
      * @param scale The scale.
      * @return Returns this.
      */
-    public
-    Transform setScale(float scale) {
+    public Transform setScale(float scale) {
         this.scale = scale;
         return this;
     }
 
     /**
      * Tests if two Transforms are equal.
+     *
      * @param obj Tranform to compare to.
      * @return Returns true if the Transforms are equal. Returns false if they are not.
      */

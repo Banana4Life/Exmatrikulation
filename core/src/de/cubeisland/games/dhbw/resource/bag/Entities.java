@@ -24,6 +24,6 @@ public class Entities extends ResourceBag<EntityPrefab> {
 
     @Override
     protected EntityPrefab load(FileRef basedir, Field field) {
-        return this.reflector.load(EntityPrefab.class, basedir.child(field.getName()+".yml").getInputStream());
+        return this.reflector.load(EntityPrefab.class, basedir.child(field.getName() + ".yml").getInputStream());
     }
 }

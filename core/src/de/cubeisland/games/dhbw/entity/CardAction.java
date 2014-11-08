@@ -16,7 +16,7 @@ public interface CardAction {
      * This method applies the action value to a character
      *
      * @param character the character
-     * @param value the value to apply
+     * @param value     the value to apply
      */
     void apply(Character character, int value);
 
@@ -24,7 +24,7 @@ public interface CardAction {
      * This method reverses the applied value
      *
      * @param character the character
-     * @param value the value to unapply
+     * @param value     the value to unapply
      */
-	void unapply(Character character, int value);
+    void unapply(Character character, int value);
 }

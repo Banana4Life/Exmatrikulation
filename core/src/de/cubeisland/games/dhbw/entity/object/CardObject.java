@@ -11,22 +11,24 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import de.cubeisland.games.dhbw.DHBWGame;
-import de.cubeisland.games.dhbw.entity.component.Transform;
 import de.cubeisland.games.dhbw.entity.RenderObject;
+import de.cubeisland.games.dhbw.entity.component.Transform;
 
 /**
  * CardObject is the RenderObject that encapsulates a front and a back Decal which are the faces of the card.
  * The back texture is static for all cards.
- * @author  Jonas Dann
+ *
+ * @author Jonas Dann
  */
 public class CardObject implements RenderObject {
     public static final float SCALE = 0.1f;
-    public static final float GAP   = 1.0f;
+    public static final float GAP = 1.0f;
     private final Decal front;
     private final Decal back;
 
     /**
      * Sets the front and back Decal.
+     *
      * @param front The front texture to use.
      */
     public CardObject(TextureRegion front, TextureRegion back) {
@@ -36,9 +38,9 @@ public class CardObject implements RenderObject {
 
     @Override
     public boolean isWithin(Camera camera, float screenX, float screenY) {
-        Vector3 topLeft     = camera.project(new Vector3(front.getVertices()[Decal.X1], front.getVertices()[Decal.Y1], front.getVertices()[Decal.Z1]));
-        Vector3 topRight    = camera.project(new Vector3(front.getVertices()[Decal.X2], front.getVertices()[Decal.Y2], front.getVertices()[Decal.Z2]));
-        Vector3 bottomLeft  = camera.project(new Vector3(front.getVertices()[Decal.X3], front.getVertices()[Decal.Y3], front.getVertices()[Decal.Z3]));
+        Vector3 topLeft = camera.project(new Vector3(front.getVertices()[Decal.X1], front.getVertices()[Decal.Y1], front.getVertices()[Decal.Z1]));
+        Vector3 topRight = camera.project(new Vector3(front.getVertices()[Decal.X2], front.getVertices()[Decal.Y2], front.getVertices()[Decal.Z2]));
+        Vector3 bottomLeft = camera.project(new Vector3(front.getVertices()[Decal.X3], front.getVertices()[Decal.Y3], front.getVertices()[Decal.Z3]));
         Vector3 bottomRight = camera.project(new Vector3(front.getVertices()[Decal.X4], front.getVertices()[Decal.Y4], front.getVertices()[Decal.Z4]));
 
         Array<Vector2> polygon = new Array<>();
@@ -65,6 +67,7 @@ public class CardObject implements RenderObject {
 
     /**
      * Helper to update the positions and rotation of the Decals to the given transform.
+     *
      * @param transform The transform to set the Decal position and rotation to
      */
     private void update(Transform transform) {
@@ -74,8 +77,9 @@ public class CardObject implements RenderObject {
 
     /**
      * Helper to set the position of the front and back Decal to a given position with the back shifted by a small gap.
-     * @param front Front Decal to work with.
-     * @param back Back Decal to work with.
+     *
+     * @param front    Front Decal to work with.
+     * @param back     Back Decal to work with.
      * @param position Position to use.
      */
     private static void setPosition(Decal front, Decal back, Vector3 position) {
@@ -87,8 +91,9 @@ public class CardObject implements RenderObject {
 
     /**
      * Helper to set the rotation of the front and back Decal to a given rotation.
-     * @param front Front Decal to work with.
-     * @param back Back Decal to work with.
+     *
+     * @param front    Front Decal to work with.
+     * @param back     Back Decal to work with.
      * @param rotation Rotation to use.
      */
     public static void setRotation(Decal front, Decal back, Quaternion rotation) {
@@ -98,6 +103,7 @@ public class CardObject implements RenderObject {
 
     /**
      * Returns the front Decal.
+     *
      * @return Front Decal
      */
     public Decal getFront() {
@@ -106,6 +112,7 @@ public class CardObject implements RenderObject {
 
     /**
      * Returns the back Decal.
+     *
      * @return Back Decal
      */
     public Decal getBack() {

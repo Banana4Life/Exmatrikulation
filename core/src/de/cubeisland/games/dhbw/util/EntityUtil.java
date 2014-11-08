@@ -15,13 +15,14 @@ import de.cubeisland.games.dhbw.entity.component.Transform;
  * @author Phillip Schichtel
  */
 public abstract class EntityUtil {
-    private EntityUtil() {}
+    private EntityUtil() {
+    }
 
     /**
      * This method checks whether there is an entity at a given screen location.
      *
-     * @param engine the entity engine
-     * @param camera the camera for projections
+     * @param engine  the entity engine
+     * @param camera  the camera for projections
      * @param screenX the x position on the screen
      * @param screenY the y position on the screen
      * @return the entity at the given location or null

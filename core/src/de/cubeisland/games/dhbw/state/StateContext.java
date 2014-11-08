@@ -20,9 +20,9 @@ public class StateContext {
     /**
      * Constructs a new instance.
      *
-     * @param game the main game instance
-     * @param engine the entity engine
-     * @param camera the camera
+     * @param game         the main game instance
+     * @param engine       the entity engine
+     * @param camera       the camera
      * @param stateManager the state manager
      */
     public StateContext(DHBWGame game, Engine engine, Camera camera, StateManager stateManager) {
@@ -56,8 +56,7 @@ public class StateContext {
      * Starts a transition to the given state.
      *
      * @param stateTd the destination state iD
-     *
-     * @throws java.lang.IllegalStateException if the transition was started during a transition
+     * @throws java.lang.IllegalStateException    if the transition was started during a transition
      * @throws java.lang.IllegalArgumentException if the destination state equals the current state (a loop)
      * @throws java.lang.IllegalArgumentException if there is not transition defined from the current to the destination state
      */

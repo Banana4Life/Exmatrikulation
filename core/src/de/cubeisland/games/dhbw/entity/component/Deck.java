@@ -10,6 +10,7 @@ import java.util.Iterator;
 
 /**
  * The Deck is a collection of cards rendered as card deck.
+ *
  * @author Jonas Dann
  */
 public class Deck extends Component implements Iterable<Entity> {
@@ -19,6 +20,7 @@ public class Deck extends Component implements Iterable<Entity> {
 
     /**
      * Updates the Transforms of all the cards in the Deck to match the transform.
+     *
      * @param transform Transform to update the cards with.
      * @return Returns this.
      */
@@ -36,6 +38,7 @@ public class Deck extends Component implements Iterable<Entity> {
      * Draws a card from the Deck and returns it.
      * Removes the card from the Deck if there are still cards, sets the DestTransform of the drawn card to the destPos
      * and destRot of the Deck and adds Pickable to the card.
+     *
      * @return Returns the card if there was a card in the Deck. Otherwise return null.
      */
     public Entity drawCard() {
@@ -50,6 +53,7 @@ public class Deck extends Component implements Iterable<Entity> {
 
     /**
      * Removes Pickable from the card and adds it to the deck.
+     *
      * @param card Card to add to the deck.
      * @return Returns this.
      */
@@ -61,6 +65,7 @@ public class Deck extends Component implements Iterable<Entity> {
 
     /**
      * Sets the destination position of the Deck that is used when a card is drawn.
+     *
      * @param destPos The new destination position.
      * @return Returns this.
      */
@@ -71,6 +76,7 @@ public class Deck extends Component implements Iterable<Entity> {
 
     /**
      * Sets the destination rotation of the Deck that is used when a card is drawn.
+     *
      * @param destRot The new destination rotation.
      * @return Return this.
      */
@@ -81,6 +87,7 @@ public class Deck extends Component implements Iterable<Entity> {
 
     /**
      * Puts a card on top of the deck.
+     *
      * @param card The new card to put on top.
      * @return Returns this.
      */

@@ -15,9 +15,9 @@ public interface RenderObject {
     /**
      * Renders the object to the screen.
      *
-     * @param game the main game instance
-     * @param cam the camera
-     * @param e the corresponding entity
+     * @param game      the main game instance
+     * @param cam       the camera
+     * @param e         the corresponding entity
      * @param transform the position of the entity
      */
     void render(DHBWGame game, Camera cam, Entity e, Transform transform);
@@ -26,8 +26,8 @@ public interface RenderObject {
      * Checks whether the given screen position is inside this object.
      *
      * @param cam the camera
-     * @param x the screen x position
-     * @param y the screen y position
+     * @param x   the screen x position
+     * @param y   the screen y position
      * @return true if the position is inside this object, false otherwise
      */
     boolean isWithin(Camera cam, float x, float y);

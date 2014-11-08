@@ -5,11 +5,13 @@ import com.badlogic.gdx.math.Vector3;
 
 /**
  * DestTransform extends Transform. It just has another name and constructors.
+ *
  * @author Jonas Dann
  */
 public class DestTransform extends Transform {
     /**
      * Constructor to set the position, rotation and scale to the given transform.
+     *
      * @param tranform The transform data.
      */
     public DestTransform(Transform tranform) {
@@ -20,6 +22,7 @@ public class DestTransform extends Transform {
 
     /**
      * Constructor to set the position and rotation.
+     *
      * @param position The position to use.
      * @param rotation The rotation to use.
      */

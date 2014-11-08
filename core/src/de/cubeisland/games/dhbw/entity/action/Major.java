@@ -8,6 +8,7 @@ import de.cubeisland.games.dhbw.entity.CardAction;
  * 0 is business informatics
  * 1 is business administration
  * 2 is applied informatics
+ *
  * @author Jonas Dann
  */
 public class Major implements CardAction {

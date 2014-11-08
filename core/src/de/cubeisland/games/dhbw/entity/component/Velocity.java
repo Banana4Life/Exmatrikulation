@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector3;
 
 /**
  * The Velocity is a Component that saves the velocity of an object.
+ *
  * @author Phillip Schichtel
  */
 public class Velocity extends Component {
@@ -12,6 +13,7 @@ public class Velocity extends Component {
 
     /**
      * Set the velocity Vecotr.
+     *
      * @param v The new velocity to use.
      * @return Returns this.
      */
@@ -22,6 +24,7 @@ public class Velocity extends Component {
 
     /**
      * Get the velocity Vector.
+     *
      * @return A copy of the velocity Vector.
      */
     public Vector3 get() {
@@ -30,6 +33,7 @@ public class Velocity extends Component {
 
     /**
      * Applies the given acceleration to the velocity.
+     *
      * @param a The acceleration to apply.
      * @return Returns this.
      */

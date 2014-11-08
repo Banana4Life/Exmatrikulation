@@ -41,48 +41,48 @@ public class Cards extends ResourceBag<Card> {
     public Card menuappliedinf;
 
     // event cards
-	public Card eventalgebralecture;
-	public Card eventanalysislecture;
-	public Card eventclecture;
-	public Card eventcommunicationlecture;
-	public Card eventdiplwirtschinf;
-	public Card eventexmatrikulator;
-	public Card eventfirstmathlecture;
-	public Card eventfortuneminister;
-	public Card eventintroductionlecture;
-	public Card eventjavalecture;
-	public Card eventlunch;
-	public Card eventmarketinglecture;
+    public Card eventalgebralecture;
+    public Card eventanalysislecture;
+    public Card eventclecture;
+    public Card eventcommunicationlecture;
+    public Card eventdiplwirtschinf;
+    public Card eventexmatrikulator;
+    public Card eventfirstmathlecture;
+    public Card eventfortuneminister;
+    public Card eventintroductionlecture;
+    public Card eventjavalecture;
+    public Card eventlunch;
+    public Card eventmarketinglecture;
     public Card eventmathexam;
-	public Card eventoospaceships;
-	public Card eventoverslept;
-	public Card eventparty;
-	public Card eventprogrammingproject;
-	public Card eventsaturday;
-	public Card eventworkflowlecture;
+    public Card eventoospaceships;
+    public Card eventoverslept;
+    public Card eventparty;
+    public Card eventprogrammingproject;
+    public Card eventsaturday;
+    public Card eventworkflowlecture;
 
     // item cards
-	public Card itembusinessadbook;
-	public Card itemcbook;
-	public Card itemincapacitycertificate;
-	public Card itemlaptop;
-	public Card itemlaptopupgrade;
-	public Card itemmathbook;
-	public Card itemswag4nerds;
-	public Card itemswagcap;
+    public Card itembusinessadbook;
+    public Card itemcbook;
+    public Card itemincapacitycertificate;
+    public Card itemlaptop;
+    public Card itemlaptopupgrade;
+    public Card itemmathbook;
+    public Card itemswag4nerds;
+    public Card itemswagcap;
     public Card itemwaterbottle1;
     public Card itemwaterbottle2;
 
-	public Card skillc;
-	public Card skillinvestment;
-	public Card skilldirectproof;
-	public Card skillinduction;
-	public Card skilljava;
-	public Card skilllegobuilding;
-	public Card skillprojectmanagement;
-	public Card skillregex;
-	public Card skillsmile;
-	public Card skillwebserver;
+    public Card skillc;
+    public Card skillinvestment;
+    public Card skilldirectproof;
+    public Card skillinduction;
+    public Card skilljava;
+    public Card skilllegobuilding;
+    public Card skillprojectmanagement;
+    public Card skillregex;
+    public Card skillsmile;
+    public Card skillwebserver;
 
     public Cards(Reflector reflector) {
         this.reflector = reflector;
@@ -95,7 +95,7 @@ public class Cards extends ResourceBag<Card> {
 
     @Override
     protected Card load(FileRef basedir, Field field) {
-        CardPrefab prefab = this.reflector.load(CardPrefab.class, basedir.child(field.getName()+".yml").getInputStream());
+        CardPrefab prefab = this.reflector.load(CardPrefab.class, basedir.child(field.getName() + ".yml").getInputStream());
         Pixmap image;
         try {
             image = new Pixmap(Gdx.files.internal(basedir.child(field.getName() + ".png").getPath()));
@@ -103,7 +103,6 @@ public class Cards extends ResourceBag<Card> {
             image = new Pixmap(Gdx.files.internal("cards/eventexmatrikulator.png"));
             Gdx.app.log("error", "card image " + field.getName() + ".png not found!");
         }
-
 
 
         return new Card(prefab.type, new CardObject(generateTexture(prefab, image), this.backTexture), prefab.actions, prefab.requirement, prefab.duration, prefab.rarity);
@@ -136,7 +135,7 @@ public class Cards extends ResourceBag<Card> {
             height += Math.abs(bound.height);
         }
 
-        FrameBuffer frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, (int)Math.ceil(width), (int)Math.ceil(height), false);
+        FrameBuffer frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, (int) Math.ceil(width), (int) Math.ceil(height), false);
         SpriteBatch batch = new SpriteBatch();
 
         //frameBuffer.begin();
@@ -172,7 +171,7 @@ public class Cards extends ResourceBag<Card> {
         final float spaceWidth = font.getSpaceWidth();
         maxWidth += spaceWidth;
 
-        for (int i = 0; i < words.length;) {
+        for (int i = 0; i < words.length; ) {
             float lineWidth = 0;
             StringBuilder line = new StringBuilder();
             while (i < words.length) {

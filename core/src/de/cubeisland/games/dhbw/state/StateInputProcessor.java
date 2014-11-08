@@ -16,7 +16,7 @@ public class StateInputProcessor implements InputProcessor {
      * Constructs a new instance with the state manager and the state context
      *
      * @param stateManager the state manager
-     * @param context the context to be passed to the state event callbacks
+     * @param context      the context to be passed to the state event callbacks
      */
     public StateInputProcessor(StateManager stateManager, StateContext context) {
         this.sm = stateManager;

@@ -5,6 +5,7 @@ import de.cubeisland.games.dhbw.entity.RenderObject;
 
 /**
  * The Render Component holds the RenderObject.
+ *
  * @author Jonas Dann
  */
 public class Render extends Component {
@@ -12,6 +13,7 @@ public class Render extends Component {
 
     /**
      * Set the RenderObject.
+     *
      * @param object The RenderObject ot use.
      * @return Returns this.
      */
@@ -22,6 +24,7 @@ public class Render extends Component {
 
     /**
      * Get the RenderObject.
+     *
      * @return Returns the RenerObject.
      */
     public RenderObject getObject() {

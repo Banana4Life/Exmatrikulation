@@ -9,7 +9,9 @@ import de.cubeisland.games.dhbw.entity.component.DestTransform;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
-import de.cubeisland.games.dhbw.state.states.*;
+import de.cubeisland.games.dhbw.state.states.CourseSelection;
+import de.cubeisland.games.dhbw.state.states.MainMenu;
+import de.cubeisland.games.dhbw.state.states.MenuState;
 
 import java.util.List;
 

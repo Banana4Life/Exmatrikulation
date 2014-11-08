@@ -31,10 +31,10 @@ public class StateManager {
     /**
      * Constructs a new state manager with the the required dependencies.
      *
-     * @param game The main game instance
+     * @param game   The main game instance
      * @param engine the entity engine
      * @param camera the camera
-     * @param input the root input multiplexer
+     * @param input  the root input multiplexer
      */
     public StateManager(DHBWGame game, Engine engine, Camera camera, InputMultiplexer input) {
         this.context = new StateContext(game, engine, camera, this);
@@ -50,9 +50,8 @@ public class StateManager {
      *
      * @param state the state to add
      * @return fluent interface
-     *
      * @throws java.lang.IllegalArgumentException if the state has the meta state ID 0
-     * @throws java.lang.IllegalStateException if there is already a state registered with the same ID
+     * @throws java.lang.IllegalStateException    if there is already a state registered with the same ID
      */
     @NotNull
     public StateManager addState(GameState state) {
@@ -73,7 +72,6 @@ public class StateManager {
      *
      * @param id the state ID
      * @return the state
-     *
      * @throws java.lang.IllegalArgumentException if there was not state found with the given ID
      */
     @NotNull
@@ -90,7 +88,7 @@ public class StateManager {
 
     @SuppressWarnings("unchecked")
     public <T extends GameState> T getStateTyped(short id) {
-        return (T)getState(id);
+        return (T) getState(id);
     }
 
     /**
@@ -98,7 +96,6 @@ public class StateManager {
      *
      * @param id the state ID
      * @return fluent interface
-     *
      * @throws java.lang.IllegalArgumentException if there is no state registered with that ID
      * @throws java.lang.IllegalArgumentException if the state to remove is a meta state
      */
@@ -112,7 +109,6 @@ public class StateManager {
      *
      * @param state the state to remove
      * @return fluent interface
-     *
      * @throws java.lang.IllegalArgumentException if the state to remove is a meta state
      */
     @NotNull
@@ -174,11 +170,10 @@ public class StateManager {
     /**
      * Adds a transition from one state to another.
      *
-     * @param fromId the state ID origin state
-     * @param toId the state ID of the destination state
+     * @param fromId     the state ID origin state
+     * @param toId       the state ID of the destination state
      * @param transition the transition function
      * @return fluent interface
-     *
      * @throws java.lang.IllegalArgumentException if the transition would define a second start state
      * @throws java.lang.IllegalArgumentException if the one of the states or both are unknown
      */
@@ -205,7 +200,7 @@ public class StateManager {
      * Removes the transition between the given states
      *
      * @param from the origin state ID
-     * @param to the destination state ID
+     * @param to   the destination state ID
      * @return fluent interface
      */
     @NotNull
@@ -218,7 +213,6 @@ public class StateManager {
      * Starts the state system by starting the initial transition to the start state.
      *
      * @return fluent interface
-     *
      * @throws java.lang.IllegalStateException of not start state is defined
      */
     @NotNull
@@ -236,8 +230,7 @@ public class StateManager {
      *
      * @param stateId the state ID to transition to
      * @return fluent interface
-     *
-     * @throws java.lang.IllegalStateException if the transition was started during a transition
+     * @throws java.lang.IllegalStateException    if the transition was started during a transition
      * @throws java.lang.IllegalArgumentException if the destination state equals the current state (a loop)
      * @throws java.lang.IllegalArgumentException if there is not transition defined from the current to the destination state
      */
@@ -320,7 +313,7 @@ public class StateManager {
      * @return the short ID of the origin state
      */
     private static short originComponent(int combined) {
-        return (short)(combined >> 16);
+        return (short) (combined >> 16);
     }
 
     /**
@@ -330,7 +323,7 @@ public class StateManager {
      * @return the short ID of the destination state
      */
     private static short destinationComponent(int combined) {
-        return (short)(combined & 0xFFFF);
+        return (short) (combined & 0xFFFF);
     }
 
     /**

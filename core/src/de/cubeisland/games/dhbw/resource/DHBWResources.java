@@ -16,7 +16,7 @@ public class DHBWResources extends Resources {
     /**
      * The card prefabs that define the cards
      */
-    public Cards    cards;
+    public Cards cards;
 
     /**
      * Constructs new instances of the resource bags
@@ -25,6 +25,6 @@ public class DHBWResources extends Resources {
      */
     public DHBWResources(Reflector reflector) {
         entities = new Entities(reflector);
-        cards    = new Cards(reflector);
+        cards = new Cards(reflector);
     }
 }

@@ -1,7 +1,5 @@
 package de.cubeisland.games.dhbw.state;
 
-import com.badlogic.ashley.core.Entity;
-
 /**
  * This class defines an abstract game state with all of the callbacks for both state changes and input.
  */
@@ -20,7 +18,7 @@ public abstract class GameState {
      * During this callback {@link StateManager#getCurrentState()} will already return this state.
      *
      * @param context the context
-     * @param from the previous state
+     * @param from    the previous state
      */
     public void onEnter(StateContext context, GameState from) {
 
@@ -31,7 +29,7 @@ public abstract class GameState {
      * During this callback {@link StateManager#getCurrentState()} will still return this state.
      *
      * @param context the context
-     * @param to the next state
+     * @param to      the next state
      */
     public void onLeave(StateContext context, GameState to) {
 
@@ -41,7 +39,7 @@ public abstract class GameState {
      * This callback will be called every tick while the state is the active state
      *
      * @param context the context
-     * @param delta the delta time since the last tick
+     * @param delta   the delta time since the last tick
      */
     public void update(StateContext context, float delta) {
 
@@ -72,13 +70,13 @@ public abstract class GameState {
     /**
      * This callback will be called when a character has been typed on the keyboard while this state is active.
      *
-     * @param context the context
+     * @param context   the context
      * @param character the character that has been typed
      * @return true if the event was handled, false otherwise
      */
     public boolean keyTyped(StateContext context, char character) {
         if (Character.isDigit(character)) {
-            context.transitionTo((short)(character - '0'));
+            context.transitionTo((short) (character - '0'));
         }
         return false;
     }
@@ -91,7 +89,7 @@ public abstract class GameState {
      * @param screenX the mouse position on the X axis
      * @param screenY the mouse position on the Y axis
      * @param pointer the pointer/finger ID
-     * @param button the button that has been pressed down (compare with {@link com.badlogic.gdx.Input.Buttons})
+     * @param button  the button that has been pressed down (compare with {@link com.badlogic.gdx.Input.Buttons})
      * @return true if the event was handled, false otherwise
      */
     public boolean touchDown(StateContext context, int screenX, int screenY, int pointer, int button) {
@@ -106,7 +104,7 @@ public abstract class GameState {
      * @param screenX the mouse position on the X axis
      * @param screenY the mouse position on the Y axis
      * @param pointer the pointer/finger ID
-     * @param button the button that has been released (compare with {@link com.badlogic.gdx.Input.Buttons})
+     * @param button  the button that has been released (compare with {@link com.badlogic.gdx.Input.Buttons})
      * @return true if the event was handled, false otherwise
      */
     public boolean touchUp(StateContext context, int screenX, int screenY, int pointer, int button) {
@@ -142,7 +140,7 @@ public abstract class GameState {
      * This callback will be called when the scroll wheel is used while this state is active.
      *
      * @param context the context
-     * @param amount the amount scrolled (the sign indicated the direction)
+     * @param amount  the amount scrolled (the sign indicated the direction)
      * @return true if the event was handled, false otherwise
      */
     public boolean scrolled(StateContext context, int amount) {

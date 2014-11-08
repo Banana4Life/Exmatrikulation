@@ -20,6 +20,7 @@ public class PickSystem extends IteratingSystem {
 
     /**
      * The constructor sets the camera given as parameter.
+     *
      * @param camera The camera of the game.
      */
     public PickSystem(PerspectiveCamera camera) {
@@ -27,6 +28,7 @@ public class PickSystem extends IteratingSystem {
 
         this.cam = camera;
     }
+
     @Override
     public void processEntity(Entity entity, float deltaTime) {
         entity.add(new DestTransform(cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), cam.project(new Vector3(0, 0, -100)).z)), new Quaternion(new Vector3(0, 1, 0), 0)));

@@ -9,6 +9,7 @@ import de.cubeisland.games.dhbw.entity.CardPrefab;
 
 /**
  * Converts a String node to SubjectType and the other way around.
+ *
  * @author Jonas Dann
  */
 public class SubjectTypeConverter implements Converter<CardPrefab.SubjectType> {
@@ -19,6 +20,6 @@ public class SubjectTypeConverter implements Converter<CardPrefab.SubjectType> {
 
     @Override
     public CardPrefab.SubjectType fromNode(Node node, ConverterManager manager) throws ConversionException {
-        return CardPrefab.SubjectType.valueOf(((StringNode)node).getValue().toUpperCase());
+        return CardPrefab.SubjectType.valueOf(((StringNode) node).getValue().toUpperCase());
     }
 }

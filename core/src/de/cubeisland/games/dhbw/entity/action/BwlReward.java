@@ -10,12 +10,12 @@ import de.cubeisland.games.dhbw.entity.CardAction;
  */
 public class BwlReward implements CardAction {
 
-	public void apply(Character character, int value) {
-		character.setBwl(character.getBwl() + value);
-	}
+    public void apply(Character character, int value) {
+        character.setBwl(character.getBwl() + value);
+    }
 
-	public void unapply(Character character, int value) {
+    public void unapply(Character character, int value) {
 
-	}
+    }
 
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.PerspectiveCamera;
 
 /**
  * Camera encapsulates the PerspectiveCamera as Component.
+ *
  * @author Phillip Schichtel
  */
 public class Camera extends Component {
@@ -13,6 +14,7 @@ public class Camera extends Component {
 
     /**
      * Returns the PerspectiveCamera.
+     *
      * @return PerspectiveCamera
      */
     public PerspectiveCamera get() {
@@ -21,6 +23,7 @@ public class Camera extends Component {
 
     /**
      * Sets the PerspectiveCamera.
+     *
      * @param camera The new Camera to use.
      * @return Returns this.
      */

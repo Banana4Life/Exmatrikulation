@@ -1,17 +1,8 @@
 package de.cubeisland.games.dhbw.input;
 
 import com.badlogic.ashley.core.Engine;
-import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.utils.ImmutableArray;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
-import com.badlogic.gdx.utils.Array;
-import de.cubeisland.games.dhbw.entity.component.Pickable;
-import de.cubeisland.games.dhbw.entity.component.Picked;
-import de.cubeisland.games.dhbw.entity.component.Render;
 import de.cubeisland.games.dhbw.state.StateManager;
 
 /**
@@ -26,8 +17,8 @@ public class GlobalInputProcessor implements InputProcessor {
     /**
      * Constructs a new instance
      *
-     * @param camera the camera used by the game
-     * @param engine the ashley entity engine used to process entities in the game
+     * @param camera       the camera used by the game
+     * @param engine       the ashley entity engine used to process entities in the game
      * @param stateManager the state manager
      */
     public GlobalInputProcessor(PerspectiveCamera camera, Engine engine, StateManager stateManager) {

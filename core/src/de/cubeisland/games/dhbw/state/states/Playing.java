@@ -10,7 +10,6 @@ import de.cubeisland.games.dhbw.entity.component.Picked;
 import de.cubeisland.games.dhbw.entity.component.Transform;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
-import de.cubeisland.games.dhbw.state.StateManager;
 import de.cubeisland.games.dhbw.util.EntityUtil;
 
 public class Playing extends GameState {
