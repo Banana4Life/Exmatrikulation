@@ -2,10 +2,8 @@ package de.cubeisland.games.dhbw.state.states;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.DHBWGame;
 import de.cubeisland.games.dhbw.entity.component.Render;
-import de.cubeisland.games.dhbw.entity.component.Transform;
 import de.cubeisland.games.dhbw.entity.object.BackgroundObject;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
@@ -27,7 +25,6 @@ public class SplashScreen extends GameState {
         background = game.getEntityFactory().create(game.getResources().entities.background);
 
         background.getComponent(Render.class).setObject(new BackgroundObject(new Texture("images/background.png")));
-        background.getComponent(Transform.class).setPosition(new Vector3(0, 0, -298));
 
         context.getEngine().addEntity(background);
     }

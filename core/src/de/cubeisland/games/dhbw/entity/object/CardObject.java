@@ -62,7 +62,7 @@ public class CardObject implements RenderObject {
         DecalBatch batch = game.getDecalBatch();
         batch.add(this.front);
         batch.add(this.back);
-        batch.flush(); // TODO this should be unnecessary and probably hurts performance
+        batch.flush(); // TODO this should be unnecessary and probably hurts performance, but a few cards go invisible without it
     }
 
     /**
@@ -96,26 +96,8 @@ public class CardObject implements RenderObject {
      * @param back     Back Decal to work with.
      * @param rotation Rotation to use.
      */
-    public static void setRotation(Decal front, Decal back, Quaternion rotation) {
+    private static void setRotation(Decal front, Decal back, Quaternion rotation) {
         front.setRotation(rotation.cpy());
         back.setRotation(rotation.cpy());
-    }
-
-    /**
-     * Returns the front Decal.
-     *
-     * @return Front Decal
-     */
-    public Decal getFront() {
-        return front;
-    }
-
-    /**
-     * Returns the back Decal.
-     *
-     * @return Back Decal
-     */
-    public Decal getBack() {
-        return back;
     }
 }
