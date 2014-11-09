@@ -38,6 +38,9 @@ public class ToPlayingTransition extends StateTransition {
         eventDeck.getComponent(Transform.class).setPosition(new Vector3(90, 40, -150)).setRotation(new Quaternion(new Vector3(0, 1, 0), 180));
         eventDeck.getComponent(Deck.class).setDestPos(new Vector3(0, 20, -100)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 0));
         game.getEngine().addEntity(eventDeck);
+        if (ReactingState.class == destination.getClass()) {
+            ((ReactingState) destination).setEventDeck(eventDeck);
+        }
 
         //TODO get cards for the given semester
         Cards eventCardPrefabs = game.getResources().cards;
@@ -63,6 +66,9 @@ public class ToPlayingTransition extends StateTransition {
         itemDeck.getComponent(Transform.class).setPosition(new Vector3(90, -5, -150)).setRotation(new Quaternion(new Vector3(0, 1, 0), 180));
         itemDeck.getComponent(Deck.class).setDestPos(new Vector3(200, 60, -150)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 0));
         game.getEngine().addEntity(itemDeck);
+        if (ReactingState.class == destination.getClass()) {
+            ((ReactingState) destination).setItemDeck(itemDeck);
+        }
 
         //TODO get cards for the given semester
         //Cards cardPrefabs = game.getResources().cards;
@@ -89,11 +95,12 @@ public class ToPlayingTransition extends StateTransition {
         cardHand.getComponent(Transform.class).setPosition(new Vector3(0, -40, -150)).setRotation(new Quaternion(new Vector3(1, 0, 0), 0));
         game.getEngine().addEntity(cardHand);
 
-//        //draw cards for hand
-//        for (int i = 0; i < ReactingState.STARTCARDCOUNT+1; i++) {
-//            Entity entity = context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).drawCard();
-//            cardHand.getComponent(CardHand.class).addCard(entity);
-//        }
+        //draw cards for hand
+        for (int i = 0; i < ReactingState.STARTCARDCOUNT+1; i++) {
+            Entity entity = itemDeck.getComponent(Deck.class).drawCard();
+            cardHand.getComponent(CardHand.class).addCard(entity);
+        }
+
         //show the first event
         Entity event = context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).drawCard();
         if (ReactingState.class == destination.getClass()) {

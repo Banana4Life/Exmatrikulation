@@ -15,6 +15,7 @@ import java.util.Set;
  * @author Jonas Dann
  */
 public class Card extends Component {
+    private String id;
     private CardPrefab.CardType type;
     private CardObject object;
     private Set<ActionTuple> actions;
@@ -30,6 +31,7 @@ public class Card extends Component {
 
     /**
      * Constructor that sets all the values.
+     * @param id          The ID of this card's prefab
      * @param type        The type of the card
      * @param object      The object that will be rendered the screen
      * @param actions     The actions
@@ -37,7 +39,8 @@ public class Card extends Component {
      * @param duration    The duration
      * @param rarity      The rarity
      */
-    public Card(CardPrefab.CardType type, CardObject object, Set<ActionTuple> actions, CardPrefab.Requirement requirement, int duration, double rarity) {
+    public Card(String id, CardPrefab.CardType type, CardObject object, Set<ActionTuple> actions, CardPrefab.Requirement requirement, int duration, double rarity) {
+        this.id = id;
         this.type = type;
         this.object = object;
         this.actions = actions;
@@ -52,19 +55,26 @@ public class Card extends Component {
      * @return Returns a copied instance.
      */
     public Card copy() {
-        return new Card(type, object, actions, requirement, duration, rarity);
+        return new Card(id, type, object, actions, requirement, duration, rarity);
     }
 
-    /**
-     * Gets a CardObject with the texture.
-     *
-     * @return Returns a CardObject.
-     */
+    public String getId() {
+        return id;
+    }
+
     public CardObject getObject() {
         return this.object;
     }
 
     public CardPrefab.CardType getType(){
         return this.type;
+    }
+
+    public Set<ActionTuple> getActions() {
+        return actions;
+    }
+
+    public CardPrefab.Requirement getRequirement() {
+        return requirement;
     }
 }

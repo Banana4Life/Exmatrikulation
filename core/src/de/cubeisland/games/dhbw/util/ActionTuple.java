@@ -44,6 +44,15 @@ public class ActionTuple {
     }
 
     /**
+     * Unapplies the action to the given character
+     *
+     * @param c the character
+     */
+    public void unapply(@NotNull PlayerCharacter c) {
+        getAction().unapply(c, getParameter());
+    }
+
+    /**
      * This converter converts action tuples like [package.ClassName, 1] into {@link de.cubeisland.games.dhbw.util.ActionTuple} instances
      */
     public static class ActionConverter implements Converter<ActionTuple> {

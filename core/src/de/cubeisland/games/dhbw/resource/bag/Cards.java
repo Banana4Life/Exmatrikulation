@@ -104,8 +104,9 @@ public class Cards extends ResourceBag<Card> {
 
     @Override
     protected Card load(FileRef basedir, Field field) {
-        System.out.println(basedir.child(field.getName() + ".yml").getPath());
-        CardPrefab prefab = this.reflector.load(CardPrefab.class, basedir.child(field.getName() + ".yml").getInputStream());
+        final String id = field.getName();
+        System.out.println(basedir.child(id + ".yml").getPath());
+        CardPrefab prefab = this.reflector.load(CardPrefab.class, basedir.child(id + ".yml").getInputStream());
         TextureRegion image;
         try {
             image = new TextureRegion(new Texture(fieldToFileRef(field, basedir).getPath() + ".png"));
@@ -115,7 +116,7 @@ public class Cards extends ResourceBag<Card> {
         }
 
 
-        Card c = new Card(prefab.type, new CardObject(generateTexture(prefab, image), this.backTexture), prefab.actions, prefab.requirement, prefab.duration, prefab.rarity);
+        Card c = new Card(id, prefab.type, new CardObject(generateTexture(prefab, image), this.backTexture), prefab.actions, prefab.requirement, prefab.duration, prefab.rarity);
 
         image.getTexture().dispose();
 
