@@ -27,7 +27,7 @@ public class GameLostState extends GameState {
     @Override
     public void onEnter(StateContext context, GameState from) {
         DHBWGame game = context.getGame();
-        // TODO: replace with GameOver-Screen when available
+        // TODO: replace with GameOver-Image when available
         gameover = game.getEntityFactory().createImage("images/splashscreen.png", new Vector3(0, 0, -280), .344f);
         context.getEngine().addEntity(gameover);
     }
