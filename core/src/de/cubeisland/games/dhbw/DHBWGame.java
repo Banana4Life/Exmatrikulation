@@ -23,7 +23,6 @@ import de.cubeisland.games.dhbw.resource.DHBWResources;
 import de.cubeisland.games.dhbw.state.StateManager;
 import de.cubeisland.games.dhbw.state.states.*;
 import de.cubeisland.games.dhbw.state.transitions.*;
-import de.cubeisland.games.dhbw.util.ActionTuple;
 import de.cubeisland.games.dhbw.util.CardTypeConverter;
 import de.cubeisland.games.dhbw.util.ClassConverter;
 import de.cubeisland.games.dhbw.util.SubjectTypeConverter;
@@ -48,7 +47,6 @@ public class DHBWGame extends ApplicationAdapter {
         reflector.getDefaultConverterManager().registerConverter(Class.class, new ClassConverter());
         reflector.getDefaultConverterManager().registerConverter(CardPrefab.CardType.class, new CardTypeConverter());
         reflector.getDefaultConverterManager().registerConverter(CardPrefab.SubjectType.class, new SubjectTypeConverter());
-        reflector.getDefaultConverterManager().registerConverter(ActionTuple.class, new ActionTuple.ActionConverter());
 
         resources = new DHBWResources(reflector);
         resources.build();
@@ -78,7 +76,6 @@ public class DHBWGame extends ApplicationAdapter {
         engine.addSystem(new PickSystem(perspectiveCamera));
         engine.addSystem(new CameraSystem());
         engine.addSystem(new CardHandSystem());
-        engine.addSystem(new DiceSystem());
         engine.addSystem(new MusicSystem(resources.songs.getResources()));
 
         inputMultiplexer = new InputMultiplexer(new GlobalInputProcessor(perspectiveCamera, engine, this.stateManager));
@@ -92,26 +89,31 @@ public class DHBWGame extends ApplicationAdapter {
                 .addState(new MainMenu())
                 .addState(new CourseSelection())
                 .addState(new ReactingState())
+                .addState(new DiscardingCardsState())
                 .addState(new GameLostState())
                 .addState(new GameWonState())
                 .addState(new DecidingState())
                 .addState(new Paused())
                 .addTransition(StartState.ID,           SplashScreen.ID,            NOPTransition.INSTANCE)
                 .addTransition(SplashScreen.ID,         MainMenu.ID,                new SplashScreenToMainMenuTransition())
-                .addTransition(MainMenu.ID,             CourseSelection.ID,         new MergeCardsAndMoveToCorner())
+                .addTransition(MainMenu.ID,             CourseSelection.ID,         MergeCardsAndMoveToCorner.INSTANCE)
                 .addTransition(MainMenu.ID,             EndState.ID,                NOPTransition.INSTANCE)
-                .addTransition(CourseSelection.ID,      MainMenu.ID,                new BackInMenusTransition())
+                .addTransition(CourseSelection.ID,      MainMenu.ID,                BackInMenusTransition.INSTANCE)
                 .addTransition(CourseSelection.ID,      ReactingState.ID,           new ToPlayingTransition())
-                .addTransition(ReactingState.ID,        DecidingState.ID,           NOPTransition.INSTANCE)
+                .addTransition(ReactingState.ID,        DecidingState.ID,           ThrowDiceTransition.INSTANCE)
+                .addTransition(DecidingState.ID,        ReactingState.ID,           NextEventTransition.INSTANCE)
+                .addTransition(DecidingState.ID,        GameLostState.ID,           GameLostTransition.INSTANCE)
+                .addTransition(DecidingState.ID,        GameWonState.ID,            GameWonTransition.INSTANCE)
+                .addTransition(DecidingState.ID,        DiscardingCardsState.ID,    ToMuchCadsTransition.INSTANCE)
+                .addTransition(DiscardingCardsState.ID, ReactingState.ID,           NextEventTransition.INSTANCE)
+                .addTransition(GameWonState.ID,         MainMenu.ID,                NOPTransition.INSTANCE)
+                .addTransition(GameLostState.ID,        MainMenu.ID,                new SplashScreenToMainMenuTransition())
                 .addTransition(ReactingState.ID,        Paused.ID,                  NOPTransition.INSTANCE)
                 .addTransition(DecidingState.ID,        Paused.ID,                  NOPTransition.INSTANCE)
-                .addTransition(DecidingState.ID,        ReactingState.ID,           new NextEventTransition())
-                .addTransition(DecidingState.ID,        GameLostState.ID,           new GameLostTransition())
-                .addTransition(DecidingState.ID,        GameWonState.ID,            new GameWonTransition())
-                .addTransition(GameWonState.ID,         MainMenu.ID,                NOPTransition.INSTANCE)
-                .addTransition(GameLostState.ID,        MainMenu.ID,                NOPTransition.INSTANCE)
+                .addTransition(DiscardingCardsState.ID, Paused.ID,                  NOPTransition.INSTANCE)
                 .addTransition(Paused.ID,               ReactingState.ID,           NOPTransition.INSTANCE)
                 .addTransition(Paused.ID,               DecidingState.ID,           NOPTransition.INSTANCE)
+                .addTransition(Paused.ID,               DiscardingCardsState.ID,    NOPTransition.INSTANCE)
                 .addTransition(Paused.ID,               MainMenu.ID,                NOPTransition.INSTANCE)
                 .start();
 
