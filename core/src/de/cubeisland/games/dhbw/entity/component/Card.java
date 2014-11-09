@@ -62,4 +62,8 @@ public class Card extends Component {
     public CardObject getObject() {
         return this.object;
     }
+
+    public CardPrefab.CardType getType(){
+        return this.type;
+    }
 }

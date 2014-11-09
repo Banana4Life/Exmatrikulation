@@ -16,8 +16,10 @@ import de.cubeisland.games.dhbw.state.StateTransition;
 import de.cubeisland.games.dhbw.state.states.CourseSelection;
 import de.cubeisland.games.dhbw.state.states.ReactingState;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class ToPlayingTransition extends StateTransition {
     @Override
@@ -37,16 +39,19 @@ public class ToPlayingTransition extends StateTransition {
 
         //TODO get cards for the given semester
         Cards cardPrefabs = game.getResources().cards;
-        List<Card> cards = Arrays.asList(
-                cardPrefabs.menufreemode,
-                cardPrefabs.menustorymode,
-                cardPrefabs.menubusinessinf,
-                cardPrefabs.menubusinessad,
-                cardPrefabs.menuappliedinf
-        );
+        List<Card> cards = new ArrayList<>();
+        for(Card card: context.getGame().getResources().cards.getResources()){
+            if(card.getType().name().equals("EVENT")){
+                cards.add(card);
+            }
+        }
+
+        int cardsInDeck = new Random().nextInt((10 - 5) + 1) + 5;
         Entity card;
-        for (Card component : cards) {
-            card = game.getEntityFactory().create(game.getResources().entities.card).add(component.copy());
+        //for (Card component : cards) {
+        for (int i=0;i<cardsInDeck;i++){
+            int randomCard = new Random().nextInt(cards.size()-1);
+            card = game.getEntityFactory().create(game.getResources().entities.card).add(cards.get(randomCard));
             card.getComponent(Render.class).setObject(card.getComponent(Card.class).getObject());
             deck.getComponent(Deck.class).addCard(card);
             game.getEngine().addEntity(card);
@@ -58,11 +63,11 @@ public class ToPlayingTransition extends StateTransition {
         cardHand.getComponent(Transform.class).setPosition(new Vector3(0, -40, -150)).setRotation(new Quaternion(new Vector3(1, 0, 0), 0));
         game.getEngine().addEntity(cardHand);
 
-        //draw cards for hand
-        for (int i = 0; i < ReactingState.STARTCARDCOUNT+1; i++) {
-            Entity entity = context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).drawCard();
-            cardHand.getComponent(CardHand.class).addCard(entity);
-        }
+//        //draw cards for hand
+//        for (int i = 0; i < ReactingState.STARTCARDCOUNT+1; i++) {
+//            Entity entity = context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).drawCard();
+//            cardHand.getComponent(CardHand.class).addCard(entity);
+//        }
         //show the first event
         Entity event = context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).drawCard();
         event.add(new DestTransform(new Vector3(0, 20, -100), new Quaternion(new Vector3(1, 0, 0), 0)));
