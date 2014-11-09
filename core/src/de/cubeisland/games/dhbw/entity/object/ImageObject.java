@@ -1,9 +1,11 @@
 package de.cubeisland.games.dhbw.entity.object;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
+import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.DHBWGame;
 import de.cubeisland.games.dhbw.entity.RenderObject;
 import de.cubeisland.games.dhbw.entity.component.Camera;
@@ -31,6 +33,14 @@ public class ImageObject implements RenderObject {
     @Override
     public boolean isWithin(Camera cam, float x, float y) {
         return true;
+    }
+
+    @Override
+    public int getWidth(Camera camera) {
+        final PerspectiveCamera pc = camera.getPerspective();
+        final Vector3 topLeft = pc.project(new Vector3(image.getVertices()[Decal.X1], image.getVertices()[Decal.Y1], image.getVertices()[Decal.Z1]));
+        final Vector3 topRight = pc.project(new Vector3(image.getVertices()[Decal.X2], image.getVertices()[Decal.Y2], image.getVertices()[Decal.Z2]));
+        return (int) Math.abs(topLeft.y - topRight.y);
     }
 
     public Decal getDecal() {

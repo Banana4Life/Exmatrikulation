@@ -31,4 +31,10 @@ public interface RenderObject {
      * @return true if the position is inside this object, false otherwise
      */
     boolean isWithin(Camera cam, float x, float y);
+
+    /**
+     * Get the on screen width of the object.
+     * @return Returns the width.
+     */
+    int getWidth(Camera cam);
 }

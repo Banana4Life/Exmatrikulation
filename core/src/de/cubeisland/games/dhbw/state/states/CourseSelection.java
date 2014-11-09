@@ -35,7 +35,7 @@ public class CourseSelection extends MenuState {
 
                 //remember the card the Player has clicked on
                 pickedcard = e;
-                //TODO start playing
+                context.transitionTo(ReactingState.ID);
                 return true;
             } else {
                 //The player has clicked on the card Stack of MainMenu and moves back to main menu

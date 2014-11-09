@@ -72,6 +72,7 @@ public class DHBWGame extends ApplicationAdapter {
         engine.addSystem(new DeckSystem());
         engine.addSystem(new PickSystem(perspectiveCamera));
         engine.addSystem(new CameraSystem());
+        engine.addSystem(new CardHandSystem());
 
         inputMultiplexer = new InputMultiplexer(new GlobalInputProcessor(perspectiveCamera, engine, this.stateManager));
         Gdx.input.setInputProcessor(inputMultiplexer);
@@ -81,16 +82,15 @@ public class DHBWGame extends ApplicationAdapter {
                 .addState(new SplashScreen())
                 .addState(new MainMenu())
                 .addState(new CourseSelection())
-//                .addState(new Playing())
                 .addState(new ReactingState())
                 .addState(new DiscardingCardsState())
                 .addState(new GameLostState())
                 .addState(new GameWonState())
                 .addState(new DecidingState())
                 .addState(new Paused())
-                .addTransition(StartState.ID, SplashScreen.ID, NOPTransition.INSTANCE)
-                .addTransition(SplashScreen.ID, MainMenu.ID, new SplashScreenToMainMenuTransition())
-                .addTransition(MainMenu.ID, CourseSelection.ID, MergeCardsAndMoveToCorner.INSTANCE)
+                .addTransition(StartState.ID,           SplashScreen.ID,            NOPTransition.INSTANCE)
+                .addTransition(SplashScreen.ID,         MainMenu.ID,                new SplashScreenToMainMenuTransition())
+                .addTransition(MainMenu.ID,             CourseSelection.ID,         MergeCardsAndMoveToCorner.INSTANCE)
                 .addTransition(MainMenu.ID,             EndState.ID,                NOPTransition.INSTANCE)
                 .addTransition(CourseSelection.ID,      MainMenu.ID,                BackInMenusTransition.INSTANCE)
                 .addTransition(CourseSelection.ID,      ReactingState.ID,           new toPlayingTransition())
@@ -105,10 +105,10 @@ public class DHBWGame extends ApplicationAdapter {
                 .addTransition(ReactingState.ID,        Paused.ID,                  NOPTransition.INSTANCE)
                 .addTransition(DecidingState.ID,        Paused.ID,                  NOPTransition.INSTANCE)
                 .addTransition(DiscardingCardsState.ID, Paused.ID,                  NOPTransition.INSTANCE)
-                .addTransition(Paused.ID, ReactingState.ID, NOPTransition.INSTANCE)
+                .addTransition(Paused.ID,               ReactingState.ID,           NOPTransition.INSTANCE)
                 .addTransition(Paused.ID,               DecidingState.ID,           NOPTransition.INSTANCE)
                 .addTransition(Paused.ID,               DiscardingCardsState.ID,    NOPTransition.INSTANCE)
-                .addTransition(Paused.ID, MainMenu.ID, NOPTransition.INSTANCE)
+                .addTransition(Paused.ID,               MainMenu.ID,                NOPTransition.INSTANCE)
                 .start();
 
         engine.addEntity(cameraEntity);

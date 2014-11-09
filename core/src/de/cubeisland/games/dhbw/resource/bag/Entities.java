@@ -15,6 +15,7 @@ public class Entities extends ResourceBag<EntityPrefab> {
 
     public EntityPrefab card;
     public EntityPrefab deck;
+    public EntityPrefab cardhand;
     public EntityPrefab camera;
     public EntityPrefab image;
     public EntityPrefab text;
