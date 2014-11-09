@@ -21,10 +21,7 @@ import de.cubeisland.games.dhbw.input.InputMultiplexer;
 import de.cubeisland.games.dhbw.resource.DHBWResources;
 import de.cubeisland.games.dhbw.state.StateManager;
 import de.cubeisland.games.dhbw.state.states.*;
-import de.cubeisland.games.dhbw.state.transitions.BackInMenusTransition;
-import de.cubeisland.games.dhbw.state.transitions.MergeCardsAndMoveToCorner;
-import de.cubeisland.games.dhbw.state.transitions.NOPTransition;
-import de.cubeisland.games.dhbw.state.transitions.SplashScreenToMainMenuTransition;
+import de.cubeisland.games.dhbw.state.transitions.*;
 import de.cubeisland.games.dhbw.util.CardTypeConverter;
 import de.cubeisland.games.dhbw.util.ClassConverter;
 import de.cubeisland.games.dhbw.util.SubjectTypeConverter;
@@ -91,7 +88,7 @@ public class DHBWGame extends ApplicationAdapter {
                 .addTransition(MainMenu.ID,                 CourseSelection.ID,     MergeCardsAndMoveToCorner.INSTANCE)
                 .addTransition(MainMenu.ID,                 EndState.ID,            NOPTransition.INSTANCE)
                 .addTransition(CourseSelection.ID,          MainMenu.ID,            BackInMenusTransition.INSTANCE)
-                .addTransition(CourseSelection.ID,          Playing.ID,             NOPTransition.INSTANCE)
+                .addTransition(CourseSelection.ID,          Playing.ID,             new toPlayingTransition())
                 .addTransition(Playing.ID,                  Paused.ID,              NOPTransition.INSTANCE)
                 .addTransition(Paused.ID,                   Playing.ID,             NOPTransition.INSTANCE)
                 .addTransition(Paused.ID,                   MainMenu.ID,            NOPTransition.INSTANCE)
