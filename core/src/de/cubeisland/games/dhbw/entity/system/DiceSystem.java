@@ -10,13 +10,16 @@ import de.cubeisland.games.dhbw.entity.object.DiceObject;
 
 /**
  * The DiceSystem updates all the dices.
- * It uses the Family {Dice}
+ * It uses the Family {Dice, Render}
  * @author Jonas Dann
  */
 public class DiceSystem extends IteratingSystem {
     private ComponentMapper<Dice> dices;
     private ComponentMapper<Render> render;
 
+    /**
+     * The constructor gets the ComponentMapper for Dice and Render.
+     */
     public DiceSystem() {
         super(Family.all(Dice.class, Render.class).get());
 

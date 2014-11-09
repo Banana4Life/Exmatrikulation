@@ -36,7 +36,7 @@ public class ToPlayingTransition extends StateTransition {
         // construct event deck
         Entity eventDeck = game.getEntityFactory().create(game.getResources().entities.deck);
         eventDeck.getComponent(Transform.class).setPosition(new Vector3(60, 0, -150)).setRotation(new Quaternion(new Vector3(0, 1, 0), -90));
-        eventDeck.getComponent(Deck.class).setDestPos(new Vector3(0, 0, -150)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 0));
+        eventDeck.getComponent(Deck.class).setDestPos(new Vector3(0, 20, -100)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 0));
         game.getEngine().addEntity(eventDeck);
 
         //TODO get cards for the given semester
@@ -96,8 +96,9 @@ public class ToPlayingTransition extends StateTransition {
 //        }
         //show the first event
         Entity event = context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).drawCard();
-        event.add(new DestTransform(new Vector3(0, 20, -100), new Quaternion(new Vector3(1, 0, 0), 0)));
-        ((ReactingState)context.getStateManager().getState(ReactingState.ID)).setEvent(event);
+        if (ReactingState.class == destination.getClass()) {
+            ((ReactingState) destination).setEvent(event);
+        }
 
         //create dice
         Entity dice = game.getEntityFactory().create(game.getResources().entities.dice);

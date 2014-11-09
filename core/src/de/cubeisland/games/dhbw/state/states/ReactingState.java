@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * ReactingState is the state in the game, where the player can react to events he is facing.
  * @author Tim Adamek
  * @author Jonas Dann
  */
@@ -63,11 +64,20 @@ public class ReactingState extends GameState {
         return ID;
     }
 
+    /**
+     * Returns the current event.
+     * @return Returns event.
+     */
     public Entity getEvent() {
         return event;
     }
 
-    public void setEvent(Entity event) {
+    /**
+     * Sets the new current event.
+     * @param event The new current event.
+     */
+    public ReactingState setEvent(Entity event) {
         this.event = event;
+        return this;
     }
 }
