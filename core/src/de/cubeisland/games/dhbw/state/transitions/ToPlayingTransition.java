@@ -31,31 +31,57 @@ public class ToPlayingTransition extends StateTransition {
             game.getEngine().removeEntity(entity);
         }
 
-        // construct deck
-        Entity deck = game.getEntityFactory().create(game.getResources().entities.deck);
-        deck.getComponent(Transform.class).setPosition(new Vector3(60, 0, -150)).setRotation(new Quaternion(new Vector3(0, 1, 0), -90));
-        deck.getComponent(Deck.class).setDestPos(new Vector3(0, 0, -150)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 0));
-        game.getEngine().addEntity(deck);
+        Entity card;
+
+        // construct event deck
+        Entity eventDeck = game.getEntityFactory().create(game.getResources().entities.deck);
+        eventDeck.getComponent(Transform.class).setPosition(new Vector3(60, 0, -150)).setRotation(new Quaternion(new Vector3(0, 1, 0), -90));
+        eventDeck.getComponent(Deck.class).setDestPos(new Vector3(0, 0, -150)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 0));
+        game.getEngine().addEntity(eventDeck);
 
         //TODO get cards for the given semester
-        Cards cardPrefabs = game.getResources().cards;
-        List<Card> cards = new ArrayList<>();
-        for(Card card: context.getGame().getResources().cards.getResources()){
-            if(card.getType().name().equals("EVENT")){
-                cards.add(card);
+        Cards eventCardPrefabs = game.getResources().cards;
+        List<Card> eventCards = new ArrayList<>();
+        for(Card eventCard: context.getGame().getResources().cards.getResources()){
+            if(eventCard.getType().name().equals("EVENT")){
+                eventCards.add(eventCard);
             }
         }
 
         int cardsInDeck = new Random().nextInt((10 - 5) + 1) + 5;
-        Entity card;
         //for (Card component : cards) {
         for (int i=0;i<cardsInDeck;i++){
-            int randomCard = new Random().nextInt(cards.size()-1);
-            card = game.getEntityFactory().create(game.getResources().entities.card).add(cards.get(randomCard));
+            int randomCard = new Random().nextInt(eventCards.size()-1);
+            card = game.getEntityFactory().create(game.getResources().entities.card).add(eventCards.get(randomCard));
             card.getComponent(Render.class).setObject(card.getComponent(Card.class).getObject());
-            deck.getComponent(Deck.class).addCard(card);
+            eventDeck.getComponent(Deck.class).addCard(card);
             game.getEngine().addEntity(card);
         }
+
+//        construct item card deck
+        Entity itemDeck = game.getEntityFactory().create(game.getResources().entities.deck);
+        itemDeck.getComponent(Transform.class).setPosition(new Vector3(60, 0, -150)).setRotation(new Quaternion(new Vector3(0, 1, 0), -90));
+        itemDeck.getComponent(Deck.class).setDestPos(new Vector3(200, 60, -150)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 0));
+        game.getEngine().addEntity(itemDeck);
+
+        //TODO get cards for the given semester
+        //Cards cardPrefabs = game.getResources().cards;
+        List<Card> itemCards = new ArrayList<>();
+        for(Card itemCard: context.getGame().getResources().cards.getResources()){
+            if(itemCard.getType().name().equals("ITEM")){
+                itemCards.add(itemCard);
+            }
+        }
+
+        for (int i=0;i<60;i++){
+            int randomCard = new Random().nextInt(itemCards.size()-1);
+            card = game.getEntityFactory().create(game.getResources().entities.card).add(itemCards.get(randomCard));
+            card.getComponent(Render.class).setObject(card.getComponent(Card.class).getObject());
+            itemDeck.getComponent(Deck.class).addCard(card);
+            game.getEngine().addEntity(card);
+        }
+
+
 
         // construct card hand
         Entity cardHand = game.getEntityFactory().create(game.getResources().entities.cardhand);
