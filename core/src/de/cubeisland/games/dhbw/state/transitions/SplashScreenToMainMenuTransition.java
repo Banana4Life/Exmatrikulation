@@ -32,7 +32,7 @@ public class SplashScreenToMainMenuTransition extends StateTransition {
         DHBWGame game = context.getGame();
 
         Entity deck = game.getEntityFactory().create(game.getResources().entities.deck);
-        deck.getComponent(Transform.class).setPosition(new Vector3(60, 0, -150)).setRotation(new Quaternion(new Vector3(0, 1, 0), -90));
+        deck.getComponent(Transform.class).setPosition(new Vector3(60, 0, -150)).setRotation(new Quaternion(new Vector3(0, 1, 0), 180));
         deck.getComponent(Deck.class).setDestPos(new Vector3(0, 0, -150)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 0));
 
         game.getEngine().addEntity(deck);

@@ -26,7 +26,7 @@ public class Deck extends Component implements Iterable<Entity> {
      */
     public Deck update(Transform transform) {
         for (int n = 0; n < cards.size(); n++) {
-            DestTransform destTransform = new DestTransform(transform.getPosition().cpy().add(Math.min(n, 6), 0, 0), transform.getRotation());
+            DestTransform destTransform = new DestTransform(transform.getPosition().cpy().add(0, 0, Math.max(-n, -6)), transform.getRotation());
             if (!cards.get(n).getComponent(Transform.class).equals(destTransform)) {
                 cards.get(n).add(destTransform);
             }
