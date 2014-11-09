@@ -37,6 +37,15 @@ public class CardObject implements RenderObject {
         this.back = Decal.newDecal(back, true);
     }
 
+    /**
+     * Object to copy a CardObject
+     * @param object The object to copy.
+     */
+    public CardObject(CardObject object) {
+        this.front = Decal.newDecal(object.getFront().getTextureRegion(), true);
+        this.back = Decal.newDecal(object.getBack().getTextureRegion(), true);
+    }
+
     @Override
     public boolean isWithin(Camera camera, float screenX, float screenY) {
         final PerspectiveCamera pc = camera.getPerspective();
@@ -73,8 +82,8 @@ public class CardObject implements RenderObject {
      * @param transform The transform to set the Decal position and rotation to
      */
     private void update(Transform transform) {
-        setPosition(this.front, this.back, transform.getPosition());
         setRotation(this.front, this.back, transform.getRotation());
+        setPosition(this.front, this.back, transform.getPosition());
     }
 
     /**
@@ -101,5 +110,13 @@ public class CardObject implements RenderObject {
     private static void setRotation(Decal front, Decal back, Quaternion rotation) {
         front.setRotation(rotation.cpy());
         back.setRotation(rotation.cpy());
+    }
+
+    public Decal getFront() {
+        return front;
+    }
+
+    public Decal getBack() {
+        return back;
     }
 }

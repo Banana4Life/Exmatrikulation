@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.DHBWGame;
 import de.cubeisland.games.dhbw.entity.component.*;
+import de.cubeisland.games.dhbw.entity.object.CardObject;
 import de.cubeisland.games.dhbw.entity.object.DiceObject;
 import de.cubeisland.games.dhbw.resource.bag.Cards;
 import de.cubeisland.games.dhbw.state.GameState;
@@ -56,7 +57,7 @@ public class ToPlayingTransition extends StateTransition {
         for (int i=0;i<cardsInDeck;i++){
             int randomCard = new Random().nextInt(eventCards.size()-1);
             card = game.getEntityFactory().create(game.getResources().entities.card).add(eventCards.get(randomCard));
-            card.getComponent(Render.class).setObject(card.getComponent(Card.class).getObject());
+            card.getComponent(Render.class).setObject(new CardObject(card.getComponent(Card.class).getObject()));
             eventDeck.getComponent(Deck.class).addCard(card);
             game.getEngine().addEntity(card);
         }
@@ -82,7 +83,7 @@ public class ToPlayingTransition extends StateTransition {
         for (int i=0;i<60;i++){
             int randomCard = new Random().nextInt(itemCards.size()-1);
             card = game.getEntityFactory().create(game.getResources().entities.card).add(itemCards.get(randomCard));
-            card.getComponent(Render.class).setObject(card.getComponent(Card.class).getObject());
+            card.getComponent(Render.class).setObject(new CardObject(card.getComponent(Card.class).getObject()));
             itemDeck.getComponent(Deck.class).addCard(card);
             game.getEngine().addEntity(card);
         }
