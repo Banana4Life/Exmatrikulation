@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.engine.reflect.Reflector;
+import de.cubeisland.games.dhbw.character.Character;
 import de.cubeisland.games.dhbw.entity.CardPrefab;
 import de.cubeisland.games.dhbw.entity.EntityFactory;
 import de.cubeisland.games.dhbw.entity.component.Camera;
@@ -37,6 +38,8 @@ public class DHBWGame extends ApplicationAdapter {
     private SpriteBatch spriteBatch;
     private EntityFactory entityFactory;
     private Engine engine;
+
+    private Character character;
 
     @Override
     public void create() {
@@ -78,6 +81,8 @@ public class DHBWGame extends ApplicationAdapter {
         inputMultiplexer = new InputMultiplexer(new GlobalInputProcessor(perspectiveCamera, engine, this.stateManager));
         Gdx.input.setInputProcessor(inputMultiplexer);
 
+        this.character= new Character();
+
         this.stateManager = new StateManager(this, engine, camera, inputMultiplexer);
         this.stateManager
                 .addState(new SplashScreen())
@@ -94,7 +99,7 @@ public class DHBWGame extends ApplicationAdapter {
                 .addTransition(MainMenu.ID,             CourseSelection.ID,         MergeCardsAndMoveToCorner.INSTANCE)
                 .addTransition(MainMenu.ID,             EndState.ID,                NOPTransition.INSTANCE)
                 .addTransition(CourseSelection.ID,      MainMenu.ID,                BackInMenusTransition.INSTANCE)
-                .addTransition(CourseSelection.ID,      ReactingState.ID,           new toPlayingTransition())
+                .addTransition(CourseSelection.ID,      ReactingState.ID,           new ToPlayingTransition())
                 .addTransition(ReactingState.ID,        DecidingState.ID,           ThrowDiceTransition.INSTANCE)
                 .addTransition(DecidingState.ID,        ReactingState.ID,           NextEventTransition.INSTANCE)
                 .addTransition(DecidingState.ID,        GameLostState.ID,           GameLostTransition.INSTANCE)
@@ -149,6 +154,10 @@ public class DHBWGame extends ApplicationAdapter {
 
     public Engine getEngine() {
         return engine;
+    }
+
+    public Character getCharacter() {
+        return character;
     }
 
     public void exit() {

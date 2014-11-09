@@ -15,10 +15,10 @@ public class Character {
 
     // TODO set different default values for each course of studies
     public Character() {
-        this.math = 0;
-        this.programming = 0;
-        this.bwl = 0;
-        this.softSkills = 0;
+        this.math = 10;
+        this.programming = 10;
+        this.bwl = 10;
+        this.softSkills = 10;
     }
 
     public int getMath() {

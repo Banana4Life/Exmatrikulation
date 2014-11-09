@@ -17,7 +17,7 @@ import de.cubeisland.games.dhbw.state.states.ReactingState;
 import java.util.Arrays;
 import java.util.List;
 
-public class toPlayingTransition extends StateTransition {
+public class ToPlayingTransition extends StateTransition {
     @Override
     public void begin(StateContext context, GameState origin, GameState destination) {
         DHBWGame game = context.getGame();
