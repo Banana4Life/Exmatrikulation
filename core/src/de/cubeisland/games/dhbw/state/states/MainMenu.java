@@ -12,7 +12,8 @@ import de.cubeisland.games.dhbw.util.EntityUtil;
  * This Class is the Main Menu State, in this state the player can choose
  * the game mode he wants to play
  *
- * @Author Tim Adamek
+ * @author Tim Adamek
+ * @author Phillip Schichtel
  */
 public class MainMenu extends MenuState {
 
@@ -23,6 +24,7 @@ public class MainMenu extends MenuState {
         Music main = context.getGame().getResources().songs.main;
         main.play();
         main.setVolume(.07f);
+        main.setLooping(true);
     }
 
     @Override
