@@ -3,7 +3,10 @@ package de.cubeisland.games.dhbw.state.states;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
+import de.cubeisland.games.dhbw.character.PlayerCharacter;
+import de.cubeisland.games.dhbw.entity.component.Card;
 import de.cubeisland.games.dhbw.state.StateContext;
+import de.cubeisland.games.dhbw.util.ActionTuple;
 import de.cubeisland.games.dhbw.util.EntityUtil;
 
 
@@ -32,6 +35,11 @@ public class CourseSelection extends MenuState {
                 //the player has clicked one of the three cards
 				// play cardflip sound
 				context.getGame().getResources().sounds.cardflip.play();
+
+                final PlayerCharacter c = context.getGame().getCharacter();
+                for (ActionTuple action : e.getComponent(Card.class).getActions()) {
+                    action.apply(c);
+                }
 
                 //remember the card the Player has clicked on
                 pickedcard = e;
