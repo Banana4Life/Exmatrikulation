@@ -19,7 +19,7 @@ public class Fonts extends ResourceBag<Font> {
     @Def(font = "neou/bold", size = 30)
     public Font defaultFont;
 
-    @Def(font = "fantasque/regular", size = 20)
+    @Def(font = "grundschrift/bold", size = 20)
     public Font cardFont;
 
     @Override
