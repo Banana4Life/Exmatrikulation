@@ -12,6 +12,7 @@ import de.cubeisland.games.dhbw.resource.bag.Cards;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
+import de.cubeisland.games.dhbw.state.states.CourseSelection;
 import de.cubeisland.games.dhbw.state.states.ReactingState;
 
 import java.util.Arrays;
@@ -22,7 +23,7 @@ public class ToPlayingTransition extends StateTransition {
     public void begin(StateContext context, GameState origin, GameState destination) {
         DHBWGame game = context.getGame();
 
-        ImmutableArray<Entity> entities = game.getEngine().getEntitiesFor(Family.one(Card.class, Deck.class, CardHand.class).get());
+        Entity[] entities = game.getEngine().getEntitiesFor(Family.one(Card.class, Deck.class, CardHand.class).get()).toArray(Entity.class);
         for (Entity entity : entities) {
             game.getEngine().removeEntity(entity);
         }
