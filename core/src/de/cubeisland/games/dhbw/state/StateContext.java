@@ -2,6 +2,7 @@ package de.cubeisland.games.dhbw.state;
 
 import com.badlogic.ashley.core.Engine;
 import de.cubeisland.games.dhbw.DHBWGame;
+import de.cubeisland.games.dhbw.character.*;
 import de.cubeisland.games.dhbw.entity.component.Camera;
 import de.cubeisland.games.dhbw.util.NotNull;
 
@@ -13,6 +14,7 @@ import de.cubeisland.games.dhbw.util.NotNull;
  */
 public class StateContext {
     private final DHBWGame game;
+    private final PlayerCharacter character;
     private final Engine engine;
     private final Camera camera;
     private final StateManager stateManager;
@@ -30,6 +32,7 @@ public class StateContext {
         this.engine = engine;
         this.camera = camera;
         this.stateManager = stateManager;
+        this.character = game.getCharacter();
     }
 
     /**
@@ -75,12 +78,22 @@ public class StateContext {
     }
 
     /**
-     * Returns the the camera.
+     * Returns the camera.
      *
      * @return the camera
      */
     @NotNull
     public Camera getCamera() {
         return camera;
+    }
+
+    /**
+     * Returns the character.
+     *
+     * @return the character.
+     */
+    @NotNull
+    public PlayerCharacter getCharacter() {
+        return character;
     }
 }

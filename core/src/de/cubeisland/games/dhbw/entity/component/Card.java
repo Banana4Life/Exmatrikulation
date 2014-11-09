@@ -67,4 +67,12 @@ public class Card extends Component {
     public CardPrefab.CardType getType(){
         return this.type;
     }
+
+    public Set<ActionTuple> getActions() {
+        return actions;
+    }
+
+    public CardPrefab.Requirement getRequirement() {
+        return requirement;
+    }
 }

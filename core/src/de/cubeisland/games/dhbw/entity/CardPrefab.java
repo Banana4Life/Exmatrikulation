@@ -1,6 +1,7 @@
 package de.cubeisland.games.dhbw.entity;
 
 import de.cubeisland.engine.reflect.Section;
+import de.cubeisland.games.dhbw.character.PlayerCharacter;
 import de.cubeisland.games.dhbw.entity.object.CardObject;
 import de.cubeisland.games.dhbw.util.ActionTuple;
 import de.cubeisland.games.dhbw.util.Prefab;
@@ -39,6 +40,10 @@ public class CardPrefab extends Prefab<CardObject> {
     public class Requirement implements Section {
         public SubjectType subject;
         public int value;
+
+        public boolean passed(PlayerCharacter pc, int diceCount) {
+            return value <= pc.get(subject) + diceCount;
+        }
     }
 
     public Requirement requirement;
