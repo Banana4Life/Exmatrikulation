@@ -16,6 +16,7 @@ import java.util.List;
 
 /**
  * ReactingState is the state in the game, where the player can react to events he is facing.
+ *
  * @author Tim Adamek
  * @author Jonas Dann
  */
@@ -28,6 +29,9 @@ public class ReactingState extends GameState {
     private Entity event;
     private Entity eventDeck;
     private Entity itemDeck;
+
+    //saves the position of final events
+    private List<Integer> finalEventList = new ArrayList<>();
 
     @Override
     public void update(StateContext context, float delta) {
@@ -109,4 +113,13 @@ public class ReactingState extends GameState {
         this.itemDeck = itemDeck;
         return this;
     }
+
+    public List<Integer> getFinalEventList() {
+        return finalEventList;
+    }
+
+    public void setFinalEventList(List<Integer> finalEventList) {
+        this.finalEventList = finalEventList;
+    }
+
 }
