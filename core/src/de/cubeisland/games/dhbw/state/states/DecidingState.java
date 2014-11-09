@@ -1,4 +1,4 @@
-package de.cubeisland.games.dhbw.state.states.playing;
+package de.cubeisland.games.dhbw.state.states;
 
 import de.cubeisland.games.dhbw.state.GameState;
 
@@ -7,7 +7,7 @@ import de.cubeisland.games.dhbw.state.GameState;
  */
 public class DecidingState extends GameState {
 
-    public static final short ID =2;
+    public static final short ID =5;
 
     @Override
     public short id() {

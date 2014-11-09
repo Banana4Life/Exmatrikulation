@@ -1,20 +1,13 @@
 package de.cubeisland.games.dhbw.state.states;
 
-import com.badlogic.ashley.core.Entity;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateManager;
-import de.cubeisland.games.dhbw.state.states.playing.*;
-import de.cubeisland.games.dhbw.state.transitions.NOPTransition;
-import de.cubeisland.games.dhbw.state.transitions.playing.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import de.cubeisland.games.dhbw.state.transitions.*;
 
 public class Playing extends GameState {
 
     public static final short ID = 4;
-    private StateManager stateManager;
 
     @Override
     public short id() {
@@ -24,22 +17,6 @@ public class Playing extends GameState {
     @Override
     public void onEnter(StateContext context, GameState from) {
 
-        this.stateManager = new StateManager(context.getGame(), context.getEngine(), context.getCamera(), context.getGame().getInputMultiplexer())
-                .addState(new ReactingState())
-                .addState(new DiscardingCardsState())
-                .addState(new GameLostState())
-                .addState(new GameWonState())
-                .addState(new DecidingState())
-                .addTransition(StateManager.StartState.ID,  ReactingState.ID,           StartToReacting.INSTANCE)
-                .addTransition(ReactingState.ID,            DecidingState.ID,           ThrowDiceTransition.INSTANCE)
-                .addTransition(DecidingState.ID,            ReactingState.ID,           NextEventTransition.INSTANCE)
-                .addTransition(DecidingState.ID,            GameLostState.ID,           GameLostTransition.INSTANCE)
-                .addTransition(DecidingState.ID,            GameWonState.ID,            GameWonTransition.INSTANCE)
-                .addTransition(DecidingState.ID,            DiscardingCardsState.ID,    ToMuchCadsTransition.INSTANCE)
-                .addTransition(DiscardingCardsState.ID,     ReactingState.ID,           NextEventTransition.INSTANCE)
-                .addTransition(GameWonState.ID,             StateManager.EndState.ID,   NOPTransition.INSTANCE)
-                .addTransition(GameLostState.ID,            StateManager.EndState.ID,   NOPTransition.INSTANCE)
-                .start();
     }
 
     @Override

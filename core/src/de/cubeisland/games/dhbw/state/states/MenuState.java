@@ -15,7 +15,7 @@ public class MenuState extends GameState {
     protected Entity pickedcard;
     protected List<Entity> cards = new ArrayList<>();
 
-    public static final short ID = 6;
+    public static final short ID = 10;
 
     public List<Entity> getCardStack() {
         return cards;

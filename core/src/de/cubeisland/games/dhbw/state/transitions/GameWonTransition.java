@@ -1,4 +1,4 @@
-package de.cubeisland.games.dhbw.state.transitions.playing;
+package de.cubeisland.games.dhbw.state.transitions;
 
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
