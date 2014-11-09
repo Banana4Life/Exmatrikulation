@@ -7,7 +7,6 @@ import de.cubeisland.games.dhbw.util.ActionTuple;
 import de.cubeisland.games.dhbw.util.Prefab;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -26,7 +25,20 @@ public class CardPrefab extends Prefab<CardObject> {
     }
 
     public static enum SubjectType {
-        MATH, BWL, SOFTSKILL, PROGRAMMING
+        MATH("Math"),
+        BWL("BWL"),
+        SOFTSKILL("Soft-Skills"),
+        PROGRAMMING("Coding");
+
+        private final String prettyName;
+
+        SubjectType(String prettyName) {
+            this.prettyName = prettyName;
+        }
+
+        public String getPrettyName() {
+            return prettyName;
+        }
     }
 
     public String name;
