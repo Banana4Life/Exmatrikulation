@@ -47,8 +47,8 @@ public class ReactingState extends GameState {
             if (button == Input.Buttons.LEFT) {
                 Entity cardHand = context.getEngine().getEntitiesFor(Family.one(CardHand.class).get()).first();
                 if (entity.getComponent(Card.class) != null && cardHand.getComponent(CardHand.class).highlightCard(entity)) {
-                    cardHand.getComponent(CardHand.class).playCard();
-                    //TODO apply card to character
+                    Entity card = cardHand.getComponent(CardHand.class).playCard(context.getCharacter());
+                    context.getEngine().removeEntity(card);
                     return true;
                 } else if (entity.getComponent(Dice.class) != null) {
                     entity.getComponent(Dice.class).setTicks(60);

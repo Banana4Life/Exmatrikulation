@@ -4,6 +4,8 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
+import de.cubeisland.games.dhbw.character.PlayerCharacter;
+import de.cubeisland.games.dhbw.util.ActionTuple;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -46,11 +48,14 @@ public class CardHand extends Component implements Iterable<Entity> {
      * Plays the highlighted card from the hand.
      * @return Returns the played card.
      */
-    public Entity playCard() {
-        if (highlighted > 0 && highlighted < cards.size()) {
+    public Entity playCard(PlayerCharacter pc) {
+        if (highlighted > -1 && highlighted < cards.size()) {
             Entity card = cards.remove(highlighted);
             card.add(new DestTransform(destPos, destRot));
             card.remove(Pickable.class);
+            for (ActionTuple action : card.getComponent(Card.class).getActions()) {
+                action.apply(pc);
+            }
             return card;
         }
         highlighted = -1;
@@ -64,7 +69,7 @@ public class CardHand extends Component implements Iterable<Entity> {
      */
     public boolean highlightCard(Entity card) {
         highlighted = cards.indexOf(card);
-        return highlighted > 0;
+        return highlighted > -1;
     }
 
     /**
