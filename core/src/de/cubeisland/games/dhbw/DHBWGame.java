@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.engine.reflect.Reflector;
-import de.cubeisland.games.dhbw.character.Character;
+import de.cubeisland.games.dhbw.character.PlayerCharacter;
 import de.cubeisland.games.dhbw.entity.CardPrefab;
 import de.cubeisland.games.dhbw.entity.EntityFactory;
 import de.cubeisland.games.dhbw.entity.component.Camera;
@@ -40,7 +40,7 @@ public class DHBWGame extends ApplicationAdapter {
     private EntityFactory entityFactory;
     private Engine engine;
 
-    private Character character;
+    private PlayerCharacter character;
 
     @Override
     public void create() {
@@ -84,7 +84,7 @@ public class DHBWGame extends ApplicationAdapter {
         inputMultiplexer = new InputMultiplexer(new GlobalInputProcessor(perspectiveCamera, engine, this.stateManager));
         Gdx.input.setInputProcessor(inputMultiplexer);
 
-        this.character= new Character();
+        this.character = new PlayerCharacter();
 
         this.stateManager = new StateManager(this, engine, camera, inputMultiplexer);
         this.stateManager
@@ -154,7 +154,7 @@ public class DHBWGame extends ApplicationAdapter {
         return engine;
     }
 
-    public Character getCharacter() {
+    public PlayerCharacter getCharacter() {
         return character;
     }
 

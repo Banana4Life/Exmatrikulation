@@ -1,6 +1,6 @@
 package de.cubeisland.games.dhbw.entity.action;
 
-import de.cubeisland.games.dhbw.character.Character;
+import de.cubeisland.games.dhbw.character.PlayerCharacter;
 import de.cubeisland.games.dhbw.entity.CardAction;
 
 /**
@@ -13,12 +13,12 @@ import de.cubeisland.games.dhbw.entity.CardAction;
  */
 public class Major implements CardAction {
     @Override
-    public void apply(de.cubeisland.games.dhbw.character.Character character, int value) {
+    public void apply(PlayerCharacter character, int value) {
 
     }
 
     @Override
-    public void unapply(Character character, int value) {
+    public void unapply(PlayerCharacter character, int value) {
 
     }
 }

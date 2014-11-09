@@ -7,6 +7,7 @@ import de.cubeisland.engine.reflect.node.IntNode;
 import de.cubeisland.engine.reflect.node.ListNode;
 import de.cubeisland.engine.reflect.node.Node;
 import de.cubeisland.engine.reflect.node.StringNode;
+import de.cubeisland.games.dhbw.character.PlayerCharacter;
 import de.cubeisland.games.dhbw.entity.CardAction;
 
 import java.util.List;
@@ -15,22 +16,31 @@ import java.util.List;
  * This class holds the type of an action and the parameter
  */
 public class ActionTuple {
-    private final Class<? extends CardAction> actionType;
+    private final CardAction actionType;
     private final Integer parameter;
 
-    public ActionTuple(@NotNull Class<? extends CardAction> actionType, @Nullable Integer parameter) {
+    public ActionTuple(@NotNull CardAction actionType, @Nullable Integer parameter) {
         this.actionType = actionType;
         this.parameter = parameter;
     }
 
     @NotNull
-    public Class<? extends CardAction> getActionType() {
+    public CardAction getAction() {
         return actionType;
     }
 
     @Nullable
-    public Integer getParameter() {
-        return parameter;
+    public int getParameter() {
+        return parameter == null ? 0 : parameter;
+    }
+
+    /**
+     * Applies the action to the given character
+     *
+     * @param c the character
+     */
+    public void apply(@NotNull PlayerCharacter c) {
+        getAction().apply(c, getParameter());
     }
 
     /**
@@ -41,7 +51,7 @@ public class ActionTuple {
         @Override
         public Node toNode(ActionTuple object, ConverterManager manager) throws ConversionException {
             ListNode tuple = ListNode.emptyList();
-            tuple.addNode(StringNode.of(object.getActionType().getName()));
+            tuple.addNode(StringNode.of(object.getAction().getClass().getName()));
             tuple.addNode(IntNode.wrapIntoNode(object.getParameter()));
             return tuple;
         }
@@ -60,7 +70,11 @@ public class ActionTuple {
                 if (tuple.size() > 1) {
                     parameter = manager.convertFromNode(tuple.get(1), Integer.class);
                 }
-                return new ActionTuple(type, parameter);
+                try {
+                    return new ActionTuple((CardAction)type.newInstance(), parameter);
+                } catch (ReflectiveOperationException e) {
+                    throw ConversionException.of(this, node, "Failed to create instance!", e);
+                }
             }
             throw ConversionException.of(this, node, "Not a list");
         }

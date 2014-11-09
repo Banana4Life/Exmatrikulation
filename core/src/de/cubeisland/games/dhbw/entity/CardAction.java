@@ -1,6 +1,6 @@
 package de.cubeisland.games.dhbw.entity;
 
-import de.cubeisland.games.dhbw.character.Character;
+import de.cubeisland.games.dhbw.character.PlayerCharacter;
 
 /**
  * These actions are applied to the character depending on the type of card.
@@ -18,7 +18,7 @@ public interface CardAction {
      * @param character the character
      * @param value     the value to apply
      */
-    void apply(Character character, int value);
+    void apply(PlayerCharacter character, int value);
 
     /**
      * This method reverses the applied value
@@ -26,5 +26,5 @@ public interface CardAction {
      * @param character the character
      * @param value     the value to unapply
      */
-    void unapply(Character character, int value);
+    void unapply(PlayerCharacter character, int value);
 }
