@@ -1,6 +1,6 @@
 package de.cubeisland.games.dhbw.entity.action;
 
-import de.cubeisland.games.dhbw.character.Character;
+import de.cubeisland.games.dhbw.character.PlayerCharacter;
 import de.cubeisland.games.dhbw.entity.CardAction;
 
 /**
@@ -10,12 +10,12 @@ import de.cubeisland.games.dhbw.entity.CardAction;
  */
 public class DeRegistration implements CardAction {
 
-    public void apply(Character character, int value) {
+    public void apply(PlayerCharacter character, int value) {
         // do nothing, since the player successfully completed the event
 
     }
 
-    public void unapply(Character character, int value) {
+    public void unapply(PlayerCharacter character, int value) {
         // TODO: de-register the player --> end the game and show a GameOver-Screen
 
     }

@@ -6,7 +6,7 @@ package de.cubeisland.games.dhbw.character;
  * @author Phillip Schichtel
  * @author Andreas Geis
  */
-public class Character {
+public class PlayerCharacter {
 
     private int math;
     private int programming;
@@ -14,7 +14,7 @@ public class Character {
     private int softSkills;
 
     // TODO set different default values for each course of studies
-    public Character() {
+    public PlayerCharacter() {
         this.math = 10;
         this.programming = 10;
         this.bwl = 10;
