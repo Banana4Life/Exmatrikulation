@@ -22,10 +22,6 @@ public class MainMenu extends MenuState {
 
     @Override
     public void onEnter(StateContext context, GameState from) {
-        Music main = context.getGame().getResources().songs.main;
-        main.play();
-        main.setVolume(.05f);
-        main.setLooping(true);
     }
 
     @Override

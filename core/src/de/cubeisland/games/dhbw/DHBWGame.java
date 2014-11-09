@@ -73,6 +73,7 @@ public class DHBWGame extends ApplicationAdapter {
         engine.addSystem(new PickSystem(perspectiveCamera));
         engine.addSystem(new CameraSystem());
         engine.addSystem(new CardHandSystem());
+        engine.addSystem(new MusicSystem(resources.songs.getResources()));
 
         inputMultiplexer = new InputMultiplexer(new GlobalInputProcessor(perspectiveCamera, engine, this.stateManager));
         Gdx.input.setInputProcessor(inputMultiplexer);

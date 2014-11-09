@@ -14,7 +14,10 @@ import java.lang.reflect.Field;
  */
 public class Songs extends ResourceBag<Music> {
 
-	public Music main;
+	//public Music main;
+	public Music abnormal_perfection;
+	public Music ending_chapter;
+	public Music moments;
 
 	@Override
 	protected Music load(FileRef fileRef, Field field) {
