@@ -21,9 +21,7 @@ public class ControlSystem extends IteratingSystem {
     private ComponentMapper<DestTransform> destTransforms;
 
     private final int VECTOR_RANGE = 1;
-    private final float QUATERNION_RANGE = 0.005f;
     private final float MOVEMENT_SPEED = 0.2f;
-    private final float ROTATION_SPEED = 0.1f;
 
     /**
      * The constructor gets the ComponentMapper for Transform and DestTransform
@@ -35,28 +33,18 @@ public class ControlSystem extends IteratingSystem {
         this.destTransforms = ComponentMapper.getFor(DestTransform.class);
     }
 
-
-    Map<Entity, Vector3> orgPositionMap = new HashMap<>();
-    Map<Entity, Float> iterationMap = new HashMap<>();
-
-
     @Override
     public void processEntity(Entity entity, float deltaTime) {
         Transform transform = transforms.get(entity);
         DestTransform destTransform = destTransforms.get(entity);
 
-        if (!orgPositionMap.containsKey(entity)) {
-            orgPositionMap.put(entity, transform.getPosition());
-        }
-
-        if (!vectorsInRange(transform.getPosition(), destTransform.getPosition()) || !quaternionsInRange(transform.getRotation(), destTransform.getRotation())) {
+        if (!vectorsInRange(transform.getPosition(), destTransform.getPosition())) {
             transform.setPosition(vectorInterpolation(destTransform.getPosition(), transform.getPosition()));
-            transform.setRotation(quaternionInterpolation(destTransform.getRotation(), transform.getRotation()));
         } else {
             transform.setPosition(destTransform.getPosition());
-            transform.setRotation(destTransform.getRotation());
             entity.remove(DestTransform.class);
         }
+        transform.setRotation(destTransform.getRotation());
     }
 
     private Vector3 vectorInterpolation(Vector3 destPosition, Vector3 orgPosition) {
@@ -64,21 +52,6 @@ public class ControlSystem extends IteratingSystem {
         float y = orgPosition.y + MOVEMENT_SPEED * (destPosition.y - orgPosition.y);
         float z = orgPosition.z + MOVEMENT_SPEED * (destPosition.z - orgPosition.z);
         return new Vector3(x, y, z);
-    }
-
-    private Quaternion quaternionInterpolation(Quaternion destRotation, Quaternion orgRotation) {
-        float x = destRotation.x;
-        float y = destRotation.y;
-        float z = destRotation.z;
-        float w = orgRotation.w + ROTATION_SPEED * (destRotation.w - orgRotation.w);
-        return new Quaternion(x, y, z, w);
-    }
-
-    private boolean quaternionsInRange(Quaternion quaternion1, Quaternion quaternion2) {
-        if (Math.abs(quaternion1.w - quaternion2.w) < QUATERNION_RANGE) {
-            return true;
-        }
-        return false;
     }
 
     private boolean vectorsInRange(Vector3 vector1, Vector3 vector2) {
