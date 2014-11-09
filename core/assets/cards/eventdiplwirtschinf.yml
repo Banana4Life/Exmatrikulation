@@ -3,8 +3,8 @@ name: Diplom Wirtschaftsinformatiker als Dozent
 type: event
 description: Pures Glück das zu bestehen
 
-action:
-  - de.cubeisland.games.dhbw.entity.action.Bwl: 2
+actions:
+  - ['de.cubeisland.games.dhbw.entity.action.Bwl', 2]
 
 requirement:
   subject: bwl

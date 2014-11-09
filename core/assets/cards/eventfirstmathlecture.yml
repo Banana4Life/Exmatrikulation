@@ -3,8 +3,8 @@ name: Deine erste Mathe-Vorlesung
 type: event
 description: Du bist motiviert!
 
-action:
-  - de.cubeisland.games.dhbw.entity.action.MathReward: 1
+actions:
+  - ['de.cubeisland.games.dhbw.entity.action.MathReward', 1]
 
 requirement:
   subject: math

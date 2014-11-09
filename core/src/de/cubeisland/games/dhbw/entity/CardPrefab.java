@@ -2,10 +2,12 @@ package de.cubeisland.games.dhbw.entity;
 
 import de.cubeisland.engine.reflect.Section;
 import de.cubeisland.games.dhbw.entity.object.CardObject;
+import de.cubeisland.games.dhbw.util.ActionTuple;
 import de.cubeisland.games.dhbw.util.Prefab;
 
-import javax.swing.*;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * This class specifies the configuration of a card
@@ -32,7 +34,7 @@ public class CardPrefab extends Prefab<CardObject> {
 
     public String description;
 
-    public Map<Class<? extends Action>, Integer> actions;
+    public Set<ActionTuple> actions = new HashSet<>();
 
     public class Requirement implements Section {
         public SubjectType subject;

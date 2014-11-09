@@ -39,6 +39,5 @@ public class MusicSystem extends EntitySystem implements Music.OnCompletionListe
     public void onCompletion(Music music) {
         music.stop();
         start(this.songs.get(++currentSong % this.songs.size()));
-        System.out.println("Next song");
     }
 }

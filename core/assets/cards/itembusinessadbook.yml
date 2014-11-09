@@ -3,8 +3,8 @@ name: BWL
 type: item
 description: Dieses Buch verleiht ultimatives Wissen.
 
-action:
-  - de.cubeisland.games.dhbw.entity.action.Bwl: 5
+actions:
+  - ['de.cubeisland.games.dhbw.entity.action.Bwl', 5]
 
 duration: 5
 rarity: 1

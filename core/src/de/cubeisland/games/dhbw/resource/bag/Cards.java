@@ -104,6 +104,7 @@ public class Cards extends ResourceBag<Card> {
 
     @Override
     protected Card load(FileRef basedir, Field field) {
+        System.out.println(basedir.child(field.getName() + ".yml").getPath());
         CardPrefab prefab = this.reflector.load(CardPrefab.class, basedir.child(field.getName() + ".yml").getInputStream());
         TextureRegion image;
         try {
@@ -112,6 +113,7 @@ public class Cards extends ResourceBag<Card> {
             image = new TextureRegion(new Texture(basedir.child("eventexmatrikulator.png").getPath()));
             Gdx.app.log("error", "card image " + field.getName() + ".png not found!");
         }
+
 
         Card c = new Card(prefab.type, new CardObject(generateTexture(prefab, image), this.backTexture), prefab.actions, prefab.requirement, prefab.duration, prefab.rarity);
 

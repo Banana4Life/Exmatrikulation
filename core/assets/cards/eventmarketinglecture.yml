@@ -3,8 +3,8 @@ name: Marketing - Vorlesung
 type: event
 description: Du hast eine Vorlesung.
 
-action:
-  - de.cubeisland.games.dhbw.entity.action.Bwl: 3
+actions:
+  - ['de.cubeisland.games.dhbw.entity.action.Bwl', 3]
 
 requirement:
   subject: bwl

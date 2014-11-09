@@ -3,9 +3,9 @@ name: Wirtschaftsinformatik
 type: menu
 description: Studium im easy mode gefällig?
 
-action:
-  - de.cubeisland.games.dhbw.entity.action.Major: 0
-  - de.cubeisland.games.dhbw.entity.action.Bwl: 10
-  - de.cubeisland.games.dhbw.entity.action.Programming: 7
-  - de.cubeisland.games.dhbw.entity.action.Math: 5
-  - de.cubeisland.games.dhbw.entity.action.SoftSkills: 10
+actions:
+  - ['de.cubeisland.games.dhbw.entity.action.Major', 0]
+  - ['de.cubeisland.games.dhbw.entity.action.Bwl', 10]
+  - ['de.cubeisland.games.dhbw.entity.action.Programming', 7]
+  - ['de.cubeisland.games.dhbw.entity.action.Math', 5]
+  - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 10]

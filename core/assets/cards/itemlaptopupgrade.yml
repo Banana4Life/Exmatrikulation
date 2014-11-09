@@ -3,11 +3,11 @@ name: Laptop Upgrade
 type: item
 description: Dein Laptop kann nun durch mehr Arbeitsspeicher viele Dinge gleichzeitig machen.
 
-action:
-  - de.cubeisland.games.dhbw.entity.action.Bwl: 1
-  - de.cubeisland.games.dhbw.entity.action.Math: 1
-  - de.cubeisland.games.dhbw.entity.action.Programming: 1
-  - de.cubeisland.games.dhbw.entity.action.SoftSkills: 1
+actions:
+  - ['de.cubeisland.games.dhbw.entity.action.Bwl', 1]
+  - ['de.cubeisland.games.dhbw.entity.action.Math', 1]
+  - ['de.cubeisland.games.dhbw.entity.action.Programming', 1]
+  - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 1]
 
 duration: 15
 rarity: 1

@@ -3,8 +3,8 @@ name: Workflowmanagement - Vorlesung
 type: event
 description: Du hast eine "besonders sinnvolle" Vorlesung.
 
-action:
-  - de.cubeisland.games.dhbw.entity.action.Bwl: 1
+actions:
+  - ['de.cubeisland.games.dhbw.entity.action.Bwl', 1]
 
 requirement:
   subject: bwl

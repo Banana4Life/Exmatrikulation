@@ -3,8 +3,8 @@ name: Investitionsrechnung
 type: item
 description: Risikoinvestitionen sind immer gut
 
-action:
-  - de.cubeisland.games.dhbw.entity.action.Bwl: 4
+actions:
+  - ['de.cubeisland.games.dhbw.entity.action.Bwl', 4]
 
 duration: 15
 rarity: 1

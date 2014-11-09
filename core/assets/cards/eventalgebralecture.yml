@@ -3,8 +3,8 @@ name: Lineare Algebra - Vorlesung
 type: event
 description: Du hast eine Vorlesung.
 
-action:
-  - de.cubeisland.games.dhbw.entity.action.Math: 3
+actions:
+  - ['de.cubeisland.games.dhbw.entity.action.Math', 3]
 
 requirement:
   subject: math
