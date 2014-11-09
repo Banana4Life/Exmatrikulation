@@ -3,6 +3,7 @@ package de.cubeisland.games.dhbw.state.states;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.util.EntityUtil;
@@ -36,6 +37,8 @@ public class MainMenu extends MenuState {
         //get the entity (the card) at the mouse position
         Entity e = EntityUtil.getEntityAt(context.getEngine(), context.getCamera(), screenX, screenY);
         if (e != null && cards.contains(e)) {
+			// play cardflip sound
+			context.getGame().getResources().sounds.cardflip.play();
             //remember the card the player has clicked on
             pickedcard = e;
 
