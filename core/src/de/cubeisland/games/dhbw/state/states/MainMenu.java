@@ -2,6 +2,8 @@ package de.cubeisland.games.dhbw.state.states;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
+import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.util.EntityUtil;
 
@@ -15,6 +17,13 @@ import de.cubeisland.games.dhbw.util.EntityUtil;
 public class MainMenu extends MenuState {
 
     public static final short ID = 2;
+
+    @Override
+    public void onEnter(StateContext context, GameState from) {
+        Music main = context.getGame().getResources().songs.main;
+        main.play();
+        main.setVolume(.07f);
+    }
 
     @Override
     public boolean touchDown(StateContext context, int screenX, int screenY, int pointer, int button) {

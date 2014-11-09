@@ -63,9 +63,6 @@ public class SplashScreenToMainMenuTransition extends StateTransition {
             ((MainMenu) context.getStateManager().getState(MainMenu.ID)).getCardStack().add(card);
             card.add(new DestTransform(new Vector3(-25 + 50 * i, 0, -150), new Quaternion(new Vector3(1, 0, 0), 0)));
         }
-
-		Music main = Songs.load();
-		main.play();
     }
 
     @Override
