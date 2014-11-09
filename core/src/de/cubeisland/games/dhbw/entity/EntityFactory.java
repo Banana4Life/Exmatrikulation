@@ -6,27 +6,31 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import de.cubeisland.games.dhbw.character.PlayerCharacter;
+import de.cubeisland.games.dhbw.entity.component.PlayerChar;
 import de.cubeisland.games.dhbw.entity.component.Render;
 import de.cubeisland.games.dhbw.entity.component.Text;
 import de.cubeisland.games.dhbw.entity.component.Transform;
 import de.cubeisland.games.dhbw.entity.object.ImageObject;
 import de.cubeisland.games.dhbw.entity.object.TextObject;
-import de.cubeisland.games.dhbw.resource.bag.Entities;
+import de.cubeisland.games.dhbw.resource.DHBWResources;
 import de.cubeisland.games.dhbw.resource.font.Font;
 import de.cubeisland.games.dhbw.util.Factory;
 
 /**
- * This factory creates entities from their prefabs
+ * This factory creates entities from their resources
  *
  * @author Jonas Dann
  * @author Phillip Schichtel
  */
 public class EntityFactory implements Factory<Entity, EntityPrefab> {
 
-    private final Entities prefabs;
+    private final PlayerCharacter character;
+    private final DHBWResources resources;
 
-    public EntityFactory(Entities prefabs) {
-        this.prefabs = prefabs;
+    public EntityFactory(PlayerCharacter character, DHBWResources resources) {
+        this.character = character;
+        this.resources = resources;
     }
 
     public Entity create(EntityPrefab preFab) {
@@ -42,17 +46,25 @@ public class EntityFactory implements Factory<Entity, EntityPrefab> {
     }
 
     public Entity createImage(String internalPath, Vector3 pos, float scale) {
-        Entity e = create(prefabs.image);
+        Entity e = create(resources.entities.image);
         e.getComponent(Render.class).setObject(new ImageObject(new Texture(internalPath)));
         e.getComponent(Transform.class).setPosition(pos).setScale(scale);
         return e;
     }
 
     public Entity createText(String text, Font font, Color color, Vector2 pos) {
-        Entity e = create(prefabs.text);
+        Entity e = create(resources.entities.text);
         e.getComponent(Text.class).set(text);
         e.getComponent(Render.class).setObject(new TextObject(font, color));
         e.getComponent(Transform.class).setPosition(new Vector3(pos.x, pos.y, 0));
+        return e;
+    }
+
+    public Entity createStatus(Vector2 pos) {
+        Entity e = create(resources.entities.status);
+        e.getComponent(Render.class).setObject(new TextObject(resources.fonts.defaultFont, Color.BLACK));
+        e.getComponent(Transform.class).setPosition(new Vector3(pos.x, pos.y, 0));
+        e.getComponent(PlayerChar.class).set(character);
         return e;
     }
 }

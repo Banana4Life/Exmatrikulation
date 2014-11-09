@@ -2,9 +2,8 @@ package de.cubeisland.games.dhbw.state.transitions;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.utils.ImmutableArray;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Quaternion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.DHBWGame;
 import de.cubeisland.games.dhbw.entity.component.*;
@@ -14,12 +13,9 @@ import de.cubeisland.games.dhbw.resource.bag.Cards;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
-import de.cubeisland.games.dhbw.state.states.CourseSelection;
-import de.cubeisland.games.dhbw.state.states.MainMenu;
 import de.cubeisland.games.dhbw.state.states.ReactingState;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -44,14 +40,6 @@ public class ToPlayingTransition extends StateTransition {
             ((ReactingState) destination).setEventDeck(eventDeck);
         }
 
-        int finaleventCount;
-        //check if free mode is played //TODO make it nicer
-        if(((MainMenu)context.getStateManager().getState(MainMenu.ID)).getPickedcard().getComponent(Card.class).getId().toLowerCase().contains("free")){
-            finaleventCount=1;
-        }else {
-            finaleventCount=6;
-        }
-
         //TODO get cards for the given semester
         Cards eventCardPrefabs = game.getResources().cards;
         List<Card> eventCards = new ArrayList<>();
@@ -61,8 +49,6 @@ public class ToPlayingTransition extends StateTransition {
             }
         }
 
-        for(int deckCounter=0;deckCounter<finaleventCount;deckCounter++) {
-
         int cardsInDeck = new Random().nextInt((10 - 5) + 1) + 5;
         //for (Card component : cards) {
         for (int i=0;i<cardsInDeck;i++){
@@ -71,14 +57,6 @@ public class ToPlayingTransition extends StateTransition {
             card.getComponent(Render.class).setObject(new CardObject(card.getComponent(Card.class).getObject()));
             eventDeck.getComponent(Deck.class).addCard(card);
             game.getEngine().addEntity(card);
-        }
-
-            if(deckCounter==0) {
-                ((ReactingState) context.getStateManager().getState(ReactingState.ID)).getFinalEventList().add(cardsInDeck);
-            }else {
-                int lastFinalEventPosition =((ReactingState) context.getStateManager().getState(ReactingState.ID)).getFinalEventList().get(deckCounter-1);
-                ((ReactingState) context.getStateManager().getState(ReactingState.ID)).getFinalEventList().add(cardsInDeck+lastFinalEventPosition);
-            }
         }
 
 //        construct item card deck
@@ -132,6 +110,10 @@ public class ToPlayingTransition extends StateTransition {
         dice.getComponent(Transform.class).setPosition(new Vector3(70, -50, -150));
         dice.getComponent(Render.class).setObject(new DiceObject());
         game.getEngine().addEntity(dice);
+
+        Entity status = game.getEntityFactory().createStatus(new Vector2(50, 550));
+        game.getEngine().addEntity(status);
+
     }
 
     @Override

@@ -52,7 +52,9 @@ public class DHBWGame extends ApplicationAdapter {
 
         resources = new DHBWResources(reflector);
         resources.build();
-        entityFactory = new EntityFactory(resources.entities);
+
+        character = new PlayerCharacter();
+        entityFactory = new EntityFactory(character, resources);
 
         PerspectiveCamera perspectiveCamera = new PerspectiveCamera(45, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         perspectiveCamera.near = 1;
@@ -79,12 +81,12 @@ public class DHBWGame extends ApplicationAdapter {
         engine.addSystem(new CameraSystem());
         engine.addSystem(new CardHandSystem());
         engine.addSystem(new DiceSystem());
+        engine.addSystem(new StatusSystem());
         engine.addSystem(new MusicSystem(resources.songs.getResources()));
 
         inputMultiplexer = new InputMultiplexer(new GlobalInputProcessor(perspectiveCamera, engine, this.stateManager));
         Gdx.input.setInputProcessor(inputMultiplexer);
 
-        this.character = new PlayerCharacter();
 
         this.stateManager = new StateManager(this, engine, camera, inputMultiplexer);
         this.stateManager

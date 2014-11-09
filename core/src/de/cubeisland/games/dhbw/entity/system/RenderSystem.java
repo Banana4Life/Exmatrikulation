@@ -38,7 +38,7 @@ public class RenderSystem extends IteratingSystem {
      * @param game   The DHBWGame.
      */
     public RenderSystem(Camera camera, DHBWGame game) {
-        super(Family.all(Transform.class, Render.class).get());
+        super(Family.all(Transform.class, Render.class).get(), 100);
         this.camera = camera;
 
         this.game = game;

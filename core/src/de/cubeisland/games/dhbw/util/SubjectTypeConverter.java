@@ -15,7 +15,7 @@ import de.cubeisland.games.dhbw.entity.CardPrefab;
 public class SubjectTypeConverter implements Converter<CardPrefab.SubjectType> {
     @Override
     public Node toNode(CardPrefab.SubjectType object, ConverterManager manager) throws ConversionException {
-        return new StringNode(object.toString().toLowerCase());
+        return new StringNode(object.name().toLowerCase());
     }
 
     @Override

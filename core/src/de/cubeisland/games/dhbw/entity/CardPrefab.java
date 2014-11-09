@@ -36,8 +36,9 @@ public class CardPrefab extends Prefab<CardObject> {
             this.prettyName = prettyName;
         }
 
-        public String getPrettyName() {
-            return prettyName;
+        @Override
+        public String toString() {
+            return this.prettyName;
         }
     }
 

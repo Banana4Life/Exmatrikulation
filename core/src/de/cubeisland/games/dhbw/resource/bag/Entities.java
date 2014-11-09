@@ -20,6 +20,7 @@ public class Entities extends ResourceBag<EntityPrefab> {
     public EntityPrefab camera;
     public EntityPrefab image;
     public EntityPrefab text;
+    public EntityPrefab status;
 
     public Entities(Reflector reflector) {
         this.reflector = reflector;
