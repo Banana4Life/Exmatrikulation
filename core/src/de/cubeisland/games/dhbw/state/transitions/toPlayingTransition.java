@@ -11,6 +11,7 @@ import de.cubeisland.games.dhbw.resource.bag.Cards;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
+import de.cubeisland.games.dhbw.state.states.ReactingState;
 
 import java.util.Arrays;
 import java.util.List;
@@ -47,6 +48,17 @@ public class toPlayingTransition extends StateTransition {
             deck.getComponent(Deck.class).addCard(card);
             game.getEngine().addEntity(card);
         }
+
+        //draw cards  for hand
+        for (int i = 0; i < ReactingState.STARTCARDCOUNT+1; i++) {
+            Entity entity =context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).drawCard();
+            ((ReactingState)context.getStateManager().getState(ReactingState.ID)).getCardsInHand().add(entity);
+            entity.add(new DestTransform(new Vector3(-30 + 30 * i, -30, -150), new Quaternion(new Vector3(1, 0, 0), 0)));
+        }
+        //show the first event
+        Entity event = context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).drawCard();
+        event.add(new DestTransform(new Vector3(0, 20, -100), new Quaternion(new Vector3(1, 0, 0), 0)));
+        ((ReactingState)context.getStateManager().getState(ReactingState.ID)).setEvent(event);
     }
 
     @Override
