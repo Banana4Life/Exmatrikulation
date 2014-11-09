@@ -15,7 +15,7 @@ public class NextEventTransition extends StateTransition {
     public boolean transition(StateContext context, GameState origin, GameState destination, float delta) {
         if (ReactingState.class == destination.getClass()) {
             context.getEngine().removeEntity(((ReactingState) destination).getEvent());
-            ((ReactingState) destination).setEvent(context.getEngine().getEntitiesFor(Family.all(Deck.class).get()).first().getComponent(Deck.class).drawCard());
+            ((ReactingState) destination).drawEvent();
         }
         return true;
     }

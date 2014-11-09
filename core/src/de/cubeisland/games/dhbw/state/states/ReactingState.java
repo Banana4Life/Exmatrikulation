@@ -26,6 +26,8 @@ public class ReactingState extends GameState {
     public static final int STARTCARDCOUNT = 3;
 
     private Entity event;
+    private Entity eventDeck;
+    private Entity itemDeck;
 
     @Override
     public void update(StateContext context, float delta) {
@@ -78,6 +80,33 @@ public class ReactingState extends GameState {
      */
     public ReactingState setEvent(Entity event) {
         this.event = event;
+        return this;
+    }
+
+    /**
+     * Draws a new card to the event variable.
+     * @return this.
+     */
+    public ReactingState drawEvent() {
+        this.event = eventDeck.getComponent(Deck.class).drawCard();
+        return this;
+    }
+
+    public Entity getEventDeck() {
+        return eventDeck;
+    }
+
+    public ReactingState setEventDeck(Entity eventDeck) {
+        this.eventDeck = eventDeck;
+        return this;
+    }
+
+    public Entity getItemDeck() {
+        return itemDeck;
+    }
+
+    public ReactingState setItemDeck(Entity itemDeck) {
+        this.itemDeck = itemDeck;
         return this;
     }
 }
