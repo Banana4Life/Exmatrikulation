@@ -55,14 +55,6 @@ public class CardObject implements RenderObject {
     }
 
     @Override
-    public int getWidth(Camera camera) {
-        final PerspectiveCamera pc = camera.getPerspective();
-        final Vector3 topLeft = pc.project(new Vector3(front.getVertices()[Decal.X1], front.getVertices()[Decal.Y1], front.getVertices()[Decal.Z1]));
-        final Vector3 topRight = pc.project(new Vector3(front.getVertices()[Decal.X2], front.getVertices()[Decal.Y2], front.getVertices()[Decal.Z2]));
-        return (int) Math.abs(topLeft.y - topRight.y);
-    }
-
-    @Override
     public void render(DHBWGame game, Camera cam, Entity e, Transform transform) {
 
         update(transform);

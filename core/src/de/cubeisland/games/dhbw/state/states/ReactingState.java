@@ -6,9 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
-import de.cubeisland.games.dhbw.entity.component.CardHand;
-import de.cubeisland.games.dhbw.entity.component.DestTransform;
-import de.cubeisland.games.dhbw.entity.component.Transform;
+import de.cubeisland.games.dhbw.entity.component.*;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.util.EntityUtil;
@@ -40,13 +38,18 @@ public class ReactingState extends GameState {
 
     @Override
     public boolean touchDown(StateContext context, int screenX, int screenY, int pointer, int button) {
-        Entity card = EntityUtil.getEntityAt(context.getEngine(), context.getCamera(), screenX, screenY);
-        Entity cardHand = context.getEngine().getEntitiesFor(Family.one(CardHand.class).get()).first();
+        Entity entity = EntityUtil.getEntityAt(context.getEngine(), context.getCamera(), screenX, screenY);
 
-        if (cardHand.getComponent(CardHand.class).highlightCard(card)) {
-            if (button != Input.Buttons.LEFT) {
+        if (entity != null && button == Input.Buttons.LEFT) {
+            Entity cardHand = context.getEngine().getEntitiesFor(Family.one(CardHand.class).get()).first();
+            if (entity.getComponent(Card.class) != null && cardHand.getComponent(CardHand.class).highlightCard(entity)) {
+                //TODO apply card to character
+                cardHand.getComponent(CardHand.class).playCard();
+                return true;
+            } else {
+                entity.getComponent(Dice.class).setTicks(60);
+                return true;
             }
-            return true;
         }
 
         return false;

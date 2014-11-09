@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.DHBWGame;
 import de.cubeisland.games.dhbw.entity.component.*;
+import de.cubeisland.games.dhbw.entity.object.DiceObject;
 import de.cubeisland.games.dhbw.resource.bag.Cards;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
@@ -66,6 +67,12 @@ public class ToPlayingTransition extends StateTransition {
         Entity event = context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).drawCard();
         event.add(new DestTransform(new Vector3(0, 20, -100), new Quaternion(new Vector3(1, 0, 0), 0)));
         ((ReactingState)context.getStateManager().getState(ReactingState.ID)).setEvent(event);
+
+        //create dice
+        Entity dice = game.getEntityFactory().create(game.getResources().entities.dice);
+        dice.getComponent(Transform.class).setPosition(new Vector3(70, -50, -150));
+        dice.getComponent(Render.class).setObject(new DiceObject());
+        game.getEngine().addEntity(dice);
     }
 
     @Override

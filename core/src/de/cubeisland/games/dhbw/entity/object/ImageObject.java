@@ -35,14 +35,6 @@ public class ImageObject implements RenderObject {
         return true;
     }
 
-    @Override
-    public int getWidth(Camera camera) {
-        final PerspectiveCamera pc = camera.getPerspective();
-        final Vector3 topLeft = pc.project(new Vector3(image.getVertices()[Decal.X1], image.getVertices()[Decal.Y1], image.getVertices()[Decal.Z1]));
-        final Vector3 topRight = pc.project(new Vector3(image.getVertices()[Decal.X2], image.getVertices()[Decal.Y2], image.getVertices()[Decal.Z2]));
-        return (int) Math.abs(topLeft.y - topRight.y);
-    }
-
     public Decal getDecal() {
         return this.image;
     }

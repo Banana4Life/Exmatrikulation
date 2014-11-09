@@ -76,6 +76,7 @@ public class DHBWGame extends ApplicationAdapter {
         engine.addSystem(new PickSystem(perspectiveCamera));
         engine.addSystem(new CameraSystem());
         engine.addSystem(new CardHandSystem());
+        engine.addSystem(new DiceSystem());
         engine.addSystem(new MusicSystem(resources.songs.getResources()));
 
         inputMultiplexer = new InputMultiplexer(new GlobalInputProcessor(perspectiveCamera, engine, this.stateManager));
@@ -101,6 +102,8 @@ public class DHBWGame extends ApplicationAdapter {
                 .addTransition(CourseSelection.ID,      MainMenu.ID,                BackInMenusTransition.INSTANCE)
                 .addTransition(CourseSelection.ID,      ReactingState.ID,           new ToPlayingTransition())
                 .addTransition(ReactingState.ID,        DecidingState.ID,           ThrowDiceTransition.INSTANCE)
+                .addTransition(ReactingState.ID,        Paused.ID,                  NOPTransition.INSTANCE)
+                .addTransition(DecidingState.ID,        Paused.ID,                  NOPTransition.INSTANCE)
                 .addTransition(DecidingState.ID,        ReactingState.ID,           NextEventTransition.INSTANCE)
                 .addTransition(DecidingState.ID,        GameLostState.ID,           GameLostTransition.INSTANCE)
                 .addTransition(DecidingState.ID,        GameWonState.ID,            GameWonTransition.INSTANCE)
@@ -108,8 +111,6 @@ public class DHBWGame extends ApplicationAdapter {
                 .addTransition(DiscardingCardsState.ID, ReactingState.ID,           NextEventTransition.INSTANCE)
                 .addTransition(GameWonState.ID,         MainMenu.ID,                NOPTransition.INSTANCE)
                 .addTransition(GameLostState.ID,        MainMenu.ID,                NOPTransition.INSTANCE)
-                .addTransition(ReactingState.ID,        Paused.ID,                  NOPTransition.INSTANCE)
-                .addTransition(DecidingState.ID,        Paused.ID,                  NOPTransition.INSTANCE)
                 .addTransition(DiscardingCardsState.ID, Paused.ID,                  NOPTransition.INSTANCE)
                 .addTransition(Paused.ID,               ReactingState.ID,           NOPTransition.INSTANCE)
                 .addTransition(Paused.ID,               DecidingState.ID,           NOPTransition.INSTANCE)

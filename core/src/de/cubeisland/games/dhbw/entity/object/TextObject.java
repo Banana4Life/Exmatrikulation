@@ -47,10 +47,4 @@ public class TextObject implements RenderObject2D {
     public boolean isWithin(Camera cam, float x, float y) {
         return false;
     }
-
-    @Override
-    public int getWidth(Camera cam) {
-        //TODO implement if needed
-        return 0;
-    }
 }
