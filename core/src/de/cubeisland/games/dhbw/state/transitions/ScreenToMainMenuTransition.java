@@ -23,7 +23,7 @@ import java.util.List;
  * @author Jonas Dann
  * @author Time Adamek
  */
-public class SplashScreenToMainMenuTransition extends StateTransition {
+public class ScreenToMainMenuTransition extends StateTransition {
     //TODO choose actual gamemode
     //TODO remember card stack to go back to mainmenu
 

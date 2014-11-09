@@ -10,14 +10,11 @@ import de.cubeisland.games.dhbw.state.StateTransition;
  *
  * @author Andreas Geis
  */
-public class GameLostTransition extends StateTransition {
-
-    public static final GameLostTransition INSTANCE = new GameLostTransition();
+public class GameEndTransition extends StateTransition {
 
     @Override
     public void begin(StateContext context, GameState origin, GameState destination) {
         DHBWGame game = context.getGame();
-
         game.getEngine().removeAllEntities();
     }
 
