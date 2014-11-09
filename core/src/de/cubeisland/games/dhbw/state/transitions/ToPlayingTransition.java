@@ -89,11 +89,12 @@ public class ToPlayingTransition extends StateTransition {
         cardHand.getComponent(Transform.class).setPosition(new Vector3(0, -40, -150)).setRotation(new Quaternion(new Vector3(1, 0, 0), 0));
         game.getEngine().addEntity(cardHand);
 
-//        //draw cards for hand
-//        for (int i = 0; i < ReactingState.STARTCARDCOUNT+1; i++) {
-//            Entity entity = context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).drawCard();
-//            cardHand.getComponent(CardHand.class).addCard(entity);
-//        }
+        //draw cards for hand
+        for (int i = 0; i < ReactingState.STARTCARDCOUNT+1; i++) {
+            Entity entity = itemDeck.getComponent(Deck.class).drawCard();
+            cardHand.getComponent(CardHand.class).addCard(entity);
+        }
+
         //show the first event
         Entity event = context.getEngine().getEntitiesFor(Family.one(Deck.class).get()).first().getComponent(Deck.class).drawCard();
         if (ReactingState.class == destination.getClass()) {
