@@ -61,6 +61,7 @@ public class ReactingState extends GameState {
             if (button == Input.Buttons.LEFT) {
                 Entity cardHand = context.getEngine().getEntitiesFor(Family.one(CardHand.class).get()).first();
                 if (entity.getComponent(Card.class) != null && cardHand.getComponent(CardHand.class).highlightCard(entity)) {
+                    context.getGame().getResources().sounds.cardflip.play();
                     Entity card = cardHand.getComponent(CardHand.class).playCard(context.getCharacter());
                     context.getEngine().removeEntity(card);
                     ((DecidingState) context.getStateManager().getState(DecidingState.ID)).getCardDurationMap().put(entity.getComponent(Card.class), 1);
