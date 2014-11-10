@@ -43,6 +43,7 @@ public class CardHand extends Component implements Iterable<Entity> {
                 cards.get(n).add(destTransform);
             }
         }
+        highlighted = -1;
         return this;
     }
 
