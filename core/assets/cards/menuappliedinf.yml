@@ -1,7 +1,7 @@
 ---
 name: Angewandte Informatik
 type: menu
-description: Schwierigkeitsgrad Stroetmann
+description: ['Schwierigkeitsgrad Stroetmann']
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Major', 2]

@@ -1,7 +1,7 @@
 ---
 name: Der Exmatrikulator
 type: event
-description: Er fordert eine sofortige zusätzliche Prüfungsleistung.
+description: ['Er fordert eine sofortige zusätzliche Prüfungsleistung.']
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.DeRegistration']

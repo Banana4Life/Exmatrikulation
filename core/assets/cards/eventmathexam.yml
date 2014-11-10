@@ -1,7 +1,7 @@
 ---
 name: Mathe Prüfung!!
 type: event
-description: Es steht eine Mathe Prüfung an, tue dein bestes um sie zu bestehen.
+description: ['Es steht eine Mathe Prüfung an, tue dein bestes um sie zu bestehen.']
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.MathReward', 5]

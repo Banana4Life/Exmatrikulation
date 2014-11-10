@@ -1,7 +1,7 @@
 ---
 name: Party
 type: event
-description: Schaffst du es morgen früh wieder in die DH?
+description: ['Schaffst du es morgen früh wieder in die DH?']
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.SoftSkillsReward', 2]

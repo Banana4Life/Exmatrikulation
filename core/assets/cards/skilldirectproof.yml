@@ -1,7 +1,7 @@
 ---
 name: Direkter Beweis
 type: item
-description: Nutzlos, da solche Aussagen schlichtweg trivial sind.
+description: ['Nutzlos, da solche Aussagen schlichtweg trivial sind.']
 
 duration: 1
 rarity: 1

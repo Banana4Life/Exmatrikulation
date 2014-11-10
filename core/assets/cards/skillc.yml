@@ -1,9 +1,9 @@
 ---
 name: C
 type: item
-description: |
-  Ich hatte mal einen Zeiger, der auf einen Zeiger zeigte.
-  +3 auf Coding
+description:
+  - 'Ich hatte mal einen Zeiger, der auf einen Zeiger zeigte.'
+  - '+3 auf Coding'
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Programming', 3]

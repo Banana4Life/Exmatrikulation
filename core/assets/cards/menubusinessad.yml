@@ -1,7 +1,7 @@
 ---
 name: BWL
 type: menu
-description: Schwer aber nicht unmöglich.
+description: ['Schwer aber nicht unmöglich.']
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Major', 1]

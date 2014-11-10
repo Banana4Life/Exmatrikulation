@@ -1,4 +1,4 @@
 ---
 name: Dummy Karte
 type: menu
-description: Ich bin eine Dummy Karte.
+description: ['Ich bin eine Dummy Karte.']

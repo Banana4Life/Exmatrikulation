@@ -1,7 +1,7 @@
 ---
 name: Wie programmiere ich einen Webserver
 type: item
-description: Du hast kein Verständnis davon, wie man einen Webserver programmiert.
+description: ['Du hast kein Verständnis davon, wie man einen Webserver programmiert.']
 
 duration: 1
 rarity: 1

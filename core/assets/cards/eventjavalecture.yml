@@ -1,7 +1,7 @@
 ---
 name: Einführung in JAVA
 type: event
-description: Du hast eine Vorlesung.
+description: ['Du hast eine Vorlesung.']
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Programming', 3]

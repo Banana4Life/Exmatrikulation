@@ -1,7 +1,7 @@
 ---
 name: Samstagstermin
 type: event
-description: Hoffentlich kommt der Dozent...
+description: ['Hoffentlich kommt der Dozent...']
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.BwlReward', 1]

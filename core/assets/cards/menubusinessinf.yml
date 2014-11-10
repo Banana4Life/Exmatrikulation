@@ -1,7 +1,7 @@
 ---
 name: Wirtschaftsinformatik
 type: menu
-description: Studium im easy mode gefällig?
+description: ['Studium im easy mode gefällig?']
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Major', 0]

@@ -1,7 +1,7 @@
 ---
 name: Dipl. Wirtschaftsinf
 type: event
-description: Pures Glück das zu bestehen.
+description: ['Pures Glück das zu bestehen.']
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Bwl', 2]

@@ -1,7 +1,7 @@
 ---
 name: Workflowmanagement
 type: event
-description: Du hast eine "besonders sinnvolle" Vorlesung.
+description: ['Du hast eine "besonders sinnvolle" Vorlesung.']
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Bwl', 1]

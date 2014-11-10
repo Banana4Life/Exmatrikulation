@@ -1,9 +1,9 @@
 ---
 name: Laptop
 type: item
-description: |
-  Du kaufst dir einen neuen Laptop und kannst somit effizienter arbeiten.
-  +2 auf alle Werte
+description:
+  - 'Du kaufst dir einen neuen Laptop und kannst somit effizienter arbeiten.'
+  - '+2 auf alle Werte'
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Bwl', 2]

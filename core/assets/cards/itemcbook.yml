@@ -1,9 +1,9 @@
 ---
 name: C Buch
 type: item
-description: |
-  Dieses Buch verleiht ultimatives Wissen.
-  +5 auf Coding
+description:
+  - 'Dieses Buch verleiht ultimatives Wissen.'
+  - '+5 auf Coding'
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Programming', 5]

@@ -1,7 +1,7 @@
 ---
 name: Verschlafen
 type: event
-description: Du kommst zu spät zur Vorlesung, benutze deine Soft-Skills für eine gute Ausrede.
+description: ['Du kommst zu spät zur Vorlesung, benutze deine Soft-Skills für eine gute Ausrede.']
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.SoftSkillsReward', 1]

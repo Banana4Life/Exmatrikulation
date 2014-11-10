@@ -46,7 +46,7 @@ public class CardPrefab extends Prefab<CardObject> {
 
     public CardType type;
 
-    public String description;
+    public String[] description;
 
     public Set<ActionTuple> actions = new HashSet<>();
 

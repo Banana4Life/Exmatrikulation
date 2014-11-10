@@ -20,6 +20,7 @@ import life.banana4.util.resourcebags.ResourceBag;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import static com.badlogic.gdx.graphics.Pixmap.Format.RGBA8888;
 
@@ -153,7 +154,10 @@ public class Cards extends ResourceBag<Card> {
         image.flip(false, true);
         b.draw(image, CONTENT_PADDING, IMAGE_OFFSET);
 
-        String[] lines = descriptionToLines(prefab.description, this.frontTemplate.getRegionWidth() - 2 * (CONTENT_PADDING + TEXT_PADDING));
+        List<String> lines = new ArrayList<>();
+        for (String line : prefab.description) {
+            lines.addAll(descriptionToLines(line, this.frontTemplate.getRegionWidth() - 2 * (CONTENT_PADDING + TEXT_PADDING)));
+        }
 
         float yOffset = DESCR_OFFSET + TEXT_PADDING;
         font.setColor(Color.WHITE);
@@ -177,7 +181,7 @@ public class Cards extends ResourceBag<Card> {
         return texture;
     }
 
-    private String[] descriptionToLines(String desc, float maxWidth) {
+    private List<String> descriptionToLines(String desc, float maxWidth) {
         String[] words = desc.trim().replaceAll("[ ]+", " ").split(" ");
         List<String> lines = new ArrayList<>();
 
@@ -203,6 +207,6 @@ public class Cards extends ResourceBag<Card> {
             lines.add(line.toString().substring(1));
         }
 
-        return lines.toArray(new String[lines.size()]);
+        return lines;
     }
 }
