@@ -110,7 +110,7 @@ public class DHBWGame extends ApplicationAdapter {
                 .addTransition(CourseSelection.ID,      MainMenu.ID,                new BackInMenusTransition())
                 .addTransition(CourseSelection.ID,      ReactingState.ID,           new ToPlayingTransition())
                 .addTransition(ReactingState.ID,        DecidingState.ID,           NOPTransition.INSTANCE)
-                .addTransition(ReactingState.ID,        MainMenu.ID,                NOPTransition.INSTANCE)
+                .addTransition(ReactingState.ID,        MainMenu.ID,                new ScreenToMainMenuTransition())
                 .addTransition(DecidingState.ID,        ReactingState.ID,           new NextEventTransition())
                 .addTransition(DecidingState.ID,        GameLostState.ID,           new GameLostTransition())
                 .addTransition(DecidingState.ID,        GameWonState.ID,            new GameWonTransition())

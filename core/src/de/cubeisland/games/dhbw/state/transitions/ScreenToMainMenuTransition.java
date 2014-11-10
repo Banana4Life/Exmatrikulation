@@ -26,6 +26,11 @@ public class ScreenToMainMenuTransition extends StateTransition {
     public void begin(StateContext context, GameState origin, GameState destination) {
         DHBWGame game = context.getGame();
 
+        Entity[] entities = game.getEngine().getEntitiesFor(Family.one(Card.class, Deck.class, CardHand.class, Dice.class, ToMenu.class, PlayerChar.class).get()).toArray(Entity.class);
+        for (Entity entity : entities) {
+            game.getEngine().removeEntity(entity);
+        }
+
         Entity deck = game.getEntityFactory().create(game.getResources().entities.deck);
         deck.getComponent(Transform.class).setPosition(new Vector3(60, 0, -110)).setRotation(new Quaternion(new Vector3(0, 1, 0), 180));
         deck.getComponent(Deck.class).setDestPos(new Vector3(0, 0, -110)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 0));
