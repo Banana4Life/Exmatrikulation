@@ -27,14 +27,11 @@ public class ToPlayingTransition extends StateTransition {
     public void begin(StateContext context, GameState origin, GameState destination) {
 
         //check if the player chose the story or free mode and set the maximum number of semesters
-        if(((MainMenu)context.getStateManager().getState(MainMenu.ID)).getPickedcard().getComponent(Card.class).getId().toLowerCase().contains("free")){
-            ((DecidingState)context.getStateManager().getState(DecidingState.ID)).setMaxSemester(1);
-        }else {
-            ((DecidingState)context.getStateManager().getState(DecidingState.ID)).setMaxSemester(6);
+        if (((MainMenu) context.getStateManager().getState(MainMenu.ID)).getPickedcard().getComponent(Card.class).getId().toLowerCase().contains("free")) {
+            ((DecidingState) context.getStateManager().getState(DecidingState.ID)).setMaxSemester(1);
+        } else {
+            ((DecidingState) context.getStateManager().getState(DecidingState.ID)).setMaxSemester(6);
         }
-        //set the current semester to 1
-        ((DecidingState)context.getStateManager().getState(DecidingState.ID)).setCurrentSemester(1);
-
 
         DHBWGame game = context.getGame();
 
@@ -124,7 +121,7 @@ public class ToPlayingTransition extends StateTransition {
         dice.getComponent(Render.class).setObject(new DiceObject());
         game.getEngine().addEntity(dice);
 
-        Entity status = game.getEntityFactory().createStatus(new Vector2(-(Gdx.graphics.getWidth() /2f), Gdx.graphics.getHeight() / 2f));
+        Entity status = game.getEntityFactory().createStatus(new Vector2(-(Gdx.graphics.getWidth() / 2f), Gdx.graphics.getHeight() / 2f));
         game.getEngine().addEntity(status);
 
     }

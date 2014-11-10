@@ -19,7 +19,7 @@ public class DecidingState extends GameState {
     public static final short ID = 5;
 
     private int maxSemester;
-    private int currentSemester;
+    private int currentSemester = 1;
 
     @Override
     public short id() {
@@ -46,11 +46,11 @@ public class DecidingState extends GameState {
 //TODO check semestercount
 
 
-            if (((ReactingState) context.getStateManager().getState(ReactingState.ID)).getCardsInEventDeck() == 0 && currentSemester<maxSemester ) {
+            if (((ReactingState) context.getStateManager().getState(ReactingState.ID)).getCardsInEventDeck() == 0 && currentSemester < maxSemester) {
                 context.transitionTo(NextSemester.ID);
-            }else if(false){
+            } else if (false) {
                 //GAME won/lost
-            }else {
+            } else {
                 context.transitionTo(ReactingState.ID);
             }
 
