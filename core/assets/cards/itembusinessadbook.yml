@@ -1,7 +1,7 @@
 ---
 name: BWL
 type: item
-description: Dieses Buch verleiht ultimatives Wissen.
+description: Dieses Buch verleiht ultimatives Wissen. +5 auf BWL
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Bwl', 5]

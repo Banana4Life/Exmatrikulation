@@ -1,7 +1,7 @@
 ---
 name: Lächeln
 type: item
-description: Lach mal du bist so verspannt.
+description: Lach mal du bist so verspannt. +1 auf SoftSkills
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 1]

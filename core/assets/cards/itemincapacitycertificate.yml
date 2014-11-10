@@ -1,10 +1,10 @@
 ---
 name: Arbeitsunfähigkeitsbescheinigung
 type: item
-description: Leider fällt heute die DH aus...
+description: Du hast eine gute Ausrede. +15 auf SoftSkills
 
 actions:
-  - ['de.cubeisland.games.dhbw.entity.action.DeRegistration']
+  - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 15]
 
 duration: 1
 rarity: 1

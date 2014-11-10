@@ -1,7 +1,7 @@
 ---
 name: Mathe Buch
 type: item
-description: Dieses Buch verleiht ultimatives Wissen.
+description: Dieses Buch verleiht ultimatives Wissen. +5 auf Mathe
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Math', 5]

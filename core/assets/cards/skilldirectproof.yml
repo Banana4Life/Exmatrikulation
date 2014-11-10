@@ -3,8 +3,5 @@ name: Direkter Beweis
 type: item
 description: Nutzlos, da solche Aussagen schlichtweg trivial sind.
 
-actions:
-  - ['de.cubeisland.games.dhbw.entity.action.Math', 0]
-
 duration: 1
 rarity: 1
