@@ -25,6 +25,7 @@ public class NextEventTransition extends StateTransition {
             CardHand myHand = myHandEntity.getComponent(CardHand.class);
             // only draw a card if the player holds less than 6 cards
             if (myHand.getHandSize() < 6) {
+                context.getGame().getResources().sounds.cardflip.play();
                 ReactingState myReactingState = (ReactingState) context.getStateManager().getState(ReactingState.ID);
                 Entity itemDeck = myReactingState.getItemDeck();
                 Entity entity = itemDeck.getComponent(Deck.class).drawCard();
