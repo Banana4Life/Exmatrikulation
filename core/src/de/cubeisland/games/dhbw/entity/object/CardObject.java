@@ -39,6 +39,7 @@ public class CardObject implements RenderObject {
 
     /**
      * Object to copy a CardObject
+     *
      * @param object The object to copy.
      */
     public CardObject(CardObject object) {

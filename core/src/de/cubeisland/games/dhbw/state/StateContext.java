@@ -2,7 +2,7 @@ package de.cubeisland.games.dhbw.state;
 
 import com.badlogic.ashley.core.Engine;
 import de.cubeisland.games.dhbw.DHBWGame;
-import de.cubeisland.games.dhbw.character.*;
+import de.cubeisland.games.dhbw.character.PlayerCharacter;
 import de.cubeisland.games.dhbw.entity.component.Camera;
 import de.cubeisland.games.dhbw.util.NotNull;
 

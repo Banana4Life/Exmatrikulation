@@ -80,7 +80,7 @@ public class ActionTuple {
                     parameter = manager.convertFromNode(tuple.get(1), Integer.class);
                 }
                 try {
-                    return new ActionTuple((CardAction)type.newInstance(), parameter);
+                    return new ActionTuple((CardAction) type.newInstance(), parameter);
                 } catch (ReflectiveOperationException e) {
                     throw ConversionException.of(this, node, "Failed to create instance!", e);
                 }

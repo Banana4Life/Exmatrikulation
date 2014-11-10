@@ -132,7 +132,7 @@ public class DHBWGame extends ApplicationAdapter {
         stateManager.update(delta);
     }
 
-    public InputMultiplexer getInputMultiplexer(){
+    public InputMultiplexer getInputMultiplexer() {
         return this.inputMultiplexer;
     }
 

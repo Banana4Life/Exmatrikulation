@@ -9,7 +9,7 @@ import de.cubeisland.games.dhbw.state.StateTransition;
  */
 public class GameWonTransition extends StateTransition {
 
-    public static final GameWonTransition  INSTANCE = new GameWonTransition ();
+    public static final GameWonTransition INSTANCE = new GameWonTransition();
 
     @Override
     public boolean transition(StateContext context, GameState origin, GameState destination, float delta) {

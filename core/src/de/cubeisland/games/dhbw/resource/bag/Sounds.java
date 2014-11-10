@@ -1,7 +1,6 @@
 package de.cubeisland.games.dhbw.resource.bag;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import life.banana4.util.resourcebags.FileRef;
 import life.banana4.util.resourcebags.ResourceBag;
@@ -15,10 +14,10 @@ import java.lang.reflect.Field;
  */
 public class Sounds extends ResourceBag<Sound> {
 
-	public Sound cardflip;
+    public Sound cardflip;
 
-	@Override
-	protected Sound load(FileRef fileRef, Field field) {
-		return Gdx.audio.newSound(Gdx.files.internal(fieldToFileRef(field, fileRef).getPath() + ".wav"));
-	}
+    @Override
+    protected Sound load(FileRef fileRef, Field field) {
+        return Gdx.audio.newSound(Gdx.files.internal(fieldToFileRef(field, fileRef).getPath() + ".wav"));
+    }
 }

@@ -43,16 +43,16 @@ public class ToPlayingTransition extends StateTransition {
         //TODO get cards for the given semester
         Cards eventCardPrefabs = game.getResources().cards;
         List<Card> eventCards = new ArrayList<>();
-        for(Card eventCard: context.getGame().getResources().cards.getResources()){
-            if(eventCard.getType().name().equals("EVENT")){
+        for (Card eventCard : context.getGame().getResources().cards.getResources()) {
+            if (eventCard.getType().name().equals("EVENT")) {
                 eventCards.add(eventCard);
             }
         }
 
         int cardsInDeck = new Random().nextInt((10 - 5) + 1) + 5;
         //for (Card component : cards) {
-        for (int i=0;i<cardsInDeck;i++){
-            int randomCard = new Random().nextInt(eventCards.size()-1);
+        for (int i = 0; i < cardsInDeck; i++) {
+            int randomCard = new Random().nextInt(eventCards.size() - 1);
             card = game.getEntityFactory().create(game.getResources().entities.card).add(eventCards.get(randomCard));
             card.getComponent(Render.class).setObject(new CardObject(card.getComponent(Card.class).getObject()));
             eventDeck.getComponent(Deck.class).addCard(card);
@@ -71,20 +71,19 @@ public class ToPlayingTransition extends StateTransition {
         //TODO get cards for the given semester
         //Cards cardPrefabs = game.getResources().cards;
         List<Card> itemCards = new ArrayList<>();
-        for(Card itemCard: context.getGame().getResources().cards.getResources()){
-            if(itemCard.getType().name().equals("ITEM")){
+        for (Card itemCard : context.getGame().getResources().cards.getResources()) {
+            if (itemCard.getType().name().equals("ITEM")) {
                 itemCards.add(itemCard);
             }
         }
 
-        for (int i=0;i<60;i++){
-            int randomCard = new Random().nextInt(itemCards.size()-1);
+        for (int i = 0; i < 60; i++) {
+            int randomCard = new Random().nextInt(itemCards.size() - 1);
             card = game.getEntityFactory().create(game.getResources().entities.card).add(itemCards.get(randomCard));
             card.getComponent(Render.class).setObject(new CardObject(card.getComponent(Card.class).getObject()));
             itemDeck.getComponent(Deck.class).addCard(card);
             game.getEngine().addEntity(card);
         }
-
 
 
         // construct card hand
@@ -94,7 +93,7 @@ public class ToPlayingTransition extends StateTransition {
         game.getEngine().addEntity(cardHand);
 
         //draw cards for hand
-        for (int i = 0; i < ReactingState.STARTCARDCOUNT+1; i++) {
+        for (int i = 0; i < ReactingState.STARTCARDCOUNT + 1; i++) {
             Entity entity = itemDeck.getComponent(Deck.class).drawCard();
             cardHand.getComponent(CardHand.class).addCard(entity);
         }

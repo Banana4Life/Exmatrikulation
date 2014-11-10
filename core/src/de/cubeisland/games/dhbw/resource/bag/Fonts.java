@@ -39,7 +39,9 @@ public class Fonts extends ResourceBag<Font> {
     @Retention(RetentionPolicy.RUNTIME)
     private @interface Def {
         String font();
+
         int size();
+
         boolean flipped() default false;
     }
 }

@@ -11,6 +11,7 @@ import de.cubeisland.games.dhbw.entity.object.DiceObject;
 /**
  * The DiceSystem updates all the dices.
  * It uses the Family {Dice, Render}
+ *
  * @author Jonas Dann
  */
 public class DiceSystem extends IteratingSystem {

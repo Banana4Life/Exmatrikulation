@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 /**
  * DiceObject manages the 20 decals of the dice.
+ *
  * @author Jonas Dann
  */
 public class DiceObject implements RenderObject {
@@ -57,7 +58,7 @@ public class DiceObject implements RenderObject {
     public void render(DHBWGame game, Camera cam, Entity e, Transform transform) {
         update(transform);
 
-        for(Decal decal : decals) {
+        for (Decal decal : decals) {
             decal.setScale(SCALE);
             game.getDecalBatch().add(decal);
         }
@@ -66,6 +67,7 @@ public class DiceObject implements RenderObject {
 
     /**
      * Updates the positions of the decals to one position and gets the current face to the top.
+     *
      * @param transform The position to use.
      * @return Returns this.
      */
@@ -81,6 +83,7 @@ public class DiceObject implements RenderObject {
 
     /**
      * Sets the current face of the dice.
+     *
      * @param count The number to use.
      * @return Returns this.
      */

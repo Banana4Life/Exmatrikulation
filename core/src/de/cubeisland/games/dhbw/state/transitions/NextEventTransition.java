@@ -1,7 +1,5 @@
 package de.cubeisland.games.dhbw.state.transitions;
 
-import com.badlogic.ashley.core.Family;
-import de.cubeisland.games.dhbw.entity.component.Deck;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;

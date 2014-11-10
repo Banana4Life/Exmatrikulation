@@ -2,7 +2,6 @@ package de.cubeisland.games.dhbw.state.states;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Sound;
 import de.cubeisland.games.dhbw.character.PlayerCharacter;
 import de.cubeisland.games.dhbw.entity.component.Card;
 import de.cubeisland.games.dhbw.state.StateContext;
@@ -33,8 +32,8 @@ public class CourseSelection extends MenuState {
         if (e != null) {
             if (cards.contains(e)) {
                 //the player has clicked one of the three cards
-				// play cardflip sound
-				context.getGame().getResources().sounds.cardflip.play();
+                // play cardflip sound
+                context.getGame().getResources().sounds.cardflip.play();
 
                 final PlayerCharacter c = context.getGame().getCharacter();
                 for (ActionTuple action : e.getComponent(Card.class).getActions()) {
@@ -48,8 +47,8 @@ public class CourseSelection extends MenuState {
             } else {
                 //The player has clicked on the card Stack of MainMenu and moves back to main menu
                 if (((MainMenu) context.getStateManager().getState(MainMenu.ID)).getCardStack().contains(e)) {
-					// play cardflip sound
-					context.getGame().getResources().sounds.cardflip.play();
+                    // play cardflip sound
+                    context.getGame().getResources().sounds.cardflip.play();
                     pickedcard = e;
                     context.getStateManager().transitionTo(MainMenu.ID);
                 }

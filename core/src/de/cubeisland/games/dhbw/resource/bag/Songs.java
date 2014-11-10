@@ -14,14 +14,14 @@ import java.lang.reflect.Field;
  */
 public class Songs extends ResourceBag<Music> {
 
-	//public Music main;
-	public Music abnormal_perfection;
-	public Music ending_chapter;
-	public Music moments;
-	public Music frisson;
+    //public Music main;
+    public Music abnormal_perfection;
+    public Music ending_chapter;
+    public Music moments;
+    public Music frisson;
 
-	@Override
-	protected Music load(FileRef fileRef, Field field) {
-		return Gdx.audio.newMusic(Gdx.files.internal(fieldToFileRef(field, fileRef).getPath() + ".mp3"));
-	}
+    @Override
+    protected Music load(FileRef fileRef, Field field) {
+        return Gdx.audio.newMusic(Gdx.files.internal(fieldToFileRef(field, fileRef).getPath() + ".mp3"));
+    }
 }

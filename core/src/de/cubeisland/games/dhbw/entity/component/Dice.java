@@ -6,6 +6,7 @@ import java.util.Random;
 
 /**
  * Dice manages the face of the dice.
+ *
  * @author Jonas Dann
  */
 public class Dice extends Component {
@@ -14,6 +15,7 @@ public class Dice extends Component {
 
     /**
      * Updates the count of the dice and decreases the ticks that the dice is still rolling
+     *
      * @return Return this;
      */
     public Dice update() {
@@ -26,6 +28,7 @@ public class Dice extends Component {
 
     /**
      * Gets the current face of the dice.
+     *
      * @return Returns the number.
      */
     public int getCount() {
@@ -34,6 +37,7 @@ public class Dice extends Component {
 
     /**
      * Gets the ticks the dice is still rolling.
+     *
      * @return Returns the ticks.
      */
     public int getTicks() {
@@ -42,6 +46,7 @@ public class Dice extends Component {
 
     /**
      * Sets the ticks the dice is rolling.
+     *
      * @param ticks The number of ticks to use.
      * @return Returns this.
      */

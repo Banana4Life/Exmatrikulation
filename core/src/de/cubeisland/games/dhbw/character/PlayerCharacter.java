@@ -60,11 +60,15 @@ public class PlayerCharacter {
     }
 
     public int get(CardPrefab.SubjectType type) {
-        switch(type) {
-            case BWL: return bwl;
-            case PROGRAMMING: return programming;
-            case MATH: return math;
-            case SOFTSKILL: return softSkills;
+        switch (type) {
+            case BWL:
+                return bwl;
+            case PROGRAMMING:
+                return programming;
+            case MATH:
+                return math;
+            case SOFTSKILL:
+                return softSkills;
         }
         return -1;
     }

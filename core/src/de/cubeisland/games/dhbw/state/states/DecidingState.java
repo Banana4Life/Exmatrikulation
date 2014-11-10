@@ -29,7 +29,7 @@ public class DecidingState extends GameState {
         if (dice.getComponent(Dice.class).getTicks() < 1) {
             Card card = ((ReactingState) context.getStateManager().getState(ReactingState.ID)).getEvent().getComponent(Card.class);
             Set<ActionTuple> actions = card.getActions();
-            
+
             if (card.getRequirement().passed(context.getCharacter(), dice.getComponent(Dice.class).getCount())) {
                 for (ActionTuple action : actions) {
                     action.apply(context.getCharacter());

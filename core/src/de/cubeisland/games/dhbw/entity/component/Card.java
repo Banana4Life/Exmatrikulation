@@ -5,8 +5,6 @@ import de.cubeisland.games.dhbw.entity.CardPrefab;
 import de.cubeisland.games.dhbw.entity.object.CardObject;
 import de.cubeisland.games.dhbw.util.ActionTuple;
 
-import javax.swing.*;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -31,6 +29,7 @@ public class Card extends Component {
 
     /**
      * Constructor that sets all the values.
+     *
      * @param id          The ID of this card's prefab
      * @param type        The type of the card
      * @param object      The object that will be rendered the screen
@@ -66,7 +65,7 @@ public class Card extends Component {
         return this.object;
     }
 
-    public CardPrefab.CardType getType(){
+    public CardPrefab.CardType getType() {
         return this.type;
     }
 

@@ -4,9 +4,10 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Quaternion;
-import com.badlogic.gdx.math.Vector3;
-import de.cubeisland.games.dhbw.entity.component.*;
+import de.cubeisland.games.dhbw.entity.component.Card;
+import de.cubeisland.games.dhbw.entity.component.CardHand;
+import de.cubeisland.games.dhbw.entity.component.Deck;
+import de.cubeisland.games.dhbw.entity.component.Dice;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.util.EntityUtil;
@@ -72,6 +73,7 @@ public class ReactingState extends GameState {
 
     /**
      * Returns the current event.
+     *
      * @return Returns event.
      */
     public Entity getEvent() {
@@ -80,6 +82,7 @@ public class ReactingState extends GameState {
 
     /**
      * Sets the new current event.
+     *
      * @param event The new current event.
      */
     public ReactingState setEvent(Entity event) {
@@ -89,6 +92,7 @@ public class ReactingState extends GameState {
 
     /**
      * Draws a new card to the event variable.
+     *
      * @return this.
      */
     public ReactingState drawEvent() {

@@ -26,6 +26,7 @@ public class CardHand extends Component implements Iterable<Entity> {
 
     /**
      * Updates the card positions.
+     *
      * @param transform The transform to update to.
      * @return Returns this.
      */
@@ -46,6 +47,7 @@ public class CardHand extends Component implements Iterable<Entity> {
 
     /**
      * Plays the highlighted card from the hand.
+     *
      * @return Returns the played card.
      */
     public Entity playCard(PlayerCharacter pc) {
@@ -64,6 +66,7 @@ public class CardHand extends Component implements Iterable<Entity> {
 
     /**
      * highlights the given card.
+     *
      * @param card The card to highlight.
      * @return Returns this,
      */
@@ -74,6 +77,7 @@ public class CardHand extends Component implements Iterable<Entity> {
 
     /**
      * Adds a card to the hand.
+     *
      * @param card The card to add.
      * @return Returns this.
      */
@@ -85,6 +89,7 @@ public class CardHand extends Component implements Iterable<Entity> {
 
     /**
      * Sets the destination position of the card hand.
+     *
      * @param destPos The position.
      * @return Returns this.
      */
@@ -95,6 +100,7 @@ public class CardHand extends Component implements Iterable<Entity> {
 
     /**
      * Sets the destination rotation of the card hand.
+     *
      * @param destRot The rotation.
      * @return Returns this.
      */
