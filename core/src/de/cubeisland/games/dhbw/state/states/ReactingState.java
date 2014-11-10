@@ -44,7 +44,7 @@ public class ReactingState extends GameState {
             overlay = context.getGame().getEntityFactory().createImage("images/overlay.png", new Vector3(0, 0, -50), .344f);
             context.getEngine().addEntity(overlay);
             overlayRemoved = false;
-            text = context.getGame().getEntityFactory().createText(summary, context.getGame().getResources().fonts.cardFont, Color.MAROON, new Vector2(-250, 0)); //TODO set position
+            text = context.getGame().getEntityFactory().createText(summary, context.getGame().getResources().fonts.cardFont, new Color(0.2f, 0.05f, 0.05f, 1f), new Vector2(-250, 0)); //TODO set position
             context.getEngine().addEntity(text);
         }
         firstEnter = false;
@@ -172,13 +172,13 @@ public class ReactingState extends GameState {
         DecidingState state = (DecidingState) context.getStateManager().getState(DecidingState.ID);
 
         if (state.isPassedLastEvent()) {
-            summary += "Du has das letzte Event bestanden\n";
+            summary += "Du hast das letzte Event bestanden.\n";
         } else {
-            summary += "Du has das letzte Event nicht bestanden\n";
+            summary += "Du hast das letzte Event nicht bestanden.\n";
         }
 
-        summary += "Du musstest einen wert von " + Integer.toString(state.getLastEvent().getRequirement().value) + " in " + state.getLastEvent().getRequirement().subject + " erreichen\n";
-        summary += "und hast einen Wert von " + Integer.toString(context.getGame().getCharacter().get(state.getLastEvent().getRequirement().subject)) + " erreicht.\n";
+        summary += "Du musstest einen Wert von " + Integer.toString(state.getLastEvent().getRequirement().value) + " in " + state.getLastEvent().getRequirement().subject + " erreichen\n";
+        summary += "und hast einen Wert von " + Integer.toString(context.getGame().getCharacter().get(state.getLastEvent().getRequirement().subject) + context.getEngine().getEntitiesFor(Family.all(Dice.class).get()).first().getComponent(Dice.class).getCount()) + " erreicht.\n";
         return summary;
     }
 
