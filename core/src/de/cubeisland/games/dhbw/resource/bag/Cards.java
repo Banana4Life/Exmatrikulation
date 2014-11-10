@@ -171,6 +171,7 @@ public class Cards extends ResourceBag<Card> {
         if (r.subject != null) {
             final String text = r.value + " " + r.subject;
             final float height = font.getBounds(text).height;
+            font.setColor(Color.ORANGE);
             font.draw(b, text, CONTENT_PADDING + TEXT_PADDING, frontTemplate.getRegionHeight() - CONTENT_PADDING - TEXT_PADDING - height);
         }
 
@@ -179,6 +180,7 @@ public class Cards extends ResourceBag<Card> {
             TextBounds bounds = font.getBounds(text);
             float x = frontTemplate.getRegionWidth() - CONTENT_PADDING - TEXT_PADDING - bounds.width;
             float y = frontTemplate.getRegionHeight() - CONTENT_PADDING - TEXT_PADDING - bounds.height;
+            font.setColor(Color.GREEN);
             font.draw(b, text, x, y);
         }
 
