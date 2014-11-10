@@ -27,6 +27,9 @@ public class ScreenToMainMenuTransition extends StateTransition {
     public void begin(StateContext context, GameState origin, GameState destination) {
         DHBWGame game = context.getGame();
 
+        //the next enter will be the first enter TODO comments
+        ((ReactingState) context.getStateManager().getState(ReactingState.ID)).setFirstEnter(true);
+
         Entity[] entities = game.getEngine().getEntitiesFor(Family.one(Card.class, Deck.class, CardHand.class, Dice.class, ToMenu.class, PlayerChar.class).get()).toArray(Entity.class);
         for (Entity entity : entities) {
             game.getEngine().removeEntity(entity);
@@ -49,6 +52,7 @@ public class ScreenToMainMenuTransition extends StateTransition {
                 cardPrefabs.menubusinessad,
                 cardPrefabs.menuappliedinf
         );
+
         Entity card;
         for (Card component : cards) {
             card = game.getEntityFactory().create(game.getResources().entities.card).add(component.copy());

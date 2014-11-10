@@ -2,12 +2,19 @@ package de.cubeisland.games.dhbw.state.states;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.entity.component.Card;
+import de.cubeisland.games.dhbw.entity.component.CardHand;
 import de.cubeisland.games.dhbw.entity.component.Dice;
+import de.cubeisland.games.dhbw.entity.component.Render;
+import de.cubeisland.games.dhbw.entity.object.DiceObject;
+import de.cubeisland.games.dhbw.entity.object.ToMenuObject;
 import de.cubeisland.games.dhbw.resource.bag.Cards;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.util.ActionTuple;
+import de.cubeisland.games.dhbw.util.EntityUtil;
 
 import javax.swing.*;
 import java.util.HashMap;
@@ -26,6 +33,10 @@ public class DecidingState extends GameState {
     private int maxSemester;
     private int currentSemester = 1;
 
+    private int lastDiceTick=0;
+    private Card lastEvent;
+    private boolean passedLastEvent;
+
     private Map<Card, Integer> cardDurationMap = new HashMap<>();
 
     @Override
@@ -40,6 +51,11 @@ public class DecidingState extends GameState {
         if (dice.getComponent(Dice.class).getTicks() < 1) {
             Card card = ((ReactingState) context.getStateManager().getState(ReactingState.ID)).getEvent().getComponent(Card.class);
             Set<ActionTuple> actions = card.getActions();
+
+            //remeber the tick count for the summary
+            lastDiceTick=dice.getComponent(Dice.class).getCount();
+            //remember the last event for summary
+            lastEvent=card;
 
             boolean requirementPassed = card.getRequirement().passed(context.getCharacter(), dice.getComponent(Dice.class).getCount());
             if (requirementPassed) {
@@ -85,7 +101,6 @@ public class DecidingState extends GameState {
             }
 
         }
-
     }
 
     public int getCurrentSemester() {
@@ -110,5 +125,29 @@ public class DecidingState extends GameState {
 
     public void setCardDurationMap(Map<Card, Integer> cardDurationMap) {
         this.cardDurationMap = cardDurationMap;
+    }
+
+    public int getLastDiceTick() {
+        return lastDiceTick;
+    }
+
+    public void setLastDiceTick(int lastDiceTick) {
+        this.lastDiceTick = lastDiceTick;
+    }
+
+    public boolean isPassedLastEvent() {
+        return passedLastEvent;
+    }
+
+    public void setPassedLastEvent(boolean passedLastEvent) {
+        this.passedLastEvent = passedLastEvent;
+    }
+
+    public Card getLastEvent() {
+        return lastEvent;
+    }
+
+    public void setLastEvent(Card lastEvent) {
+        this.lastEvent = lastEvent;
     }
 }
