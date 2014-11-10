@@ -3,6 +3,8 @@ package de.cubeisland.games.dhbw.entity.system;
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.gdx.audio.Music;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MusicSystem extends EntitySystem implements Music.OnCompletionListener {
@@ -14,7 +16,9 @@ public class MusicSystem extends EntitySystem implements Music.OnCompletionListe
     private static final float VOLUME = .05f;
 
     public MusicSystem(List<Music> songs) {
-        this.songs = songs;
+        this.songs = new ArrayList<>(songs);
+
+        Collections.shuffle(this.songs);
 
         for (Music song : songs) {
             song.setOnCompletionListener(this);
