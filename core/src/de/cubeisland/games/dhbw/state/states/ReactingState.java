@@ -40,11 +40,11 @@ public class ReactingState extends GameState {
     @Override
     public void onEnter(StateContext context, GameState from) {
         if (!firstEnter) {
-            String summary=generateSummary(context);
+            String summary = generateSummary(context);
             overlay = context.getGame().getEntityFactory().createImage("images/overlay.png", new Vector3(0, 0, -50), .344f);
             context.getEngine().addEntity(overlay);
-            overlayRemoved=false;
-            text = context.getGame().getEntityFactory().createText(summary,context.getGame().getResources().fonts.cardFont, Color.GREEN,new Vector2(-80,0)); //TODO set position
+            overlayRemoved = false;
+            text = context.getGame().getEntityFactory().createText(summary, context.getGame().getResources().fonts.cardFont, Color.MAROON, new Vector2(-250, 0)); //TODO set position
             context.getEngine().addEntity(text);
         }
         firstEnter = false;
@@ -84,12 +84,12 @@ public class ReactingState extends GameState {
                         ((DecidingState) context.getStateManager().getState(DecidingState.ID)).getCardDurationMap().put(entity.getComponent(Card.class), 1);
                         return true;
                     } else if (entity.getComponent(Dice.class) != null) {
-                    context.getGame().getResources().sounds.dice.play();
-                    entity.getComponent(Dice.class).setTicks(160);
+                        context.getGame().getResources().sounds.dice.play();
+                        entity.getComponent(Dice.class).setTicks(160);
                         context.transitionTo(DecidingState.ID);
                         return true;
                     } else if (entity.getComponent(ToMenu.class) != null) {
-                    context.getGame().getResources().sounds.homebutton.play();
+                        context.getGame().getResources().sounds.homebutton.play();
                         context.transitionTo(MainMenu.ID);
                         return true;
                     }
@@ -98,7 +98,7 @@ public class ReactingState extends GameState {
         } else {
             context.getEngine().removeEntity(overlay);
             context.getEngine().removeEntity(text);
-            overlayRemoved=true;
+            overlayRemoved = true;
         }
         return false;
     }
@@ -167,21 +167,19 @@ public class ReactingState extends GameState {
         this.calkBoard = calkBoard;
     }
 
-    private String generateSummary(StateContext context){
-        String summary= new String();
+    private String generateSummary(StateContext context) {
+        String summary = new String();
         DecidingState state = (DecidingState) context.getStateManager().getState(DecidingState.ID);
 
-        if(state.isPassedLastEvent()) {
+        if (state.isPassedLastEvent()) {
             summary += "Du has das letzte Event bestanden\n";
-        }else {
+        } else {
             summary += "Du has das letzte Event nicht bestanden\n";
         }
 
-        summary+="Du musstest einen wert von "+Integer.toString(state.getLastEvent().getRequirement().value)+" in "+state.getLastEvent().getRequirement().subject + " erreichen ";
-        summary+="und hast einen Wert von "+Integer.toString(context.getGame().getCharacter().get(state.getLastEvent().getRequirement().subject)) +"erreicht.\n";
-
-
-        return summary;//TODO
+        summary += "Du musstest einen wert von " + Integer.toString(state.getLastEvent().getRequirement().value) + " in " + state.getLastEvent().getRequirement().subject + " erreichen\n";
+        summary += "und hast einen Wert von " + Integer.toString(context.getGame().getCharacter().get(state.getLastEvent().getRequirement().subject)) + " erreicht.\n";
+        return summary;
     }
 
     public boolean isFirstEnter() {
