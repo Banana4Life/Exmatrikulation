@@ -22,6 +22,7 @@ import de.cubeisland.games.dhbw.util.EntityUtil;
  *
  * @author Tim Adamek
  * @author Jonas Dann
+ * @author Andreas Geis
  */
 public class CourseSelection extends MenuState {
 

@@ -20,28 +20,17 @@ import java.util.List;
  *
  * @author Tim Adamek
  * @author Jonas Dann
+ * @author Andreas Geis
  */
 public class ReactingState extends GameState {
 
     public static final short ID = 4;
 
-    public static final int STARTCARDCOUNT = 3;
+    public static final int STARTCARDCOUNT = 4;
 
     private Entity event;
     private Entity eventDeck;
     private Entity itemDeck;
-
-
-    @Override
-    public void onEnter(StateContext context, GameState from) {
-        Entity myHandEntity = context.getEngine().getEntitiesFor(Family.one(CardHand.class).get()).first();
-        CardHand myHand = myHandEntity.getComponent(CardHand.class);
-        // only draw a card if the player holds less than 6 cards
-        if (myHand.getHandSize() < 6) {
-            Entity entity = itemDeck.getComponent(Deck.class).drawCard();
-            myHand.addCard(entity);
-        }
-    }
 
     @Override
     public void update(StateContext context, float delta) {
