@@ -11,6 +11,7 @@ import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
 import de.cubeisland.games.dhbw.state.states.MainMenu;
+import de.cubeisland.games.dhbw.state.states.ReactingState;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +30,9 @@ public class ScreenToMainMenuTransition extends StateTransition {
         Entity[] entities = game.getEngine().getEntitiesFor(Family.one(Card.class, Deck.class, CardHand.class, Dice.class, ToMenu.class, PlayerChar.class).get()).toArray(Entity.class);
         for (Entity entity : entities) {
             game.getEngine().removeEntity(entity);
+        }
+        if (((ReactingState)context.getStateManager().getState(ReactingState.ID)).getCalkBoard() != null) {
+            game.getEngine().removeEntity(((ReactingState) context.getStateManager().getState(ReactingState.ID)).getCalkBoard());
         }
 
         Entity deck = game.getEntityFactory().create(game.getResources().entities.deck);

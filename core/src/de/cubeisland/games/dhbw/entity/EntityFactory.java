@@ -62,7 +62,7 @@ public class EntityFactory implements Factory<Entity, EntityPrefab> {
 
     public Entity createStatus(Vector2 pos) {
         Entity e = create(resources.entities.status);
-        e.getComponent(Render.class).setObject(new TextObject(resources.fonts.defaultFont, Color.BLACK));
+        e.getComponent(Render.class).setObject(new TextObject(resources.fonts.defaultFont, Color.WHITE));
         e.getComponent(Transform.class).setPosition(new Vector3(pos.x, pos.y, 0));
         e.getComponent(PlayerChar.class).set(character);
         return e;

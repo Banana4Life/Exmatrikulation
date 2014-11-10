@@ -129,6 +129,9 @@ public class ToPlayingTransition extends StateTransition {
 
         Entity status = game.getEntityFactory().createStatus(TextObject.UPPER_LEFT.cpy().add(5, -5));
         game.getEngine().addEntity(status);
+        Entity calkboard = game.getEntityFactory().createImage("images/calkboard.png", new Vector3(-60.3f, 30.85f, -100), 0.11f);
+        game.getEngine().addEntity(calkboard);
+        ((ReactingState)destination).setCalkBoard(calkboard);
     }
 
     @Override

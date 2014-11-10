@@ -32,7 +32,7 @@ public class ImageObject implements RenderObject {
 
     @Override
     public boolean isWithin(Camera cam, float x, float y) {
-        return true;
+        return false;
     }
 
     public Decal getDecal() {

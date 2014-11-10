@@ -27,6 +27,7 @@ public class ReactingState extends GameState {
     private Entity event;
     private Entity eventDeck;
     private Entity itemDeck;
+    private Entity calkBoard;
 
     @Override
     public void update(StateContext context, float delta) {
@@ -40,6 +41,8 @@ public class ReactingState extends GameState {
                 ((ToMenuObject) e.getComponent(Render.class).getObject()).setHover(true);
             } else if (e.getComponent(Render.class).getObject().getClass() == DiceObject.class) {
                 ((DiceObject) e.getComponent(Render.class).getObject()).setHover(true);
+            } else if (e == calkBoard) {
+                System.out.println("calkboard");
             }
         }
     }
@@ -123,5 +126,13 @@ public class ReactingState extends GameState {
 
     public int getCardsInEventDeck() {
         return eventDeck.getComponent(Deck.class).getCardCount();
+    }
+
+    public Entity getCalkBoard() {
+        return calkBoard;
+    }
+
+    public void setCalkBoard(Entity calkBoard) {
+        this.calkBoard = calkBoard;
     }
 }
