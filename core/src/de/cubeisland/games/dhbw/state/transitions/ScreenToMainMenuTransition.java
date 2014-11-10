@@ -22,16 +22,13 @@ import java.util.List;
  * @author Time Adamek
  */
 public class ScreenToMainMenuTransition extends StateTransition {
-    //TODO choose actual gamemode
-    //TODO remember card stack to go back to mainmenu
-
     @Override
     public void begin(StateContext context, GameState origin, GameState destination) {
         DHBWGame game = context.getGame();
 
         Entity deck = game.getEntityFactory().create(game.getResources().entities.deck);
-        deck.getComponent(Transform.class).setPosition(new Vector3(60, 0, -150)).setRotation(new Quaternion(new Vector3(0, 1, 0), 180));
-        deck.getComponent(Deck.class).setDestPos(new Vector3(0, 0, -150)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 0));
+        deck.getComponent(Transform.class).setPosition(new Vector3(60, 0, -110)).setRotation(new Quaternion(new Vector3(0, 1, 0), 180));
+        deck.getComponent(Deck.class).setDestPos(new Vector3(0, 0, -110)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 0));
 
         game.getEngine().addEntity(deck);
 
@@ -59,7 +56,7 @@ public class ScreenToMainMenuTransition extends StateTransition {
         for (int i = 0; i < 2; i++) {
             card = deck.getComponent(Deck.class).drawCard();
             ((MainMenu) context.getStateManager().getState(MainMenu.ID)).getCardStack().add(card);
-            card.add(new DestTransform(new Vector3(-25 + 50 * i, 0, -150), new Quaternion(new Vector3(1, 0, 0), 0)));
+            card.add(new DestTransform(new Vector3(-15 + 30 * i, 0, -110), new Quaternion(new Vector3(1, 0, 0), 0)));
         }
     }
 

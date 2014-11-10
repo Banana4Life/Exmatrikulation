@@ -1,9 +1,14 @@
 package de.cubeisland.games.dhbw.state.states;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.character.PlayerCharacter;
 import de.cubeisland.games.dhbw.entity.component.Card;
+import de.cubeisland.games.dhbw.entity.component.DestTransform;
+import de.cubeisland.games.dhbw.entity.component.Transform;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.util.ActionTuple;
 import de.cubeisland.games.dhbw.util.EntityUtil;
@@ -14,11 +19,32 @@ import de.cubeisland.games.dhbw.util.EntityUtil;
  * between three different course of studies.
  * In addition he can go back to Main Menu and CourseSelection.
  *
- * @Author Tim Adamek
+ * @author Tim Adamek
+ * @author Jonas Dann
  */
 public class CourseSelection extends MenuState {
 
     public static final short ID = 3;
+
+    @Override
+    public void update(StateContext context, float delta) {
+        super.update(context, delta);
+
+        //TODO elevate the back to main menu cards when hovered.
+
+        Vector3 destPos;
+        for (Entity card : cards) {
+            destPos = card.getComponent(Transform.class).getPosition().cpy();
+            destPos.z = -110;
+            card.add(new DestTransform(destPos, card.getComponent(Transform.class)));
+        }
+        Entity e = EntityUtil.getEntityAt(context.getEngine(), context.getCamera(), Gdx.input.getX(), Gdx.input.getY());
+        if (e != null && cards.contains(e)) {
+            destPos = e.getComponent(Transform.class).getPosition().cpy();
+            destPos.z = -105;
+            e.add(new DestTransform(destPos, e.getComponent(Transform.class)));
+        }
+    }
 
     @Override
     public boolean touchDown(StateContext context, int screenX, int screenY, int pointer, int button) {

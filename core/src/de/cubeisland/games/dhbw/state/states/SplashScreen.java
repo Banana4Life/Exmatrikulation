@@ -20,7 +20,7 @@ public class SplashScreen extends GameState {
     @Override
     public void onEnter(StateContext context, GameState from) {
         DHBWGame game = context.getGame();
-        splash = game.getEntityFactory().createImage("images/splashscreen.png", new Vector3(0, 0, -280), .344f);
+        splash = game.getEntityFactory().createImage("images/splashscreen.png", new Vector3(0, 40, -280), .344f);
         context.getEngine().addEntity(splash);
     }
 

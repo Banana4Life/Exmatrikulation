@@ -30,7 +30,7 @@ public class BackInMenusTransition extends StateTransition {
         MainMenu state = (MainMenu) destination;
         //The cards from the Main Menu are moved back to the selection position
         for (int i = 0; i < state.getCardStack().size(); i++) {
-            state.getCardStack().get(i).add(new DestTransform(new Vector3(-25 + 50 * i, 0, -150), new Quaternion(new Vector3(1, 0, 0), 0)));
+            state.getCardStack().get(i).add(new DestTransform(new Vector3(-15 + 30 * i, 0, -110), new Quaternion(new Vector3(1, 0, 0), 0)));
         }
         putCardsInDeck(context);
 

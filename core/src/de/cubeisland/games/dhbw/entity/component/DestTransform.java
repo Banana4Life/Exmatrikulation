@@ -15,9 +15,28 @@ public class DestTransform extends Transform {
      * @param tranform The transform data.
      */
     public DestTransform(Transform tranform) {
-        setPosition(tranform.getPosition().cpy());
-        setRotation(tranform.getRotation().cpy());
-        setScale(tranform.getScale());
+        this(tranform.getPosition(), tranform.getRotation(), tranform.getScale());
+    }
+
+    /**
+     * Sets the fields of the DestTransform
+     * @param position position
+     * @param rotation rotation
+     * @param scale scale
+     */
+    public DestTransform(Vector3 position, Quaternion rotation, float scale) {
+        setPosition(position.cpy());
+        setRotation(rotation.cpy());
+        setScale(scale);
+    }
+
+    /**
+     * Sets the fields of the DestTransform
+     * @param position The position to use.
+     * @param transform The transform to get the rotation and scale from.
+     */
+    public DestTransform(Vector3 position, Transform transform) {
+        this(position, transform.getRotation(), transform.getScale());
     }
 
     /**
