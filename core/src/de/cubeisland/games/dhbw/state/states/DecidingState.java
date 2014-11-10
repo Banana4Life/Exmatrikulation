@@ -59,10 +59,12 @@ public class DecidingState extends GameState {
 
             boolean requirementPassed = card.getRequirement().passed(context.getCharacter(), dice.getComponent(Dice.class).getCount());
             if (requirementPassed) {
+                passedLastEvent=true;
                 for (ActionTuple action : actions) {
                     action.apply(context.getCharacter());
                 }
             } else {
+                passedLastEvent=false;
                 if (card.equals(context.getGame().getResources().cards.eventexmatrikulator)) {
                     context.getGame().getResources().sounds.decapitation.play();
                 }
