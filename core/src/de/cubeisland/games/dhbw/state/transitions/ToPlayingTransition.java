@@ -5,10 +5,10 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.DHBWGame;
-import de.cubeisland.games.dhbw.character.PlayerCharacter;
 import de.cubeisland.games.dhbw.entity.component.*;
 import de.cubeisland.games.dhbw.entity.object.CardObject;
 import de.cubeisland.games.dhbw.entity.object.DiceObject;
+import de.cubeisland.games.dhbw.entity.object.PausedObject;
 import de.cubeisland.games.dhbw.entity.object.TextObject;
 import de.cubeisland.games.dhbw.resource.bag.Cards;
 import de.cubeisland.games.dhbw.state.GameState;
@@ -22,13 +22,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * The transition to reacting state
+ *
+ * @author Tim Adamek
+ * @author Jonas Dann
+ */
 public class ToPlayingTransition extends StateTransition {
 
     public static final String EVENT = "EVENT";
     public static final String ITEM = "ITEM";
 
-    private List<Card> copyOfItemCads= new ArrayList<>();
-    private List<Card> copyOfEventCads= new ArrayList<>();
+    private List<Card> copyOfItemCads = new ArrayList<>();
+    private List<Card> copyOfEventCads = new ArrayList<>();
 
     @Override
     public void begin(StateContext context, GameState origin, GameState destination) {
@@ -72,7 +78,7 @@ public class ToPlayingTransition extends StateTransition {
         }
 
         int cardsInDeck = new Random().nextInt((10 - 5) + 1) + 5;
-        createDeck(eventDeck,context.getGame(),true,cardsInDeck);
+        createDeck(eventDeck, context.getGame(), true, cardsInDeck);
 
 
 //      construct item card deck TODO
@@ -93,7 +99,7 @@ public class ToPlayingTransition extends StateTransition {
                 copyOfItemCads.add(itemCard);
             }
         }
-        createDeck(itemDeck,context.getGame(),false,60);
+        createDeck(itemDeck, context.getGame(), false, 60);
 
         // construct card hand
         Entity cardHand = game.getEntityFactory().create(game.getResources().entities.cardhand);
@@ -118,6 +124,12 @@ public class ToPlayingTransition extends StateTransition {
         dice.getComponent(Transform.class).setPosition(new Vector3(100, -50, -150));
         dice.getComponent(Render.class).setObject(new DiceObject());
         game.getEngine().addEntity(dice);
+
+
+        Entity pause = game.getEntityFactory().create(game.getResources().entities.pause);
+        pause.getComponent(Transform.class).setPosition(new Vector3(100, -40, -150));
+        pause.getComponent(Render.class).setObject(new PausedObject());
+        game.getEngine().addEntity(pause);
 
         Entity status = game.getEntityFactory().createStatus(TextObject.UPPER_LEFT.cpy().add(5, -5));
         game.getEngine().addEntity(status);
@@ -159,27 +171,27 @@ public class ToPlayingTransition extends StateTransition {
             deck.getComponent(Deck.class).addCard(e);
             game.getEngine().addEntity(e);
 
-            int position=0;
+            int position = 0;
             if (forEvents) {
-                for(int count=0;count<copyOfEventCads.size();count++){
-                    if(e.getComponent(Card.class).getId().equals(copyOfEventCads.get(count).getId())){
-                        position=count;
+                for (int count = 0; count < copyOfEventCads.size(); count++) {
+                    if (e.getComponent(Card.class).getId().equals(copyOfEventCads.get(count).getId())) {
+                        position = count;
                         break;
                     }
                 }
-                copyOfEventCads.get(position).setRarity(Math.round(copyOfEventCads.get(position).getRarity()/5)+1);
+                copyOfEventCads.get(position).setRarity(Math.round(copyOfEventCads.get(position).getRarity() / 5) + 1);
             } else {
-                for(int count=0;count<copyOfItemCads.size();count++){
-                    if(e.getComponent(Card.class).getId().equals(copyOfItemCads.get(count).getId())){
-                        position=count;
+                for (int count = 0; count < copyOfItemCads.size(); count++) {
+                    if (e.getComponent(Card.class).getId().equals(copyOfItemCads.get(count).getId())) {
+                        position = count;
                         break;
                     }
                 }
-                copyOfItemCads.get(position).setRarity(Math.round(copyOfItemCads.get(position).getRarity()/5)+1);
+                copyOfItemCads.get(position).setRarity(Math.round(copyOfItemCads.get(position).getRarity() / 5) + 1);
 
             }
 
-            while (cardRarity.size()>0){
+            while (cardRarity.size() > 0) {
                 cardRarity.remove(0);
             }
 

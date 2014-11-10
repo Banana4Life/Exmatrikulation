@@ -7,7 +7,7 @@ import life.banana4.util.resourcebags.ResourceBag;
 
 import java.lang.reflect.Field;
 
-/**
+/**TODO author
  * Holds all the entity prefabs.
  */
 public class Entities extends ResourceBag<EntityPrefab> {
@@ -16,6 +16,7 @@ public class Entities extends ResourceBag<EntityPrefab> {
     public EntityPrefab card;
     public EntityPrefab deck;
     public EntityPrefab dice;
+    public EntityPrefab pause;
     public EntityPrefab cardhand;
     public EntityPrefab camera;
     public EntityPrefab image;

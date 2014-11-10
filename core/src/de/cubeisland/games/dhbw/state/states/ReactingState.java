@@ -4,23 +4,16 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import de.cubeisland.games.dhbw.entity.component.Card;
-import de.cubeisland.games.dhbw.entity.component.CardHand;
-import de.cubeisland.games.dhbw.entity.component.Deck;
-import de.cubeisland.games.dhbw.entity.component.Dice;
+import de.cubeisland.games.dhbw.entity.component.*;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.util.EntityUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * ReactingState is the state in the game, where the player can react to events he is facing.
  *
  * @author Tim Adamek
  * @author Jonas Dann
- * @author Andreas Geis
  */
 public class ReactingState extends GameState {
 
@@ -58,6 +51,9 @@ public class ReactingState extends GameState {
                 } else if (entity.getComponent(Dice.class) != null) {
                     entity.getComponent(Dice.class).setTicks(60);
                     context.transitionTo(DecidingState.ID);
+                    return true;
+                } else if (entity.getComponent(Pause.class) != null) {
+                    context.transitionTo(Paused.ID);
                     return true;
                 }
             }
