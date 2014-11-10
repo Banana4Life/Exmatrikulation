@@ -40,7 +40,8 @@ public class DecidingState extends GameState {
             Card card = ((ReactingState) context.getStateManager().getState(ReactingState.ID)).getEvent().getComponent(Card.class);
             Set<ActionTuple> actions = card.getActions();
 
-            if (card.getRequirement().passed(context.getCharacter(), dice.getComponent(Dice.class).getCount())) {
+            boolean requirementPassed = card.getRequirement().passed(context.getCharacter(), dice.getComponent(Dice.class).getCount());
+            if (requirementPassed) {
                 for (ActionTuple action : actions) {
                     action.apply(context.getCharacter());
                 }
@@ -61,11 +62,16 @@ public class DecidingState extends GameState {
                 }
             }
 
-
-            if (((ReactingState) context.getStateManager().getState(ReactingState.ID)).getCardsInEventDeck() == 0 && currentSemester < maxSemester) {
+            if (((ReactingState) context.getStateManager().getState(ReactingState.ID)).getCardsInEventDeck() == 0 ) {
+                if(currentSemester < maxSemester){
                 context.transitionTo(NextSemester.ID);
-            } else if (false) {
-                //GAME won/lost
+                }else {
+                    if(requirementPassed){
+                        context.transitionTo(GameWonState.ID);
+                    }else {
+                        context.transitionTo(GameLostState.ID);
+                    }
+                }
             } else {
                 context.transitionTo(ReactingState.ID);
             }
