@@ -1,7 +1,9 @@
 ---
 name: Programmieren in C
 type: event
-description: ['Du hast eine Vorlesung.']
+description:
+  - 'Du hast eine Vorlesung.'
+  - 'Erhöht Coding um 3.'
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Programming', 3]

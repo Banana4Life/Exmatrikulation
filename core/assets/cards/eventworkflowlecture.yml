@@ -1,7 +1,9 @@
 ---
 name: Workflowmanagement
 type: event
-description: ['Du hast eine "besonders sinnvolle" Vorlesung.']
+description:
+  - 'Du hast eine "besonders sinnvolle" Vorlesung.'
+  - 'Erhöht BWL um 3.'
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Bwl', 1]

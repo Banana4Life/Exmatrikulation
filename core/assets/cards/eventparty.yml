@@ -1,11 +1,13 @@
 ---
 name: Party
 type: event
-description: ['Schaffst du es morgen früh wieder in die DH?']
+description:
+  - 'Schaffst du es morgen früh wieder in die DH?'
+  - 'Erhöht die Soft-Skills um 2 oder verringert alles um 1.'
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.SoftSkillsReward', 2]
-  - ['de.cubeisland.games.dhbw.entity.action.SoftSkillsPenalty', -1]
+  - ['de.cubeisland.games.dhbw.entity.action.SoftSkillsPenalty', 1]
   - ['de.cubeisland.games.dhbw.entity.action.BwlPenalty', 1]
   - ['de.cubeisland.games.dhbw.entity.action.ProgrammingPenalty', 1]
   - ['de.cubeisland.games.dhbw.entity.action.MathPenalty', 1]

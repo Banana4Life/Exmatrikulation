@@ -169,7 +169,7 @@ public class Cards extends ResourceBag<Card> {
 
         final CardPrefab.Requirement r = prefab.requirement;
         if (r.subject != null) {
-            final String text = "Erreiche " + r.value + " " + r.subject;
+            final String text = r.value + " " + r.subject;
             final float height = font.getBounds(text).height;
             font.draw(b, text, CONTENT_PADDING + TEXT_PADDING, frontTemplate.getRegionHeight() - CONTENT_PADDING - TEXT_PADDING - height);
         }

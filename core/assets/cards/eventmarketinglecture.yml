@@ -1,7 +1,9 @@
 ---
 name: Marketing
 type: event
-description: ['Du hast eine Vorlesung.']
+description:
+  - 'Du hast eine Vorlesung.'
+  - 'Erhöht BWL um 3.'
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Bwl', 3]

@@ -1,7 +1,9 @@
 ---
 name: Erste Mathe-Vorlesung
 type: event
-description: ['Du bist motiviert!']
+description:
+  - 'Du bist motiviert!'
+  - 'Erhöht Mathe um 1.'
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.MathReward', 1]

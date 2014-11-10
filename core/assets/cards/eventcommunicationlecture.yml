@@ -1,7 +1,9 @@
 ---
 name: Int. Communication
 type: event
-description: ['Du hast eine Vorlesung.']
+description:
+  - 'Du hast eine Vorlesung.'
+  - 'Erhöht Soft-Skills um 3.'
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 3]
