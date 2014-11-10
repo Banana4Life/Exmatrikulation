@@ -8,6 +8,6 @@ actions:
 
 requirement:
   subject: softskill
-  value: 1
+  value: 10
 
 rarity: 1
