@@ -4,12 +4,14 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.engine.reflect.Reflector;
 import de.cubeisland.games.dhbw.character.PlayerCharacter;
@@ -98,10 +100,10 @@ public class DHBWGame extends ApplicationAdapter {
                 .addState(new GameWonState())
                 .addState(new DecidingState())
                 .addState(new Paused())
-                .addTransition(StartState.ID, SplashScreen.ID, NOPTransition.INSTANCE)
-                .addTransition(SplashScreen.ID, MainMenu.ID, new ScreenToMainMenuTransition())
-                .addTransition(MainMenu.ID, CourseSelection.ID, new MergeCardsAndMoveToCorner())
-                .addTransition(MainMenu.ID, EndState.ID, NOPTransition.INSTANCE)
+                .addTransition(StartState.ID,           SplashScreen.ID,            NOPTransition.INSTANCE)
+                .addTransition(SplashScreen.ID,         MainMenu.ID,                new ScreenToMainMenuTransition())
+                .addTransition(MainMenu.ID,             CourseSelection.ID,         new MergeCardsAndMoveToCorner())
+                .addTransition(MainMenu.ID,             EndState.ID,                NOPTransition.INSTANCE)
                 .addTransition(CourseSelection.ID,      MainMenu.ID,                new BackInMenusTransition())
                 .addTransition(CourseSelection.ID,      ReactingState.ID,           new ToPlayingTransition())
                 .addTransition(ReactingState.ID,        DecidingState.ID,           NOPTransition.INSTANCE)

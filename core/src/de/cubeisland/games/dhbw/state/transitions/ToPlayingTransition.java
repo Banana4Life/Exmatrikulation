@@ -2,6 +2,7 @@ package de.cubeisland.games.dhbw.state.transitions;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -110,7 +111,7 @@ public class ToPlayingTransition extends StateTransition {
         dice.getComponent(Render.class).setObject(new DiceObject());
         game.getEngine().addEntity(dice);
 
-        Entity status = game.getEntityFactory().createStatus(new Vector2(50, 550));
+        Entity status = game.getEntityFactory().createStatus(new Vector2(-(Gdx.graphics.getWidth() /2f), Gdx.graphics.getHeight() / 2f));
         game.getEngine().addEntity(status);
 
     }

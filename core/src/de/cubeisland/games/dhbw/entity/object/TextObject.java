@@ -40,8 +40,6 @@ public class TextObject implements RenderObject2D {
         batch.begin();
         bf.draw(batch, t.get(), pos.x, pos.y);
         batch.end();
-
-        System.out.println(t.get());
     }
 
     @Override
