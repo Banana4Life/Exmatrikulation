@@ -52,7 +52,7 @@ public class Cards extends ResourceBag<Card> {
     public Card eventanalysislecture;
     public Card eventclecture;
     public Card eventcommunicationlecture;
-    public Card eventdiplwirtschinf;
+    public Card eventdiplbusinessinf;
     public Card eventexmatrikulator;
     public Card eventfirstmathlecture;
     public Card eventfortuneminister;
@@ -64,7 +64,8 @@ public class Cards extends ResourceBag<Card> {
     public Card eventoospaceships;
     public Card eventoverslept;
     public Card eventparty;
-    public Card eventprogrammingproject;
+    public Card eventprogramming1;
+    public Card eventprogramming2;
     public Card eventsaturday;
     public Card eventworkflowlecture;
 

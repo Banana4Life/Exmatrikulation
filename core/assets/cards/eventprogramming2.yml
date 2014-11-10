@@ -1,5 +1,5 @@
----
-name: Programmierprojekt
+﻿---
+name: Programmierprojekt II
 type: event
 description: ['Kapsel dich eine Woche von der Welt ab und fühle dich wie ein Codingsklave.']
 
@@ -9,6 +9,6 @@ actions:
 
 requirement:
   subject: programming
-  value: 40
+  value: 10
 
 rarity: 1
