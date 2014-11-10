@@ -3,7 +3,6 @@ package de.cubeisland.games.dhbw.state.states;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.character.PlayerCharacter;
 import de.cubeisland.games.dhbw.entity.component.Card;
@@ -85,9 +84,19 @@ public class CourseSelection extends MenuState {
                     // play cardflip sound
                     context.getGame().getResources().sounds.cardflip.play();
                     pickedcard = e;
-                    context.getStateManager().transitionTo(MainMenu.ID);
+                    context.transitionTo(MainMenu.ID);
                 }
             }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean keyDown(StateContext context, int keycode) {
+        if (keycode == Input.Keys.BACKSPACE || keycode == Input.Keys.ESCAPE) {
+            context.getGame().getResources().sounds.cardflip.play();
+            context.transitionTo(MainMenu.ID);
+            return true;
         }
         return false;
     }
