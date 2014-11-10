@@ -28,17 +28,14 @@ public class ReactingState extends GameState {
     @Override
     public void update(StateContext context, float delta) {
         super.update(context, delta);
-
         Entity card = EntityUtil.getEntityAt(context.getEngine(), context.getCamera(), Gdx.input.getX(), Gdx.input.getY());
         Entity cardHand = context.getEngine().getEntitiesFor(Family.one(CardHand.class).get()).first();
-
         cardHand.getComponent(CardHand.class).highlightCard(card);
     }
 
     @Override
     public boolean touchDown(StateContext context, int screenX, int screenY, int pointer, int button) {
         Entity entity = EntityUtil.getEntityAt(context.getEngine(), context.getCamera(), screenX, screenY);
-
         if (entity != null) {
             if (button == Input.Buttons.LEFT) {
                 Entity cardHand = context.getEngine().getEntitiesFor(Family.one(CardHand.class).get()).first();
