@@ -4,14 +4,12 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.engine.reflect.Reflector;
 import de.cubeisland.games.dhbw.character.PlayerCharacter;
@@ -111,7 +109,7 @@ public class DHBWGame extends ApplicationAdapter {
                 .addTransition(ReactingState.ID,        Paused.ID,                  NOPTransition.INSTANCE)
                 .addTransition(DecidingState.ID,        Paused.ID,                  NOPTransition.INSTANCE)
                 .addTransition(DecidingState.ID,        ReactingState.ID,           new NextEventTransition())
-                .addTransition(DecidingState.ID,        GameLostState.ID,           new GameEndTransition())
+                .addTransition(DecidingState.ID,        GameLostState.ID,           new GameLostTransition())
                 .addTransition(DecidingState.ID,        GameWonState.ID,            new GameWonTransition())
                 .addTransition(DecidingState.ID,        NextSemester.ID,            new NextSemsterTransition())
                 .addTransition(NextSemester.ID,         ReactingState.ID,           new ToPlayingTransition())

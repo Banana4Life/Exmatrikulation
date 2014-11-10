@@ -13,7 +13,7 @@ import de.cubeisland.games.dhbw.state.StateTransition;
  *
  * @author Andreas Geis
  */
-public class GameEndTransition extends StateTransition {
+public class GameLostTransition extends StateTransition {
 
     @Override
     public void begin(StateContext context, GameState origin, GameState destination) {
