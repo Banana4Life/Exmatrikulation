@@ -10,8 +10,9 @@ import de.cubeisland.games.dhbw.state.StateContext;
 /**
  * This Class represents the GameOver-Screen.
  * If the player clicks on the screen he gets back to the main menu.
- * @author Tim Adamek
+ *
  * @author Andreas Geis
+ * @author Tim Adamek
  */
 public class GameLostState extends GameState {
 
@@ -27,8 +28,7 @@ public class GameLostState extends GameState {
     @Override
     public void onEnter(StateContext context, GameState from) {
         DHBWGame game = context.getGame();
-        // TODO: replace with GameOver-Screen when available
-        gameover = game.getEntityFactory().createImage("images/splashscreen.png", new Vector3(0, 0, -280), .344f);
+        gameover = game.getEntityFactory().createImage("images/losescreen.png", new Vector3(0, 0, -280), .344f);
         context.getEngine().addEntity(gameover);
     }
 

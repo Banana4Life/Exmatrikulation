@@ -28,8 +28,13 @@ public class GameWonState extends GameState {
     @Override
     public void onEnter(StateContext context, GameState from) {
         DHBWGame game = context.getGame();
-        // TODO: replace with GameWon-Image when available
-        gamewon = game.getEntityFactory().createImage("images/splashscreen.png", new Vector3(0, 0, -280), .344f);
+        // check which mode was played
+        if(((DecidingState) context.getStateManager().getState(DecidingState.ID)).getMaxSemester() == 1) {
+            gamewon = game.getEntityFactory().createImage("images/winscreenfreemode.png", new Vector3(0, 0, -280), .344f);
+        } else {
+            gamewon = game.getEntityFactory().createImage("images/winscreenstorymode.png", new Vector3(0, 0, -280), .344f);
+        }
+
         context.getEngine().addEntity(gamewon);
     }
 
