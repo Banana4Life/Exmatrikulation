@@ -3,6 +3,7 @@ package de.cubeisland.games.dhbw.entity.object;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
@@ -38,12 +39,21 @@ public class TextObject implements RenderObject2D {
         BitmapFont bf = font.getBitmapFont();
         bf.setColor(color);
         batch.begin();
-        bf.draw(batch, t.get(), pos.x, pos.y);
+        renderMultiline(t.get(), batch, bf, pos.x, pos.y, 3, -1);
         batch.end();
     }
 
     @Override
     public boolean isWithin(Camera cam, float x, float y) {
         return false;
+    }
+
+    public static float renderMultiline(String text, Batch batch, BitmapFont font, float x, float y, float padding, int direction) {
+        for (String line : text.split("\n")) {
+            font.draw(batch, line, x, y);
+            y += (font.getBounds(line).height + padding) * direction;
+        }
+
+        return y;
     }
 }

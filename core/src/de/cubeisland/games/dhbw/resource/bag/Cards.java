@@ -13,6 +13,7 @@ import de.cubeisland.engine.reflect.Reflector;
 import de.cubeisland.games.dhbw.entity.CardPrefab;
 import de.cubeisland.games.dhbw.entity.component.Card;
 import de.cubeisland.games.dhbw.entity.object.CardObject;
+import de.cubeisland.games.dhbw.entity.object.TextObject;
 import life.banana4.util.resourcebags.FileRef;
 import life.banana4.util.resourcebags.ResourceBag;
 
@@ -156,8 +157,7 @@ public class Cards extends ResourceBag<Card> {
         float yOffset = DESCR_OFFSET + TEXT_PADDING;
         font.setColor(Color.WHITE);
         for (String line : lines) {
-            font.draw(b, line, CONTENT_PADDING + TEXT_PADDING, yOffset);
-            yOffset += font.getBounds(line).height + TEXT_PADDING;
+            yOffset = TextObject.renderMultiline(line, b, font, (float)CONTENT_PADDING + TEXT_PADDING, yOffset, TEXT_PADDING, 1);
         }
 
         final CardPrefab.Requirement r = prefab.requirement;
