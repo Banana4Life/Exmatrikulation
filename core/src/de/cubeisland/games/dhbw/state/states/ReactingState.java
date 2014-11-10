@@ -17,6 +17,7 @@ import de.cubeisland.games.dhbw.util.EntityUtil;
  *
  * @author Tim Adamek
  * @author Jonas Dann
+ * @author Andreas Geis
  */
 public class ReactingState extends GameState {
 
@@ -60,10 +61,12 @@ public class ReactingState extends GameState {
                     ((DecidingState) context.getStateManager().getState(DecidingState.ID)).getCardDurationMap().put(entity.getComponent(Card.class), 1);
                     return true;
                 } else if (entity.getComponent(Dice.class) != null) {
+                    context.getGame().getResources().sounds.dice.play();
                     entity.getComponent(Dice.class).setTicks(60);
                     context.transitionTo(DecidingState.ID);
                     return true;
                 } else if(entity.getComponent(ToMenu.class)!=null){
+                    context.getGame().getResources().sounds.homebutton.play();
                     context.transitionTo(MainMenu.ID);
                     return true;
                 }

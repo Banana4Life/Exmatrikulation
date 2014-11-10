@@ -15,6 +15,8 @@ import java.lang.reflect.Field;
 public class Sounds extends ResourceBag<Sound> {
 
     public Sound cardflip;
+    public Sound dice;
+    public Sound homebutton;
 
     @Override
     protected Sound load(FileRef fileRef, Field field) {
