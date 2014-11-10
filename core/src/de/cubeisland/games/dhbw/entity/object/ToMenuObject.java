@@ -30,9 +30,8 @@ public class ToMenuObject implements RenderObject {
      * The constructor creates 20 decals with the 20 faces of the dice.
      */
     public ToMenuObject() {
-        TextureRegion image = new TextureRegion(new Texture("images/pause.png"));
-        front = Decal.newDecal(image, true);
-        back = Decal.newDecal(image, true);
+        front = Decal.newDecal(new TextureRegion(new Texture("images/pause.png")), true);
+        back = Decal.newDecal(new TextureRegion(new Texture("images/dice.png"), 50, 50), true);
     }
 
     @Override

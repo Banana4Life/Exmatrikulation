@@ -62,7 +62,7 @@ public class ReactingState extends GameState {
                     return true;
                 } else if (entity.getComponent(Dice.class) != null) {
                     context.getGame().getResources().sounds.dice.play();
-                    entity.getComponent(Dice.class).setTicks(60);
+                    entity.getComponent(Dice.class).setTicks(160);
                     context.transitionTo(DecidingState.ID);
                     return true;
                 } else if(entity.getComponent(ToMenu.class)!=null){
