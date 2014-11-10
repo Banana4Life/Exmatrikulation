@@ -26,7 +26,7 @@ public class Deck extends Component implements Iterable<Entity> {
      */
     public Deck update(Transform transform) {
         for (int n = 0; n < cards.size(); n++) {
-            DestTransform destTransform = new DestTransform(transform.getPosition().cpy().add(0, 0, Math.max(-n, -6)), transform.getRotation());
+            DestTransform destTransform = new DestTransform(transform.getPosition().cpy().add(0, 0, (n < 6) ? n : 0), transform.getRotation());
             if (!cards.get(n).getComponent(Transform.class).equals(destTransform)) {
                 cards.get(n).add(destTransform);
             }
@@ -95,6 +95,14 @@ public class Deck extends Component implements Iterable<Entity> {
         card.remove(Pickable.class);
         cards.add(0, card);
         return this;
+    }
+
+    /**
+     * Gets the size of the cards list.
+     * @return the amout of cards still in the deck.
+     */
+    public int getCardCount() {
+        return cards.size();
     }
 
     @Override
