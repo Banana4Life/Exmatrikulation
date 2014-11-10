@@ -1,7 +1,7 @@
 ---
-name: Einführung in wiss. Arbeiten
+name: Wiss. Arbeiten
 type: event
-description: ['Du hast eine Vorlesung.']
+description: ['Du hast eine Einführung ins wissenschaftliche Arbeiten.']
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 3]

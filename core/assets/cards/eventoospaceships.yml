@@ -1,7 +1,7 @@
 ---
-name: OO-Raumschiffe greifen an!
+name: OO-Raumschiffe
 type: event
-description: ['Benutze die C-anone um die Welt zu retten.']
+description: ['OO-Raumschiffe greifen an. Benutze die C-anone um die Welt zu retten!']
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Programming', 2]
