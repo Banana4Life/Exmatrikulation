@@ -1,6 +1,6 @@
 package de.cubeisland.games.dhbw.state;
 
-/** todo some params in javadoc for methods not documented
+/**
  * Classes derived from this define transitions between two states.
  *
  * @author Phillip Schichtel
@@ -12,8 +12,8 @@ public abstract class StateTransition {
      * At this point {@link StateManager#getCurrentState()} will return the meta state {@link de.cubeisland.games.dhbw.state.StateManager.TransitionState}.
      *
      * @param context     the context
-     * @param origin
-     * @param destination
+     * @param origin      the origin state
+     * @param destination the destination state
      */
     public void begin(StateContext context, GameState origin, GameState destination) {
 
@@ -24,9 +24,10 @@ public abstract class StateTransition {
      * The transition function is called every tick until it returns true to signal its completion.
      *
      * @param context     the context
-     * @param origin
-     * @param destination @return false to keep transitioning, true to signal completion
+     * @param origin      the origin state
+     * @param destination the destination state
      * @param delta       the delta time since the last tick
+     * @return false to keep transitioning, true to signal completion
      */
     public abstract boolean transition(StateContext context, GameState origin, GameState destination, float delta);
 
@@ -35,8 +36,8 @@ public abstract class StateTransition {
      * returned true (signaled completion).
      *
      * @param context     the context
-     * @param origin
-     * @param destination
+     * @param origin      the origin state
+     * @param destination the destination state
      */
     public void finish(StateContext context, GameState origin, GameState destination) {
 

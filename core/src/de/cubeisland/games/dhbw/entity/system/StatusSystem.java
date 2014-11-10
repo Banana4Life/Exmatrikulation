@@ -11,7 +11,9 @@ import de.cubeisland.games.dhbw.entity.component.Text;
 import static de.cubeisland.games.dhbw.entity.CardPrefab.SubjectType.*;
 
 /**
- * todo javadoc
+ * This system updates the entity that holds the status text, so the character values
+ *
+ * @author Phillip Schichtel
  */
 public class StatusSystem extends IteratingSystem {
 

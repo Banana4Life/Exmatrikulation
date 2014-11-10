@@ -1,7 +1,9 @@
 package de.cubeisland.games.dhbw.state;
 
-/** todo author
+/**
  * This class defines an abstract game state with all of the callbacks for both state changes and input.
+ *
+ * @author Phillip Schichtel
  */
 public abstract class GameState {
 

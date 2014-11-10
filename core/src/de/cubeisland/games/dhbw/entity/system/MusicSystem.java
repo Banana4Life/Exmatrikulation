@@ -8,7 +8,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * todo javadoc
+ * This system holds the songs and plays them in a random order.
+ *
+ * @author Phillip Schichtel
  */
 public class MusicSystem extends EntitySystem implements Music.OnCompletionListener {
 

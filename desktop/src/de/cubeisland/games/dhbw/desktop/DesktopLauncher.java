@@ -6,7 +6,11 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import de.cubeisland.games.dhbw.DHBWGame;
 
 /**
- * todo javadoc
+ * This class is the bootstrapper of the game.
+ * It configures the game window and some graphics options
+ *
+ * @author Phillip Schichtel
+ * @author Jonas Dann
  */
 public class DesktopLauncher {
     public static void main(String[] arg) {

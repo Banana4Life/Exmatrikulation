@@ -7,9 +7,11 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import de.cubeisland.games.dhbw.entity.component.CardHand;
 import de.cubeisland.games.dhbw.entity.component.Transform;
 
-/** todo author
+/**
  * The CardHandSystem updates the card hands every update cycle
  * It uses the Family {CardHand, Transform}
+ *
+ * @author Jonas Dann
  */
 public class CardHandSystem extends IteratingSystem {
     private ComponentMapper<Transform> transforms;
