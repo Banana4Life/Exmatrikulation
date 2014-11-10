@@ -15,8 +15,11 @@ public class PlayerCharacter {
     private int bwl;
     private int softSkills;
 
-    // TODO set different default values for each course of studies
     public PlayerCharacter() {
+        reset();
+    }
+
+    public void reset() {
         this.math = 0;
         this.programming = 0;
         this.bwl = 0;
