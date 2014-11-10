@@ -29,20 +29,29 @@ public class CourseSelection extends MenuState {
     @Override
     public void update(StateContext context, float delta) {
         super.update(context, delta);
-
-        //TODO elevate the back to main menu cards when hovered.
-
         Vector3 destPos;
+
+        Entity pickedCard = ((MenuState) context.getStateManager().getState(MainMenu.ID)).getPickedcard();
+        destPos = pickedCard.getComponent(Transform.class).getPosition().cpy();
+        destPos.z = -199;
+        pickedCard.add(new DestTransform(destPos, pickedCard.getComponent(Transform.class)));
+
         for (Entity card : cards) {
             destPos = card.getComponent(Transform.class).getPosition().cpy();
             destPos.z = -110;
             card.add(new DestTransform(destPos, card.getComponent(Transform.class)));
         }
         Entity e = EntityUtil.getEntityAt(context.getEngine(), context.getCamera(), Gdx.input.getX(), Gdx.input.getY());
-        if (e != null && cards.contains(e)) {
-            destPos = e.getComponent(Transform.class).getPosition().cpy();
-            destPos.z = -105;
-            e.add(new DestTransform(destPos, e.getComponent(Transform.class)));
+        if (e != null) {
+            if (cards.contains(e)) {
+                destPos = e.getComponent(Transform.class).getPosition().cpy();
+                destPos.z = -105;
+                e.add(new DestTransform(destPos, e.getComponent(Transform.class)));
+            } else if (e == pickedCard) {
+                destPos = e.getComponent(Transform.class).getPosition().cpy();
+                destPos.z = -196;
+                e.add(new DestTransform(destPos, e.getComponent(Transform.class)));
+            }
         }
     }
 

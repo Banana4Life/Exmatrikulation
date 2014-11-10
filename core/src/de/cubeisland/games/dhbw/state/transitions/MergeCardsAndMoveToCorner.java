@@ -27,10 +27,10 @@ public class MergeCardsAndMoveToCorner extends StateTransition {
 
         //moves the cards to the top corner
         for (Entity card : cardList) {
-            card.add(new DestTransform(new Vector3(-60, 0, -110), new Quaternion(new Vector3(0, 0, 0), -100)));
+            card.add(new DestTransform(new Vector3(-117, 50, -200), new Quaternion(new Vector3(0, 0, 0), -100)));
         }
         //moves the picked card to the top of the stack
-        pickedCard.add(new DestTransform(new Vector3(-60, 0, -109), new Quaternion(new Vector3(0, 0, 0), -100)));
+        pickedCard.add(new DestTransform(new Vector3(-117, 50, -199), new Quaternion(new Vector3(0, 0, 0), -100)));
 
 
         //draw new cards therefor the cardList has to be assigned the cardList of CourseSelection
