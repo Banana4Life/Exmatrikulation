@@ -2,10 +2,10 @@ name: Investitionsrechnung
 type: item
 description:
   - 'Risikoinvestitionen sind immer gut.'
-  - '+4 auf BWL'
+  - '+6 auf BWL'
 
 actions:
-  - ['de.cubeisland.games.dhbw.entity.action.Bwl', 4]
+  - ['de.cubeisland.games.dhbw.entity.action.Bwl', 6]
 
 duration: 2
 rarity: 10

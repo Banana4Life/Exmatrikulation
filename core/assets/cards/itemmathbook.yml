@@ -2,10 +2,10 @@ name: Mathe Buch
 type: item
 description:
   - 'Dieses Buch verleiht ultimatives Wissen.'
-  - '+5 auf Mathe'
+  - '+10 auf Mathe'
 
 actions:
-  - ['de.cubeisland.games.dhbw.entity.action.Math', 5]
+  - ['de.cubeisland.games.dhbw.entity.action.Math', 10]
 
 duration: 2
 rarity: 10

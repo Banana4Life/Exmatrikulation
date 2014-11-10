@@ -2,10 +2,10 @@ name: Reguläre Ausdrücke
 type: item
 description:
   - 'Informatiker lernen jeden Tag 3 neue Sprachen.'
-  - '+3 auf Coding'
+  - '+6 auf Coding'
 
 actions:
-  - ['de.cubeisland.games.dhbw.entity.action.Programming', 3]
+  - ['de.cubeisland.games.dhbw.entity.action.Programming', 6]
 
 duration: 1
 rarity: 10
