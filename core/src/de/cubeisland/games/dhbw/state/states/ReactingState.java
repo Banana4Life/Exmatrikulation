@@ -4,7 +4,10 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import de.cubeisland.games.dhbw.entity.RenderObject;
 import de.cubeisland.games.dhbw.entity.component.*;
+import de.cubeisland.games.dhbw.entity.object.DiceObject;
+import de.cubeisland.games.dhbw.entity.object.ToMenuObject;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.util.EntityUtil;
@@ -28,9 +31,17 @@ public class ReactingState extends GameState {
     @Override
     public void update(StateContext context, float delta) {
         super.update(context, delta);
-        Entity card = EntityUtil.getEntityAt(context.getEngine(), context.getCamera(), Gdx.input.getX(), Gdx.input.getY());
+        Entity e = EntityUtil.getEntityAt(context.getEngine(), context.getCamera(), Gdx.input.getX(), Gdx.input.getY());
         Entity cardHand = context.getEngine().getEntitiesFor(Family.one(CardHand.class).get()).first();
-        cardHand.getComponent(CardHand.class).highlightCard(card);
+        if (e != null) {
+            if (e.getComponent(Card.class) != null) {
+                cardHand.getComponent(CardHand.class).highlightCard(e);
+            } else if (e.getComponent(Render.class).getObject().getClass() == ToMenuObject.class) {
+                ((ToMenuObject) e.getComponent(Render.class).getObject()).setHover(true);
+            } else if (e.getComponent(Render.class).getObject().getClass() == DiceObject.class) {
+                ((DiceObject) e.getComponent(Render.class).getObject()).setHover(true);
+            }
+        }
     }
 
     @Override

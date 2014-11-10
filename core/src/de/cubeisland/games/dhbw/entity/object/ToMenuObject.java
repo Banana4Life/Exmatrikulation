@@ -17,30 +17,31 @@ import de.cubeisland.games.dhbw.entity.component.Transform;
 import java.util.ArrayList;
 
 /**
- * Created by Tim Adamek on 10.11.2014.
+ * @author Tim Adamek
+ * @author Jonas Dann
  */
 public class ToMenuObject implements RenderObject {
     public static final float SCALE = 0.1f;
-    private ArrayList<Decal> decals = new ArrayList<>();
-    private int count = 1;
+    private Decal front;
+    private Decal back;
+    private boolean hover = false;
 
     /**
      * The constructor creates 20 decals with the 20 faces of the dice.
      */
     public ToMenuObject() {
-        Texture image = new Texture("images/pause.png");
-        for (int n = 0; n < 20; n++) {
-            decals.add(Decal.newDecal(new TextureRegion(image, 0, n * 50, 50, 50), true));
-        }
+        TextureRegion image = new TextureRegion(new Texture("images/pause.png"));
+        front = Decal.newDecal(image, true);
+        back = Decal.newDecal(image, true);
     }
 
     @Override
     public boolean isWithin(Camera camera, float screenX, float screenY) {
         final PerspectiveCamera pc = camera.getPerspective();
-        final Vector3 topLeft = pc.project(new Vector3(decals.get(0).getVertices()[Decal.X1], decals.get(0).getVertices()[Decal.Y1], decals.get(0).getVertices()[Decal.Z1]));
-        final Vector3 topRight = pc.project(new Vector3(decals.get(0).getVertices()[Decal.X2], decals.get(0).getVertices()[Decal.Y2], decals.get(0).getVertices()[Decal.Z2]));
-        final Vector3 bottomLeft = pc.project(new Vector3(decals.get(0).getVertices()[Decal.X3], decals.get(0).getVertices()[Decal.Y3], decals.get(0).getVertices()[Decal.Z3]));
-        final Vector3 bottomRight = pc.project(new Vector3(decals.get(0).getVertices()[Decal.X4], decals.get(0).getVertices()[Decal.Y4], decals.get(0).getVertices()[Decal.Z4]));
+        final Vector3 topLeft = pc.project(new Vector3(front.getVertices()[Decal.X1], front.getVertices()[Decal.Y1], front.getVertices()[Decal.Z1]));
+        final Vector3 topRight = pc.project(new Vector3(front.getVertices()[Decal.X2], front.getVertices()[Decal.Y2], front.getVertices()[Decal.Z2]));
+        final Vector3 bottomLeft = pc.project(new Vector3(front.getVertices()[Decal.X3], front.getVertices()[Decal.Y3], front.getVertices()[Decal.Z3]));
+        final Vector3 bottomRight = pc.project(new Vector3(front.getVertices()[Decal.X4], front.getVertices()[Decal.Y4], front.getVertices()[Decal.Z4]));
 
         Array<Vector2> polygon = new Array<>();
         polygon.add(new Vector2(topLeft.x, topLeft.y));
@@ -54,11 +55,11 @@ public class ToMenuObject implements RenderObject {
     @Override
     public void render(DHBWGame game, Camera cam, Entity e, Transform transform) {
         update(transform);
+        front.setScale(SCALE);
+        back.setScale(SCALE);
 
-        for (Decal decal : decals) {
-            decal.setScale(SCALE);
-            game.getDecalBatch().add(decal);
-        }
+        game.getDecalBatch().add(front);
+        game.getDecalBatch().add(back);
         game.getDecalBatch().flush();
     }
 
@@ -69,13 +70,18 @@ public class ToMenuObject implements RenderObject {
      * @return Returns this.
      */
     public ToMenuObject update(Transform transform) {
-        for (Decal decal : decals) {
-            decal.setPosition(transform.getPosition());
-            decal.setRotation(transform.getRotation());
-        }
-        decals.get(count - 1).getPosition().add(0, 0, 1);
+        front.setPosition(transform.getPosition().add(0, 0, hover ? 0.5f : 1));
+        front.setRotation(transform.getRotation());
+        back.setPosition(transform.getPosition());
+        back.setRotation(transform.getRotation());
+
+        hover = false;
 
         return this;
     }
 
+    public ToMenuObject setHover(boolean hover) {
+        this.hover = hover;
+        return this;
+    }
 }

@@ -26,6 +26,7 @@ public class DiceObject implements RenderObject {
 
     private ArrayList<Decal> decals = new ArrayList<>();
     private int count = 1;
+    private boolean hover = false;
 
     /**
      * The constructor creates 20 decals with the 20 faces of the dice.
@@ -76,7 +77,9 @@ public class DiceObject implements RenderObject {
             decal.setPosition(transform.getPosition());
             decal.setRotation(transform.getRotation());
         }
-        decals.get(count - 1).getPosition().add(0, 0, 1);
+        decals.get(count - 1).getPosition().add(0, 0, hover ? 0.5f : 1);
+
+        hover = false;
 
         return this;
     }
@@ -89,6 +92,11 @@ public class DiceObject implements RenderObject {
      */
     public DiceObject setCount(int count) {
         this.count = count;
+        return this;
+    }
+
+    public DiceObject setHover(boolean hover) {
+        this.hover = hover;
         return this;
     }
 }

@@ -121,12 +121,12 @@ public class ToPlayingTransition extends StateTransition {
 
         //create dice
         Entity dice = game.getEntityFactory().create(game.getResources().entities.dice);
-        dice.getComponent(Transform.class).setPosition(new Vector3(100, -50, -150));
+        dice.getComponent(Transform.class).setPosition(new Vector3(68, -35, -100));
         dice.getComponent(Render.class).setObject(new DiceObject());
         game.getEngine().addEntity(dice);
 
         Entity toMenu = game.getEntityFactory().create(game.getResources().entities.tomenu);
-        toMenu.getComponent(Transform.class).setPosition(new Vector3(100, -40, -150));
+        toMenu.getComponent(Transform.class).setPosition(new Vector3(68, -25, -100));
         toMenu.getComponent(Render.class).setObject(new ToMenuObject());
         game.getEngine().addEntity(toMenu);
 
