@@ -174,7 +174,7 @@ public class ReactingState extends GameState {
         if(state.isPassedLastEvent()) {
             summary += "Du has das letzte Event bestanden\n";
         }else {
-            summary += "Du has das letzte nicht Event bestanden\n";
+            summary += "Du has das letzte Event nicht bestanden\n";
         }
 
         summary+="Du musstest einen wert von "+Integer.toString(state.getLastEvent().getRequirement().value)+" in "+state.getLastEvent().getRequirement().subject + " erreichen ";
