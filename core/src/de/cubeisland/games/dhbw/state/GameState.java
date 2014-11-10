@@ -77,9 +77,6 @@ public abstract class GameState {
      * @return true if the event was handled, false otherwise
      */
     public boolean keyTyped(StateContext context, char character) {
-        if (Character.isDigit(character)) {
-            context.transitionTo((short) (character - '0'));
-        }
         return false;
     }
 
