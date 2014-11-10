@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
@@ -170,6 +171,14 @@ public class Cards extends ResourceBag<Card> {
             final String text = "Erreiche " + r.value + " " + r.subject;
             final float height = font.getBounds(text).height;
             font.draw(b, text, CONTENT_PADDING + TEXT_PADDING, frontTemplate.getRegionHeight() - CONTENT_PADDING - TEXT_PADDING - height);
+        }
+
+        if (prefab.duration != 0) {
+            String text = prefab.duration + "";
+            TextBounds bounds = font.getBounds(text);
+            float x = frontTemplate.getRegionWidth() - CONTENT_PADDING - TEXT_PADDING - bounds.width;
+            float y = frontTemplate.getRegionHeight() - CONTENT_PADDING - TEXT_PADDING - bounds.height;
+            font.draw(b, text, x, y);
         }
 
         b.end();
