@@ -74,7 +74,7 @@ public class ToPlayingTransition extends StateTransition {
 
 //        construct item card deck
         Entity itemDeck = game.getEntityFactory().create(game.getResources().entities.deck);
-        itemDeck.getComponent(Transform.class).setPosition(new Vector3(90, -5, -150)).setRotation(new Quaternion(new Vector3(0, 1, 0), 180));
+        itemDeck.getComponent(Transform.class).setPosition(new Vector3(90, 0, -150)).setRotation(new Quaternion(new Vector3(0, 1, 0), 180));
         itemDeck.getComponent(Deck.class).setDestPos(new Vector3(200, 60, -150)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 0));
         game.getEngine().addEntity(itemDeck);
         if (ReactingState.class == destination.getClass()) {
