@@ -11,6 +11,7 @@ import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
 import de.cubeisland.games.dhbw.state.states.CourseSelection;
+import de.cubeisland.games.dhbw.state.states.DecidingState;
 import de.cubeisland.games.dhbw.state.states.MainMenu;
 import de.cubeisland.games.dhbw.state.states.ReactingState;
 
@@ -28,9 +29,6 @@ public class ScreenToMainMenuTransition extends StateTransition {
     @Override
     public void begin(StateContext context, GameState origin, GameState destination) {
         DHBWGame game = context.getGame();
-
-        //the next enter will be the first enter TODO comments
-        ((ReactingState) context.getStateManager().getState(ReactingState.ID)).setFirstEnter(true);
 
         Entity[] entities = game.getEngine().getEntitiesFor(Family.one(Card.class, Deck.class, CardHand.class, Dice.class, ToMenu.class, PlayerChar.class).get()).toArray(Entity.class);
         for (Entity entity : entities) {

@@ -3,6 +3,8 @@ package de.cubeisland.games.dhbw.state.states;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.entity.component.Card;
 import de.cubeisland.games.dhbw.entity.component.CardHand;
@@ -37,6 +39,10 @@ public class DecidingState extends GameState {
     private Card lastEvent;
     private boolean passedLastEvent;
 
+    private boolean overlayRemoved = true;
+    private Entity overlay;
+    private Entity text;
+
     private Map<Card, Integer> cardDurationMap = new HashMap<>();
 
     @Override
@@ -45,26 +51,45 @@ public class DecidingState extends GameState {
     }
 
     @Override
-    public void update(StateContext context, float delta) {
-        Entity dice = context.getEngine().getEntitiesFor(Family.all(Dice.class).get()).first();
+    public void onEnter(StateContext context, GameState from) {
+        lastEvent = ((ReactingState) context.getStateManager().getState(ReactingState.ID)).getEvent().getComponent(Card.class);
+        String summary = generateSummary(context);
+        overlay = context.getGame().getEntityFactory().createImage("images/overlay.png", new Vector3(0, 0, -50), .344f);
+        context.getEngine().addEntity(overlay);
+        overlayRemoved = false;
+        text = context.getGame().getEntityFactory().createText(summary, context.getGame().getResources().fonts.cardFont, Color.BLACK, new Vector2(-250, 0)); //TODO set position
+        context.getEngine().addEntity(text);
+    }
 
-        if (dice.getComponent(Dice.class).getTicks() < 1) {
+    @Override
+    public boolean touchDown(StateContext context, int screenX, int screenY, int pointer, int button) {
+        if (!overlayRemoved) {
+            context.getEngine().removeEntity(overlay);
+            context.getEngine().removeEntity(text);
+            overlayRemoved = true;
+        }
+        return false;
+    }
+
+    @Override
+    public void update(StateContext context, float delta) {
+        if (overlayRemoved) {
+            Entity dice = context.getEngine().getEntitiesFor(Family.all(Dice.class).get()).first();
+
             Card card = ((ReactingState) context.getStateManager().getState(ReactingState.ID)).getEvent().getComponent(Card.class);
             Set<ActionTuple> actions = card.getActions();
 
             //remeber the tick count for the summary
-            lastDiceTick=dice.getComponent(Dice.class).getCount();
-            //remember the last event for summary
-            lastEvent=card;
+            lastDiceTick = dice.getComponent(Dice.class).getCount();
 
             boolean requirementPassed = card.getRequirement().passed(context.getCharacter(), dice.getComponent(Dice.class).getCount());
             if (requirementPassed) {
-                passedLastEvent=true;
+                passedLastEvent = true;
                 for (ActionTuple action : actions) {
                     action.apply(context.getCharacter());
                 }
             } else {
-                passedLastEvent=false;
+                passedLastEvent = false;
                 if (card.equals(context.getGame().getResources().cards.eventexmatrikulator)) {
                     context.getGame().getResources().sounds.decapitation.play();
                 }
@@ -104,7 +129,6 @@ public class DecidingState extends GameState {
             } else {
                 context.transitionTo(ReactingState.ID);
             }
-
         }
     }
 
@@ -154,5 +178,20 @@ public class DecidingState extends GameState {
 
     public void setLastEvent(Card lastEvent) {
         this.lastEvent = lastEvent;
+    }
+
+    private String generateSummary(StateContext context) {
+        String summary = new String();
+        DecidingState state = (DecidingState) context.getStateManager().getState(DecidingState.ID);
+
+        if (state.isPassedLastEvent()) {
+            summary += "Du hast das letzte Event bestanden.\n";
+        } else {
+            summary += "Du hast das letzte Event nicht bestanden.\n";
+        }
+
+        summary += "Du musstest einen Wert von " + Integer.toString(this.lastEvent.getRequirement().value) + " in " + this.lastEvent.getRequirement().subject + " erreichen\n";
+        summary += "und hast einen Wert von " + Integer.toString(context.getGame().getCharacter().get(this.lastEvent.getRequirement().subject) + context.getEngine().getEntitiesFor(Family.all(Dice.class).get()).first().getComponent(Dice.class).getCount()) + " erreicht.\n";
+        return summary;
     }
 }
