@@ -31,8 +31,6 @@ public class ReactingState extends GameState {
     private Entity eventDeck;
     private Entity itemDeck;
 
-    //saves the position of final events
-    private List<Integer> finalEventList = new ArrayList<>();
 
     @Override
     public void update(StateContext context, float delta) {
@@ -118,12 +116,7 @@ public class ReactingState extends GameState {
         return this;
     }
 
-    public List<Integer> getFinalEventList() {
-        return finalEventList;
+    public int getCardsInEventDeck(){
+        return eventDeck.getComponent(Deck.class).getCardCount();
     }
-
-    public void setFinalEventList(List<Integer> finalEventList) {
-        this.finalEventList = finalEventList;
-    }
-
 }

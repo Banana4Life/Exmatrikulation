@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import de.cubeisland.games.dhbw.entity.component.Card;
 import de.cubeisland.games.dhbw.entity.component.Dice;
+import de.cubeisland.games.dhbw.resource.bag.Cards;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.util.ActionTuple;
@@ -16,6 +17,9 @@ import java.util.Set;
 public class DecidingState extends GameState {
 
     public static final short ID = 5;
+
+    private int maxSemester;
+    private int currentSemester;
 
     @Override
     public short id() {
@@ -39,9 +43,37 @@ public class DecidingState extends GameState {
                     action.unapply(context.getCharacter());
                 }
             }
+//TODO check semestercount
 
+
+            if (((ReactingState) context.getStateManager().getState(ReactingState.ID)).getCardsInEventDeck() == 0 && currentSemester<maxSemester ) {
+                context.transitionTo(NextSemester.ID);
+            }else if(false){
+                //GAME won/lost
+            }else {
+                context.transitionTo(ReactingState.ID);
+            }
+
+            //MOving to next semester
+//            if(((ReactingState)context.getStateManager().getState(ReactingState)).getEventDeck().getComponent(Cards.class)  )
             //TODO win and lose
-            context.transitionTo(ReactingState.ID);
+
         }
+    }
+
+    public int getCurrentSemester() {
+        return currentSemester;
+    }
+
+    public void setCurrentSemester(int currentSemester) {
+        this.currentSemester = currentSemester;
+    }
+
+    public int getMaxSemester() {
+        return maxSemester;
+    }
+
+    public void setMaxSemester(int maxSemester) {
+        this.maxSemester = maxSemester;
     }
 }
