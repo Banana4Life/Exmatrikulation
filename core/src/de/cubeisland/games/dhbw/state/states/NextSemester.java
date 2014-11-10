@@ -1,5 +1,6 @@
 package de.cubeisland.games.dhbw.state.states;
 
+import com.badlogic.gdx.Input;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 
@@ -11,16 +12,11 @@ import de.cubeisland.games.dhbw.state.StateContext;
 public class NextSemester extends GameState {
     public static final short ID = 6;
 
-    //TODO do something
-
-
     @Override
-    public void onEnter(StateContext context, GameState from) {
-
-
-        //TODO do something
-
+    public boolean touchDown(StateContext context, int screenX, int screenY, int pointer, int button) {
+        //check if player presses the left mouse button, if not return false
         context.transitionTo(ReactingState.ID);
+        return true;
     }
 
     @Override

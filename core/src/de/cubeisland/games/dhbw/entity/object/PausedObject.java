@@ -30,7 +30,7 @@ public class PausedObject  implements RenderObject {
      * The constructor creates 20 decals with the 20 faces of the dice.
      */
     public PausedObject() {
-        Texture image = new Texture("images/pause.png"); //TODO
+        Texture image = new Texture("images/pause.png");
         for (int n = 0; n < 20; n++) {
             decals.add(Decal.newDecal(new TextureRegion(image, 0, n * 50, 50, 50), true));
         }
