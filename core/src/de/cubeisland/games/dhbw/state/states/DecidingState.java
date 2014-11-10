@@ -9,6 +9,10 @@ import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.util.ActionTuple;
 
+import javax.swing.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -20,6 +24,8 @@ public class DecidingState extends GameState {
 
     private int maxSemester;
     private int currentSemester = 1;
+
+    private Map<Card, Integer> cardDurationMap = new HashMap<>();
 
     @Override
     public short id() {
@@ -43,7 +49,17 @@ public class DecidingState extends GameState {
                     action.unapply(context.getCharacter());
                 }
             }
-//TODO check semestercount
+
+            for (Card playedCard : new HashSet<>(cardDurationMap.keySet())) {
+                if (playedCard.getDuration() == cardDurationMap.get(playedCard)) {
+                    for (ActionTuple action : playedCard.getActions()) {
+                        action.unapply(context.getCharacter());
+                    }
+                    cardDurationMap.remove(playedCard);
+                } else {
+                    cardDurationMap.put(playedCard, cardDurationMap.get(playedCard) + 1);
+                }
+            }
 
 
             if (((ReactingState) context.getStateManager().getState(ReactingState.ID)).getCardsInEventDeck() == 0 && currentSemester < maxSemester) {
@@ -75,5 +91,13 @@ public class DecidingState extends GameState {
 
     public void setMaxSemester(int maxSemester) {
         this.maxSemester = maxSemester;
+    }
+
+    public Map<Card, Integer> getCardDurationMap() {
+        return cardDurationMap;
+    }
+
+    public void setCardDurationMap(Map<Card, Integer> cardDurationMap) {
+        this.cardDurationMap = cardDurationMap;
     }
 }

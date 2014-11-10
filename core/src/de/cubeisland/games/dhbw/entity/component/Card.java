@@ -76,4 +76,13 @@ public class Card extends Component {
     public CardPrefab.Requirement getRequirement() {
         return requirement;
     }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
 }

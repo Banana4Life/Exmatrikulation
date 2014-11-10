@@ -37,7 +37,7 @@ public class ReactingState extends GameState {
         Entity myHandEntity = context.getEngine().getEntitiesFor(Family.one(CardHand.class).get()).first();
         CardHand myHand = myHandEntity.getComponent(CardHand.class);
         // only draw a card if the player holds less than 6 cards
-        if(myHand.getHandSize() < 6) {
+        if (myHand.getHandSize() < 6) {
             Entity entity = itemDeck.getComponent(Deck.class).drawCard();
             myHand.addCard(entity);
         }
@@ -63,6 +63,7 @@ public class ReactingState extends GameState {
                 if (entity.getComponent(Card.class) != null && cardHand.getComponent(CardHand.class).highlightCard(entity)) {
                     Entity card = cardHand.getComponent(CardHand.class).playCard(context.getCharacter());
                     context.getEngine().removeEntity(card);
+                    ((DecidingState) context.getStateManager().getState(DecidingState.ID)).getCardDurationMap().put(entity.getComponent(Card.class), 1);
                     return true;
                 } else if (entity.getComponent(Dice.class) != null) {
                     entity.getComponent(Dice.class).setTicks(60);
@@ -127,7 +128,7 @@ public class ReactingState extends GameState {
         return this;
     }
 
-    public int getCardsInEventDeck(){
+    public int getCardsInEventDeck() {
         return eventDeck.getComponent(Deck.class).getCardCount();
     }
 }
