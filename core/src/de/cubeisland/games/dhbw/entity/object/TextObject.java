@@ -16,8 +16,10 @@ import de.cubeisland.games.dhbw.entity.component.Text;
 import de.cubeisland.games.dhbw.entity.component.Transform;
 import de.cubeisland.games.dhbw.resource.font.Font;
 
-/** todo author
+/**
  * An object that renders 2D text.
+ *
+ * @author Phillip Schichtel
  */
 public class TextObject implements RenderObject2D {
 

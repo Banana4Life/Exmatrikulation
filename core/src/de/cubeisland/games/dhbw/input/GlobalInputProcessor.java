@@ -5,9 +5,11 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import de.cubeisland.games.dhbw.state.StateManager;
 
-/** todo author
+/**
  * This is the global input processor which acts as the fallback of the input multiplexer.
  * It can be used to handle global key bindings
+ *
+ * @author Phillip Schichtel
  */
 public class GlobalInputProcessor implements InputProcessor {
     private final PerspectiveCamera camera;

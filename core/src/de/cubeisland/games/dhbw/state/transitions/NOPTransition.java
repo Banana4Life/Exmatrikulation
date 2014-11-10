@@ -5,7 +5,9 @@ import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
 
 /**
- * todo javadoc
+ * This transition does literally nothing.
+ *
+ * @author Phillip Schichtel
  */
 public class NOPTransition extends StateTransition {
 

@@ -7,7 +7,7 @@ import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 
 /**
- * todo javadoc
+ * This
  */
 public class SplashScreen extends GameState {
 
