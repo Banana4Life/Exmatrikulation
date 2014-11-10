@@ -12,6 +12,7 @@ import de.cubeisland.games.dhbw.state.StateContext;
  * If the player clicks on the screen he gets back to the main menu.
  *
  * @author Andreas Geis
+ * @author Tim Adamek
  */
 public class GameWonState extends GameState {
 

@@ -4,6 +4,9 @@ import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
 
+/**
+ * todo javadoc
+ */
 public class NOPTransition extends StateTransition {
 
     public static final NOPTransition INSTANCE = new NOPTransition();

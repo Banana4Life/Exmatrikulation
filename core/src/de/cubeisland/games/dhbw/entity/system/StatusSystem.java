@@ -10,6 +10,9 @@ import de.cubeisland.games.dhbw.entity.component.Text;
 
 import static de.cubeisland.games.dhbw.entity.CardPrefab.SubjectType.*;
 
+/**
+ * todo javadoc
+ */
 public class StatusSystem extends IteratingSystem {
 
     private final ComponentMapper<PlayerChar> chars;

@@ -6,7 +6,8 @@ import de.cubeisland.games.dhbw.state.StateTransition;
 import de.cubeisland.games.dhbw.state.states.DecidingState;
 
 /**
- * Created by Tim Adamek on 10.11.2014.
+ * this is the transition to the next semester
+ * @author Tim Adamek
  */
 public class NextSemsterTransition extends StateTransition {
 

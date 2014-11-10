@@ -12,7 +12,7 @@ import de.cubeisland.games.dhbw.entity.CardAction;
 
 import java.util.List;
 
-/**
+/** todo author
  * This class holds the type of an action and the parameter
  */
 public class ActionTuple {

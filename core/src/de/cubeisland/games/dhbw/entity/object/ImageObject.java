@@ -9,7 +9,7 @@ import de.cubeisland.games.dhbw.entity.RenderObject;
 import de.cubeisland.games.dhbw.entity.component.Camera;
 import de.cubeisland.games.dhbw.entity.component.Transform;
 
-/**
+/** todo author
  * This object holds a image
  */
 public class ImageObject implements RenderObject {

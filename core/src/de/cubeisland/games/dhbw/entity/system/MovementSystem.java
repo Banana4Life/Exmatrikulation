@@ -7,7 +7,7 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import de.cubeisland.games.dhbw.entity.component.Transform;
 import de.cubeisland.games.dhbw.entity.component.Velocity;
 
-/**
+/** todo author
  * The MovementSystem moves the entities with the velocity.
  * It uses the Family {Transform, Velocity}
  */

@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * todo javadoc
+ */
 public class MusicSystem extends EntitySystem implements Music.OnCompletionListener {
 
     private boolean started = false;

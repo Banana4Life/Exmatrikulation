@@ -17,6 +17,7 @@ import java.util.Set;
 
 /**
  * @author Jonas Dann
+ * @author Tim Adamek
  */
 public class DecidingState extends GameState {
 

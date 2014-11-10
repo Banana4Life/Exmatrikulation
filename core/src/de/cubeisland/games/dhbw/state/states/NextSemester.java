@@ -4,7 +4,9 @@ import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 
 /**
- * Created by Tim Adamek on 10.11.2014.
+ * this is the state between the end of one semester and
+ * the beginning of the new semester
+ * @author Tim Adamek
  */
 public class NextSemester extends GameState {
     public static final short ID = 6;

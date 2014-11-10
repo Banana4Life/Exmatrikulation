@@ -9,7 +9,8 @@ import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
 
 /**
- * Created by Tim Adamek on 08.11.2014.
+ * The transition when the player won the game
+ * @author Tim Adamek
  */
 public class GameWonTransition extends StateTransition {
 

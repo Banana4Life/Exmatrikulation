@@ -6,6 +6,9 @@ import de.cubeisland.games.dhbw.DHBWGame;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 
+/**
+ * todo javadoc
+ */
 public class SplashScreen extends GameState {
 
     public static final short ID = 1;

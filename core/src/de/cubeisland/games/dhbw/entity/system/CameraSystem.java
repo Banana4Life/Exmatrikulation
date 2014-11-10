@@ -6,7 +6,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import de.cubeisland.games.dhbw.entity.component.Camera;
 
-/**
+/** todo author
  * The CameraSystem updates the camera every update cycle
  * It uses the Family {Camera}
  */

@@ -1,6 +1,6 @@
 package de.cubeisland.games.dhbw.state;
 
-/**
+/** todo some params in javadoc for methods not documented
  * Classes derived from this define transitions between two states.
  *
  * @author Phillip Schichtel

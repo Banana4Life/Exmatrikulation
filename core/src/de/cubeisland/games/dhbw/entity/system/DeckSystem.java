@@ -7,7 +7,7 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import de.cubeisland.games.dhbw.entity.component.Deck;
 import de.cubeisland.games.dhbw.entity.component.Transform;
 
-/**
+/** todo author
  * The DeckSystem updates the decks every update cycle
  * It uses the Family {Deck, Transform}
  */

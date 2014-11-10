@@ -10,7 +10,7 @@ import de.cubeisland.games.dhbw.state.StateContext;
 /**
  * This Class represents the GameOver-Screen.
  * If the player clicks on the screen he gets back to the main menu.
- *
+ * @author Tim Adamek
  * @author Andreas Geis
  */
 public class GameLostState extends GameState {

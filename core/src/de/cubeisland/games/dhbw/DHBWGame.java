@@ -31,6 +31,11 @@ import de.cubeisland.games.dhbw.util.SubjectTypeConverter;
 import static de.cubeisland.games.dhbw.state.StateManager.EndState;
 import static de.cubeisland.games.dhbw.state.StateManager.StartState;
 
+/**
+ * todo additional authors + javadoc
+ *
+ * @author Tim Adamek
+ */
 public class DHBWGame extends ApplicationAdapter {
     private DHBWResources resources;
     private StateManager stateManager;

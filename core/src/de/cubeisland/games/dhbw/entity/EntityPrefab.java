@@ -8,7 +8,7 @@ import de.cubeisland.games.dhbw.util.Prefab;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
+/** todo author
  * This class specifies the entity configuration
  */
 public class EntityPrefab extends Prefab<Entity> {

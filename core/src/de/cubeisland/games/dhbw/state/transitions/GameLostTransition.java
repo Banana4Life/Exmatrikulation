@@ -11,7 +11,7 @@ import de.cubeisland.games.dhbw.state.StateTransition;
 /**
  * This class is the transition which occurs when the player lost the game.
  *
- * @author Andreas Geis
+ * @author Tim Adamek
  */
 public class GameLostTransition extends StateTransition {
 

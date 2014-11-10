@@ -8,9 +8,10 @@ import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.entity.component.DestTransform;
 import de.cubeisland.games.dhbw.entity.component.Transform;
 
-/**
+/** todo additional authors
  * The ControlSystem moves all Entities with a DestTransform Component towards the destination
  * It uses the Family {Transform, DestTransform}
+ * @author Tim Adamek
  */
 public class ControlSystem extends IteratingSystem {
     private ComponentMapper<Transform> transforms;

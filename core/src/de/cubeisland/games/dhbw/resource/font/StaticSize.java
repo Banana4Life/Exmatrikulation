@@ -1,5 +1,8 @@
 package de.cubeisland.games.dhbw.resource.font;
 
+/**
+ * todo javadoc
+ */
 public class StaticSize implements SizeDefinition {
     private final int size;
 
