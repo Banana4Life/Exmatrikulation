@@ -9,4 +9,4 @@ actions:
   - ['de.cubeisland.games.dhbw.entity.action.Programming', 5]
 
 duration: 5
-rarity: 1
+rarity: 10

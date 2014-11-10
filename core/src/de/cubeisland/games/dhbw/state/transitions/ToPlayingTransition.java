@@ -22,17 +22,24 @@ import java.util.List;
 import java.util.Random;
 
 public class ToPlayingTransition extends StateTransition {
+
+    public static final String EVENT = "EVENT";
+    public static final String ITEM = "ITEM";
+
+    private List<Card> copyOfItemCads= new ArrayList<>();
+    private List<Card> copyOfEventCads= new ArrayList<>();
+
     @Override
     public void begin(StateContext context, GameState origin, GameState destination) {
 
         //check if the player chose the story or free mode and set the maximum number of semesters
-        if(((MainMenu)context.getStateManager().getState(MainMenu.ID)).getPickedcard().getComponent(Card.class).getId().toLowerCase().contains("free")){
-            ((DecidingState)context.getStateManager().getState(DecidingState.ID)).setMaxSemester(1);
-        }else {
-            ((DecidingState)context.getStateManager().getState(DecidingState.ID)).setMaxSemester(6);
+        if (((MainMenu) context.getStateManager().getState(MainMenu.ID)).getPickedcard().getComponent(Card.class).getId().toLowerCase().contains("free")) {
+            ((DecidingState) context.getStateManager().getState(DecidingState.ID)).setMaxSemester(1);
+        } else {
+            ((DecidingState) context.getStateManager().getState(DecidingState.ID)).setMaxSemester(6);
         }
         //set the current semester to 1
-        ((DecidingState)context.getStateManager().getState(DecidingState.ID)).setCurrentSemester(1);
+        ((DecidingState) context.getStateManager().getState(DecidingState.ID)).setCurrentSemester(1);
 
 
         DHBWGame game = context.getGame();
@@ -57,22 +64,17 @@ public class ToPlayingTransition extends StateTransition {
         Cards eventCardPrefabs = game.getResources().cards;
         List<Card> eventCards = new ArrayList<>();
         for (Card eventCard : context.getGame().getResources().cards.getResources()) {
-            if (eventCard.getType().name().equals("EVENT")) {
+            if (eventCard.getType().name().equals(EVENT)) {
                 eventCards.add(eventCard);
+                copyOfEventCads.add(eventCard);
             }
         }
 
         int cardsInDeck = new Random().nextInt((10 - 5) + 1) + 5;
-        //for (Card component : cards) {
-        for (int i = 0; i < cardsInDeck; i++) {
-            int randomCard = new Random().nextInt(eventCards.size() - 1);
-            card = game.getEntityFactory().create(game.getResources().entities.card).add(eventCards.get(randomCard));
-            card.getComponent(Render.class).setObject(new CardObject(card.getComponent(Card.class).getObject()));
-            eventDeck.getComponent(Deck.class).addCard(card);
-            game.getEngine().addEntity(card);
-        }
+        createDeck(eventDeck,context.getGame(),true,cardsInDeck);
 
-//        construct item card deck
+
+//      construct item card deck TODO
         Entity itemDeck = game.getEntityFactory().create(game.getResources().entities.deck);
         itemDeck.getComponent(Transform.class).setPosition(new Vector3(90, 0, -150)).setRotation(new Quaternion(new Vector3(0, 1, 0), 180));
         itemDeck.getComponent(Deck.class).setDestPos(new Vector3(200, 60, -150)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 0));
@@ -85,19 +87,12 @@ public class ToPlayingTransition extends StateTransition {
         //Cards cardPrefabs = game.getResources().cards;
         List<Card> itemCards = new ArrayList<>();
         for (Card itemCard : context.getGame().getResources().cards.getResources()) {
-            if (itemCard.getType().name().equals("ITEM")) {
+            if (itemCard.getType().name().equals(ITEM)) {
                 itemCards.add(itemCard);
+                copyOfItemCads.add(itemCard);
             }
         }
-
-        for (int i = 0; i < 60; i++) {
-            int randomCard = new Random().nextInt(itemCards.size() - 1);
-            card = game.getEntityFactory().create(game.getResources().entities.card).add(itemCards.get(randomCard));
-            card.getComponent(Render.class).setObject(new CardObject(card.getComponent(Card.class).getObject()));
-            itemDeck.getComponent(Deck.class).addCard(card);
-            game.getEngine().addEntity(card);
-        }
-
+        createDeck(itemDeck,context.getGame(),false,60);
 
         // construct card hand
         Entity cardHand = game.getEntityFactory().create(game.getResources().entities.cardhand);
@@ -137,5 +132,58 @@ public class ToPlayingTransition extends StateTransition {
             }
         }
         return true;
+    }
+
+    private void createDeck(Entity deck, DHBWGame game, boolean forEvents, int decksize) {
+        Entity e = new Entity();
+        List<Card> cardRarity = new ArrayList<>();
+        for (int i = 0; i < decksize; i++) {
+            if (forEvents) {
+                for (int cardCounter = 0; cardCounter < copyOfEventCads.size(); cardCounter++) {
+                    for (int count = 0; count < copyOfEventCads.get(cardCounter).getRarity(); count++) {
+                        cardRarity.add(copyOfEventCads.get(cardCounter));
+                    }
+                }
+            } else {
+                for (int cardCounter = 0; cardCounter < copyOfItemCads.size(); cardCounter++) {
+                    for (int count = 0; count < copyOfItemCads.get(cardCounter).getRarity(); count++) {
+                        cardRarity.add(copyOfItemCads.get(cardCounter));
+                    }
+                }
+            }
+
+
+            int randomCard = new Random().nextInt(cardRarity.size() - 1);
+            e = game.getEntityFactory().create(game.getResources().entities.card).add(cardRarity.get(randomCard));
+            e.getComponent(Render.class).setObject(new CardObject(e.getComponent(Card.class).getObject()));
+            deck.getComponent(Deck.class).addCard(e);
+            game.getEngine().addEntity(e);
+
+            int position=0;
+            if (forEvents) {
+                for(int count=0;count<copyOfEventCads.size();count++){
+                    if(e.getComponent(Card.class).getId().equals(copyOfEventCads.get(count).getId())){
+                        position=count;
+                        break;
+                    }
+                }
+                copyOfEventCads.get(position).setRarity(Math.round(copyOfEventCads.get(position).getRarity()/5)+1);
+            } else {
+                for(int count=0;count<copyOfItemCads.size();count++){
+                    if(e.getComponent(Card.class).getId().equals(copyOfItemCads.get(count).getId())){
+                        position=count;
+                        break;
+                    }
+                }
+                copyOfItemCads.get(position).setRarity(Math.round(copyOfItemCads.get(position).getRarity()/5)+1);
+
+            }
+
+            while (cardRarity.size()>0){
+                cardRarity.remove(0);
+            }
+
+        }
+
     }
 }

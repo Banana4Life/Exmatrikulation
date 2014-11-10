@@ -85,4 +85,12 @@ public class Card extends Component {
         this.duration = duration;
     }
 
+    public double getRarity() {
+        return rarity;
+    }
+
+    public void setRarity(double rarity) {
+        this.rarity = rarity;
+    }
+
 }

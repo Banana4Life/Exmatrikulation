@@ -9,4 +9,4 @@ actions:
   - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 5]
 
 duration: 5
-rarity: 1
+rarity: 10

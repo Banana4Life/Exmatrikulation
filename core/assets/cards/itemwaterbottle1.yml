@@ -9,4 +9,4 @@ actions:
   - ['de.cubeisland.games.dhbw.entity.action.Bwl', 1]
 
 duration: 6
-rarity: 1
+rarity: 10
