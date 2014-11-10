@@ -93,4 +93,14 @@ public class Card extends Component {
         this.rarity = rarity;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj instanceof Card) {
+            return this.id.equals(((Card) obj).id);
+        }
+        return false;
+    }
 }

@@ -63,6 +63,9 @@ public class DecidingState extends GameState {
                     action.apply(context.getCharacter());
                 }
             } else {
+                if (card.equals(context.getGame().getResources().cards.eventexmatrikulator)) {
+                    context.getGame().getResources().sounds.decapitation.play();
+                }
                 for (ActionTuple action : actions) {
                     action.unapply(context.getCharacter());
                 }

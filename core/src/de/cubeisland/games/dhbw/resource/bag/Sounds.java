@@ -17,6 +17,7 @@ public class Sounds extends ResourceBag<Sound> {
     public Sound cardflip;
     public Sound dice;
     public Sound homebutton;
+    public Sound decapitation;
 
     @Override
     protected Sound load(FileRef fileRef, Field field) {
