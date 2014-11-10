@@ -65,7 +65,9 @@ public class DecidingState extends GameState {
 
             if (((ReactingState) context.getStateManager().getState(ReactingState.ID)).getCardsInEventDeck() == 0) {
                 if (!requirementPassed) {
+                    ((DecidingState) context.getStateManager().getState(DecidingState.ID)).setCurrentSemester(1);
                     context.transitionTo(GameLostState.ID);
+
                 } else if (currentSemester < maxSemester) {
                     for (Card playedCard : new HashSet<>(cardDurationMap.keySet())) {
                         for (ActionTuple action : playedCard.getActions()) {
@@ -75,6 +77,7 @@ public class DecidingState extends GameState {
                     }
                     context.transitionTo(NextSemester.ID);
                 } else {
+                    ((DecidingState) context.getStateManager().getState(DecidingState.ID)).setCurrentSemester(1);
                     context.transitionTo(GameWonState.ID);
                 }
             } else {

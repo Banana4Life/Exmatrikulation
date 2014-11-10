@@ -9,6 +9,7 @@ import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
 import de.cubeisland.games.dhbw.state.states.DecidingState;
+import de.cubeisland.games.dhbw.state.states.NextSemester;
 
 /**
  * this is the transition to the next semester
@@ -19,18 +20,18 @@ public class NextSemsterTransition extends StateTransition {
 
     @Override
     public void begin(StateContext context, GameState origin, GameState destination) {
-        int lastSemester = ((DecidingState)context.getStateManager().getState(DecidingState.ID)).getCurrentSemester();
-        ((DecidingState)context.getStateManager().getState(DecidingState.ID)).setCurrentSemester(lastSemester+1);
+        int lastSemester = ((DecidingState) context.getStateManager().getState(DecidingState.ID)).getCurrentSemester();
+        ((DecidingState) context.getStateManager().getState(DecidingState.ID)).setCurrentSemester(lastSemester + 1);
 
         DHBWGame game = context.getGame();
 
-        Entity[] entities = game.getEngine().getEntitiesFor(Family.one(Card.class, Deck.class, CardHand.class,Dice.class,ToMenu.class, PlayerChar.class).get()).toArray(Entity.class);
+        Entity[] entities = game.getEngine().getEntitiesFor(Family.one(Card.class, Deck.class, CardHand.class, Dice.class, ToMenu.class, PlayerChar.class).get()).toArray(Entity.class);
         for (Entity entity : entities) {
             game.getEngine().removeEntity(entity);
         }
 
         Entity semester;
-        switch (lastSemester){
+        switch (lastSemester) {
             case 1:
                 semester = game.getEntityFactory().createImage("images/semester2.png", new Vector3(0, 0, -280), .344f);
                 break;
@@ -50,6 +51,8 @@ public class NextSemsterTransition extends StateTransition {
                 semester = game.getEntityFactory().createImage("images/semester1.png", new Vector3(0, 0, -280), .344f);
                 break;
         }
+
+        ((NextSemester) context.getStateManager().getState(NextSemester.ID)).setSemester(semester);
         context.getEngine().addEntity(semester);
     }
 

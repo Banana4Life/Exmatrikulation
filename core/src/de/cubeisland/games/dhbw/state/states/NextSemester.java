@@ -1,5 +1,6 @@
 package de.cubeisland.games.dhbw.state.states;
 
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Input;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
@@ -10,11 +11,12 @@ import de.cubeisland.games.dhbw.state.StateContext;
  * @author Tim Adamek
  */
 public class NextSemester extends GameState {
+    private Entity semester;
     public static final short ID = 6;
 
     @Override
     public boolean touchDown(StateContext context, int screenX, int screenY, int pointer, int button) {
-        //check if player presses the left mouse button, if not return false
+        context.getEngine().removeEntity(semester);
         context.transitionTo(ReactingState.ID);
         return true;
     }
@@ -22,5 +24,13 @@ public class NextSemester extends GameState {
     @Override
     public short id() {
         return ID;
+    }
+
+    public Entity getSemester() {
+        return semester;
+    }
+
+    public void setSemester(Entity semester) {
+        this.semester = semester;
     }
 }

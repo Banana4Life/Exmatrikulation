@@ -16,6 +16,7 @@ import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
 import de.cubeisland.games.dhbw.state.states.DecidingState;
 import de.cubeisland.games.dhbw.state.states.MainMenu;
+import de.cubeisland.games.dhbw.state.states.NextSemester;
 import de.cubeisland.games.dhbw.state.states.ReactingState;
 
 import java.util.ArrayList;
@@ -38,18 +39,13 @@ public class ToPlayingTransition extends StateTransition {
 
     @Override
     public void begin(StateContext context, GameState origin, GameState destination) {
-
+        DHBWGame game = context.getGame();
         //check if the player chose the story or free mode and set the maximum number of semesters
         if (((MainMenu) context.getStateManager().getState(MainMenu.ID)).getPickedcard().getComponent(Card.class).getId().toLowerCase().contains("free")) {
             ((DecidingState) context.getStateManager().getState(DecidingState.ID)).setMaxSemester(1);
         } else {
             ((DecidingState) context.getStateManager().getState(DecidingState.ID)).setMaxSemester(6);
         }
-        //set the current semester to 1
-        ((DecidingState) context.getStateManager().getState(DecidingState.ID)).setCurrentSemester(1);
-
-
-        DHBWGame game = context.getGame();
 
         Entity[] entities = game.getEngine().getEntitiesFor(Family.one(Card.class, Deck.class, CardHand.class).get()).toArray(Entity.class);
         for (Entity entity : entities) {
@@ -163,7 +159,6 @@ public class ToPlayingTransition extends StateTransition {
                     }
                 }
             }
-
 
             int randomCard = new Random().nextInt(cardRarity.size() - 1);
             e = game.getEntityFactory().create(game.getResources().entities.card).add(cardRarity.get(randomCard));
