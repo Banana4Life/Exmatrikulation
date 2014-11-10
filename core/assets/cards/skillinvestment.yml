@@ -8,5 +8,5 @@ description:
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Bwl', 4]
 
-duration: 15
+duration: 2
 rarity: 10

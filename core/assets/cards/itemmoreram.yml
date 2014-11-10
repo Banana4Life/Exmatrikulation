@@ -11,5 +11,5 @@ actions:
   - ['de.cubeisland.games.dhbw.entity.action.Programming', 1]
   - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 1]
 
-duration: 15
+duration: 0
 rarity: 10

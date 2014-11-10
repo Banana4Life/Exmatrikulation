@@ -8,5 +8,5 @@ description:
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 10]
 
-duration: 8
+duration: 2
 rarity: 10
