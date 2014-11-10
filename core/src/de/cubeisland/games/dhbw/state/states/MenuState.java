@@ -25,6 +25,10 @@ public class MenuState extends GameState {
         return cards;
     }
 
+    public void setCardStack(List<Entity> cards) {
+        this.cards = cards;
+    }
+
     /**
      * @return the card the layer picked
      */
