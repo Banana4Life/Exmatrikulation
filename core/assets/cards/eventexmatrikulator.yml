@@ -2,13 +2,16 @@ name: Der Exmatrikulator
 type: event
 description:
   - 'Er fordert eine sofortige zusätzliche Prüfungsleistung.'
-  - 'Du wirst Exmatrikuliert.'
+  - 'Alle Werte -10 solltest du scheitern.'
 
 actions:
-  - ['de.cubeisland.games.dhbw.entity.action.DeRegistration']
+  - ['de.cubeisland.games.dhbw.entity.action.MathPenalty', 10]
+  - ['de.cubeisland.games.dhbw.entity.action.BwlPenalty', 10]
+  - ['de.cubeisland.games.dhbw.entity.action.ProgrammingPenalty', 10]
+  - ['de.cubeisland.games.dhbw.entity.action.SoftSkillsPenalty', 10]
 
 requirement:
   subject: math
-  value: 50
+  value: 40
 
 rarity: 10

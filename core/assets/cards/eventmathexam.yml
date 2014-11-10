@@ -2,14 +2,13 @@ name: Mathe Prüfung!!
 type: event
 description:
   - 'Es steht eine Mathe Prüfung an, tue dein bestes um sie zu bestehen.'
-  - 'Mathe + 3 / Du wirst exmatrikuliert.'
+  - 'Mathe +3 / Mathe -3'
 
 actions:
-  - ['de.cubeisland.games.dhbw.entity.action.MathReward', 5]
-  - ['de.cubeisland.games.dhbw.entity.action.DeRegistration']
+  - ['de.cubeisland.games.dhbw.entity.action.Math', 3]
 
 requirement:
   subject: math
-  value: 40
+  value: 35
 
 rarity: 10
