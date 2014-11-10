@@ -45,7 +45,7 @@ public class TextObject implements RenderObject2D {
         BitmapFont bf = font.getBitmapFont();
         bf.setColor(color);
         batch.begin();
-        renderMultiline(t.get(), batch, bf, pos.x, pos.y, 3, -1);
+        renderMultiline(t.get(), batch, bf, pos.x, pos.y, 4, -1);
         batch.end();
     }
 
