@@ -7,10 +7,13 @@ import de.cubeisland.games.dhbw.entity.component.*;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
+import de.cubeisland.games.dhbw.state.states.ReactingState;
 
 /**
- * The transition when the player won the game
+ * This transition is used when the player won the game.
+ *
  * @author Tim Adamek
+ * @author Andreas Geis
  */
 public class GameWonTransition extends StateTransition {
 
@@ -22,6 +25,11 @@ public class GameWonTransition extends StateTransition {
         for (Entity entity : entities) {
             game.getEngine().removeEntity(entity);
         }
+
+        // remove calkboard
+        ReactingState myReactingState = (ReactingState) context.getStateManager().getState(ReactingState.ID);
+        Entity calkboard = myReactingState.getCalkBoard();
+        context.getEngine().removeEntity(calkboard);
     }
     @Override
     public boolean transition(StateContext context, GameState origin, GameState destination, float delta) {

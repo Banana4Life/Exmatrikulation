@@ -28,6 +28,7 @@ import java.util.Random;
  *
  * @author Tim Adamek
  * @author Jonas Dann
+ * @author Andreas Geis
  */
 public class ToPlayingTransition extends StateTransition {
 
@@ -126,7 +127,7 @@ public class ToPlayingTransition extends StateTransition {
         toMenu.getComponent(Render.class).setObject(new ToMenuObject());
         game.getEngine().addEntity(toMenu);
 
-
+        // create calkboard
         Entity status = game.getEntityFactory().createStatus(TextObject.UPPER_LEFT.cpy().add(5, -5));
         game.getEngine().addEntity(status);
         Entity calkboard = game.getEntityFactory().createImage("images/calkboard.png", new Vector3(-60.3f, 30.85f, -100), 0.11f);
