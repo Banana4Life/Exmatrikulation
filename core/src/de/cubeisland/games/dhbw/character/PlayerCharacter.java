@@ -31,7 +31,7 @@ public class PlayerCharacter {
     }
 
     public PlayerCharacter setMath(int math) {
-        this.math = math;
+        this.math = Math.max(math, 0);
         return this;
     }
 
@@ -40,7 +40,7 @@ public class PlayerCharacter {
     }
 
     public PlayerCharacter setProgramming(int programming) {
-        this.programming = programming;
+        this.programming = Math.max(programming, 0);
         return this;
     }
 
@@ -49,7 +49,7 @@ public class PlayerCharacter {
     }
 
     public PlayerCharacter setBwl(int bwl) {
-        this.bwl = bwl;
+        this.bwl = Math.max(bwl, 0);
         return this;
     }
 
@@ -58,7 +58,7 @@ public class PlayerCharacter {
     }
 
     public PlayerCharacter setSoftSkills(int softSkills) {
-        this.softSkills = softSkills;
+        this.softSkills = Math.max(softSkills, 0);
         return this;
     }
 
