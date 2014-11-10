@@ -1,7 +1,7 @@
 ---
 name: 0.5L Wasserflasche
 type: item
-description: Erzeugt Mehrwert und erhöht deinen BWL "Skill" um 1. +1 auf BWL
+description: Erzeugt Mehrwert. +1 auf BWL
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Bwl', 1]
