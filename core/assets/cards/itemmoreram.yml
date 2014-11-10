@@ -1,7 +1,9 @@
 ---
-name: Laptop Upgrade
+name: Mehr Arbeitsspeicher
 type: item
-description: Du kaufst dir mehr Arbeitsspeicher für deinen Laptop und kannst somit viele Dinge gleichzeitig machen. +1 auf alle Werte
+description: |
+  Du kaufst dir mehr Arbeitsspeicher für deinen Laptop und kannst somit viele Dinge gleichzeitig machen.
+  +1 auf alle Werte
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Bwl', 1]

@@ -106,7 +106,7 @@ public class ToPlayingTransition extends StateTransition {
         game.getEngine().addEntity(cardHand);
 
         //draw cards for hand
-        for (int i = 0; i < ReactingState.STARTCARDCOUNT + 1; i++) {
+        for (int i = 0; i < ReactingState.STARTCARDCOUNT; i++) {
             Entity entity = itemDeck.getComponent(Deck.class).drawCard();
             cardHand.getComponent(CardHand.class).addCard(entity);
         }

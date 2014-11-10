@@ -1,7 +1,9 @@
 ---
 name: 1.5L Wasserflasche
 type: item
-description: Erzeugt viel Mehrwert. +3 auf BWL
+description: |
+  Erzeugt viel Mehrwert.
+  +3 auf BWL
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Bwl', 3]

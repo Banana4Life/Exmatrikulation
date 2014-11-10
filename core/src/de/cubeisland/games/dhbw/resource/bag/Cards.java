@@ -71,7 +71,7 @@ public class Cards extends ResourceBag<Card> {
     public Card itemcbook;
     public Card itemincapacitycertificate;
     public Card itemlaptop;
-    public Card itemlaptopupgrade;
+    public Card itemmoreram;
     public Card itemmathbook;
     public Card itemswag4nerds;
     public Card itemswagcap;

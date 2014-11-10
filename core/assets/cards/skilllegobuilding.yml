@@ -1,7 +1,9 @@
 ---
 name: Lego Bauen
 type: item
-description: Du bist der allerbeste im Lego bauen. Die Inder werden dich lieben. +3 auf SoftSkills
+description: |
+  Du bist der allerbeste im Lego bauen. Die Inder werden dich lieben.
+  +3 auf SoftSkills
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 3]

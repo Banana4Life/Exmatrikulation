@@ -1,7 +1,9 @@
 ---
 name: Arbeitsunfähigkeitsbescheinigung
 type: item
-description: Du hast eine gute Ausrede. +15 auf SoftSkills
+description: |
+  Du hast eine gute Ausrede.
+  +15 auf SoftSkills
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 15]

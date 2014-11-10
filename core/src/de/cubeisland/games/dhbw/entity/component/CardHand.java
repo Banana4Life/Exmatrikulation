@@ -14,6 +14,7 @@ import java.util.Iterator;
  * CardHand saves all the cards that are on the players hand.
  *
  * @author Jonas Dann
+ * @author Andreas Geis
  */
 public class CardHand extends Component implements Iterable<Entity> {
     private static final int GAP = 27;
@@ -107,6 +108,15 @@ public class CardHand extends Component implements Iterable<Entity> {
     public CardHand setDestRot(Quaternion destRot) {
         this.destRot = destRot;
         return this;
+    }
+
+    /**
+     * Returns how much cards are currently in the players hand.
+     *
+     * @return Returns cards.size().
+     */
+    public int getHandSize() {
+        return cards.size();
     }
 
     private int getWidth() {

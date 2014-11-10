@@ -33,6 +33,17 @@ public class ReactingState extends GameState {
 
 
     @Override
+    public void onEnter(StateContext context, GameState from) {
+        Entity myHandEntity = context.getEngine().getEntitiesFor(Family.one(CardHand.class).get()).first();
+        CardHand myHand = myHandEntity.getComponent(CardHand.class);
+        // only draw a card if the player holds less than 6 cards
+        if(myHand.getHandSize() < 6) {
+            Entity entity = itemDeck.getComponent(Deck.class).drawCard();
+            myHand.addCard(entity);
+        }
+    }
+
+    @Override
     public void update(StateContext context, float delta) {
         super.update(context, delta);
 

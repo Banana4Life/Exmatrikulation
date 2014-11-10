@@ -1,7 +1,9 @@
 ---
 name: Swag Mütze
 type: item
-description: Mit dieser Mütze kannst du einfach jede Situation lösen. +10 auf Softskills
+description: |
+  Mit dieser Mütze kannst du einfach jede Situation lösen.
+  +10 auf Softskills
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 10]
