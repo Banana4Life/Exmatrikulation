@@ -27,11 +27,11 @@ public class StatusSystem extends IteratingSystem {
         Text t = texts.get(entity);
         PlayerCharacter c = chars.get(entity).get();
 
-        final String text = "Skills:\n" +
-                BWL + ": " + c.getBwl() + "\n" +
-                MATH + ": " + c.getMath() + "\n" +
-                PROGRAMMING + ": " + c.getProgramming() + "\n" +
-                SOFTSKILL + ": " + c.getSoftSkills();
+        final String text = "Skills:\n\n" +
+                " " + BWL + ":            " + c.getBwl() + "\n" +
+                " " + MATH + ":           " + c.getMath() + "\n" +
+                " " + PROGRAMMING + ":         " + c.getProgramming() + "\n" +
+                " " + SOFTSKILL + ":  " + c.getSoftSkills();
 
         t.set(text);
     }

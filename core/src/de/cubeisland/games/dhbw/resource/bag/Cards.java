@@ -147,6 +147,7 @@ public class Cards extends ResourceBag<Card> {
 
         b.draw(this.frontTemplate, 0, 0);
 
+        font.setColor(Color.LIGHT_GRAY);
         font.draw(b, prefab.name, CONTENT_PADDING + TEXT_PADDING, TITLE_OFFSET);
 
         image.flip(false, true);

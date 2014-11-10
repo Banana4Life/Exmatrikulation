@@ -2,10 +2,12 @@ package de.cubeisland.games.dhbw.entity.object;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.DHBWGame;
 import de.cubeisland.games.dhbw.RenderObject2D;
@@ -18,6 +20,8 @@ import de.cubeisland.games.dhbw.resource.font.Font;
  * An object that renders 2D text.
  */
 public class TextObject implements RenderObject2D {
+
+    public static final Vector2 UPPER_LEFT = new Vector2(-(Gdx.graphics.getWidth() /2f), Gdx.graphics.getHeight() / 2f);
 
     private final Font font;
     private final Color color;

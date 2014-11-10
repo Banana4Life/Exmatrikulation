@@ -2,14 +2,13 @@ package de.cubeisland.games.dhbw.state.transitions;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Quaternion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.DHBWGame;
 import de.cubeisland.games.dhbw.entity.component.*;
 import de.cubeisland.games.dhbw.entity.object.CardObject;
 import de.cubeisland.games.dhbw.entity.object.DiceObject;
+import de.cubeisland.games.dhbw.entity.object.TextObject;
 import de.cubeisland.games.dhbw.resource.bag.Cards;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
@@ -27,11 +26,14 @@ public class ToPlayingTransition extends StateTransition {
     public void begin(StateContext context, GameState origin, GameState destination) {
 
         //check if the player chose the story or free mode and set the maximum number of semesters
-        if (((MainMenu) context.getStateManager().getState(MainMenu.ID)).getPickedcard().getComponent(Card.class).getId().toLowerCase().contains("free")) {
-            ((DecidingState) context.getStateManager().getState(DecidingState.ID)).setMaxSemester(1);
-        } else {
-            ((DecidingState) context.getStateManager().getState(DecidingState.ID)).setMaxSemester(6);
+        if(((MainMenu)context.getStateManager().getState(MainMenu.ID)).getPickedcard().getComponent(Card.class).getId().toLowerCase().contains("free")){
+            ((DecidingState)context.getStateManager().getState(DecidingState.ID)).setMaxSemester(1);
+        }else {
+            ((DecidingState)context.getStateManager().getState(DecidingState.ID)).setMaxSemester(6);
         }
+        //set the current semester to 1
+        ((DecidingState)context.getStateManager().getState(DecidingState.ID)).setCurrentSemester(1);
+
 
         DHBWGame game = context.getGame();
 
@@ -121,7 +123,7 @@ public class ToPlayingTransition extends StateTransition {
         dice.getComponent(Render.class).setObject(new DiceObject());
         game.getEngine().addEntity(dice);
 
-        Entity status = game.getEntityFactory().createStatus(new Vector2(-(Gdx.graphics.getWidth() / 2f), Gdx.graphics.getHeight() / 2f));
+        Entity status = game.getEntityFactory().createStatus(TextObject.UPPER_LEFT.cpy().add(5, -5));
         game.getEngine().addEntity(status);
 
     }
