@@ -2,5 +2,5 @@ name: Direkter Beweis
 type: item
 description: ['Nutzlos, da solche Aussagen schlichtweg trivial sind.']
 
-duration: 1
+duration: 20
 rarity: 10

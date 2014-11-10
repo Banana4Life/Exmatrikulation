@@ -7,5 +7,5 @@ description:
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Programming', 8]
 
-duration: 2
+duration: 4
 rarity: 10

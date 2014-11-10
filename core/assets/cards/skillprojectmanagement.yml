@@ -5,5 +5,5 @@ description: ['Irgendjemand muss den Leuten ja beim Programmieren auf die Finger
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 4]
 
-duration: 1
+duration: 5
 rarity: 10
