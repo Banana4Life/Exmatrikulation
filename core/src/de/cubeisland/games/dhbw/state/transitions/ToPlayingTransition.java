@@ -119,7 +119,7 @@ public class ToPlayingTransition extends StateTransition {
 
         //create dice
         Entity dice = game.getEntityFactory().create(game.getResources().entities.dice);
-        dice.getComponent(Transform.class).setPosition(new Vector3(70, -50, -150));
+        dice.getComponent(Transform.class).setPosition(new Vector3(100, -50, -150));
         dice.getComponent(Render.class).setObject(new DiceObject());
         game.getEngine().addEntity(dice);
 
