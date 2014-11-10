@@ -24,7 +24,7 @@ public class NextSemsterTransition extends StateTransition {
 
         DHBWGame game = context.getGame();
 
-        Entity[] entities = game.getEngine().getEntitiesFor(Family.one(Card.class, Deck.class, CardHand.class,Dice.class, PlayerChar.class,Pause.class).get()).toArray(Entity.class);
+        Entity[] entities = game.getEngine().getEntitiesFor(Family.one(Card.class, Deck.class, CardHand.class,Dice.class, PlayerChar.class).get()).toArray(Entity.class);
         for (Entity entity : entities) {
             game.getEngine().removeEntity(entity);
         }
@@ -51,13 +51,10 @@ public class NextSemsterTransition extends StateTransition {
                 break;
         }
         context.getEngine().addEntity(semester);
-
-        //TODO show picture
     }
 
     @Override
     public boolean transition(StateContext context, GameState origin, GameState destination, float delta) {
-        //TODO check?
         return true;
     }
 

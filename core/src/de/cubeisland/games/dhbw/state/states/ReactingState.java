@@ -52,13 +52,9 @@ public class ReactingState extends GameState {
                     entity.getComponent(Dice.class).setTicks(60);
                     context.transitionTo(DecidingState.ID);
                     return true;
-                } else if (entity.getComponent(Pause.class) != null) {
-                    context.transitionTo(Paused.ID);
-                    return true;
                 }
             }
         }
-
         return false;
     }
 

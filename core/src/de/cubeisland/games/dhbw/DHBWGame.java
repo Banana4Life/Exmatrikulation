@@ -103,7 +103,6 @@ public class DHBWGame extends ApplicationAdapter {
                 .addState(new GameWonState())
                 .addState(new DecidingState())
                 .addState(new NextSemester())
-                .addState(new Paused())
                 .addTransition(StartState.ID,           SplashScreen.ID,            NOPTransition.INSTANCE)
                 .addTransition(SplashScreen.ID,         MainMenu.ID,                new ScreenToMainMenuTransition())
                 .addTransition(MainMenu.ID,             CourseSelection.ID,         new MergeCardsAndMoveToCorner())
@@ -111,8 +110,7 @@ public class DHBWGame extends ApplicationAdapter {
                 .addTransition(CourseSelection.ID,      MainMenu.ID,                new BackInMenusTransition())
                 .addTransition(CourseSelection.ID,      ReactingState.ID,           new ToPlayingTransition())
                 .addTransition(ReactingState.ID,        DecidingState.ID,           NOPTransition.INSTANCE)
-                .addTransition(ReactingState.ID,        Paused.ID,                  NOPTransition.INSTANCE)
-                .addTransition(DecidingState.ID,        Paused.ID,                  NOPTransition.INSTANCE)
+                .addTransition(ReactingState.ID,        MainMenu.ID,                NOPTransition.INSTANCE)
                 .addTransition(DecidingState.ID,        ReactingState.ID,           new NextEventTransition())
                 .addTransition(DecidingState.ID,        GameLostState.ID,           new GameLostTransition())
                 .addTransition(DecidingState.ID,        GameWonState.ID,            new GameWonTransition())
@@ -120,9 +118,6 @@ public class DHBWGame extends ApplicationAdapter {
                 .addTransition(NextSemester.ID,         ReactingState.ID,           new ToPlayingTransition())
                 .addTransition(GameWonState.ID,         MainMenu.ID,                new ScreenToMainMenuTransition())
                 .addTransition(GameLostState.ID,        MainMenu.ID,                new ScreenToMainMenuTransition())
-                .addTransition(Paused.ID,               ReactingState.ID,           NOPTransition.INSTANCE)
-                .addTransition(Paused.ID,               DecidingState.ID,           NOPTransition.INSTANCE)
-                .addTransition(Paused.ID,               MainMenu.ID,                NOPTransition.INSTANCE)
                 .start();
 
         engine.addEntity(cameraEntity);

@@ -19,7 +19,7 @@ public class GameLostTransition extends StateTransition {
     public void begin(StateContext context, GameState origin, GameState destination) {
         DHBWGame game = context.getGame();
 
-        Entity[] entities = game.getEngine().getEntitiesFor(Family.one(Card.class, Deck.class, CardHand.class, Dice.class, PlayerChar.class,Pause.class).get()).toArray(Entity.class);
+        Entity[] entities = game.getEngine().getEntitiesFor(Family.one(Card.class, Deck.class, CardHand.class, Dice.class, PlayerChar.class).get()).toArray(Entity.class);
         for (Entity entity : entities) {
             game.getEngine().removeEntity(entity);
         }

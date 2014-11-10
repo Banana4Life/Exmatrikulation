@@ -8,7 +8,6 @@ import de.cubeisland.games.dhbw.DHBWGame;
 import de.cubeisland.games.dhbw.entity.component.*;
 import de.cubeisland.games.dhbw.entity.object.CardObject;
 import de.cubeisland.games.dhbw.entity.object.DiceObject;
-import de.cubeisland.games.dhbw.entity.object.PausedObject;
 import de.cubeisland.games.dhbw.entity.object.TextObject;
 import de.cubeisland.games.dhbw.resource.bag.Cards;
 import de.cubeisland.games.dhbw.state.GameState;
@@ -124,12 +123,6 @@ public class ToPlayingTransition extends StateTransition {
         dice.getComponent(Transform.class).setPosition(new Vector3(100, -50, -150));
         dice.getComponent(Render.class).setObject(new DiceObject());
         game.getEngine().addEntity(dice);
-
-
-        Entity pause = game.getEntityFactory().create(game.getResources().entities.pause);
-        pause.getComponent(Transform.class).setPosition(new Vector3(100, -40, -150));
-        pause.getComponent(Render.class).setObject(new PausedObject());
-        game.getEngine().addEntity(pause);
 
         Entity status = game.getEntityFactory().createStatus(TextObject.UPPER_LEFT.cpy().add(5, -5));
         game.getEngine().addEntity(status);
