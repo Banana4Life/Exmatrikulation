@@ -10,6 +10,7 @@ import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
 import de.cubeisland.games.dhbw.state.states.DecidingState;
 import de.cubeisland.games.dhbw.state.states.NextSemester;
+import de.cubeisland.games.dhbw.state.states.ReactingState;
 
 /**
  * this is the transition to the next semester
@@ -28,6 +29,9 @@ public class NextSemsterTransition extends StateTransition {
         Entity[] entities = game.getEngine().getEntitiesFor(Family.one(Card.class, Deck.class, CardHand.class, Dice.class, ToMenu.class, PlayerChar.class).get()).toArray(Entity.class);
         for (Entity entity : entities) {
             game.getEngine().removeEntity(entity);
+        }
+        if (((ReactingState)context.getStateManager().getState(ReactingState.ID)).getCalkBoard() != null) {
+            game.getEngine().removeEntity(((ReactingState) context.getStateManager().getState(ReactingState.ID)).getCalkBoard());
         }
 
         Entity semester;
