@@ -52,6 +52,9 @@ public class DecidingState extends GameState {
 
     @Override
     public void onEnter(StateContext context, GameState from) {
+        Entity dice = context.getEngine().getEntitiesFor(Family.all(Dice.class).get()).first();
+        Card card = ((ReactingState) context.getStateManager().getState(ReactingState.ID)).getEvent().getComponent(Card.class);
+        passedLastEvent = card.getRequirement().passed(context.getCharacter(), dice.getComponent(Dice.class).getCount());
         lastEvent = ((ReactingState) context.getStateManager().getState(ReactingState.ID)).getEvent().getComponent(Card.class);
         String summary = generateSummary(context);
         overlay = context.getGame().getEntityFactory().createImage("images/overlay.png", new Vector3(0, 0, -50), .344f);
@@ -84,12 +87,10 @@ public class DecidingState extends GameState {
 
             boolean requirementPassed = card.getRequirement().passed(context.getCharacter(), dice.getComponent(Dice.class).getCount());
             if (requirementPassed) {
-                passedLastEvent = true;
                 for (ActionTuple action : actions) {
                     action.apply(context.getCharacter());
                 }
             } else {
-                passedLastEvent = false;
                 if (card.equals(context.getGame().getResources().cards.eventexmatrikulator)) {
                     context.getGame().getResources().sounds.decapitation.play();
                 }
@@ -184,7 +185,7 @@ public class DecidingState extends GameState {
         String summary = new String();
         DecidingState state = (DecidingState) context.getStateManager().getState(DecidingState.ID);
 
-        if (state.isPassedLastEvent()) {
+        if (this.isPassedLastEvent()) {
             summary += "Du hast das letzte Event bestanden.\n";
         } else {
             summary += "Du hast das letzte Event nicht bestanden.\n";
