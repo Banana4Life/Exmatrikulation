@@ -2,7 +2,7 @@ name: Mittagessen
 type: event
 description:
   - 'Die Rahmsoße ist fast alle! Benutze deine Soft-Skills um dich vorzudrängeln.'
-  - 'Erhöht Alles um 3.'
+  - 'Erhöht Alles um 1.'
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.MathReward', 1]

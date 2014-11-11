@@ -2,7 +2,7 @@ name: Lineare Algebra
 type: event
 description:
   - 'Du hast eine Vorlesung.'
-  - 'Erhöht Mathe um 5.'
+  - 'Erhöht Mathe um 3.'
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Math', 3]

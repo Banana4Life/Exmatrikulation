@@ -2,7 +2,7 @@ name: Samstagstermin
 type: event
 description:
   - 'Hoffentlich kommt der Dozent...'
-  - 'Erhöht oder verringert BWL um 3.'
+  - 'Erhöht Bwl um 1 oder verringert BWL um 3.'
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.BwlReward', 1]
