@@ -2,13 +2,13 @@ name: Int. Communication
 type: event
 description:
   - 'Hier erfährst du etwas über andere Kulturen.'
-  - 'Erhöht Soft-Skills um 6.'
+  - 'Erhöht / Senkt Soft-Skills um 2.'
 
 actions:
-  - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 6]
+  - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 2]
 
 requirement:
   subject: softskill
-  value: 10
+  value: 15
 
 rarity: 8
