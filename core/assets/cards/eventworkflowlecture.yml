@@ -2,10 +2,10 @@ name: Workflowmanagement
 type: event
 description:
   - 'Du hast eine "besondere" Vorlesung.'
-  - 'Erhöht BWL um 3.'
+  - 'Erhöht BWL um 2.'
 
 actions:
-  - ['de.cubeisland.games.dhbw.entity.action.Bwl', 1]
+  - ['de.cubeisland.games.dhbw.entity.action.BwlReward', 2]
 
 requirement:
   subject: bwl

@@ -2,13 +2,13 @@ name: Glücksminister
 type: event
 description:
   - 'Lachen ist auch mal gut...'
-  - 'Erhöht / Senkt Soft-Skills um 1.'
+  - 'Erhöht / Senkt Soft-Skills um 3.'
 
 actions:
-  - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 1]
+  - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 3]
 
 requirement:
   subject: softskill
-  value: 25
+  value: 33
 
-rarity: 10
+rarity: 2

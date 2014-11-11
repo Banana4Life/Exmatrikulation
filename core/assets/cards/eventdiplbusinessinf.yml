@@ -2,13 +2,13 @@ name: Dipl. Wirtschaftsinf
 type: event
 description:
   - 'Pures Glück das zu bestehen.'
-  - 'Erhöht BWL um 2.'
+  - 'Erhöht / Senkt BWL um 3.'
 
 actions:
-  - ['de.cubeisland.games.dhbw.entity.action.Bwl', 2]
+  - ['de.cubeisland.games.dhbw.entity.action.Bwl', 3]
 
 requirement:
   subject: bwl
-  value: 30
+  value: 35
 
-rarity: 10
+rarity: 4

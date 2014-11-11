@@ -2,10 +2,10 @@ name: Wiss. Arbeiten
 type: event
 description:
   - 'Du hast eine Einführung ins wissenschaftliche Arbeiten.'
-  - 'Erhöht Soft-Skills um 3.'
+  - 'Erhöht Soft-Skills um 2.'
 
 actions:
-  - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 3]
+  - ['de.cubeisland.games.dhbw.entity.action.SoftSkillsReward', 2]
 
 requirement:
   subject: softskill

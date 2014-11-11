@@ -10,6 +10,6 @@ actions:
 
 requirement:
   subject: bwl
-  value: 30
+  value: 28
 
-rarity: 10
+rarity: 8

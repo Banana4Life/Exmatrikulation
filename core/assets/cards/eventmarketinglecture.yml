@@ -2,13 +2,13 @@ name: Marketing
 type: event
 description:
   - 'Arbeite besser nicht an anderen Sachen weiter.'
-  - 'Erhöht BWL um 3.'
+  - 'Erhöht / Senkt BWL um 2.'
 
 actions:
-  - ['de.cubeisland.games.dhbw.entity.action.Bwl', 3]
+  - ['de.cubeisland.games.dhbw.entity.action.Bwl', 2]
 
 requirement:
   subject: bwl
-  value: 20
+  value: 15
 
 rarity: 10

@@ -2,5 +2,5 @@ name: Webserver
 type: item
 description: ['Du hast kein Verständnis davon, wie man einen Webserver programmiert.']
 
-duration: 20
-rarity: 10
+duration: 0
+rarity: 1

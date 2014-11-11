@@ -7,5 +7,5 @@ description:
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Bwl', 6]
 
-duration: 4
-rarity: 10
+duration: 2
+rarity: 6

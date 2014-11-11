@@ -2,13 +2,13 @@ name: Analysis
 type: event
 description:
   - 'Du hast eine Vorlesung.'
-  - 'Erhöht Mathe um 3.'
+  - 'Erhöht / Senkt Mathe um 3.'
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Math', 3]
 
 requirement:
   subject: math
-  value: 20
+  value: 23
 
-rarity: 10
+rarity: 7

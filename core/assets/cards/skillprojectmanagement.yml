@@ -1,9 +1,9 @@
 name: Projektmanagement
 type: item
-description: ['Irgendjemand muss den Leuten ja beim Programmieren auf die Finger schauen... +4 auf SoftSkills']
+description: ['Irgendjemand muss den Leuten ja beim Programmieren auf die Finger schauen... +8 auf SoftSkills']
 
 actions:
-  - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 4]
+  - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 8]
 
-duration: 5
-rarity: 10
+duration: 2
+rarity: 1

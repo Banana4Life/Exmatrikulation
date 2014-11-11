@@ -2,10 +2,10 @@ name: Java
 type: item
 description:
   - 'Es war einmal eine Insel. Du kannst die Sprache sprechen...'
-  - '+10 auf Coding'
+  - '+9 auf Coding'
 
 actions:
-  - ['de.cubeisland.games.dhbw.entity.action.Programming', 10]
+  - ['de.cubeisland.games.dhbw.entity.action.Programming', 9]
 
-duration: 2
-rarity: 10
+duration: 1
+rarity: 9

@@ -2,10 +2,10 @@ name: Swag for Nerds
 type: item
 description:
   - 'Dieses Buch verleiht ultimatives Wissen.'
-  - '+7 auf SoftSkills'
+  - '+4 auf SoftSkills'
 
 actions:
-  - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 7]
+  - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 4]
 
-duration: 2
-rarity: 10
+duration: 3
+rarity: 3

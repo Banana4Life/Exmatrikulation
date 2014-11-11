@@ -2,10 +2,10 @@ name: Bwl Buch
 type: item
 description:
   - 'Dieses Buch verleiht ultimatives Wissen.'
-  - '+8 auf BWL'
+  - '+7 auf BWL'
 
 actions:
-  - ['de.cubeisland.games.dhbw.entity.action.Bwl', 8]
+  - ['de.cubeisland.games.dhbw.entity.action.Bwl', 7]
 
 duration: 3
-rarity: 10
+rarity: 3
