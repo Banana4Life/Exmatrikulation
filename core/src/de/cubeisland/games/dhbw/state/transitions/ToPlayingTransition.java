@@ -55,7 +55,7 @@ public class ToPlayingTransition extends StateTransition {
 
         Entity card;
 
-        // construct event deck
+        // construct event card deck
         Entity eventDeck = game.getEntityFactory().create(game.getResources().entities.deck);
         eventDeck.getComponent(Transform.class).setPosition(new Vector3(90, 40, -150)).setRotation(new Quaternion(new Vector3(0, 1, 0), 180));
         eventDeck.getComponent(Deck.class).setDestPos(new Vector3(0, 20, -100)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 0));
@@ -64,8 +64,6 @@ public class ToPlayingTransition extends StateTransition {
             ((ReactingState) destination).setEventDeck(eventDeck);
         }
 
-        //TODO get cards for the given semester
-        Cards eventCardPrefabs = game.getResources().cards;
         List<Card> eventCards = new ArrayList<>();
         for (Card eventCard : context.getGame().getResources().cards.getResources()) {
             if (eventCard.getType().name().equals(EVENT)) {
@@ -77,8 +75,7 @@ public class ToPlayingTransition extends StateTransition {
         int cardsInDeck = new Random().nextInt((10 - 5) + 1) + 5;
         createDeck(eventDeck, context.getGame(), true, cardsInDeck);
 
-
-//      construct item card deck TODO
+        //cinstruct the itemCardDeck
         Entity itemDeck = game.getEntityFactory().create(game.getResources().entities.deck);
         itemDeck.getComponent(Transform.class).setPosition(new Vector3(90, 0, -150)).setRotation(new Quaternion(new Vector3(0, 1, 0), 180));
         itemDeck.getComponent(Deck.class).setDestPos(new Vector3(200, 60, -150)).setDestRot(new Quaternion(new Vector3(1, 0, 0), 0));
@@ -87,8 +84,6 @@ public class ToPlayingTransition extends StateTransition {
             ((ReactingState) destination).setItemDeck(itemDeck);
         }
 
-        //TODO get cards for the given semester
-        //Cards cardPrefabs = game.getResources().cards;
         List<Card> itemCards = new ArrayList<>();
         for (Card itemCard : context.getGame().getResources().cards.getResources()) {
             if (itemCard.getType().name().equals(ITEM)) {
@@ -132,7 +127,7 @@ public class ToPlayingTransition extends StateTransition {
         game.getEngine().addEntity(status);
         Entity calkboard = game.getEntityFactory().createImage("images/calkboard.png", new Vector3(-60.3f, 30.85f, -100), 0.11f);
         game.getEngine().addEntity(calkboard);
-        ((ReactingState)destination).setCalkBoard(calkboard);
+        ((ReactingState) destination).setCalkBoard(calkboard);
     }
 
     @Override
@@ -146,9 +141,24 @@ public class ToPlayingTransition extends StateTransition {
         return true;
     }
 
+    /**
+     * this method creates the card deck
+     * the cards are random, but the probability of them appearing is reduced every time
+     *
+     * @param deck      the deck which should be created
+     * @param game      the game
+     * @param forEvents indicates if the deck that should be created is the event or the character deck
+     * @param decksize  the size the deck should have
+     */
     private void createDeck(Entity deck, DHBWGame game, boolean forEvents, int decksize) {
-        Entity e = new Entity();
+        //the copyOf<...>Cards is used to avoid modifying the original cards, that allows that the altered rarity is not carried over between multiple games
+
+        //the idea ist to add the cads multiply times to a list, depending on the rarity of the card, the card is put to the deck more or less often,
+        //and then picking aa random card from that list
+        //after that the rarity of thr card is reduced
+        Entity e;
         List<Card> cardRarity = new ArrayList<>();
+
         for (int i = 0; i < decksize; i++) {
             if (forEvents) {
                 for (int cardCounter = 0; cardCounter < copyOfEventCads.size(); cardCounter++) {
@@ -164,6 +174,7 @@ public class ToPlayingTransition extends StateTransition {
                 }
             }
 
+            //generates the index of the card in the list
             int randomCard = new Random().nextInt(cardRarity.size() - 1);
             e = game.getEntityFactory().create(game.getResources().entities.card).add(cardRarity.get(randomCard));
             e.getComponent(Render.class).setObject(new CardObject(e.getComponent(Card.class).getObject()));
@@ -171,6 +182,7 @@ public class ToPlayingTransition extends StateTransition {
             game.getEngine().addEntity(e);
 
             int position = 0;
+            //decide if the card has to be searched in the list of event or item cards
             if (forEvents) {
                 for (int count = 0; count < copyOfEventCads.size(); count++) {
                     if (e.getComponent(Card.class).getId().equals(copyOfEventCads.get(count).getId())) {
@@ -178,6 +190,7 @@ public class ToPlayingTransition extends StateTransition {
                         break;
                     }
                 }
+                //the rarity is reduced, the +1 is to prevent the card from never appearing again
                 copyOfEventCads.get(position).setRarity(Math.round(copyOfEventCads.get(position).getRarity() / 2) + 1);
             } else {
                 for (int count = 0; count < copyOfItemCads.size(); count++) {
@@ -186,14 +199,13 @@ public class ToPlayingTransition extends StateTransition {
                         break;
                     }
                 }
+                //the rarity is reduced, the +1 is to prevent the card from never appearing again
                 copyOfItemCads.get(position).setRarity(Math.round(copyOfItemCads.get(position).getRarity() / 2) + 1);
-
             }
-
+            //remove the cards from the list, because it is calculated again
             while (cardRarity.size() > 0) {
                 cardRarity.remove(0);
             }
-
         }
 
     }
