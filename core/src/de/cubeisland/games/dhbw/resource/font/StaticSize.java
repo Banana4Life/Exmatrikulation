@@ -1,7 +1,9 @@
 package de.cubeisland.games.dhbw.resource.font;
 
 /**
- * todo javadoc
+ * This class represents a static size definition for a font.
+ *
+ * @author Phillip Schichtel
  */
 public class StaticSize implements SizeDefinition {
     private final int size;

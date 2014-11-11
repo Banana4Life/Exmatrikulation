@@ -32,8 +32,10 @@ import static de.cubeisland.games.dhbw.state.StateManager.EndState;
 import static de.cubeisland.games.dhbw.state.StateManager.StartState;
 
 /**
- * todo additional authors + javadoc
+ * The application adapter handles the initialization of the game components and provides the root tick callback.
  *
+ * @author Phillip Schichtel
+ * @author Jonas Dann
  * @author Tim Adamek
  */
 public class DHBWGame extends ApplicationAdapter {

@@ -15,11 +15,12 @@ import de.cubeisland.games.dhbw.state.states.MenuState;
 
 import java.util.List;
 
-/** todo additional authors?
+/**
  * this transition is used when moving from main menu to
  * course selection
  *
  * @author Tim Adamek
+ * @author Jonas Dann
  */
 public class MergeCardsAndMoveToCorner extends StateTransition {
 
