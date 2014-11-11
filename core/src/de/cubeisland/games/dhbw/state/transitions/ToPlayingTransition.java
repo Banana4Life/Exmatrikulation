@@ -178,7 +178,7 @@ public class ToPlayingTransition extends StateTransition {
                         break;
                     }
                 }
-                copyOfEventCads.get(position).setRarity(Math.round(copyOfEventCads.get(position).getRarity() / 5) + 1);
+                copyOfEventCads.get(position).setRarity(Math.round(copyOfEventCads.get(position).getRarity() / 2) + 1);
             } else {
                 for (int count = 0; count < copyOfItemCads.size(); count++) {
                     if (e.getComponent(Card.class).getId().equals(copyOfItemCads.get(count).getId())) {
@@ -186,7 +186,7 @@ public class ToPlayingTransition extends StateTransition {
                         break;
                     }
                 }
-                copyOfItemCads.get(position).setRarity(Math.round(copyOfItemCads.get(position).getRarity() / 5) + 1);
+                copyOfItemCads.get(position).setRarity(Math.round(copyOfItemCads.get(position).getRarity() / 2) + 1);
 
             }
 
