@@ -2,7 +2,7 @@ name: BWL
 type: menu
 description:
   - 'Schwer aber nicht unmöglich.'
-  - '+3 auf alle Werte'
+  - 'Erhöhte Werte'
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Major', 1]

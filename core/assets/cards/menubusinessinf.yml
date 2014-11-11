@@ -2,7 +2,7 @@ name: Wirtschaftsinformatik
 type: menu
 description:
   - 'Studium im easy mode gefällig?'
-  - '+6 auf alle Werte'
+  - 'Stark erhöhte werte'
 
 actions:
   - ['de.cubeisland.games.dhbw.entity.action.Major', 0]
