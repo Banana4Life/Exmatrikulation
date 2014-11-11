@@ -1,7 +1,7 @@
 name: Marketing
 type: event
 description:
-  - 'Du hast eine Vorlesung.'
+  - 'Arbeite besser nicht an anderen Sachen weiter.'
   - 'Erhöht BWL um 3.'
 
 actions:

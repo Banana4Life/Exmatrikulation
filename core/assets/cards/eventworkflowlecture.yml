@@ -1,7 +1,7 @@
 name: Workflowmanagement
 type: event
 description:
-  - 'Du hast eine "besonders sinnvolle" Vorlesung.'
+  - 'Du hast eine "besondere" Vorlesung.'
   - 'Erhöht BWL um 3.'
 
 actions:
