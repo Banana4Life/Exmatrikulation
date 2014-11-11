@@ -1,14 +1,14 @@
 name: Programmieren in C
 type: event
 description:
-  - 'Wie schreibe ich C Code um mich gegen OO-Raumschiffe zu verteidigen.'
-  - 'Erhöht Coding um 3.'
+  - 'Wie schreibe ich C Code um mich gegen OO-Raumschiffe zu verteidigen?'
+  - 'Erhöht Coding um 2.'
 
 actions:
-  - ['de.cubeisland.games.dhbw.entity.action.Programming', 3]
+  - ['de.cubeisland.games.dhbw.entity.action.Programming', 2]
 
 requirement:
   subject: programming
-  value: 20
+  value: 15
 
 rarity: 10

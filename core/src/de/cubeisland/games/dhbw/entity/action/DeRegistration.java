@@ -4,7 +4,10 @@ import de.cubeisland.games.dhbw.character.PlayerCharacter;
 import de.cubeisland.games.dhbw.entity.CardAction;
 
 /**
- * This class represents an action that de-registrates the player
+ * This class represents an action that de-registrates the player.
+ *
+ * This class is currently not in use since it was decided to start
+ * the DeRegistration-Process in another class.
  *
  * @author Andreas Geis
  */
@@ -16,7 +19,7 @@ public class DeRegistration implements CardAction {
     }
 
     public void unapply(PlayerCharacter character, int value) {
-        // TODO: de-register the player --> end the game and show a GameOver-Screen
+        // de-register the player --> end the game and show a GameOver-Screen
 
     }
 
