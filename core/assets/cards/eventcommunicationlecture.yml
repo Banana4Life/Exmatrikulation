@@ -1,14 +1,14 @@
 name: Int. Communication
 type: event
 description:
-  - 'Du hast eine Vorlesung.'
-  - 'Erhöht Soft-Skills um 3.'
+  - 'Hier erfährst du etwas über andere Kulturen.'
+  - 'Erhöht Soft-Skills um 6.'
 
 actions:
-  - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 3]
+  - ['de.cubeisland.games.dhbw.entity.action.SoftSkills', 6]
 
 requirement:
   subject: softskill
   value: 10
 
-rarity: 10
+rarity: 8
