@@ -60,7 +60,7 @@ public class DecidingState extends GameState {
         overlay = context.getGame().getEntityFactory().createImage("images/overlay.png", new Vector3(0, 0, -50), .344f);
         context.getEngine().addEntity(overlay);
         overlayRemoved = false;
-        text = context.getGame().getEntityFactory().createText(summary, context.getGame().getResources().fonts.cardFont, Color.BLACK, new Vector2(-250, 0)); //TODO set position
+        text = context.getGame().getEntityFactory().createText(summary, context.getGame().getResources().fonts.cardFont, Color.BLACK, new Vector2(-250, 0));
         context.getEngine().addEntity(text);
     }
 
