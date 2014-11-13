@@ -74,6 +74,7 @@ public class CardObject implements RenderObject {
         DecalBatch batch = game.getDecalBatch();
         batch.add(this.front);
         batch.add(this.back);
+        batch.flush();
     }
 
     /**
