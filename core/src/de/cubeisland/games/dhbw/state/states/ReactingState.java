@@ -4,10 +4,6 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import de.cubeisland.games.dhbw.entity.RenderObject;
 import de.cubeisland.games.dhbw.entity.component.*;
 import de.cubeisland.games.dhbw.entity.object.DiceObject;
 import de.cubeisland.games.dhbw.entity.object.ToMenuObject;
@@ -52,30 +48,30 @@ public class ReactingState extends GameState {
 
     @Override
     public boolean touchDown(StateContext context, int screenX, int screenY, int pointer, int button) {
-            Entity entity = EntityUtil.getEntityAt(context.getEngine(), context.getCamera(), screenX, screenY);
-            if (entity != null) {
-                if (button == Input.Buttons.LEFT) {
-                    Entity cardHand = context.getEngine().getEntitiesFor(Family.one(CardHand.class).get()).first();
-                    if (entity.getComponent(Card.class) != null && cardHand.getComponent(CardHand.class).highlightCard(entity)) {
-                        context.getGame().getResources().sounds.cardflip.play();
-                        Entity card = cardHand.getComponent(CardHand.class).playCard(context.getCharacter());
-                        context.getEngine().removeEntity(card);
-                        ((DecidingState) context.getStateManager().getState(DecidingState.ID)).getCardDurationMap().put(entity.getComponent(Card.class), 1);
-                        return true;
-                    } else if (entity.getComponent(Dice.class) != null) {
-                        context.getGame().getResources().sounds.dice.play();
-                        entity.getComponent(Dice.class).setTicks(160);
-                        context.transitionTo(DecidingState.ID);
-                        return true;
-                    } else if (entity.getComponent(ToMenu.class) != null) {
-                        context.getGame().getResources().sounds.homebutton.play();
-                        context.transitionTo(MainMenu.ID);
-                        return true;
-                    }
+        Entity entity = EntityUtil.getEntityAt(context.getEngine(), context.getCamera(), screenX, screenY);
+        if (entity != null) {
+            if (button == Input.Buttons.LEFT) {
+                Entity cardHand = context.getEngine().getEntitiesFor(Family.one(CardHand.class).get()).first();
+                if (entity.getComponent(Card.class) != null && cardHand.getComponent(CardHand.class).highlightCard(entity)) {
+                    context.getGame().getResources().sounds.cardflip.play();
+                    Entity card = cardHand.getComponent(CardHand.class).playCard(context.getCharacter());
+                    context.getEngine().removeEntity(card);
+                    ((DecidingState) context.getStateManager().getState(DecidingState.ID)).getCardDurationMap().put(entity.getComponent(Card.class), 1);
+                    return true;
+                } else if (entity.getComponent(Dice.class) != null) {
+                    context.getGame().getResources().sounds.dice.play();
+                    entity.getComponent(Dice.class).setTicks(160);
+                    context.transitionTo(DecidingState.ID);
+                    return true;
+                } else if (entity.getComponent(ToMenu.class) != null) {
+                    context.getGame().getResources().sounds.homebutton.play();
+                    context.transitionTo(MainMenu.ID);
+                    return true;
                 }
             }
-        return false;
         }
+        return false;
+    }
 
     @Override
     public short id() {

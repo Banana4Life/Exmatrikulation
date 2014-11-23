@@ -23,7 +23,7 @@ import de.cubeisland.games.dhbw.resource.font.Font;
  */
 public class TextObject implements RenderObject2D {
 
-    public static final Vector2 UPPER_LEFT = new Vector2(-(Gdx.graphics.getWidth() /2f), Gdx.graphics.getHeight() / 2f);
+    public static final Vector2 UPPER_LEFT = new Vector2(-(Gdx.graphics.getWidth() / 2f), Gdx.graphics.getHeight() / 2f);
 
     private final Font font;
     private final Color color;
@@ -32,6 +32,15 @@ public class TextObject implements RenderObject2D {
     public TextObject(Font font, Color color) {
         this.font = font;
         this.color = color;
+    }
+
+    public static float renderMultiline(String text, Batch batch, BitmapFont font, float x, float y, float padding, int direction) {
+        for (String line : text.split("\n")) {
+            font.draw(batch, line, x, y);
+            y += (font.getBounds(line).height + padding) * direction;
+        }
+
+        return y;
     }
 
     @Override
@@ -52,14 +61,5 @@ public class TextObject implements RenderObject2D {
     @Override
     public boolean isWithin(Camera cam, float x, float y) {
         return false;
-    }
-
-    public static float renderMultiline(String text, Batch batch, BitmapFont font, float x, float y, float padding, int direction) {
-        for (String line : text.split("\n")) {
-            font.draw(batch, line, x, y);
-            y += (font.getBounds(line).height + padding) * direction;
-        }
-
-        return y;
     }
 }

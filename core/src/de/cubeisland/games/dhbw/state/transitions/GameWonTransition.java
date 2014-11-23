@@ -21,7 +21,7 @@ public class GameWonTransition extends StateTransition {
     public void begin(StateContext context, GameState origin, GameState destination) {
         DHBWGame game = context.getGame();
 
-        Entity[] entities = game.getEngine().getEntitiesFor(Family.one(Card.class, Deck.class, CardHand.class, Dice.class,ToMenu.class, PlayerChar.class).get()).toArray(Entity.class);
+        Entity[] entities = game.getEngine().getEntitiesFor(Family.one(Card.class, Deck.class, CardHand.class, Dice.class, ToMenu.class, PlayerChar.class).get()).toArray(Entity.class);
         for (Entity entity : entities) {
             game.getEngine().removeEntity(entity);
         }
@@ -31,6 +31,7 @@ public class GameWonTransition extends StateTransition {
         Entity calkboard = myReactingState.getCalkBoard();
         context.getEngine().removeEntity(calkboard);
     }
+
     @Override
     public boolean transition(StateContext context, GameState origin, GameState destination, float delta) {
         return true;

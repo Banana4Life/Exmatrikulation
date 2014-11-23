@@ -12,6 +12,15 @@ public class Render extends Component {
     private RenderObject object = null;
 
     /**
+     * Get the RenderObject.
+     *
+     * @return Returns the RenerObject.
+     */
+    public RenderObject getObject() {
+        return object;
+    }
+
+    /**
      * Set the RenderObject.
      *
      * @param object The RenderObject ot use.
@@ -20,14 +29,5 @@ public class Render extends Component {
     public Render setObject(RenderObject object) {
         this.object = object;
         return this;
-    }
-
-    /**
-     * Get the RenderObject.
-     *
-     * @return Returns the RenerObject.
-     */
-    public RenderObject getObject() {
-        return object;
     }
 }

@@ -8,6 +8,7 @@ import java.lang.reflect.Field;
 
 /**
  * A resourcebag that loads all the textures
+ *
  * @author Jonas Dann
  */
 public class Images extends ResourceBag<Texture> {

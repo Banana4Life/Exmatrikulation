@@ -6,6 +6,7 @@ import life.banana4.util.resourcebags.Resources;
 
 /**
  * This class is just a container of the resource bags used by the game
+ *
  * @author Phillip Schichtel
  * @author Jonas Dann
  */

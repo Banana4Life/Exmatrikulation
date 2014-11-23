@@ -14,8 +14,6 @@ import de.cubeisland.games.dhbw.entity.RenderObject;
 import de.cubeisland.games.dhbw.entity.component.Camera;
 import de.cubeisland.games.dhbw.entity.component.Transform;
 
-import java.util.ArrayList;
-
 /**
  * @author Tim Adamek
  * @author Jonas Dann

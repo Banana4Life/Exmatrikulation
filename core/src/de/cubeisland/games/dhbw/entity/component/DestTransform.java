@@ -20,9 +20,10 @@ public class DestTransform extends Transform {
 
     /**
      * Sets the fields of the DestTransform
+     *
      * @param position position
      * @param rotation rotation
-     * @param scale scale
+     * @param scale    scale
      */
     public DestTransform(Vector3 position, Quaternion rotation, float scale) {
         setPosition(position.cpy());
@@ -32,7 +33,8 @@ public class DestTransform extends Transform {
 
     /**
      * Sets the fields of the DestTransform
-     * @param position The position to use.
+     *
+     * @param position  The position to use.
      * @param transform The transform to get the rotation and scale from.
      */
     public DestTransform(Vector3 position, Transform transform) {

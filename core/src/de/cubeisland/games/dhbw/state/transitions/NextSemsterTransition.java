@@ -30,7 +30,7 @@ public class NextSemsterTransition extends StateTransition {
         for (Entity entity : entities) {
             game.getEngine().removeEntity(entity);
         }
-        if (((ReactingState)context.getStateManager().getState(ReactingState.ID)).getCalkBoard() != null) {
+        if (((ReactingState) context.getStateManager().getState(ReactingState.ID)).getCalkBoard() != null) {
             game.getEngine().removeEntity(((ReactingState) context.getStateManager().getState(ReactingState.ID)).getCalkBoard());
         }
 

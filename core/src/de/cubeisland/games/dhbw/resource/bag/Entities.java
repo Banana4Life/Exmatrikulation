@@ -13,8 +13,6 @@ import java.lang.reflect.Field;
  * @author Phillip Schichtel
  */
 public class Entities extends ResourceBag<EntityPrefab> {
-    private Reflector reflector;
-
     public EntityPrefab card;
     public EntityPrefab deck;
     public EntityPrefab dice;
@@ -24,6 +22,7 @@ public class Entities extends ResourceBag<EntityPrefab> {
     public EntityPrefab image;
     public EntityPrefab text;
     public EntityPrefab status;
+    private Reflector reflector;
 
     public Entities(Reflector reflector) {
         this.reflector = reflector;

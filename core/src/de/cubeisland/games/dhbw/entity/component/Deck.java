@@ -99,6 +99,7 @@ public class Deck extends Component implements Iterable<Entity> {
 
     /**
      * Gets the size of the cards list.
+     *
      * @return the amout of cards still in the deck.
      */
     public int getCardCount() {

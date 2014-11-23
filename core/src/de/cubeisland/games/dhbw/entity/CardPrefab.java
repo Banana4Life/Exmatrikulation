@@ -17,6 +17,14 @@ import java.util.Set;
  */
 public class CardPrefab extends Prefab<CardObject> {
 
+    public String name;
+    public CardType type;
+    public String[] description;
+    public Set<ActionTuple> actions = new HashSet<>();
+    public Requirement requirement;
+    public int duration;
+    public double rarity;
+
     /**
      * The type of the card
      */
@@ -42,14 +50,6 @@ public class CardPrefab extends Prefab<CardObject> {
         }
     }
 
-    public String name;
-
-    public CardType type;
-
-    public String[] description;
-
-    public Set<ActionTuple> actions = new HashSet<>();
-
     public class Requirement implements Section {
         public SubjectType subject;
         public int value;
@@ -58,10 +58,4 @@ public class CardPrefab extends Prefab<CardObject> {
             return value <= pc.get(subject) + diceCount;
         }
     }
-
-    public Requirement requirement;
-
-    public int duration;
-
-    public double rarity;
 }

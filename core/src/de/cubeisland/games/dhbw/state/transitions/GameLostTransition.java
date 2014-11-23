@@ -2,7 +2,6 @@ package de.cubeisland.games.dhbw.state.transitions;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.DHBWGame;
 import de.cubeisland.games.dhbw.entity.component.*;
 import de.cubeisland.games.dhbw.state.GameState;
@@ -22,7 +21,7 @@ public class GameLostTransition extends StateTransition {
     public void begin(StateContext context, GameState origin, GameState destination) {
         DHBWGame game = context.getGame();
 
-        Entity[] entities = game.getEngine().getEntitiesFor(Family.one(Card.class, Deck.class, CardHand.class, Dice.class,ToMenu.class, PlayerChar.class).get()).toArray(Entity.class);
+        Entity[] entities = game.getEngine().getEntitiesFor(Family.one(Card.class, Deck.class, CardHand.class, Dice.class, ToMenu.class, PlayerChar.class).get()).toArray(Entity.class);
         for (Entity entity : entities) {
             game.getEngine().removeEntity(entity);
         }

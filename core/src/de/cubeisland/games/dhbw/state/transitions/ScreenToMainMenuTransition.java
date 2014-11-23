@@ -11,7 +11,6 @@ import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
 import de.cubeisland.games.dhbw.state.states.CourseSelection;
-import de.cubeisland.games.dhbw.state.states.DecidingState;
 import de.cubeisland.games.dhbw.state.states.MainMenu;
 import de.cubeisland.games.dhbw.state.states.ReactingState;
 
@@ -34,11 +33,11 @@ public class ScreenToMainMenuTransition extends StateTransition {
         for (Entity entity : entities) {
             game.getEngine().removeEntity(entity);
         }
-        if (((ReactingState)context.getStateManager().getState(ReactingState.ID)).getCalkBoard() != null) {
+        if (((ReactingState) context.getStateManager().getState(ReactingState.ID)).getCalkBoard() != null) {
             game.getEngine().removeEntity(((ReactingState) context.getStateManager().getState(ReactingState.ID)).getCalkBoard());
         }
-        ((MainMenu)context.getStateManager().getState(MainMenu.ID)).setCardStack(new ArrayList<Entity>());
-        ((CourseSelection)context.getStateManager().getState(CourseSelection.ID)).setCardStack(new ArrayList<Entity>());
+        ((MainMenu) context.getStateManager().getState(MainMenu.ID)).setCardStack(new ArrayList<Entity>());
+        ((CourseSelection) context.getStateManager().getState(CourseSelection.ID)).setCardStack(new ArrayList<Entity>());
 
         Entity deck = game.getEntityFactory().create(game.getResources().entities.deck);
         deck.getComponent(Transform.class).setPosition(new Vector3(60, 0, -110)).setRotation(new Quaternion(new Vector3(0, 1, 0), 180));

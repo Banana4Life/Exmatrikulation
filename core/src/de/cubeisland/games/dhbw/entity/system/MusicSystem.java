@@ -14,11 +14,10 @@ import java.util.List;
  */
 public class MusicSystem extends EntitySystem implements Music.OnCompletionListener {
 
+    private static final float VOLUME = .05f;
+    private final List<Music> songs;
     private boolean started = false;
     private int currentSong = 0;
-    private final List<Music> songs;
-
-    private static final float VOLUME = .05f;
 
     public MusicSystem(List<Music> songs) {
         this.songs = new ArrayList<>(songs);
@@ -30,18 +29,18 @@ public class MusicSystem extends EntitySystem implements Music.OnCompletionListe
         }
     }
 
+    private static void start(Music song) {
+        song.play();
+        song.setVolume(VOLUME);
+        song.setLooping(false);
+    }
+
     @Override
     public void update(float deltaTime) {
         if (!started) {
             start(this.songs.get(currentSong));
             started = true;
         }
-    }
-
-    private static void start(Music song) {
-        song.play();
-        song.setVolume(VOLUME);
-        song.setLooping(false);
     }
 
     @Override

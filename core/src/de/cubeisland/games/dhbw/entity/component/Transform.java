@@ -16,6 +16,15 @@ public class Transform extends Component {
     private float scale = 1;
 
     /**
+     * Get the position Vector of the Transform.
+     *
+     * @return The position Vector.
+     */
+    public Vector3 getPosition() {
+        return this.position.cpy();
+    }
+
+    /**
      * Set the position Vector of the Transform.
      *
      * @param pos The new position Vector.
@@ -24,15 +33,6 @@ public class Transform extends Component {
     public Transform setPosition(Vector3 pos) {
         this.position.set(pos);
         return this;
-    }
-
-    /**
-     * Get the position Vector of the Transform.
-     *
-     * @return The position Vector.
-     */
-    public Vector3 getPosition() {
-        return this.position.cpy();
     }
 
     /**
@@ -60,6 +60,15 @@ public class Transform extends Component {
     }
 
     /**
+     * Get the rotation of the Transformation.
+     *
+     * @return Returns a Quaternion with the rotation.
+     */
+    public Quaternion getRotation() {
+        return this.rotation.cpy();
+    }
+
+    /**
      * Set the rotation of the Transform th the given rotation.
      *
      * @param rot The rotation to use.
@@ -68,15 +77,6 @@ public class Transform extends Component {
     public Transform setRotation(Quaternion rot) {
         this.rotation.set(rot);
         return this;
-    }
-
-    /**
-     * Get the rotation of the Transformation.
-     *
-     * @return Returns a Quaternion with the rotation.
-     */
-    public Quaternion getRotation() {
-        return this.rotation.cpy();
     }
 
     /**

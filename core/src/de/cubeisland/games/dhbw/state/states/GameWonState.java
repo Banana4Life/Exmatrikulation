@@ -29,7 +29,7 @@ public class GameWonState extends GameState {
     public void onEnter(StateContext context, GameState from) {
         DHBWGame game = context.getGame();
         // check which mode was played
-        if(((DecidingState) context.getStateManager().getState(DecidingState.ID)).getMaxSemester() == 1) {
+        if (((DecidingState) context.getStateManager().getState(DecidingState.ID)).getMaxSemester() == 1) {
             gamewon = game.getEntityFactory().createImage("images/winscreenfreemode.png", new Vector3(0, 0, -280), .344f);
         } else {
             gamewon = game.getEntityFactory().createImage("images/winscreenstorymode.png", new Vector3(0, 0, -280), .344f);

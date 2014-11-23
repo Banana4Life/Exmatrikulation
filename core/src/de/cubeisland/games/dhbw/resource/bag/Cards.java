@@ -21,7 +21,6 @@ import life.banana4.util.resourcebags.ResourceBag;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import static com.badlogic.gdx.graphics.Pixmap.Format.RGBA8888;
 
@@ -31,22 +30,14 @@ import static com.badlogic.gdx.graphics.Pixmap.Format.RGBA8888;
  * @author Andreas Geis
  */
 public class Cards extends ResourceBag<Card> {
-    private Reflector reflector;
     private final Fonts fonts;
-    private TextureRegion frontTemplate;
-    private TextureRegion backTexture;
-    private BitmapFont font;
-
     public Card dummy;
-
     //menu cards
     public Card menustorymode;
     public Card menufreemode;
-
     public Card menubusinessinf;
     public Card menubusinessad;
     public Card menuappliedinf;
-
     // event cards
     public Card eventalgebralecture;
     public Card eventanalysislecture;
@@ -68,7 +59,6 @@ public class Cards extends ResourceBag<Card> {
     public Card eventprogramming2;
     public Card eventsaturday;
     public Card eventworkflowlecture;
-
     // item cards
     public Card itembusinessadbook;
     public Card itemcbook;
@@ -80,7 +70,6 @@ public class Cards extends ResourceBag<Card> {
     public Card itemswagcap;
     public Card itemwaterbottle1;
     public Card itemwaterbottle2;
-
     public Card skillc;
     public Card skillinvestment;
     public Card skilldirectproof;
@@ -91,6 +80,10 @@ public class Cards extends ResourceBag<Card> {
     public Card skillregex;
     public Card skillsmile;
     public Card skillwebserver;
+    private Reflector reflector;
+    private TextureRegion frontTemplate;
+    private TextureRegion backTexture;
+    private BitmapFont font;
 
     public Cards(Reflector reflector, Fonts fonts) {
         this.reflector = reflector;
@@ -164,7 +157,7 @@ public class Cards extends ResourceBag<Card> {
         float yOffset = DESCR_OFFSET + TEXT_PADDING;
         font.setColor(Color.WHITE);
         for (String line : lines) {
-            yOffset = TextObject.renderMultiline(line, b, font, (float)CONTENT_PADDING + TEXT_PADDING, yOffset, TEXT_PADDING, 1);
+            yOffset = TextObject.renderMultiline(line, b, font, (float) CONTENT_PADDING + TEXT_PADDING, yOffset, TEXT_PADDING, 1);
         }
 
         final CardPrefab.Requirement r = prefab.requirement;

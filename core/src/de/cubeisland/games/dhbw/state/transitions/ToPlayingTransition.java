@@ -10,13 +10,11 @@ import de.cubeisland.games.dhbw.entity.object.CardObject;
 import de.cubeisland.games.dhbw.entity.object.DiceObject;
 import de.cubeisland.games.dhbw.entity.object.TextObject;
 import de.cubeisland.games.dhbw.entity.object.ToMenuObject;
-import de.cubeisland.games.dhbw.resource.bag.Cards;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
 import de.cubeisland.games.dhbw.state.states.DecidingState;
 import de.cubeisland.games.dhbw.state.states.MainMenu;
-import de.cubeisland.games.dhbw.state.states.NextSemester;
 import de.cubeisland.games.dhbw.state.states.ReactingState;
 
 import java.util.ArrayList;

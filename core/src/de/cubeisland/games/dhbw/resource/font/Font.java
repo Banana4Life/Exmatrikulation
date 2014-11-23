@@ -29,10 +29,6 @@ public class Font {
         this(generator, flipped, new StaticSize(size));
     }
 
-    public Font setSize(int size) {
-        return new Font(this.generator, this.flipped, size);
-    }
-
     public boolean isFlipped() {
         return this.flipped;
     }
@@ -47,6 +43,10 @@ public class Font {
 
     public int getSize() {
         return this.size.getSize();
+    }
+
+    public Font setSize(int size) {
+        return new Font(this.generator, this.flipped, size);
     }
 
     public BitmapFont getBitmapFont() {

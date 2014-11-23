@@ -5,7 +5,7 @@ import de.cubeisland.games.dhbw.entity.CardAction;
 
 /**
  * This class represents an action that de-registrates the player.
- *
+ * <p/>
  * This class is currently not in use since it was decided to start
  * the DeRegistration-Process in another class.
  *

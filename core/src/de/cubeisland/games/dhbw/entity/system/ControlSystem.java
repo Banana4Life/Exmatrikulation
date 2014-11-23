@@ -16,11 +16,10 @@ import de.cubeisland.games.dhbw.entity.component.Transform;
  * @author Jonas Dann
  */
 public class ControlSystem extends IteratingSystem {
-    private ComponentMapper<Transform> transforms;
-    private ComponentMapper<DestTransform> destTransforms;
-
     private final int VECTOR_RANGE = 1;
     private final float MOVEMENT_SPEED = 0.2f;
+    private ComponentMapper<Transform> transforms;
+    private ComponentMapper<DestTransform> destTransforms;
 
     /**
      * The constructor gets the ComponentMapper for Transform and DestTransform

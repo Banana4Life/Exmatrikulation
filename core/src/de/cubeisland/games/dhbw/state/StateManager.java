@@ -23,10 +23,10 @@ public class StateManager {
     public static final MetaState END = new EndState();
 
     private final StateContext context;
-    private GameState currentState;
-    private TransitionWrapper currentTransition;
     private final Map<Short, GameState> states;
     private final Map<Integer, TransitionWrapper> transitions;
+    private GameState currentState;
+    private TransitionWrapper currentTransition;
 
     /**
      * Constructs a new state manager with the the required dependencies.
@@ -42,6 +42,38 @@ public class StateManager {
         this.states = new HashMap<>();
         this.transitions = new HashMap<>();
         this.currentState = START;
+    }
+
+    /**
+     * Combines two shorts bitwise into a single integer.
+     * This method is used to combine state IDs to the transition index.
+     *
+     * @param a the left short value
+     * @param b the right short value
+     * @return the combined integer
+     */
+    private static int combine(short a, short b) {
+        return (((int) a) << 16) | b;
+    }
+
+    /**
+     * This method extracts the origin state ID from a transition index
+     *
+     * @param combined the transition index
+     * @return the short ID of the origin state
+     */
+    private static short originComponent(int combined) {
+        return (short) (combined >> 16);
+    }
+
+    /**
+     * This method extracts the destination state ID from a transition index
+     *
+     * @param combined the transition index
+     * @return the short ID of the destination state
+     */
+    private static short destinationComponent(int combined) {
+        return (short) (combined & 0xFFFF);
     }
 
     /**
@@ -292,38 +324,6 @@ public class StateManager {
         if (!(this.currentState instanceof MetaState)) {
             this.currentState.update(context, delta);
         }
-    }
-
-    /**
-     * Combines two shorts bitwise into a single integer.
-     * This method is used to combine state IDs to the transition index.
-     *
-     * @param a the left short value
-     * @param b the right short value
-     * @return the combined integer
-     */
-    private static int combine(short a, short b) {
-        return (((int) a) << 16) | b;
-    }
-
-    /**
-     * This method extracts the origin state ID from a transition index
-     *
-     * @param combined the transition index
-     * @return the short ID of the origin state
-     */
-    private static short originComponent(int combined) {
-        return (short) (combined >> 16);
-    }
-
-    /**
-     * This method extracts the destination state ID from a transition index
-     *
-     * @param combined the transition index
-     * @return the short ID of the destination state
-     */
-    private static short destinationComponent(int combined) {
-        return (short) (combined & 0xFFFF);
     }
 
     /**

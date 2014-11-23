@@ -2,14 +2,11 @@ package de.cubeisland.games.dhbw.state.transitions;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.gdx.math.Vector3;
 import de.cubeisland.games.dhbw.entity.component.CardHand;
 import de.cubeisland.games.dhbw.entity.component.Deck;
 import de.cubeisland.games.dhbw.state.GameState;
 import de.cubeisland.games.dhbw.state.StateContext;
 import de.cubeisland.games.dhbw.state.StateTransition;
-import de.cubeisland.games.dhbw.state.states.DecidingState;
-import de.cubeisland.games.dhbw.state.states.NextSemester;
 import de.cubeisland.games.dhbw.state.states.ReactingState;
 
 /**

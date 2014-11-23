@@ -15,6 +15,11 @@ public class SplashScreen extends GameState {
 
     private Entity splash;
 
+    private static boolean skip(StateContext context) {
+        context.transitionTo(MainMenu.ID);
+        return true;
+    }
+
     @Override
     public short id() {
         return ID;
@@ -55,10 +60,5 @@ public class SplashScreen extends GameState {
     @Override
     public boolean touchUp(StateContext context, int screenX, int screenY, int pointer, int button) {
         return skip(context);
-    }
-
-    private static boolean skip(StateContext context) {
-        context.transitionTo(MainMenu.ID);
-        return true;
     }
 }

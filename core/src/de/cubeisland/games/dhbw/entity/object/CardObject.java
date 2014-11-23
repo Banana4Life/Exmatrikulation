@@ -47,6 +47,32 @@ public class CardObject implements RenderObject {
         this.back = Decal.newDecal(object.getBack().getTextureRegion(), true);
     }
 
+    /**
+     * Helper to set the position of the front and back Decal to a given position with the back shifted by a small gap.
+     *
+     * @param front    Front Decal to work with.
+     * @param back     Back Decal to work with.
+     * @param position Position to use.
+     */
+    private static void setPosition(Decal front, Decal back, Vector3 position) {
+        Vector3 gap = front.getRotation().cpy().transform(new Vector3(0, 0, 1)).scl(GAP);
+
+        front.setPosition(position.cpy());
+        back.setPosition(position.cpy().sub(gap));
+    }
+
+    /**
+     * Helper to set the rotation of the front and back Decal to a given rotation.
+     *
+     * @param front    Front Decal to work with.
+     * @param back     Back Decal to work with.
+     * @param rotation Rotation to use.
+     */
+    private static void setRotation(Decal front, Decal back, Quaternion rotation) {
+        front.setRotation(rotation.cpy());
+        back.setRotation(rotation.cpy());
+    }
+
     @Override
     public boolean isWithin(Camera camera, float screenX, float screenY) {
         final PerspectiveCamera pc = camera.getPerspective();
@@ -85,32 +111,6 @@ public class CardObject implements RenderObject {
     private void update(Transform transform) {
         setRotation(this.front, this.back, transform.getRotation());
         setPosition(this.front, this.back, transform.getPosition());
-    }
-
-    /**
-     * Helper to set the position of the front and back Decal to a given position with the back shifted by a small gap.
-     *
-     * @param front    Front Decal to work with.
-     * @param back     Back Decal to work with.
-     * @param position Position to use.
-     */
-    private static void setPosition(Decal front, Decal back, Vector3 position) {
-        Vector3 gap = front.getRotation().cpy().transform(new Vector3(0, 0, 1)).scl(GAP);
-
-        front.setPosition(position.cpy());
-        back.setPosition(position.cpy().sub(gap));
-    }
-
-    /**
-     * Helper to set the rotation of the front and back Decal to a given rotation.
-     *
-     * @param front    Front Decal to work with.
-     * @param back     Back Decal to work with.
-     * @param rotation Rotation to use.
-     */
-    private static void setRotation(Decal front, Decal back, Quaternion rotation) {
-        front.setRotation(rotation.cpy());
-        back.setRotation(rotation.cpy());
     }
 
     public Decal getFront() {
